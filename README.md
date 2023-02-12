@@ -1,3 +1,3 @@
-# Cinema stats
+# Scatch
 
-> a Nextjs website of the movies and TV rates and stats
+> a Nextjs website that creates Twitter, Insta, and Facebook snapshots for stories and posts
