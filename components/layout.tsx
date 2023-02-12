@@ -6,7 +6,7 @@ export default function Layout({ children }: any) {
   return (
     <>
       <Head>
-        <title>Cinema Stats</title>
+        <title>Scatch</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
