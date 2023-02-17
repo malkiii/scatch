@@ -1,5 +1,5 @@
 export const imageSliderUrls = [
-  'https://images.pexels.com/photos/735987/pexels-photo-735987.jpeg',
+  'https://images.pexels.com/photos/6867392/pexels-photo-6867392.jpeg',
   'https://images.pexels.com/photos/6757020/pexels-photo-6757020.jpeg',
   'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg',
   'https://images.pexels.com/photos/1634187/pexels-photo-1634187.jpeg',
