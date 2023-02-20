@@ -16,20 +16,6 @@ module.exports = {
       },
       borderRadius: {
         circle: '50%'
-      },
-      animation: {
-        'scroll-left': 'scroll-left 30s linear infinite',
-        'scroll-right': 'scroll-right 30s linear infinite'
-      },
-      keyframes: {
-        'scroll-left': {
-          '0%': { translate: '0 0' },
-          '100%': { translate: '-50% 0' }
-        },
-        'scroll-right': {
-          '0%': { translate: '-50% 0' },
-          '100%': { translate: '0 0' }
-        }
       }
     }
   },
