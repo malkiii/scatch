@@ -11,10 +11,10 @@ export const sliderImages = [
 
 export const searchDemoImages = {
   nature: [
-    'https://images.pexels.com/photos/640781/pexels-photo-640781.jpeg',
-    'https://images.pexels.com/photos/13286992/pexels-photo-13286992.jpeg',
     'https://images.pexels.com/photos/10568611/pexels-photo-10568611.jpeg',
     'https://images.pexels.com/photos/8258044/pexels-photo-8258044.jpeg',
+    'https://images.pexels.com/photos/640781/pexels-photo-640781.jpeg',
+    'https://images.pexels.com/photos/8797307/pexels-photo-8797307.jpeg',
     'https://images.pexels.com/photos/10903696/pexels-photo-10903696.jpeg',
     'https://images.pexels.com/photos/12255770/pexels-photo-12255770.jpeg'
   ],
