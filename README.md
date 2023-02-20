@@ -1,3 +1,3 @@
 # Scatch
 
-> a Nextjs website that creates Twitter, Insta, and Facebook snapshots for stories and posts
+> an online image gallery where you can find your favored images and edit, save, or download them.
