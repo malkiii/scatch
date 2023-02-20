@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { imageSliderUrls } from '../../constants';
+import { sliderImages } from '../../constants';
+import { motion } from 'framer-motion';
 
 type ImageRowProps = {
   row: 1 | 2;
@@ -12,10 +13,10 @@ function changeCoverPosition(e: any) {
 }
 
 function ImageRow({ row }: ImageRowProps): JSX.Element {
-  const start = row == 1 ? 0 : imageSliderUrls.length / 2;
+  const start = row == 1 ? 0 : sliderImages.length / 2;
   return (
     <Duplicate row={row}>
-      {new Array(imageSliderUrls.length / 2).fill(null).map((_, id) => (
+      {new Array(sliderImages.length / 2).fill(null).map((_, id) => (
         <div
           key={id + start}
           className="slider-image after:right-0"
@@ -23,8 +24,7 @@ function ImageRow({ row }: ImageRowProps): JSX.Element {
           onMouseLeave={changeCoverPosition}
         >
           <Image
-            priority
-            src={imageSliderUrls[id + start]}
+            src={sliderImages[id + start]}
             alt={'image-' + (id + start)}
             className="w-full"
             width={1920}
@@ -37,18 +37,19 @@ function ImageRow({ row }: ImageRowProps): JSX.Element {
 }
 
 const Duplicate = ({ children, ...props }: any) => {
+  const isFirstRow = props.row == 1;
   return (
-    <div
+    <motion.div
+      initial={{ x: isFirstRow ? '0' : '-50%' }}
+      animate={{ x: isFirstRow ? '-50%' : '0' }}
+      transition={{ repeat: Infinity, ease: 'linear', duration: 30 }}
       className={
-        'absolute flex gap-x-4 pr-4 ' +
-        (props.row == 1
-          ? 'top-0 animate-scroll-left'
-          : 'bottom-0 animate-scroll-right')
+        'absolute flex gap-x-4 pr-4 ' + (isFirstRow ? 'top-0' : 'bottom-0')
       }
     >
       {children}
       {children}
-    </div>
+    </motion.div>
   );
 };
 
