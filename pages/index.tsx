@@ -1,8 +1,18 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
+import HeroSection from '../components/Home/HeroSection';
+import ExploreSection from '../components/Home/ExploreSection';
+import AlbumsSection from '../components/Home/AlbumsSection';
+import EditingSection from '../components/Home/EditingSection';
 
 const Home: NextPage = () => {
-  return <h1 className="text-gray-900 text-center">Hello</h1>;
+  return (
+    <div>
+      <HeroSection />
+      <ExploreSection />
+      <AlbumsSection />
+      <EditingSection />
+    </div>
+  );
 };
 
 export default Home;
