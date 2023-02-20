@@ -15,7 +15,7 @@
     @apply text-7xl font-extrabold;
   }
   h2 {
-    @apply text-5xl font-extrabold;
+    @apply text-4xl font-extrabold;
   }
   p {
     @apply font-rubik leading-relaxed;
