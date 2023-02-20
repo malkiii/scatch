@@ -7,9 +7,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^9.0.4",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "typeit-react": "^2.6.4"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
