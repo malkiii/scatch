@@ -1,17 +1,21 @@
-export const sliderImages = [
-  'https://images.pexels.com/photos/6867392/pexels-photo-6867392.jpeg',
-  'https://images.pexels.com/photos/6757020/pexels-photo-6757020.jpeg',
-  'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg',
-  'https://images.pexels.com/photos/1634187/pexels-photo-1634187.jpeg',
-  'https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg',
-  'https://images.pexels.com/photos/441379/pexels-photo-441379.jpeg',
-  'https://images.pexels.com/photos/373934/pexels-photo-373934.jpeg',
-  'https://images.pexels.com/photos/2422915/pexels-photo-2422915.jpeg'
+export const heroSectionImages = [
+  {
+    url: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg',
+    position: 'top-16 -right-10'
+  },
+  {
+    url: 'https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg',
+    position: '-top-10 -left-5'
+  },
+  {
+    url: 'https://images.pexels.com/photos/2422915/pexels-photo-2422915.jpeg',
+    position: '-bottom-5 left-20'
+  }
 ];
 
 export const searchDemoImages = {
   nature: [
-    'https://images.pexels.com/photos/10568611/pexels-photo-10568611.jpeg',
+    'https://images.pexels.com/photos/1671325/pexels-photo-1671325.jpeg',
     'https://images.pexels.com/photos/8258044/pexels-photo-8258044.jpeg',
     'https://images.pexels.com/photos/640781/pexels-photo-640781.jpeg',
     'https://images.pexels.com/photos/8797307/pexels-photo-8797307.jpeg',
@@ -35,3 +39,10 @@ export const searchDemoImages = {
     'https://images.pexels.com/photos/92866/pexels-photo-92866.jpeg'
   ]
 };
+
+export const albumsSectionImages = [
+  'https://images.pexels.com/photos/101472/pexels-photo-101472.jpeg',
+  'https://images.pexels.com/photos/2147834/pexels-photo-2147834.jpeg',
+  'https://images.pexels.com/photos/2249063/pexels-photo-2249063.jpeg',
+  'https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg'
+];
