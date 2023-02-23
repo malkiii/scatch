@@ -11,11 +11,23 @@
   *::after {
     @apply box-border;
   }
+  ::-webkit-scrollbar {
+    @apply w-3;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-none;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white rounded-3xl;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-300;
+  }
   h1 {
-    @apply text-7xl font-extrabold;
+    @apply text-6xl font-extrabold;
   }
   h2 {
-    @apply text-4xl font-extrabold;
+    @apply text-4xl font-extrabold mb-4;
   }
   p {
     @apply font-rubik leading-relaxed;
@@ -26,10 +38,25 @@
   .theme-gradient {
     @apply bg-gradient-to-br from-theme to-blue-500;
   }
+  .theme-link {
+    @apply mr-10 hover:text-theme transition-all;
+  }
   .theme-btn {
     @apply relative inline-flex overflow-hidden before:absolute before:bg-cyan-500 hover:text-white before:-translate-x-1/2 before:left-1/2 before:w-[110%] before:h-0 hover:before:h-[300%] before:transition-all before:duration-500 before:rounded-circle;
   }
   .slider-image {
     @apply relative w-[29vw] overflow-hidden after:absolute after:bg-cyan-500 after:top-0 after:w-0 after:h-full hover:after:w-full after:transition-all after:duration-200 after:opacity-25 after:mix-blend-difference aspect-[1920/1080];
+  }
+  .album-example {
+    @apply absolute aspect-[1149/761] w-3/4 top-1/2 left-1/2 border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg;
+  }
+  .hero-section-image {
+    @apply absolute w-[425px] aspect-[1920/1080] shadow-3xl;
+  }
+}
+
+@layer utilities {
+  .rounded-inherit {
+    border-radius: inherit;
   }
 }
