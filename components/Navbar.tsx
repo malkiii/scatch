@@ -5,7 +5,7 @@ import ThemeButton from './ThemeButton';
 export default function Navbar(): JSX.Element {
   return (
     <header className="h-20 w-full px-8">
-      <nav className="flex items-center justify-between max-w-5xl h-full mx-auto">
+      <nav className="flex items-center justify-between max-w-7xl h-full mx-auto">
         <Link href="/">
           <Image
             src="/logotype.svg"
@@ -16,10 +16,10 @@ export default function Navbar(): JSX.Element {
           />
         </Link>
         <div>
-          <Link
-            href="\albums"
-            className="mr-16 hover:text-theme transition-all"
-          >
+          <Link href="/" className="theme-link">
+            Explore
+          </Link>
+          <Link href="/" className="theme-link">
             My albums
           </Link>
           <ThemeButton text="Login" className="px-6 py-3" />
