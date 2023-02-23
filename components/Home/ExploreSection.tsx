@@ -26,7 +26,7 @@ export default function ExploreSection() {
   return (
     <div className="py-10">
       <div className="text-center">
-        <h2 className="mb-4">Explore and save your favored pictures.</h2>
+        <h2>Explore and save your favored pictures.</h2>
         <p className="text-xl mb-8">
           On the explore page, you can search and save your favored images or
           download them with <span className="text-theme">10,000+</span>{' '}
@@ -45,7 +45,7 @@ export default function ExploreSection() {
               afterString: setNextNameIndex
             }}
             getBeforeInit={instance => {
-              instance.pause(3000);
+              instance.pause(1500);
               return instance;
             }}
           />
@@ -61,7 +61,7 @@ export default function ExploreSection() {
                     <motion.img
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ type: 'tween', delay: imageIndex / 100 }}
+                      transition={{ type: 'tween', delay: imageIndex / 50 }}
                       key={id}
                       alt={id}
                       className="w-full"
