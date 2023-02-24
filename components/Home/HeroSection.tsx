@@ -1,4 +1,4 @@
-import InfinitImageSlider from './InfinitImageSlider';
+import ImageContainer from './ImageContainer';
 
 export default function HeroSection(): JSX.Element {
   return (
@@ -17,7 +17,7 @@ export default function HeroSection(): JSX.Element {
             resolution.
           </p>
         </div>
-        <InfinitImageSlider />
+        <ImageContainer />
       </div>
     </div>
   );
