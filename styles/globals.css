@@ -6,11 +6,6 @@
 @tailwind utilities;
 
 @layer base {
-  *,
-  *::before,
-  *::after {
-    @apply box-border;
-  }
   ::-webkit-scrollbar {
     @apply w-3;
   }
@@ -48,15 +43,18 @@
     @apply relative w-[29vw] overflow-hidden after:absolute after:bg-cyan-500 after:top-0 after:w-0 after:h-full hover:after:w-full after:transition-all after:duration-200 after:opacity-25 after:mix-blend-difference aspect-[1920/1080];
   }
   .album-example {
-    @apply absolute aspect-[1149/761] w-3/4 top-1/2 left-1/2 border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg;
+    @apply absolute aspect-[1149/761] w-3/4 bottom-0 left-1/2 border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg;
   }
   .hero-section-image {
     @apply absolute w-[425px] aspect-[1920/1080] shadow-3xl;
   }
+  .input-progress {
+    @apply relative bg-white h-full after:absolute after:bg-white after:rounded-circle after:aspect-square after:inset-y-1/2 after:right-0 after:translate-x-1/2 after:m-auto after:w-4 rounded-inherit;
+  }
 }
 
 @layer utilities {
-  .rounded-inherit {
-    border-radius: inherit;
+  .transition-inherit {
+    transition: inherit;
   }
 }
