@@ -15,7 +15,8 @@ module.exports = {
         rubik: ['Rubik', 'sans-serif']
       },
       borderRadius: {
-        circle: '50%'
+        circle: '50%',
+        inherit: 'inherit'
       },
       boxShadow: {
         '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.6)'
