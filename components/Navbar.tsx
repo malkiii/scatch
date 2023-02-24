@@ -22,7 +22,7 @@ export default function Navbar(): JSX.Element {
           <Link href="/" className="theme-link">
             My albums
           </Link>
-          <ThemeButton text="Login" className="px-6 py-3" />
+          <ThemeButton text="Login" />
         </div>
       </nav>
     </header>
