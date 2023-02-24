@@ -24,7 +24,7 @@ export default function ExploreSection() {
   }
 
   return (
-    <div className="py-10">
+    <div className="pb-20 pt-32">
       <div className="text-center">
         <h2>Explore and save your favored pictures.</h2>
         <p className="text-xl mb-8">
