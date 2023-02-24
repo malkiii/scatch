@@ -17,7 +17,7 @@ export default function ThemeButton(props: ButtonProps) {
     <Link
       href={props.href || '/'}
       className={
-        'text-dark bg-white rounded-3xl theme-btn before:-top-full ' +
+        'text-dark bg-white rounded-3xl px-6 py-3 theme-btn before:-top-full ' +
         (props.className || '')
       }
       onMouseEnter={changeBackgroundPosition}
