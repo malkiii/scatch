@@ -1,18 +1,3 @@
-export const heroSectionImages = [
-  {
-    url: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg',
-    position: 'top-16 -right-10'
-  },
-  {
-    url: 'https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg',
-    position: '-top-10 -left-5'
-  },
-  {
-    url: 'https://images.pexels.com/photos/2422915/pexels-photo-2422915.jpeg',
-    position: '-bottom-5 left-20'
-  }
-];
-
 export const searchDemoImages = {
   nature: [
     'https://images.pexels.com/photos/1671325/pexels-photo-1671325.jpeg',
