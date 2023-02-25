@@ -31,3 +31,13 @@ export const albumsSectionImages = [
   'https://images.pexels.com/photos/2249063/pexels-photo-2249063.jpeg',
   'https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg'
 ];
+
+export function easeInOutExpo(x: number): number {
+  return x == 0
+    ? 0
+    : x == 1
+    ? 1
+    : x < 0.5
+    ? Math.pow(2, 20 * x - 10) / 2
+    : (2 - Math.pow(2, -20 * x + 10)) / 2;
+}
