@@ -1,22 +1,44 @@
 import ImageContainer from './ImageContainer';
+import { motion } from 'framer-motion';
+import { easeInOutExpo } from '../../constants';
+
+const textVariants = {
+  hidden: { y: 400 },
+  visible: {
+    y: 0,
+    transition: {
+      duration: 0.95,
+      ease: easeInOutExpo
+    }
+  }
+};
 
 export default function HeroSection(): JSX.Element {
   return (
-    <div className="py-20 px-8 overflow-hidden">
-      <div className="flex justify-center items-center gap-8 mx-auto max-w-7xl">
-        <div className="w-1/2">
-          <h1 className="my-4">
+    <div className="pt-36 pb-20 px-8 overflow-hidden">
+      <div className="flex justify-center items-center gap-8 mx-auto max-w-7xl flex-col lg:flex-row">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.75 }}
+          transition={{ staggerChildren: 0.1 }}
+          className="w-full lg:w-1/2 text-center lg:text-left"
+        >
+          <motion.h1 variants={textVariants} className="my-4">
             welcome to{' '}
-            <span className="relative inline-block text-transparent bg-clip-text theme-gradient">
+            <span className="relative inline-block text-transparent bg-clip-text theme-gradient after:absolute after:w-0 after:h-1 after:theme-gradient after:left-0 after:-bottom-2 hover:after:w-full after:transition-all">
               Scatch
             </span>
-          </h1>
-          <p className="text-2xl leading-relaxed mb-8 opacity-75">
+          </motion.h1>
+          <motion.p
+            variants={textVariants}
+            className="text-lg sm:text-2xl leading-relaxed mb-8 opacity-75"
+          >
             Scatch is an online image gallery where you can find your favored
             images and edit, save, or download them for free with high
             resolution.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
         <ImageContainer />
       </div>
     </div>

@@ -1,10 +1,22 @@
 import { useState } from 'react';
 import TypeIt from 'typeit-react';
+import { easeInOutExpo } from '../../constants';
 import { searchDemoImages } from '../../constants';
 import { motion } from 'framer-motion';
 
 type SearchName = keyof typeof searchDemoImages;
 const searchNames = Object.keys(searchDemoImages);
+
+const conntainerVariants = {
+  hidden: { y: 600 },
+  visible: {
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: easeInOutExpo
+    }
+  }
+};
 
 export default function ExploreSection() {
   const [currentNameIndex, setCurrentNameIndex] = useState<number>(-1);
@@ -24,17 +36,26 @@ export default function ExploreSection() {
   }
 
   return (
-    <div className="pb-20 pt-32">
-      <div className="text-center">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ staggerChildren: 0.1 }}
+      className="pb-20 pt-32 px-8 overflow-hidden"
+    >
+      <motion.div variants={conntainerVariants} className="text-center">
         <h2>Explore and save your favored pictures.</h2>
         <p className="text-xl mb-8">
           On the explore page, you can search and save your favored images or
           download them with <span className="text-theme">10,000+</span>{' '}
           pictures.
         </p>
-      </div>
-      <div className="max-w-[600px] min-h-[500px] mx-auto">
-        <div className="w-80 mb-4 py-2 px-3 border-theme border-2 rounded-lg mx-auto bg-neutral-600/5">
+      </motion.div>
+      <motion.div
+        variants={conntainerVariants}
+        className="max-w-[600px] min-h-[500px] mx-auto"
+      >
+        <div className="w-80 h-11 mb-4 py-2 px-3 border-theme border-2 rounded-lg mx-auto bg-neutral-600/5">
           <TypeIt
             options={{
               loop: true,
@@ -72,7 +93,7 @@ export default function ExploreSection() {
               </div>
             ))}
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

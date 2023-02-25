@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 import ThemeButton from '../ThemeButton';
+import { useEffect, useState } from 'react';
+import { easeInOutExpo } from '../../constants';
 
 const filters = [
   'after:opacity-0 after:mix-blend-difference',
@@ -10,10 +11,30 @@ const filters = [
   'after:opacity-25 after:mix-blend-difference after:bg-theme contrast-150'
 ];
 
+const transition = {
+  duration: 0.9,
+  ease: easeInOutExpo
+};
+const conntainerVariants = {
+  hidden: { y: 600 },
+  visible: {
+    y: 0,
+    transition
+  }
+};
+const imageVariants = {
+  hidden: { x: '-100vw' },
+  visible: {
+    x: 0,
+    transition
+  }
+};
+
 export default function EditingSection() {
-  const [currentFilterIndex, setCurrentFilterIndex] = useState<number>(0);
+  const [currentFilterIndex, setCurrentFilterIndex] = useState<number>(-1);
 
   useEffect(() => {
+    if (currentFilterIndex == -1) return;
     const interval = setInterval(() => {
       setCurrentFilterIndex(
         currentFilterIndex == filters.length - 1 ? 0 : currentFilterIndex + 1
@@ -25,9 +46,19 @@ export default function EditingSection() {
   });
 
   return (
-    <div className="flex items-center justify-center py-20 gap-x-10">
-      <div className="relative aspect-[609/761] w-[400px] overflow-hidden">
-        <motion.div
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ staggerChildren: 0.1 }}
+      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-20 pb-36 gap-x-10 px-8 overflow-hidden"
+    >
+      <motion.div
+        variants={imageVariants}
+        onUpdate={() => setCurrentFilterIndex(0)}
+        className="relative aspect-[609/761] w-full sm:w-[400px] mt-12"
+      >
+        <div
           className={
             'absolute w-full h-full transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full ' +
             filters[currentFilterIndex]
@@ -38,16 +69,19 @@ export default function EditingSection() {
             alt="editing-image"
             fill
           />
-        </motion.div>
-      </div>
-      <div className="max-w-[550px]">
+        </div>
+      </motion.div>
+      <motion.div
+        variants={conntainerVariants}
+        className="max-w-[550px] text-center lg:text-left"
+      >
         <h2>Upload and Edit the images.</h2>
         <p className="text-xl mb-6">
           Upload images to the albums you create, and edit them with many
           features and filters.
         </p>
         <ThemeButton text="Edit some pictures" />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

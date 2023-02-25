@@ -1,33 +1,78 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { albumsSectionImages } from '../../constants';
 import ThemeButton from '../ThemeButton';
+import { easeInOutExpo } from '../../constants';
+import { albumsSectionImages } from '../../constants';
 
 const albumsNumber = albumsSectionImages.length;
 
+const conntainerVariants = {
+  hidden: { y: 500 },
+  visible: {
+    y: 0,
+    transition: {
+      duration: 0.9,
+      ease: easeInOutExpo
+    }
+  }
+};
+const albumVariants = {
+  hidden: { x: '100vw' },
+  visible: {
+    x: '-50%',
+    transition: {
+      duration: 0.9,
+      ease: easeInOutExpo
+    }
+  }
+};
+
+const transition = {
+  staggerChildren: 0.1
+};
+
 export default function AlbumsSection() {
   return (
-    <div className="flex items-center justify-center py-16 gap-x-10 overflow-hidden">
-      <div className="max-w-[500px]">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      transition={transition}
+      className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-20 gap-x-10 px-8 overflow-hidden"
+    >
+      <motion.div
+        variants={conntainerVariants}
+        className="max-w-[500px] text-center lg:text-left"
+      >
         <h2>Create your own albums.</h2>
         <p className="text-xl mb-6">
           After creating your account, you can save images in albums which you
           can check later.
         </p>
         <ThemeButton text="See your albums" />
-      </div>
-      <div className="relative h-[400px] w-[500px]">
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        transition={transition}
+        className="relative h-[430px] w-[500px] mt-10"
+      >
         {albumsSectionImages.map((imageUrl, index) => {
-          const startX = albumsNumber * 10;
-          const startY = 100 - albumsNumber * 10;
+          const positionY = albumsNumber * 10 - index * 15;
           return (
             <motion.div
               key={index}
+              custom={index}
+              variants={albumVariants}
+              whileHover={{
+                y: positionY + (index != albumsNumber - 1 ? 60 : 0) + '%',
+                transition: { duration: 0.4, type: 'spring' }
+              }}
               className="album-example"
               style={{
                 zIndex: index,
-                x: '-50%',
-                y: `-${startY - index * 10}%`
+                y: positionY + '%'
               }}
             >
               <Image
@@ -42,7 +87,7 @@ export default function AlbumsSection() {
             </motion.div>
           );
         })}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
