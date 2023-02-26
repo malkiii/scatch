@@ -7,9 +7,10 @@ import { albumsSectionImages } from '../../constants';
 const albumsNumber = albumsSectionImages.length;
 
 const conntainerVariants = {
-  hidden: { y: 500 },
+  hidden: { y: 500, opacity: 0 },
   visible: {
     y: 0,
+    opacity: 1,
     transition: {
       duration: 0.9,
       ease: easeInOutExpo
@@ -17,9 +18,10 @@ const conntainerVariants = {
   }
 };
 const albumVariants = {
-  hidden: { x: '100vw' },
+  hidden: { x: '100vw', opacity: 0 },
   visible: {
     x: '-50%',
+    opacity: 1,
     transition: {
       duration: 0.9,
       ease: easeInOutExpo
@@ -30,13 +32,17 @@ const albumVariants = {
 const transition = {
   staggerChildren: 0.1
 };
+const viewport = {
+  once: true,
+  amount: 0.2
+};
 
 export default function AlbumsSection() {
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
+      viewport={viewport}
       transition={transition}
       className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-20 gap-x-10 px-8 overflow-hidden"
     >
@@ -54,9 +60,9 @@ export default function AlbumsSection() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
+        viewport={viewport}
         transition={transition}
-        className="relative h-[430px] w-[500px] mt-10"
+        className="relative aspect-[500/430] w-full md:w-[500px] mt-10"
       >
         {albumsSectionImages.map((imageUrl, index) => {
           const positionY = albumsNumber * 10 - index * 15;

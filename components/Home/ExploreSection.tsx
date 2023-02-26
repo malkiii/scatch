@@ -8,9 +8,10 @@ type SearchName = keyof typeof searchDemoImages;
 const searchNames = Object.keys(searchDemoImages);
 
 const conntainerVariants = {
-  hidden: { y: 600 },
+  hidden: { y: 600, opacity: 0 },
   visible: {
     y: 0,
+    opacity: 1,
     transition: {
       duration: 0.8,
       ease: easeInOutExpo
@@ -39,9 +40,9 @@ export default function ExploreSection() {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ staggerChildren: 0.1 }}
-      className="pb-20 pt-32 px-8 overflow-hidden"
+      className="pb-20 pt-10 lg:pt-32 px-8 overflow-hidden"
     >
       <motion.div variants={conntainerVariants} className="text-center">
         <h2>Explore and save your favored pictures.</h2>
@@ -53,7 +54,7 @@ export default function ExploreSection() {
       </motion.div>
       <motion.div
         variants={conntainerVariants}
-        className="max-w-[600px] min-h-[500px] mx-auto"
+        className="max-w-[600px] aspect-[600/500] mx-auto"
       >
         <div className="w-80 h-11 mb-4 py-2 px-3 border-theme border-2 rounded-lg mx-auto bg-neutral-600/5">
           <TypeIt

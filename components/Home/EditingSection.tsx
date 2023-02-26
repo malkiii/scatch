@@ -16,9 +16,10 @@ const transition = {
   ease: easeInOutExpo
 };
 const conntainerVariants = {
-  hidden: { y: 600 },
+  hidden: { y: 600, opacity: 0 },
   visible: {
     y: 0,
+    opacity: 1,
     transition
   }
 };
@@ -49,9 +50,9 @@ export default function EditingSection() {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ staggerChildren: 0.1 }}
-      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-20 pb-36 gap-x-10 px-8 overflow-hidden"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ staggerChildren: 0.05, staggerDirection: -1 }}
+      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10 px-8 overflow-hidden"
     >
       <motion.div
         variants={imageVariants}

@@ -3,9 +3,10 @@ import { motion } from 'framer-motion';
 import { easeInOutExpo } from '../../constants';
 
 const textVariants = {
-  hidden: { y: 400 },
+  hidden: { y: 400, opacity: 0 },
   visible: {
     y: 0,
+    opacity: 1,
     transition: {
       duration: 0.95,
       ease: easeInOutExpo
@@ -15,12 +16,11 @@ const textVariants = {
 
 export default function HeroSection(): JSX.Element {
   return (
-    <div className="pt-36 pb-20 px-8 overflow-hidden">
+    <div className="pt-2 md:pt-20 lg:pt-36 pb-20 px-8 overflow-hidden">
       <div className="flex justify-center items-center gap-8 mx-auto max-w-7xl flex-col lg:flex-row">
         <motion.div
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.75 }}
+          animate="visible"
           transition={{ staggerChildren: 0.1 }}
           className="w-full lg:w-1/2 text-center lg:text-left"
         >
