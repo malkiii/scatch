@@ -21,8 +21,8 @@ export default function Footer(): JSX.Element {
               download images for free.
             </p>
           </div>
-          <div className="flex flex-wrap gap-8">
-            <div className="h-full mr-10">
+          <div className="flex flex-wrap gap-x-8 gap-y-4 items-baseline">
+            <div className="mr-10">
               <h4>Useful links</h4>
               <Link href="/" className="footer-link">
                 Home
@@ -34,7 +34,7 @@ export default function Footer(): JSX.Element {
                 Blog
               </Link>
             </div>
-            <div className="h-full">
+            <div className="">
               <h4>Social</h4>
               <Link href="/" className="footer-link">
                 <FaFacebook className="text-xl" /> Facebook
