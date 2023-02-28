@@ -19,7 +19,8 @@ module.exports = {
         inherit: 'inherit'
       },
       boxShadow: {
-        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.6)'
+        '3xl': '0 30px 60px -10px rgba(0, 0, 0, 0.7)',
+        '4xl': '0 20px 30px black'
       }
     }
   },

@@ -42,8 +42,14 @@
   .theme-btn {
     @apply relative inline-flex overflow-hidden before:absolute before:bg-cyan-500 hover:text-white before:-translate-x-1/2 before:left-1/2 before:w-[110%] before:h-0 hover:before:h-[300%] before:transition-all before:duration-500 before:rounded-circle;
   }
+  .nav-menu-link {
+    @apply block p-5 border-b-2 border-b-white/5 hover:text-theme hover:border-b-theme capitalize transition-all;
+  }
+  .nav-menu-btn {
+    @apply inline-flex md:hidden relative w-10 h-4 before:absolute before:w-full before:h-[3px] before:top-0 before:bg-white before:right-0 after:absolute after:w-[66%] after:h-[3px] after:bottom-0 after:bg-white after:right-0 hover:after:bg-theme hover:before:bg-theme transition-colors after:transition-inherit before:transition-inherit;
+  }
   .album-example {
-    @apply absolute aspect-[1149/761] w-3/4 top-0 left-1/2 border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg;
+    @apply absolute aspect-[1149/761] w-full sm:w-3/4 top-0 left-1/2 border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg;
   }
   .hero-section-image {
     @apply absolute w-2/3 aspect-[1920/1080] shadow-3xl;
