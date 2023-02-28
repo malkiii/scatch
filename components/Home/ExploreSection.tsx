@@ -40,7 +40,7 @@ export default function ExploreSection() {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ staggerChildren: 0.1 }}
       className="pb-20 pt-10 lg:pt-32 px-8 overflow-hidden"
     >

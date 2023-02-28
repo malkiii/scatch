@@ -12,7 +12,7 @@ const filters = [
 ];
 
 const transition = {
-  duration: 0.9,
+  duration: 0.8,
   ease: easeInOutExpo
 };
 const conntainerVariants = {
@@ -40,7 +40,7 @@ export default function EditingSection() {
       setCurrentFilterIndex(
         currentFilterIndex == filters.length - 1 ? 0 : currentFilterIndex + 1
       );
-    }, 3000);
+    }, 2200);
     return () => {
       clearInterval(interval);
     };
@@ -52,7 +52,7 @@ export default function EditingSection() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       transition={{ staggerChildren: 0.05, staggerDirection: -1 }}
-      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10 px-8 overflow-hidden"
+      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-20 sm:pt-5 pb-36 gap-x-10 px-8 overflow-hidden"
     >
       <motion.div
         variants={imageVariants}
@@ -65,11 +65,7 @@ export default function EditingSection() {
             filters[currentFilterIndex]
           }
         >
-          <Image
-            src="https://images.pexels.com/photos/7537866/pexels-photo-7537866.jpeg"
-            alt="editing-image"
-            fill
-          />
+          <Image src="/assets/editing-image.jpeg" alt="editing-image" fill />
         </div>
       </motion.div>
       <motion.div

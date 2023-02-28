@@ -2,9 +2,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ThemeButton from '../ThemeButton';
 import { easeInOutExpo } from '../../constants';
-import { albumsSectionImages } from '../../constants';
-
-const albumsNumber = albumsSectionImages.length;
 
 const conntainerVariants = {
   hidden: { y: 500, opacity: 0 },
@@ -18,12 +15,11 @@ const conntainerVariants = {
   }
 };
 const albumVariants = {
-  hidden: { x: '100vw', opacity: 0 },
+  hidden: { x: '100vw' },
   visible: {
     x: '-50%',
-    opacity: 1,
     transition: {
-      duration: 0.9,
+      duration: 0.8,
       ease: easeInOutExpo
     }
   }
@@ -34,8 +30,10 @@ const transition = {
 };
 const viewport = {
   once: true,
-  amount: 0.2
+  amount: 0.25
 };
+
+const albumsNumber = 4;
 
 export default function AlbumsSection() {
   return (
@@ -44,7 +42,7 @@ export default function AlbumsSection() {
       whileInView="visible"
       viewport={viewport}
       transition={transition}
-      className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-20 gap-x-10 px-8 overflow-hidden"
+      className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-32 gap-x-10 px-8"
     >
       <motion.div
         variants={conntainerVariants}
@@ -64,7 +62,7 @@ export default function AlbumsSection() {
         transition={transition}
         className="relative aspect-[500/430] w-full md:w-[500px] mt-10"
       >
-        {albumsSectionImages.map((imageUrl, index) => {
+        {new Array(4).fill(null).map((_, index) => {
           const positionY = albumsNumber * 10 - index * 15;
           return (
             <motion.div
@@ -82,9 +80,9 @@ export default function AlbumsSection() {
               }}
             >
               <Image
-                src={`${imageUrl}?auto=compress&cs=tinysrgb&w=480`}
-                alt={'album-' + index}
+                src={`/assets/albums-section/image-${index + 1}.jpeg`}
                 className="w-full rounded-inherit"
+                alt="album"
                 fill
               />
               <span className="absolute bottom-3 left-4 opacity-70 font-bold">

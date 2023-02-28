@@ -2,19 +2,10 @@ import Image from 'next/image';
 import { easeInOutExpo } from '../../constants';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-export const heroSectionImages = [
-  {
-    url: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg',
-    position: 'top-16 -right-10'
-  },
-  {
-    url: 'https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg',
-    position: '-top-5 sm:-top-6 -left-5'
-  },
-  {
-    url: 'https://images.pexels.com/photos/2422915/pexels-photo-2422915.jpeg',
-    position: '-bottom-10 left-10 sm:left-20'
-  }
+export const imagesPositions = [
+  'top-16 -right-10',
+  '-top-5 sm:-top-6 -left-5',
+  '-bottom-10 left-10 sm:left-20'
 ];
 
 const borderVariants = {
@@ -23,7 +14,7 @@ const borderVariants = {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 1,
+      duration: 0.9,
       ease: easeInOutExpo
     }
   }
@@ -61,16 +52,17 @@ export default function ImageContainer(): JSX.Element {
         variants={borderVariants}
         className="w-full h-full border-theme border-2"
       ></motion.div>
-      {heroSectionImages.map((image, index) => (
+      {imagesPositions.map((position, index) => (
         <motion.div
           key={index}
           variants={imageVariants}
-          className={'hero-section-image ' + image.position}
+          className={'hero-section-image ' + position}
           style={{ y: positions[index] }}
         >
           <Image
-            src={image.url + '?auto=compress&cs=tinysrgb&w=1280'}
-            alt={'image-' + index}
+            priority
+            src={`/assets/hero-section/image-${index + 1}.jpeg`}
+            alt="hero-setion-image"
             fill
           />
         </motion.div>

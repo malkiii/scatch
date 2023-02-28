@@ -8,7 +8,7 @@ const textVariants = {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.95,
+      duration: 0.8,
       ease: easeInOutExpo
     }
   }
