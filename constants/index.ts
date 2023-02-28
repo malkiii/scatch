@@ -25,13 +25,6 @@ export const searchDemoImages = {
   ]
 };
 
-export const albumsSectionImages = [
-  'https://images.pexels.com/photos/101472/pexels-photo-101472.jpeg',
-  'https://images.pexels.com/photos/2147834/pexels-photo-2147834.jpeg',
-  'https://images.pexels.com/photos/2249063/pexels-photo-2249063.jpeg',
-  'https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg'
-];
-
 export function easeInOutExpo(x: number): number {
   return x == 0
     ? 0
