@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaFacebook, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
 
+const currentYear = new Date().getFullYear();
+
 export default function Footer(): JSX.Element {
   return (
     <footer className="bg-neutral-800/10 py-4 px-8">
@@ -21,7 +23,7 @@ export default function Footer(): JSX.Element {
               download images for free.
             </p>
           </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-4 items-baseline">
+          <div className="flex flex-wrap gap-x-8 gap-y-4 items-baseline mx-auto lg:mx-0">
             <div className="mr-10">
               <h4>Useful links</h4>
               <Link href="/" className="footer-link">
@@ -51,10 +53,8 @@ export default function Footer(): JSX.Element {
             </div>
           </div>
         </div>
-        <div className="lg:text-center py-6 border-t border-t-white/50">
-          <p>
-            Copyright &copy; 2022-{new Date().getFullYear()} Malki Abderrahman.
-          </p>
+        <div className="text-center py-6 border-t border-t-white/50">
+          <p>Copyright &copy; 2022-{currentYear} Malki Abderrahman.</p>
         </div>
       </div>
     </footer>
