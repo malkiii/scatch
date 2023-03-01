@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}'
@@ -19,8 +20,8 @@ module.exports = {
         inherit: 'inherit'
       },
       boxShadow: {
-        '3xl': '0 30px 60px -10px rgba(0, 0, 0, 0.7)',
-        '4xl': '0 20px 30px black'
+        '3xl': '0 30px 60px -10px rgba(0, 0, 0, 0.5)',
+        '4xl': '0 20px 30px rgba(0, 0, 0, 0.5)'
       }
     }
   },
