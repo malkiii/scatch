@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import DarkThemeButton from './DarkThemeButton';
 import { easeInOutExpo } from '../constants';
+import DarkThemeButton from './DarkThemeButton';
+import { Dispatch, SetStateAction, useEffect, useState, FC } from 'react';
 
 type NavMenuProps = {
   open: boolean;
@@ -18,15 +18,15 @@ const buttonTransition = {
   ease: 'anticipate'
 };
 
-const transformValue = 150;
+const transformValue = 180;
 
 const menuButtonVariants = {
   hidden: {
-    y: 0,
+    top: -112,
     transition: buttonTransition
   },
   visible: {
-    y: 120,
+    top: 20,
     transition: buttonTransition
   }
 };
@@ -69,28 +69,29 @@ const menuVariants = {
   }
 };
 
-const navMenuLinks = ['home', 'explore', 'albums', 'about'];
+const navMenuLinks = ['home', 'login', 'explore', 'albums'];
 
-export default function NavbarMenu({ open, setOpen }: NavMenuProps) {
-  const [scrollY, setScrollY] = useState<number>(0);
+const NavbarMenu: FC<NavMenuProps> = ({ open, setOpen }) => {
+  const [showButton, setShowButton] = useState<boolean>(false);
 
-  function updateScrollY() {
-    setScrollY(window.scrollY);
+  function showButtonOnScroll() {
+    setShowButton(window.scrollY > 50);
   }
 
   useEffect(() => {
-    window.addEventListener('scroll', updateScrollY);
+    showButtonOnScroll();
+    window.addEventListener('scroll', showButtonOnScroll);
     return () => {
-      window.removeEventListener('scroll', updateScrollY);
+      window.removeEventListener('scroll', showButtonOnScroll);
     };
   });
 
   return (
     <>
       <motion.button
-        className="fixed -top-20 md:hidden right-6 w-14 shadow-4xl text-dark bg-white aspect-square rounded-circle z-[1000]"
+        className="fixed -top-28 md:hidden right-6 w-16 shadow-4xl text-dark bg-theme dark:bg-white aspect-square rounded-circle z-[1000]"
         variants={menuButtonVariants}
-        animate={open || scrollY > 50 ? 'visible' : 'hidden'}
+        animate={open || showButton ? 'visible' : 'hidden'}
         onClick={() => setOpen(!open)}
       >
         <motion.div
@@ -99,18 +100,18 @@ export default function NavbarMenu({ open, setOpen }: NavMenuProps) {
         >
           <motion.div
             variants={buttonTopVariants}
-            className="absolute w-full h-[3px] top-0 bg-dark right-0"
+            className="absolute w-full h-[3px] top-0 bg-white dark:bg-dark right-0"
           ></motion.div>
           <motion.div
             variants={buttonBottomVariants}
-            className="absolute w-[66%] h-[3px] bottom-0 bg-dark right-0"
+            className="absolute w-[66%] h-[3px] bottom-0 bg-white dark:bg-dark right-0"
           ></motion.div>
         </motion.div>
       </motion.button>
       <motion.div
         variants={menuVariants}
         animate={open ? 'open' : 'close'}
-        className="fixed top-0 left-full border-l-2 h-screen text-white bg-dark z-[999] w-full text-4xl font-bold px-10"
+        className="fixed top-0 left-full h-fill border-l-2 border-l-dark dark:border-l-white text-dark dark:text-white dark:bg-dark bg-white z-[999] w-full text-4xl font-bold px-10"
       >
         <div className="w-full">
           <ul className="mt-24">
@@ -132,4 +133,5 @@ export default function NavbarMenu({ open, setOpen }: NavMenuProps) {
       </motion.div>
     </>
   );
-}
+};
+export default NavbarMenu;
