@@ -6,7 +6,7 @@ import EditingSection from '../components/Home/EditingSection';
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <div className="px-8">
       <HeroSection />
       <ExploreSection />
       <AlbumsSection />
@@ -14,5 +14,4 @@ const Home: NextPage = () => {
     </div>
   );
 };
-
 export default Home;
