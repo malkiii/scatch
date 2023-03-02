@@ -1,25 +1,25 @@
-import { useState } from 'react';
 import TypeIt from 'typeit-react';
+import { useState, FC } from 'react';
+import { motion } from 'framer-motion';
 import { easeInOutExpo } from '../../constants';
 import { searchDemoImages } from '../../constants';
-import { motion } from 'framer-motion';
 
 type SearchName = keyof typeof searchDemoImages;
 const searchNames = Object.keys(searchDemoImages);
 
 const conntainerVariants = {
-  hidden: { y: 600, opacity: 0 },
+  hidden: { y: 100, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.8,
+      duration: 0.4,
       ease: easeInOutExpo
     }
   }
 };
 
-export default function ExploreSection() {
+const ExploreSection: FC = () => {
   const [currentNameIndex, setCurrentNameIndex] = useState<number>(-1);
 
   function getImageUrl(imageIndex: number) {
@@ -40,9 +40,9 @@ export default function ExploreSection() {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: true, amount: 0.3 }}
       transition={{ staggerChildren: 0.1 }}
-      className="pb-20 pt-10 lg:pt-32 px-8 overflow-hidden"
+      className="pb-20 pt-10 lg:pt-32 overflow-hidden"
     >
       <motion.div variants={conntainerVariants} className="text-center">
         <h2>Explore and save your favored pictures.</h2>
@@ -56,7 +56,7 @@ export default function ExploreSection() {
         variants={conntainerVariants}
         className="max-w-[600px] aspect-[600/500] mx-auto"
       >
-        <div className="w-80 h-11 mb-4 py-2 px-3 border-theme border-2 rounded-lg mx-auto bg-neutral-600/5">
+        <div className="w-2/3 sm:w-80 h-11 mb-4 py-2 px-3 border-theme border-2 rounded-lg mx-auto bg-neutral-500/5">
           <TypeIt
             options={{
               loop: true,
@@ -72,10 +72,13 @@ export default function ExploreSection() {
             }}
           />
         </div>
-        <div className="flex w-full gap-4">
+        <div className="flex w-full gap-2 sm:gap-4">
           {currentNameIndex != -1 &&
             new Array(3).fill(null).map((_, col) => (
-              <div key={col} className="relative flex flex-col w-1/3 gap-4">
+              <div
+                key={col}
+                className="relative flex flex-col w-1/3 gap-2 sm:gap-4"
+              >
                 {new Array(2).fill(null).map((_, row) => {
                   const imageIndex = 2 * col + row;
                   const id = searchNames[currentNameIndex] + '-' + imageIndex;
@@ -97,4 +100,5 @@ export default function ExploreSection() {
       </motion.div>
     </motion.div>
   );
-}
+};
+export default ExploreSection;

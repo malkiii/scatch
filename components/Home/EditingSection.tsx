@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ThemeButton from '../ThemeButton';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { easeInOutExpo } from '../../constants';
 
 const filters = [
@@ -12,26 +12,28 @@ const filters = [
 ];
 
 const transition = {
-  duration: 0.8,
+  duration: 0.4,
   ease: easeInOutExpo
 };
-const conntainerVariants = {
-  hidden: { y: 600, opacity: 0 },
+const containerVariants = {
+  hidden: { y: 100, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition
   }
 };
+
 const imageVariants = {
-  hidden: { x: '-100vw' },
+  hidden: { x: -100, opacity: 0 },
   visible: {
     x: 0,
+    opacity: 1,
     transition
   }
 };
 
-export default function EditingSection() {
+const EditingSection: FC = () => {
   const [currentFilterIndex, setCurrentFilterIndex] = useState<number>(-1);
 
   useEffect(() => {
@@ -50,26 +52,27 @@ export default function EditingSection() {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ staggerChildren: 0.05, staggerDirection: -1 }}
-      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-20 sm:pt-5 pb-36 gap-x-10 px-8 overflow-hidden"
+      viewport={{ once: true, amount: 0.5 }}
+      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10 overflow-hidden"
     >
-      <motion.div
-        variants={imageVariants}
-        onUpdate={() => setCurrentFilterIndex(0)}
-        className="relative aspect-[609/761] w-full sm:w-[400px] mt-12"
-      >
-        <div
-          className={
-            'absolute w-full h-full transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full ' +
-            filters[currentFilterIndex]
-          }
+      <div className="relative aspect-[609/761] w-full sm:w-[400px] mt-12 md:mt-0">
+        <motion.div
+          variants={imageVariants}
+          onUpdate={() => setCurrentFilterIndex(0)}
+          className="absolute w-full h-full"
         >
-          <Image src="/assets/editing-image.jpeg" alt="editing-image" fill />
-        </div>
-      </motion.div>
+          <div
+            className={
+              'absolute w-full h-full transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full ' +
+              filters[currentFilterIndex]
+            }
+          >
+            <Image src="/assets/editing-image.jpeg" alt="editing-image" fill />
+          </div>
+        </motion.div>
+      </div>
       <motion.div
-        variants={conntainerVariants}
+        variants={containerVariants}
         className="max-w-[550px] text-center lg:text-left"
       >
         <h2>Upload and Edit the images.</h2>
@@ -81,4 +84,5 @@ export default function EditingSection() {
       </motion.div>
     </motion.div>
   );
-}
+};
+export default EditingSection;

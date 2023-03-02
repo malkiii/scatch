@@ -1,15 +1,16 @@
+import { FC } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ThemeButton from '../ThemeButton';
 import { easeInOutExpo } from '../../constants';
 
 const conntainerVariants = {
-  hidden: { y: 500, opacity: 0 },
+  hidden: { y: 100, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.9,
+      duration: 0.4,
       ease: easeInOutExpo
     }
   }
@@ -19,7 +20,7 @@ const albumVariants = {
   visible: {
     x: '-50%',
     transition: {
-      duration: 0.8,
+      duration: 0.6,
       ease: easeInOutExpo
     }
   }
@@ -30,19 +31,19 @@ const transition = {
 };
 const viewport = {
   once: true,
-  amount: 0.25
+  amount: 0.5
 };
 
 const albumsNumber = 4;
 
-export default function AlbumsSection() {
+const AlbumsSection: FC = () => {
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
       viewport={viewport}
       transition={transition}
-      className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-32 gap-x-10 px-8"
+      className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-20 gap-x-10"
     >
       <motion.div
         variants={conntainerVariants}
@@ -94,4 +95,5 @@ export default function AlbumsSection() {
       </motion.div>
     </motion.div>
   );
-}
+};
+export default AlbumsSection;

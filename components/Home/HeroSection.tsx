@@ -1,5 +1,6 @@
-import ImageContainer from './ImageContainer';
+import { FC } from 'react';
 import { motion } from 'framer-motion';
+import ImageContainer from './ImageContainer';
 import { easeInOutExpo } from '../../constants';
 
 const textVariants = {
@@ -14,9 +15,9 @@ const textVariants = {
   }
 };
 
-export default function HeroSection(): JSX.Element {
+const HeroSection: FC = () => {
   return (
-    <div className="pt-2 md:pt-20 lg:pt-36 pb-20 px-8 overflow-hidden">
+    <div className="pt-2 md:pt-20 lg:pt-36 pb-20">
       <div className="flex justify-center items-center gap-8 mx-auto max-w-7xl flex-col lg:flex-row">
         <motion.div
           initial="hidden"
@@ -43,4 +44,5 @@ export default function HeroSection(): JSX.Element {
       </div>
     </div>
   );
-}
+};
+export default HeroSection;

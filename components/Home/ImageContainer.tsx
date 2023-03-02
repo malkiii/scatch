@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import Image from 'next/image';
 import { easeInOutExpo } from '../../constants';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -32,7 +33,7 @@ const imageVariants = {
   }
 };
 
-export default function ImageContainer(): JSX.Element {
+const ImageContainer: FC = () => {
   const { scrollY } = useScroll();
   const range = [0, 100];
   const options = { clamp: false };
@@ -69,4 +70,5 @@ export default function ImageContainer(): JSX.Element {
       ))}
     </motion.div>
   );
-}
+};
+export default ImageContainer;
