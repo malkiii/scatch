@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaFacebook, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
+import { FC } from 'react';
+import { socials } from '../constants/socials';
 
 const currentYear = new Date().getFullYear();
 
-export default function Footer(): JSX.Element {
+const socialIcons = {};
+
+const Footer: FC = () => {
   return (
     <footer className="bg-neutral-800/10 py-4 px-8">
       <div className="mx-auto max-w-6xl">
@@ -16,6 +19,7 @@ export default function Footer(): JSX.Element {
                 alt="Logo-footer"
                 width={144}
                 height={36}
+                className="logo"
               />
             </Link>
             <p className="text-lg">
@@ -27,7 +31,7 @@ export default function Footer(): JSX.Element {
             <div className="mr-10">
               <h4>Useful links</h4>
               <Link href="/" className="footer-link">
-                Home
+                Login
               </Link>
               <Link href="/" className="footer-link">
                 About
@@ -36,27 +40,21 @@ export default function Footer(): JSX.Element {
                 Blog
               </Link>
             </div>
-            <div className="">
+            <div>
               <h4>Social</h4>
-              <Link href="/" className="footer-link">
-                <FaFacebook className="text-xl" /> Facebook
-              </Link>
-              <Link href="/" className="footer-link">
-                <FaTwitter className="text-xl" /> Twitter
-              </Link>
-              <Link href="/" className="footer-link">
-                <FaInstagram className="text-xl" /> Instagram
-              </Link>
-              <Link href="/" className="footer-link">
-                <FaGithub className="text-xl" /> Github
-              </Link>
+              {socials.map(({ name, icon, url }) => (
+                <a key={name} href={url} className="footer-link">
+                  {icon} {name}
+                </a>
+              ))}
             </div>
           </div>
         </div>
-        <div className="text-center py-6 border-t border-t-white/50">
+        <div className="text-center py-6 border-t dark:border-t-white/50 border-t-dark/50">
           <p>Copyright &copy; 2022-{currentYear} Malki Abderrahman.</p>
         </div>
       </div>
     </footer>
   );
-}
+};
+export default Footer;
