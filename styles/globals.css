@@ -13,10 +13,7 @@
     @apply bg-none;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-white rounded-3xl;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-neutral-300;
+    @apply dark:bg-white bg-dark rounded-3xl dark:hover:bg-white/90 hover:bg-dark/90;
   }
   h1 {
     @apply text-5xl sm:text-6xl font-extrabold;
@@ -33,6 +30,9 @@
 }
 
 @layer components {
+  .logo {
+    @apply brightness-0 dark:brightness-100 transition-all;
+  }
   .theme-gradient {
     @apply bg-gradient-to-br from-theme to-blue-500;
   }
@@ -40,30 +40,31 @@
     @apply mr-10 hover:text-theme transition-colors;
   }
   .theme-btn {
-    @apply relative inline-flex overflow-hidden before:absolute before:bg-cyan-500 hover:text-white before:-translate-x-1/2 before:left-1/2 before:w-[110%] before:h-0 hover:before:h-[300%] before:transition-all before:duration-500 before:rounded-circle;
+    @apply relative inline-flex overflow-hidden text-white dark:text-dark bg-dark dark:bg-white rounded-3xl px-6 py-3 before:absolute before:bg-cyan-500 hover:text-white dark:hover:text-white before:-translate-x-1/2 before:left-1/2 before:w-[110%] before:h-0 hover:before:h-[300%] before:transition-all before:duration-500 before:rounded-circle;
   }
   .nav-menu-link {
-    @apply block p-5 border-b-2 border-b-white/5 hover:text-theme hover:border-b-theme capitalize transition-all;
+    @apply block p-5 border-b-2 dark:border-b-white/5 border-b-dark/20 dark:hover:text-theme hover:border-b-dark dark:hover:border-b-theme capitalize transition-all;
   }
   .nav-menu-btn {
-    @apply inline-flex md:hidden relative w-10 h-4 before:absolute before:w-full before:h-[3px] before:top-0 before:bg-white before:right-0 after:absolute after:w-[66%] after:h-[3px] after:bottom-0 after:bg-white after:right-0 hover:after:bg-theme hover:before:bg-theme transition-colors after:transition-inherit before:transition-inherit;
+    @apply inline-flex md:hidden relative w-10 h-4 before:absolute before:w-full before:h-[3px] before:top-0 before:bg-dark before:right-0 after:absolute after:w-[66%] after:h-[3px] after:bottom-0 after:bg-dark after:right-0 hover:after:bg-theme hover:before:bg-theme transition-colors after:transition-inherit before:transition-inherit dark:after:bg-white dark:before:bg-white;
   }
   .album-example {
-    @apply absolute aspect-[1149/761] w-full sm:w-3/4 top-0 left-1/2 border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg;
+    @apply absolute aspect-[1149/761] w-4/5 sm:w-3/4 top-0 left-1/2 text-white border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg;
   }
   .hero-section-image {
     @apply absolute w-2/3 aspect-[1920/1080] shadow-3xl;
   }
-  .input-progress {
-    @apply relative bg-white h-full after:absolute after:bg-white after:rounded-circle after:aspect-square after:inset-y-1/2 after:right-0 after:translate-x-1/2 after:m-auto after:w-4 rounded-inherit;
-  }
   .footer-link {
-    @apply flex items-center theme-link my-2 text-white/90 gap-3;
+    @apply flex items-center my-2 dark:text-white/90 text-dark/70 hover:text-dark dark:hover:text-theme transition-colors gap-3;
   }
 }
 
 @layer utilities {
   .transition-inherit {
     transition: inherit;
+  }
+  .h-fill {
+    height: -moz-available;
+    height: -webkit-fill-available;
   }
 }
