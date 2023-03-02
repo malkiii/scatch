@@ -1,8 +1,13 @@
 import Head from 'next/head';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { FC, ReactNode } from 'react';
 
-export default function Layout({ children }: any) {
+type layoutProps = {
+  children: ReactNode;
+};
+
+const Layout: FC<layoutProps> = ({ children }) => {
   return (
     <>
       <Head>
@@ -28,4 +33,5 @@ export default function Layout({ children }: any) {
       <Footer />
     </>
   );
-}
+};
+export default Layout;
