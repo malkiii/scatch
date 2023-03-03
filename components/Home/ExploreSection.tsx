@@ -1,7 +1,7 @@
 import TypeIt from 'typeit-react';
 import { useState, FC } from 'react';
 import { motion } from 'framer-motion';
-import { easeInOutExpo } from '../../constants';
+import { easeOutExpo } from '../../constants';
 import { searchDemoImages } from '../../constants';
 
 type SearchName = keyof typeof searchDemoImages;
@@ -14,7 +14,7 @@ const conntainerVariants = {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: easeInOutExpo
+      ease: easeOutExpo
     }
   }
 };

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ThemeButton from '../ThemeButton';
 import { useEffect, useState, FC } from 'react';
-import { easeInOutExpo } from '../../constants';
+import { easeOutExpo } from '../../constants';
 
 const filters = [
   'after:opacity-0 after:mix-blend-difference',
@@ -13,7 +13,7 @@ const filters = [
 
 const transition = {
   duration: 0.4,
-  ease: easeInOutExpo
+  ease: easeOutExpo
 };
 const containerVariants = {
   hidden: { y: 100, opacity: 0 },
@@ -52,22 +52,27 @@ const EditingSection: FC = () => {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true, amount: 0.6 }}
       className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10 overflow-hidden"
     >
-      <div className="relative aspect-[609/761] w-full sm:w-[400px] mt-12 md:mt-0">
+      <div className="relative aspect-[609/761] w-full sm:w-[400px] mt-12 lg:mt-0">
         <motion.div
           variants={imageVariants}
           onUpdate={() => setCurrentFilterIndex(0)}
-          className="absolute w-full h-full"
+          className="absolute w-full h-full overflow-hidden"
         >
           <div
             className={
-              'absolute w-full h-full transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full ' +
+              'absolute w-full h-full overflow-hidden transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full after:pointer-events-none ' +
               filters[currentFilterIndex]
             }
           >
-            <Image src="/assets/editing-image.jpeg" alt="editing-image" fill />
+            <Image
+              src="/assets/editing-image.jpeg"
+              alt="editing-image"
+              className="hover:scale-105 transition-transform duration-500"
+              fill
+            />
           </div>
         </motion.div>
       </div>
@@ -80,7 +85,7 @@ const EditingSection: FC = () => {
           Upload images to the albums you create, and edit them with many
           features and filters.
         </p>
-        <ThemeButton text="Edit some pictures" />
+        <ThemeButton href="/explore" text="Edit some pictures" />
       </motion.div>
     </motion.div>
   );

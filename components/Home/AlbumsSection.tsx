@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ThemeButton from '../ThemeButton';
-import { easeInOutExpo } from '../../constants';
+import { easeOutExpo } from '../../constants';
 
 const conntainerVariants = {
   hidden: { y: 100, opacity: 0 },
@@ -11,7 +11,7 @@ const conntainerVariants = {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: easeInOutExpo
+      ease: easeOutExpo
     }
   }
 };
@@ -21,7 +21,7 @@ const albumVariants = {
     x: '-50%',
     transition: {
       duration: 0.6,
-      ease: easeInOutExpo
+      ease: easeOutExpo
     }
   }
 };
@@ -31,7 +31,7 @@ const transition = {
 };
 const viewport = {
   once: true,
-  amount: 0.5
+  amount: 0.6
 };
 
 const albumsNumber = 4;
@@ -54,7 +54,7 @@ const AlbumsSection: FC = () => {
           After creating your account, you can save images in albums which you
           can check later.
         </p>
-        <ThemeButton text="See your albums" />
+        <ThemeButton href="/" text="See your albums" />
       </motion.div>
       <motion.div
         initial="hidden"
