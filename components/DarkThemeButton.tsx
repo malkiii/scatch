@@ -7,7 +7,12 @@ type ButtonProps = {
 
 export const DarkThemeButton: FC<ButtonProps> = props => {
   function toggleDarkTheme() {
-    document.documentElement.classList.toggle('dark');
+    const htmlClasses = document.documentElement.classList;
+    htmlClasses.toggle('dark');
+    localStorage.setItem(
+      'theme',
+      htmlClasses.contains('dark') ? 'dark' : 'light'
+    );
   }
 
   return (
