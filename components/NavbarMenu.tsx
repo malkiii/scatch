@@ -75,7 +75,9 @@ const NavbarMenu: FC<NavMenuProps> = ({ open, setOpen }) => {
   const [showButton, setShowButton] = useState<boolean>(false);
 
   function showButtonOnScroll() {
-    setShowButton(window.scrollY > 50);
+    const isWindowLarge = window.innerWidth > 768;
+    const haspassedTheNavbar = window.scrollY > 50;
+    setShowButton(!isWindowLarge && haspassedTheNavbar);
   }
 
   useEffect(() => {
@@ -89,7 +91,7 @@ const NavbarMenu: FC<NavMenuProps> = ({ open, setOpen }) => {
   return (
     <>
       <motion.button
-        className="fixed -top-28 md:hidden right-6 w-16 shadow-4xl text-dark bg-theme dark:bg-white aspect-square rounded-circle z-[1000]"
+        className="fixed -top-28 right-6 w-16 shadow-4xl transition-colors bg-theme dark:bg-white aspect-square rounded-circle z-[1000]"
         variants={menuButtonVariants}
         animate={open || showButton ? 'visible' : 'hidden'}
         onClick={() => setOpen(!open)}
@@ -100,11 +102,11 @@ const NavbarMenu: FC<NavMenuProps> = ({ open, setOpen }) => {
         >
           <motion.div
             variants={buttonTopVariants}
-            className="absolute w-full h-[3px] top-0 bg-white dark:bg-dark right-0"
+            className="absolute w-full h-[3px] top-0 bg-white dark:bg-dark right-0 transition-colors"
           ></motion.div>
           <motion.div
             variants={buttonBottomVariants}
-            className="absolute w-[66%] h-[3px] bottom-0 bg-white dark:bg-dark right-0"
+            className="absolute w-[66%] h-[3px] bottom-0 bg-white dark:bg-dark right-0 transition-colors"
           ></motion.div>
         </motion.div>
       </motion.button>
