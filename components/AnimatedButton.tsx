@@ -14,6 +14,18 @@ type ButtonProps = {
 
 const ThemeButton: FC<ButtonProps> = props => {
   const className = 'theme-btn before:-top-full ' + (props.className || '');
+  const styleProps = {
+    className,
+    onMouseEnter: changeBackgroundPosition,
+    onMouseLeave: changeBackgroundPosition
+  };
+  const buttonContent = (
+    <span className="relative font-bold z-10 pointer-events-none transition-all duration-300">
+      {props.text}
+      {props.children}
+    </span>
+  );
+
   function changeBackgroundPosition(e: any) {
     const button = e.currentTarget as HTMLAnchorElement;
     button.classList.toggle('before:-top-full');
@@ -22,31 +34,19 @@ const ThemeButton: FC<ButtonProps> = props => {
 
   if (props.href)
     return (
-      <Link
-        href={props.href || '/'}
-        className={className}
-        onMouseEnter={changeBackgroundPosition}
-        onMouseLeave={changeBackgroundPosition}
-      >
-        <span className="relative font-bold z-10 pointer-events-none transition-all duration-300">
-          {props.text}
-        </span>
+      <Link href={props.href || '/'} {...styleProps}>
+        {buttonContent}
       </Link>
     );
   else
     return (
       <motion.button
-        className={className}
         variants={props.variants}
         animate={props.animate}
-        onMouseEnter={changeBackgroundPosition}
-        onMouseLeave={changeBackgroundPosition}
         onClick={props.onClick}
+        {...styleProps}
       >
-        <span className="relative font-bold z-10 pointer-events-none transition-all duration-300">
-          {props.text}
-          {props.children}
-        </span>
+        {buttonContent}
       </motion.button>
     );
 };
