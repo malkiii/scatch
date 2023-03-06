@@ -1,19 +1,25 @@
 import '../styles/globals.css';
 import { AppProps } from 'next/app';
 import Layout from '../components/layout';
+import { useEffect } from 'react';
+import { ThemeProvider } from 'next-themes';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  if (typeof window !== 'undefined') {
+  // set the theme with the 'dark' class
+  function applyTheme() {
     const theme = localStorage.getItem('theme') || 'dark';
-    if (theme != 'dark') document.documentElement.classList.toggle('dark');
-    if (!theme) {
-      localStorage.setItem('theme', 'dark');
-    }
+    document.documentElement.setAttribute('data-theme', theme);
   }
 
+  useEffect(() => {
+    applyTheme();
+  });
+
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <ThemeProvider attribute="class">
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ThemeProvider>
   );
 }
