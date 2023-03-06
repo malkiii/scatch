@@ -1,7 +1,7 @@
 import { FC } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import ThemeButton from '../ThemeButton';
 import { easeOutExpo } from '../../constants';
 
 const conntainerVariants = {
@@ -54,7 +54,9 @@ const AlbumsSection: FC = () => {
           After creating your account, you can save images in albums which you
           can check later.
         </p>
-        <ThemeButton href="/" text="See your albums" />
+        <Link href="/" className="theme-btn">
+          See your albums
+        </Link>
       </motion.div>
       <motion.div
         initial="hidden"

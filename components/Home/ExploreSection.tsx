@@ -40,7 +40,7 @@ const ExploreSection: FC = () => {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.5 }}
       transition={{ staggerChildren: 0.1 }}
       className="pb-20 pt-10 lg:pt-32 overflow-hidden"
     >

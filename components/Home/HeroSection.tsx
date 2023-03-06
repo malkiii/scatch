@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 import ImageContainer from './ImageContainer';
 import { easeInOutExpo } from '../../constants';
+import Link from 'next/link';
 
 const textVariants = {
   hidden: { y: 400, opacity: 0 },
@@ -33,12 +34,17 @@ const HeroSection: FC = () => {
           </motion.h1>
           <motion.p
             variants={textVariants}
-            className="text-lg sm:text-2xl leading-relaxed mb-8 opacity-75"
+            className="text-lg sm:text-2xl leading-relaxed mb-4 md:mb-7 opacity-75"
           >
             Scatch is an online image gallery where you can find your favored
             images and edit, save, or download them for free with high
             resolution.
           </motion.p>
+          <motion.div variants={textVariants} className="inline-block">
+            <Link href="/explore" className="theme-btn text-lg mb-5">
+              Get Started
+            </Link>
+          </motion.div>
         </motion.div>
         <ImageContainer />
       </div>

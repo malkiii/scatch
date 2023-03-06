@@ -1,8 +1,8 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import ThemeButton from '../ThemeButton';
-import { useEffect, useState, FC } from 'react';
 import { easeOutExpo } from '../../constants';
+import { useEffect, useState, FC } from 'react';
 
 const filters = [
   'after:opacity-0 after:mix-blend-difference',
@@ -53,7 +53,7 @@ const EditingSection: FC = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.6 }}
-      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10 overflow-hidden"
+      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10"
     >
       <div className="relative aspect-[609/761] w-full sm:w-[400px] mt-12 lg:mt-0">
         <motion.div
@@ -85,7 +85,9 @@ const EditingSection: FC = () => {
           Upload images to the albums you create, and edit them with many
           features and filters.
         </p>
-        <ThemeButton href="/explore" text="Edit some pictures" />
+        <Link href="/explore" className="theme-btn">
+          Edit some picture
+        </Link>
       </motion.div>
     </motion.div>
   );
