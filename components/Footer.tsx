@@ -5,8 +5,6 @@ import { socials } from '../constants/socials';
 
 const currentYear = new Date().getFullYear();
 
-const socialIcons = {};
-
 const Footer: FC = () => {
   return (
     <footer className="bg-neutral-800/10 py-4 px-8">
@@ -43,7 +41,13 @@ const Footer: FC = () => {
             <div>
               <h4>Social</h4>
               {socials.map(({ name, icon, url }) => (
-                <a key={name} href={url} className="footer-link">
+                <a
+                  key={name}
+                  href={url}
+                  className="footer-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   {icon} {name}
                 </a>
               ))}
