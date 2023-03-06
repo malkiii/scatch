@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useTheme } from 'next-themes';
 
 type ButtonProps = {
   containerClassName: string;
@@ -6,13 +7,13 @@ type ButtonProps = {
 };
 
 export const DarkThemeButton: FC<ButtonProps> = props => {
-  function toggleDarkTheme() {
-    const htmlClasses = document.documentElement.classList;
-    htmlClasses.toggle('dark');
-    localStorage.setItem(
-      'theme',
-      htmlClasses.contains('dark') ? 'dark' : 'light'
-    );
+  const { theme, setTheme } = useTheme();
+
+  function toggleTheme() {
+    const newTheme = theme == 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
   }
 
   return (
@@ -21,7 +22,7 @@ export const DarkThemeButton: FC<ButtonProps> = props => {
         'group hover:text-theme transition-all duration-200 ' +
         props.containerClassName
       }
-      onClick={toggleDarkTheme}
+      onClick={toggleTheme}
     >
       dark
       <div
