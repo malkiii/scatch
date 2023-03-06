@@ -69,7 +69,7 @@ const menuVariants = {
   }
 };
 
-const navMenuLinks = ['home', 'login', 'explore', 'albums'];
+const navMenuLinks = ['home', 'login', 'search', 'albums'];
 
 const NavbarMenu: FC<NavMenuProps> = ({ open, setOpen }) => {
   const [showButton, setShowButton] = useState<boolean>(false);
