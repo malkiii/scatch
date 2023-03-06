@@ -85,7 +85,7 @@ const EditingSection: FC = () => {
           Upload images to the albums you create, and edit them with many
           features and filters.
         </p>
-        <Link href="/explore" className="theme-btn">
+        <Link href="/search" className="theme-btn">
           Edit some picture
         </Link>
       </motion.div>

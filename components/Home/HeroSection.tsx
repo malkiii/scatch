@@ -41,7 +41,7 @@ const HeroSection: FC = () => {
             resolution.
           </motion.p>
           <motion.div variants={textVariants} className="inline-block">
-            <Link href="/explore" className="theme-btn text-lg mb-5">
+            <Link href="/search" className="theme-btn text-lg mb-5">
               Get Started
             </Link>
           </motion.div>
