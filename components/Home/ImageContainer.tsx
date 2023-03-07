@@ -63,7 +63,7 @@ const ImageContainer: FC = () => {
           <Image
             priority
             src={`/assets/hero-section/image-${index + 1}.jpeg`}
-            alt="hero-setion-image"
+            alt="scatch"
             fill
           />
         </motion.div>
