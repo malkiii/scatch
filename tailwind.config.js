@@ -22,9 +22,6 @@ module.exports = {
       boxShadow: {
         '3xl': '0 30px 60px -10px rgba(0, 0, 0, 0.5)',
         '4xl': '0 15px 30px -5px rgba(0, 0, 0, 0.5)'
-      },
-      gridTemplateColumns: {
-        images: 'repeat(auto-fill, minmax(380px, 1fr))'
       }
     }
   },
