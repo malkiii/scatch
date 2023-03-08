@@ -129,7 +129,7 @@ const NavbarMenu: FC<NavMenuProps> = ({ open, setOpen }) => {
           </ul>
           <DarkThemeButton
             containerClassName="flex w-full items-center justify-between p-5 capitalize"
-            buttonClassName="w-16 h-7"
+            buttonClassName="w-[57px] h-7"
           />
         </div>
       </motion.div>
