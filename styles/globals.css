@@ -6,14 +6,11 @@
 @tailwind utilities;
 
 @layer base {
-  ::-webkit-scrollbar {
-    @apply w-3;
+  body::-webkit-scrollbar {
+    @apply w-4;
   }
-  ::-webkit-scrollbar-track {
-    @apply bg-none;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply dark:bg-white bg-dark rounded-3xl dark:hover:bg-white/90 hover:bg-dark/90;
+  body::-webkit-scrollbar-thumb {
+    @apply dark:bg-white bg-dark border-4 border-solid border-transparent rounded-3xl dark:hover:bg-white/90 hover:bg-dark/90 bg-clip-content;
   }
   h1 {
     @apply text-5xl sm:text-6xl font-extrabold;
@@ -26,6 +23,9 @@
   }
   p {
     @apply font-rubik leading-relaxed;
+  }
+  input[type='search']::-webkit-search-cancel-button {
+    @apply appearance-none;
   }
 }
 
@@ -40,7 +40,7 @@
     @apply mr-10 hover:text-theme transition-colors;
   }
   .theme-btn {
-    @apply relative inline-flex overflow-hidden text-white dark:text-dark bg-dark dark:bg-white rounded-3xl px-6 py-3 before:absolute before:bg-cyan-500 hover:text-white dark:hover:text-white before:-translate-x-1/2 before:left-1/2 before:w-[110%] before:h-0 hover:before:h-[300%] before:transition-all before:duration-500 before:rounded-circle;
+    @apply font-bold inline-flex text-white dark:text-dark bg-dark dark:bg-white rounded-3xl px-6 py-3 hover:text-white hover:bg-theme dark:hover:text-white dark:hover:bg-theme transition-colors duration-200;
   }
   .nav-menu-link {
     @apply block p-5 border-b-2 dark:border-b-white/5 border-b-dark/20 dark:hover:text-theme hover:border-b-dark dark:hover:border-b-theme capitalize transition-all;
