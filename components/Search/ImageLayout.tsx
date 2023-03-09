@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import { FC, useState, useEffect } from 'react';
+import { ResponseImage } from '../../hooks/useFetch';
 
 type ImageLayoutProps = {
-  images: any[];
+  images: ResponseImage[];
 };
 
 const ImageLayout: FC<ImageLayoutProps> = ({ images }) => {
@@ -23,18 +25,22 @@ const ImageLayout: FC<ImageLayoutProps> = ({ images }) => {
 
   return (
     <div
-      className="w-full grid gap-3"
+      className="w-full grid gap-3 items-start"
       style={{ gridTemplateColumns: `repeat(${columnsNumber}, 1fr)` }}
     >
       {new Array(columnsNumber).fill(null).map((_, col) => (
-        <div key={col} className="flex flex-col flex-grow gap-3">
+        <div key={col} className="grid grid-cols-1 flex-grow gap-y-3">
           {new Array(imageNumber / columnsNumber).fill(null).map((_, row) => {
             const imageIndex = col + row * columnsNumber;
+            const theImage = images[imageIndex];
             return (
-              <img
-                key={imageIndex}
-                src={images[imageIndex].src.large}
+              <Image
+                key={theImage.id}
+                src={theImage.src + '?auto=compress&cs=tinysrgb&w=940'}
+                width={theImage.width}
+                height={theImage.height}
                 alt="scatch image"
+                style={{ backgroundColor: theImage.avgColor }}
               />
             );
           })}

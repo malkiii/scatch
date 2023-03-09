@@ -5,7 +5,7 @@ const keywords = ['Popular', 'Wallpapers', 'Food', 'Nature', 'Animals'];
 
 const SearchKeywords: FC = () => {
   return (
-    <div className="hidden sm:flex items-center justify-center w-full pb-5 gap-3">
+    <div className="hidden sm:flex items-center justify-center w-full pb-7 gap-3">
       {keywords.map((keyword, index) => (
         <Link
           key={index}
