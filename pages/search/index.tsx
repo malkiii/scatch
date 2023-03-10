@@ -1,12 +1,25 @@
 import Head from 'next/head';
-import { NextPage } from 'next';
-import { useFetch } from '../../hooks/useFetch';
+import { NextPage, GetServerSideProps } from 'next';
+import { useFetch, ResponseImage, fetchImages } from '../../hooks/useFetch';
 import SearchSection from '../../components/Search/SearchSection';
 import SearchKeywords from '../../components/Search/SearchKeywords';
 import ImageLayout from '../../components/Search/ImageLayout';
 
-const Search: NextPage = () => {
-  const imageArray = useFetch('curated');
+type Props = {
+  images: ResponseImage[];
+  inLastPage: boolean;
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const searchParams = new URLSearchParams({ e: 'curated' });
+  const { newImages, inLastPage } = await fetchImages(searchParams);
+  return {
+    props: { images: newImages, inLastPage }
+  };
+};
+
+const Search: NextPage<Props> = ({ images, inLastPage }) => {
+  const imageArray = useFetch('curated', inLastPage ? -1 : 1, '', images);
   return (
     <div className="px-8">
       <Head>
