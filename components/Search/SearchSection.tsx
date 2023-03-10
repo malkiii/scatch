@@ -1,6 +1,10 @@
-import { FC, useRef } from 'react';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 import { CgSearch } from 'react-icons/cg';
+
+type SearchSectionProps = {
+  value?: string;
+};
 
 function generateSlug(text: string) {
   return text
@@ -9,32 +13,40 @@ function generateSlug(text: string) {
     .replace(/\s+/g, '%20');
 }
 
-const SearchSection: FC = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
+const SearchSection: FC<SearchSectionProps> = ({ value }) => {
   const router = useRouter();
+  const [searchValue, setSearchValue] = useState(value || '');
 
   function goToSearchResultsPage() {
-    const searchText = inputRef.current!.value;
-    const slug = generateSlug(searchText);
+    const slug = generateSlug(searchValue);
     router.push('/search/' + slug);
   }
 
+  function handleKeyDown(event: any) {
+    if (event.key === 'Enter') goToSearchResultsPage();
+  }
+
   return (
-    <div className="mx-auto text-center pt-10">
-      <h2 className="text-5xl">
-        Search for <span className="text-theme">images</span>
+    <div className="mx-auto text-center pt-5 sm:pt-10">
+      <h2>
+        Search for{' '}
+        <span className="theme-gradient bg-clip-text text-transparent">
+          images
+        </span>
       </h2>
       <div className="max-w-[730px] text-lg flex items-center mx-auto my-7 rounded-3xl bg-gray-50 dark:bg-neutral-800 shadow-lg overflow-hidden transition-colors">
         <input
           type="search"
-          className="h-full flex-grow outline-none bg-transparent py-2 px-4"
-          autoComplete="off"
+          value={searchValue}
           placeholder="Search.."
-          ref={inputRef}
+          className="h-full flex-grow outline-none bg-transparent py-2 px-4"
+          onInput={e => setSearchValue(e.currentTarget.value)}
+          onKeyDown={handleKeyDown}
+          autoComplete="off"
           required
         />
         <button
-          className="theme-btn py-2 px-7 rounded-inherit"
+          className="theme-btn py-2 px-5 sm:px-7 rounded-inherit"
           onClick={goToSearchResultsPage}
         >
           <CgSearch size={30} className="inline text-center" />
