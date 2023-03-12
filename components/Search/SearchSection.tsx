@@ -18,8 +18,7 @@ const SearchSection: FC<SearchSectionProps> = ({ value }) => {
   const [searchValue, setSearchValue] = useState(value || '');
 
   function goToSearchResultsPage() {
-    const slug = generateSlug(searchValue);
-    router.push('/search/' + slug);
+    router.push('/search/' + generateSlug(searchValue));
   }
 
   function handleKeyDown(event: any) {
@@ -34,7 +33,7 @@ const SearchSection: FC<SearchSectionProps> = ({ value }) => {
           images
         </span>
       </h2>
-      <div className="max-w-[730px] text-lg flex items-center mx-auto my-7 rounded-3xl bg-gray-50 dark:bg-neutral-800 shadow-lg overflow-hidden transition-colors">
+      <div className="max-w-[730px] text-lg flex items-center mx-auto my-7 rounded-3xl bg-gray-100 dark:bg-neutral-800 shadow-lg overflow-hidden transition-colors">
         <input
           type="search"
           value={searchValue}
