@@ -1,13 +1,16 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-function getFetchURL({ e, q, p }: any) {
+function getFetchURL({ e, q, p, o }: any) {
   const endpointName = e;
+  const orientation = o == 'all' ? '' : o;
   const { API_ENDPOINT } = process.env;
   const searchParams = new URLSearchParams({
     page: p || '1',
     per_page: '24'
   });
   if (endpointName == 'search') searchParams.append('query', q);
+  if (orientation) searchParams.append('orientation', orientation);
+
   return `${API_ENDPOINT}/${endpointName}?${searchParams}`;
 }
 
@@ -20,6 +23,7 @@ export default async function handler(
 
   try {
     const response = await fetch(fetchURL, {
+      method: 'GET',
       headers: {
         Authorization: API_KEY
       }
