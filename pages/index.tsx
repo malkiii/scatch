@@ -4,7 +4,7 @@ import HeroSection from '../components/Home/HeroSection';
 import ExploreSection from '../components/Home/ExploreSection';
 import AlbumsSection from '../components/Home/AlbumsSection';
 import EditingSection from '../components/Home/EditingSection';
-import ScrollToTopButton from '../components/Home/ScrollToTopButton';
+import ScrollToTopButton from '../components/ScrollToTopButton';
 
 const Home: NextPage = () => {
   return (
