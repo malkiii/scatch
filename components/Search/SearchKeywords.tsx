@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 
-const keywords = ['Popular', 'Wallpapers', 'Food', 'Nature', 'Animals'];
+const keywords = ['Popular', 'Wallpapers', 'Food', 'Cars', 'Animals'];
 
 const SearchKeywords: FC = () => {
   return (

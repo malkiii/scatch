@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 import { CgSearch } from 'react-icons/cg';
+import { FC, useRef, useEffect } from 'react';
 
 type SearchSectionProps = {
   value?: string;
@@ -15,15 +15,20 @@ function generateSlug(text: string) {
 
 const SearchSection: FC<SearchSectionProps> = ({ value }) => {
   const router = useRouter();
-  const [searchValue, setSearchValue] = useState(value || '');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function goToSearchResultsPage() {
+    const searchValue = inputRef.current!.value;
     router.push('/search/' + generateSlug(searchValue));
   }
 
   function handleKeyDown(event: any) {
     if (event.key === 'Enter') goToSearchResultsPage();
   }
+
+  useEffect(() => {
+    inputRef.current!.value = value || '';
+  });
 
   return (
     <div className="mx-auto text-center pt-5 sm:pt-10">
@@ -36,10 +41,9 @@ const SearchSection: FC<SearchSectionProps> = ({ value }) => {
       <div className="max-w-[730px] text-lg flex items-center mx-auto my-7 rounded-3xl bg-gray-100 dark:bg-neutral-800 shadow-lg overflow-hidden transition-colors">
         <input
           type="search"
-          value={searchValue}
+          ref={inputRef}
           placeholder="Search.."
           className="h-full flex-grow outline-none bg-transparent py-2 px-4"
-          onInput={e => setSearchValue(e.currentTarget.value)}
           onKeyDown={handleKeyDown}
           autoComplete="off"
           required
