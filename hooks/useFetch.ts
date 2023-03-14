@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export type ResponseImage = {
   id: number;
@@ -21,36 +21,61 @@ export const fetchImages = async (params: URLSearchParams) => {
       avgColor: image.avg_color,
       src: image.src.original
     }));
-    return { newImages, inLastPage: !('next_page' in data) };
+    return { newImages, hasMore: 'next_page' in data };
   } catch (err) {
-    return { newImages: [], inLastPage: true };
+    return { newImages: [], hasMore: false };
   }
 };
 
 export const useFetch = (
   endpoint: string,
-  currentPage: number,
-  query = '',
-  array: ResponseImage[] = []
+  hasMore: boolean,
+  query?: string,
+  array?: ResponseImage[],
+  orientation?: string
 ): ResponseImage[] => {
-  const [imageArray, setImageArray] = useState(array);
-  const [nextPage, setNextPage] = useState(currentPage + 1);
+  const [imageArray, setImageArray] = useState(array || []);
+  const [hasMorePages, setHasMorePages] = useState(hasMore);
+  const [isCloseToEnd, setIsCloseToEnd] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const appendNewImages = async () => {
-    if (nextPage == 0) return;
+  const appendNewImages = useCallback(async () => {
+    setIsLoading(true);
     const params = new URLSearchParams({
-      p: nextPage.toString(),
+      p: currentPage.toString(),
       e: endpoint,
-      q: query
+      q: query || '',
+      o: orientation || 'all'
     });
-    const { newImages, inLastPage } = await fetchImages(params);
-    setImageArray([...imageArray, ...newImages]);
-    setNextPage(inLastPage ? 0 : nextPage + 1);
+    const { newImages, hasMore } = await fetchImages(params);
+    setImageArray(prevImages => [...prevImages, ...newImages]);
+    setHasMorePages(hasMore);
+    setIsLoading(false);
+  }, [currentPage]);
+
+  const updateImageLayout = () => {
+    if (isLoading) return;
+    const windowHeight = window.innerHeight;
+    const fullHeight = document.body.scrollHeight;
+    const scrollPosition = window.scrollY;
+    setIsCloseToEnd(scrollPosition >= fullHeight - windowHeight - 550);
   };
 
-  // useEffect(() => {
-  //   if (array.length == 0) appendNewImages();
-  // }, []);
+  useEffect(() => {
+    if (currentPage > 1) appendNewImages();
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (isCloseToEnd && hasMorePages) setCurrentPage(currentPage + 1);
+  }, [isCloseToEnd]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', updateImageLayout);
+    return () => {
+      window.removeEventListener('scroll', updateImageLayout);
+    };
+  }, []);
 
   return imageArray;
 };
