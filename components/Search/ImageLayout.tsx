@@ -40,13 +40,17 @@ const ImageCover: FC<ImageCoverProps> = ({ image }) => {
 };
 
 const ImageLayout: FC<ImageLayoutProps> = ({ images }) => {
+  const [columnsNumber, setColumnsNumber] = useState<number>(3);
   function updateColumnsNumber() {
     const windowWidth = window.innerWidth;
-    setColumnsNumber(windowWidth > 1240 ? 3 : windowWidth > 750 ? 2 : 1);
+    setColumnsNumber(windowWidth > 1080 ? 3 : windowWidth > 680 ? 2 : 1);
   }
 
-  const imageNumber = images.length;
-  const [columnsNumber, setColumnsNumber] = useState<number>(3);
+  function getRowsNumber(): number {
+    const reminder = images.length % 6;
+    const imageNumber = images.length + (reminder == 0 ? 0 : 6 - reminder);
+    return imageNumber / columnsNumber;
+  }
 
   useEffect(() => {
     updateColumnsNumber();
@@ -63,9 +67,10 @@ const ImageLayout: FC<ImageLayoutProps> = ({ images }) => {
     >
       {new Array(columnsNumber).fill(null).map((_, col) => (
         <div key={col} className="grid grid-cols-1 flex-grow gap-y-4">
-          {new Array(imageNumber / columnsNumber).fill(null).map((_, row) => {
+          {new Array(getRowsNumber()).fill(null).map((_, row) => {
             const imageIndex = col + row * columnsNumber;
             const currentImage = images[imageIndex];
+            if (!currentImage) return <></>;
             return (
               <div
                 key={currentImage.id}
