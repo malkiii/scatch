@@ -11,8 +11,13 @@ export type ResponseImage = {
 
 export const fetchImages = async (params: URLSearchParams) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/images?${params}`);
+    const ENDPOINT = 'http://localhost:3000/api/images?' + params;
+    const API_TOKEN = process.env.API_TOKEN as string;
+    const response = await fetch(ENDPOINT, {
+      headers: { token: API_TOKEN }
+    });
     const data = await response.json();
+
     const newImages: ResponseImage[] = data.photos.map((image: any) => ({
       id: image.id,
       width: image.width,
