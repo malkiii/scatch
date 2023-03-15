@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { easeInOutExpo } from '../constants';
 import DarkThemeButton from './DarkThemeButton';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Dispatch, SetStateAction, useEffect, useState, FC } from 'react';
 
 type NavMenuProps = {
@@ -80,6 +80,10 @@ const NavbarMenu: FC<NavMenuProps> = ({ open, setOpen }) => {
     setShowButton(!isWindowLarge && haspassedTheNavbar);
   }
 
+  function toggleMenu() {
+    setOpen(!open);
+  }
+
   useEffect(() => {
     showButtonOnScroll();
     window.addEventListener('scroll', showButtonOnScroll);
@@ -90,49 +94,60 @@ const NavbarMenu: FC<NavMenuProps> = ({ open, setOpen }) => {
 
   return (
     <>
-      <motion.button
-        className="fixed -top-28 right-6 w-16 shadow-4xl transition-colors bg-theme dark:bg-white aspect-square rounded-circle z-[1000]"
-        variants={menuButtonVariants}
-        animate={open || showButton ? 'visible' : 'hidden'}
-        onClick={() => setOpen(!open)}
-      >
-        <motion.div
-          animate={open ? 'open' : 'close'}
-          className="relative m-auto w-3/5 h-[22%]"
-        >
+      <AnimatePresence>
+        {(open || showButton) && (
+          <motion.button
+            className="fixed -top-28 right-6 w-16 shadow-4xl transition-colors bg-theme dark:bg-white aspect-square rounded-circle z-[1000]"
+            variants={menuButtonVariants}
+            animate="visible"
+            exit="hidden"
+            onClick={toggleMenu}
+          >
+            <motion.div
+              animate={open ? 'open' : 'close'}
+              className="relative m-auto w-3/5 h-[22%]"
+            >
+              <motion.div
+                variants={buttonTopVariants}
+                className="absolute w-full h-[3px] top-0 bg-white dark:bg-dark right-0 transition-colors"
+              ></motion.div>
+              <motion.div
+                variants={buttonBottomVariants}
+                className="absolute w-[66%] h-[3px] bottom-0 bg-white dark:bg-dark right-0 transition-colors"
+              ></motion.div>
+            </motion.div>
+          </motion.button>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {open && (
           <motion.div
-            variants={buttonTopVariants}
-            className="absolute w-full h-[3px] top-0 bg-white dark:bg-dark right-0 transition-colors"
-          ></motion.div>
-          <motion.div
-            variants={buttonBottomVariants}
-            className="absolute w-[66%] h-[3px] bottom-0 bg-white dark:bg-dark right-0 transition-colors"
-          ></motion.div>
-        </motion.div>
-      </motion.button>
-      <motion.div
-        variants={menuVariants}
-        animate={open ? 'open' : 'close'}
-        className="fixed top-0 left-full h-fill border-l-2 border-l-dark dark:border-l-white text-dark dark:text-white dark:bg-dark bg-white z-[999] w-full text-4xl font-bold px-10"
-      >
-        <div className="w-full">
-          <ul className="mt-24">
-            {navMenuLinks.map((url, index) => (
-              <Link
-                key={index}
-                className="nav-menu-link"
-                href={'/' + (index != 0 ? url : '')}
-              >
-                {url}
-              </Link>
-            ))}
-          </ul>
-          <DarkThemeButton
-            containerClassName="flex w-full items-center justify-between p-5 capitalize"
-            buttonClassName="w-[57px] h-7"
-          />
-        </div>
-      </motion.div>
+            variants={menuVariants}
+            animate="open"
+            exit="close"
+            className="fixed top-0 left-full h-fill border-l-2 border-l-dark dark:border-l-white text-dark dark:text-white dark:bg-dark bg-white z-[999] w-full text-4xl font-bold px-10"
+          >
+            <div className="w-full">
+              <ul className="mt-24">
+                {navMenuLinks.map((url, index) => (
+                  <Link
+                    key={index}
+                    className="nav-menu-link"
+                    href={index == 0 ? '/' : '/' + url}
+                    onClick={toggleMenu}
+                  >
+                    {url}
+                  </Link>
+                ))}
+              </ul>
+              <DarkThemeButton
+                containerClassName="flex w-full items-center justify-between p-5 capitalize"
+                buttonClassName="w-[57px] h-7"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
