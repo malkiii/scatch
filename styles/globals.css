@@ -63,6 +63,9 @@
   .image-layout-cover {
     @apply absolute top-0 left-0 w-full h-full opacity-0 focus-gradient transition-opacity hover:opacity-100;
   }
+  .filter-option {
+    @apply flex items-center gap-2 bg-white dark:bg-neutral-900 transition-colors p-3 first:rounded-t-md last:rounded-b-md capitalize;
+  }
 }
 
 @layer utilities {
