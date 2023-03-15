@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { AiOutlineArrowUp } from 'react-icons/ai';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const buttonTransition = {
   duration: 0.7,
@@ -40,14 +40,19 @@ const ScrollToTopButton: FC = () => {
   });
 
   return (
-    <motion.button
-      variants={buttonVariants}
-      animate={isScrolling ? 'visible' : 'hidden'}
-      className="theme-btn fixed -bottom-28 flex right-8 shadow-4xl text-white dark:text-dark aspect-square rounded-circle z-[1000] items-center justify-center"
-      onClick={scrollToTop}
-    >
-      <AiOutlineArrowUp size={22} />
-    </motion.button>
+    <AnimatePresence>
+      {isScrolling && (
+        <motion.button
+          variants={buttonVariants}
+          animate="visible"
+          exit="hidden"
+          className="theme-btn fixed -bottom-28 flex right-8 shadow-4xl text-white dark:text-dark aspect-square rounded-circle z-[1000] items-center justify-center"
+          onClick={scrollToTop}
+        >
+          <AiOutlineArrowUp size={22} />
+        </motion.button>
+      )}
+    </AnimatePresence>
   );
 };
 export default ScrollToTopButton;
