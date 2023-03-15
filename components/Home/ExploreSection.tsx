@@ -56,7 +56,7 @@ const ExploreSection: FC = () => {
         variants={conntainerVariants}
         className="max-w-[600px] aspect-[600/500] mx-auto"
       >
-        <div className="w-2/3 sm:w-80 h-11 mb-4 py-2 px-3 border-theme border-2 rounded-lg mx-auto bg-neutral-500/5">
+        <div className="w-2/3 sm:w-80 h-11 mb-4 py-2 px-3 border-theme border-2 rounded-lg mx-auto dark:bg-neutral-500/5">
           <TypeIt
             options={{
               loop: true,
@@ -84,13 +84,14 @@ const ExploreSection: FC = () => {
                   const id = searchNames[currentNameIndex] + '-' + imageIndex;
                   return (
                     <motion.img
+                      key={id}
+                      src={getImageUrl(imageIndex)}
+                      loading="eager"
+                      alt={id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ type: 'tween', delay: imageIndex / 50 }}
-                      key={id}
-                      alt={id}
                       className="w-full"
-                      src={getImageUrl(imageIndex)}
                     />
                   );
                 })}
