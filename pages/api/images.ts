@@ -20,6 +20,11 @@ export default async function handler(
 ) {
   const API_KEY = process.env.API_KEY as string;
   const fetchURL = getFetchURL(req.query);
+  const token = req.headers.token;
+  if (token != API_KEY) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
 
   try {
     const response = await fetch(fetchURL, {
