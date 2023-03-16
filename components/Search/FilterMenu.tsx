@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { BsAspectRatio } from 'react-icons/bs';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { FC, useState } from 'react';
+import { FC, useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type FilterMenuProps = {
@@ -21,8 +21,11 @@ const styles = {
     'bg-white dark:bg-neutral-900 dark:hover:bg-neutral-800 hover:bg-neutral-200'
 };
 
+const optionList = ['all', 'portrait', 'landscape'];
+
 const FilterMenu: FC<FilterMenuProps> = ({ query, focusOn }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   function toggleTheMenu() {
     setIsOpen(!isOpen);
   }
@@ -32,13 +35,21 @@ const FilterMenu: FC<FilterMenuProps> = ({ query, focusOn }) => {
     return `/search/${query}${optionParam}`;
   }
 
-  const optionList = ['all', 'portrait', 'landscape'];
-  // function changeOptionTo(option: string) {
-  //   setOption(option);
-  //   toggleTheMenu();
-  // }
+  const handleClickOutside = (event: MouseEvent) => {
+    const menuContainer = menuRef.current!;
+    const clickOnTheMenu = menuContainer.contains(event.target as Node);
+    if (!clickOnTheMenu) setIsOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative">
+    <div ref={menuRef} className="relative">
       <button
         className="flex items-center gap-1 border-2 p-2 rounded-md bg-white dark:bg-neutral-900 px-4 dark:border-white/40 dark:hover:border-white transition-colors group border-dark/40 hover:border-dark"
         onClick={toggleTheMenu}
