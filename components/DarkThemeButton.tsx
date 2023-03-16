@@ -6,18 +6,17 @@ type ButtonProps = {
   buttonClassName: string;
 };
 
-export const DarkThemeButton: FC<ButtonProps> = props => {
+const DarkThemeButton: FC<ButtonProps> = props => {
   const { setTheme } = useTheme();
   function toggleTheme() {
-    setTheme(
-      document.documentElement.classList.contains('dark') ? 'light' : 'dark'
-    );
+    const preferDarkTheme = document.documentElement.classList.contains('dark');
+    setTheme(preferDarkTheme ? 'light' : 'dark');
   }
 
   return (
     <button
       className={
-        'group hover:text-theme transition-all duration-200 ' +
+        'group hover:text-theme transition-colors duration-200 ' +
         props.containerClassName
       }
       onClick={toggleTheme}
@@ -25,10 +24,12 @@ export const DarkThemeButton: FC<ButtonProps> = props => {
       dark
       <div
         className={
-          'relative rounded-2xl after:absolute after:top-1/2 after:translate-y-[-48%] after:h-[90%] after:rounded-circle after:aspect-square group-hover:border-theme group-hover:after:bg-theme transition-inherit after:transition-inherit after:duration-500 border-2 dark:border-white border-dark dark:after:bg-white after:bg-dark dark:after:left-px after:left-[57%] ' +
+          'relative flex items-center rounded-2xl group-hover:border-theme transition-inherit border-2 dark:border-white border-dark  p-[2px] ' +
           props.buttonClassName
         }
-      ></div>
+      >
+        <div className="h-full aspect-square rounded-circle bg-dark dark:bg-white group-hover:bg-theme transition-inherit ml-auto dark:ml-0"></div>
+      </div>
     </button>
   );
 };
