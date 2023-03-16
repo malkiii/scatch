@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import NavbarMenu from './NavbarMenu';
 import { motion } from 'framer-motion';
 import { easeInOutExpo } from '../constants';
@@ -23,11 +23,11 @@ const navVariants = {
   }
 };
 
-function Navbar(props: NavbarProps) {
+const Navbar: FC<NavbarProps> = ({ router }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const animationProps =
-    props.router.pathname == '/'
+    router.pathname == '/'
       ? { variants: navVariants, initial: 'hidden', animate: 'visible' }
       : null;
 
@@ -72,5 +72,5 @@ function Navbar(props: NavbarProps) {
       <NavbarMenu open={open} setOpen={setOpen} />
     </>
   );
-}
+};
 export default withRouter(Navbar);
