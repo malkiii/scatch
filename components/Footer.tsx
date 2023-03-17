@@ -1,7 +1,7 @@
+import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FC } from 'react';
-import { socials } from '../constants/socials';
+import socials from '../constants/socials';
 
 const currentYear = new Date().getFullYear();
 

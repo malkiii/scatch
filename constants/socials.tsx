@@ -1,6 +1,6 @@
 import { FaFacebook, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
 
-export const socials = [
+const socials = [
   {
     name: 'Facebook',
     icon: <FaFacebook />,
@@ -22,3 +22,5 @@ export const socials = [
     url: 'https://github.com/malkiAbdoo'
   }
 ];
+
+export default socials;
