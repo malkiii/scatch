@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useRef, useEffect } from 'react';
 import { ResponseImage } from '../../hooks/useFetch';
 import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
 
@@ -39,11 +39,27 @@ const ImageCover: FC<ImageCoverProps> = ({ image }) => {
   );
 };
 
+const PreloadLayout: FC = () => {
+  return (
+    <>
+      {new Array(3).fill(null).map((_, col) => (
+        <div key={col} className="grid grid-cols-1 flex-grow gap-y-4">
+          {new Array(3).fill(null).map((_, row) => (
+            <div key={col + row * 3} className="h-96 bg-neutral-500/5"></div>
+          ))}
+        </div>
+      ))}
+    </>
+  );
+};
+
 const ImageLayout: FC<ImageLayoutProps> = ({ images }) => {
-  const [columnsNumber, setColumnsNumber] = useState<number>(3);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [columnsNumber, setColumnsNumber] = useState<number>(0);
+
   function updateColumnsNumber() {
-    const windowWidth = window.innerWidth;
-    setColumnsNumber(windowWidth > 1080 ? 3 : windowWidth > 680 ? 2 : 1);
+    const containerStyle = window.getComputedStyle(containerRef.current!);
+    setColumnsNumber(containerStyle.gridTemplateColumns.split(' ').length);
   }
 
   function getRowsNumber(): number {
@@ -58,37 +74,41 @@ const ImageLayout: FC<ImageLayoutProps> = ({ images }) => {
     return () => {
       window.removeEventListener('resize', updateColumnsNumber);
     };
-  });
+  }, []);
 
   return (
     <div
-      className="w-full grid gap-4 items-start"
-      style={{ gridTemplateColumns: `repeat(${columnsNumber}, 1fr)` }}
+      ref={containerRef}
+      className="w-full grid grid-cols-images gap-4 items-start"
     >
-      {new Array(columnsNumber).fill(null).map((_, col) => (
-        <div key={col} className="grid grid-cols-1 flex-grow gap-y-4">
-          {new Array(getRowsNumber()).fill(null).map((_, row) => {
-            const imageIndex = col + row * columnsNumber;
-            const currentImage = images[imageIndex];
-            if (!currentImage) return <></>;
-            return (
-              <div
-                key={currentImage.id}
-                className="relative"
-                style={{ backgroundColor: currentImage.avgColor }}
-              >
-                <Image
-                  src={currentImage.src + '?auto=compress&cs=tinysrgb&w=940'}
-                  width={currentImage.width}
-                  height={currentImage.height}
-                  alt="scatch image"
-                />
-                <ImageCover image={currentImage} />
-              </div>
-            );
-          })}
-        </div>
-      ))}
+      {columnsNumber ? (
+        new Array(columnsNumber).fill(null).map((_, col) => (
+          <div key={col} className="grid grid-cols-1 flex-grow gap-y-4">
+            {new Array(getRowsNumber()).fill(null).map((_, row) => {
+              const imageIndex = col + row * columnsNumber;
+              const currentImage = images[imageIndex];
+              if (!currentImage) return <></>;
+              return (
+                <div
+                  key={currentImage.id}
+                  className="relative"
+                  style={{ backgroundColor: currentImage.avgColor }}
+                >
+                  <Image
+                    src={currentImage.src + '?auto=compress&cs=tinysrgb&w=940'}
+                    width={currentImage.width}
+                    height={currentImage.height}
+                    alt="scatch image"
+                  />
+                  <ImageCover image={currentImage} />
+                </div>
+              );
+            })}
+          </div>
+        ))
+      ) : (
+        <PreloadLayout />
+      )}
     </div>
   );
 };
