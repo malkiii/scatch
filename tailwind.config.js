@@ -21,7 +21,11 @@ module.exports = {
       },
       boxShadow: {
         '3xl': '0 30px 60px -10px rgba(0, 0, 0, 0.5)',
-        '4xl': '0 15px 30px -5px rgba(0, 0, 0, 0.5)'
+        '4xl': '0 15px 30px -5px rgba(0, 0, 0, 0.5)',
+        progressbar: '0 0 10px, 0 0 5px'
+      },
+      gridTemplateColumns: {
+        images: 'repeat(auto-fill, minmax(320px, 1fr))'
       }
     }
   },
