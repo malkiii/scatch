@@ -64,7 +64,7 @@ export const useFetch = (
     const windowHeight = window.innerHeight;
     const fullHeight = document.body.scrollHeight;
     const scrollPosition = window.scrollY;
-    setIsCloseToEnd(scrollPosition >= fullHeight - windowHeight - 550);
+    setIsCloseToEnd(scrollPosition >= fullHeight - windowHeight - 860);
   };
 
   useEffect(() => {
