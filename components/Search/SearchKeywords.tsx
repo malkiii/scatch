@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 
-const keywords = ['Popular', 'Wallpapers', 'Food', 'Cars', 'Animals'];
+const keywords = ['Popular', 'Wallpapers 4k', 'Food', 'Cars', 'Animals'];
 
 const SearchKeywords: FC = () => {
   return (
@@ -10,7 +10,7 @@ const SearchKeywords: FC = () => {
         <Link
           key={index}
           className="theme-btn"
-          href={'/search/' + keyword.toLowerCase()}
+          href={'/search/' + keyword.toLowerCase().replace(' ', '%20')}
         >
           {keyword}
         </Link>
