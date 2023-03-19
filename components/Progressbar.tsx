@@ -38,9 +38,11 @@ const Progressbar: FC = () => {
   useEffect(() => {
     router.events.on('routeChangeStart', handleChanging);
     router.events.on('routeChangeComplete', handleComleting);
+    router.events.on('routeChangeError', handleComleting);
     return () => {
       router.events.off('routeChangeStart', handleChanging);
       router.events.off('routeChangeComplete', handleComleting);
+      router.events.off('routeChangeError', handleComleting);
     };
   }, []);
 
