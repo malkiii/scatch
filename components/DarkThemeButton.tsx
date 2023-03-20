@@ -24,7 +24,7 @@ const DarkThemeButton: FC<ButtonProps> = props => {
       dark
       <div
         className={
-          'relative flex items-center rounded-2xl group-hover:border-theme transition-inherit border-2 dark:border-white border-dark  p-[2px] ' +
+          'relative flex items-center rounded-2xl group-hover:border-theme transition-inherit border-2 dark:border-white border-dark  p-[2px] pt-[3px] ' +
           props.buttonClassName
         }
       >
