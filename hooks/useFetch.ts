@@ -9,6 +9,14 @@ export type ResponseImage = {
   src: string;
 };
 
+type FetchConfigs = {
+  endpoint: string;
+  searchQuery?: string;
+  initialImages?: ResponseImage[];
+  orientation?: string;
+  hasMore: boolean;
+};
+
 export const fetchImages = async (params: URLSearchParams) => {
   try {
     const ENDPOINT = 'http://localhost:3000/api/images?' + params;
@@ -32,15 +40,9 @@ export const fetchImages = async (params: URLSearchParams) => {
   }
 };
 
-export const useFetch = (
-  endpoint: string,
-  hasMore: boolean,
-  query?: string,
-  array?: ResponseImage[],
-  orientation?: string
-): ResponseImage[] => {
-  const [imageArray, setImageArray] = useState(array || []);
-  const [hasMorePages, setHasMorePages] = useState(hasMore);
+export const useFetch = (configs: FetchConfigs): ResponseImage[] => {
+  const [imageArray, setImageArray] = useState(configs.initialImages || []);
+  const [hasMorePages, setHasMorePages] = useState(configs.hasMore);
   const [isCloseToEnd, setIsCloseToEnd] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,11 +51,12 @@ export const useFetch = (
     setIsLoading(true);
     const params = new URLSearchParams({
       p: currentPage.toString(),
-      e: endpoint,
-      q: query || '',
-      o: orientation || 'all'
+      e: configs.endpoint,
+      q: configs.searchQuery || '',
+      o: configs.orientation || 'all'
     });
     const { newImages, hasMore } = await fetchImages(params);
+
     setImageArray(prevImages => [...prevImages, ...newImages]);
     setHasMorePages(hasMore);
     setIsLoading(false);
