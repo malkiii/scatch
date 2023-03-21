@@ -24,7 +24,16 @@ const navVariants = {
 };
 
 const Navbar: FC<NavbarProps> = ({ router }) => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  function toggleMenu() {
+    const bodyClasses = document.body.classList;
+    const isOnMobile = navigator.userAgent.includes('Mobile');
+
+    setIsOpen(!isOpen);
+    bodyClasses.toggle('overflow-y-hidden');
+    if (!isOnMobile) bodyClasses.add('pr-4');
+    else bodyClasses.remove('pr-4');
+  }
 
   const animationProps =
     router.pathname == '/'
@@ -63,13 +72,10 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
               Login
             </Link>
           </div>
-          <button
-            className="nav-menu-btn"
-            onClick={() => setOpen(!open)}
-          ></button>
+          <button className="nav-menu-btn" onClick={toggleMenu}></button>
         </motion.nav>
       </header>
-      <NavbarMenu open={open} setOpen={setOpen} />
+      <NavbarMenu isOpen={isOpen} onClick={toggleMenu} />
     </>
   );
 };
