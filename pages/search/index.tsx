@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { NextPage, GetServerSideProps } from 'next';
 import ImageLayout from '../../components/Search/ImageLayout';
-import SearchSection from '../../components/Search/SearchSection';
+import SearchInput from '../../components/Search/SearchInput';
 import ScrollToTopButton from '../../components/ScrollToTopButton';
 import SearchKeywords from '../../components/Search/SearchKeywords';
 import { useFetch, ResponseImage, fetchImages } from '../../hooks/useFetch';
@@ -20,14 +20,20 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 const Search: NextPage<Props> = ({ images, hasMore }) => {
-  const imageArray = useFetch('curated', hasMore, '', images);
+  const configs = {
+    endpoint: 'curated',
+    initialImages: images,
+    hasMore
+  };
+
+  const imageArray = useFetch(configs);
   return (
     <div className="px-8">
       <Head>
         <title>Search for images</title>
       </Head>
-      <SearchSection />
-      <div className="max-w-[1250px] mx-auto">
+      <SearchInput />
+      <div className="max-w-screen-xl mx-auto">
         <SearchKeywords />
         <ImageLayout images={imageArray} />
       </div>
