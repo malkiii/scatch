@@ -19,7 +19,7 @@ const SearchInput: FC<InputProps> = ({ value }) => {
 
   function goToSearchResultsPage() {
     const searchValue = inputRef.current!.value;
-    router.push('/search/' + generateSlug(searchValue));
+    if (searchValue) router.push('/search/' + generateSlug(searchValue));
   }
 
   function handleKeyDown(event: any) {
