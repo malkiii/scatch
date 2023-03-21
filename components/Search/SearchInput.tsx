@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { CgSearch } from 'react-icons/cg';
 import { FC, useRef, useEffect } from 'react';
 
-type SearchSectionProps = {
+type InputProps = {
   value?: string;
 };
 
@@ -13,7 +13,7 @@ function generateSlug(text: string) {
     .replace(/\s+/g, '%20');
 }
 
-const SearchSection: FC<SearchSectionProps> = ({ value }) => {
+const SearchInput: FC<InputProps> = ({ value }) => {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -58,4 +58,4 @@ const SearchSection: FC<SearchSectionProps> = ({ value }) => {
     </div>
   );
 };
-export default SearchSection;
+export default SearchInput;
