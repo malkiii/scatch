@@ -10,11 +10,12 @@ type layoutProps = {
 
 const Layout: FC<layoutProps> = ({ children }) => {
   const { systemTheme } = useTheme();
+  const favionPath = `/favicon-${systemTheme || 'light'}.ico`;
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href={`/favicon-${systemTheme || 'light'}.ico`} />
+        <link rel="icon" href={favionPath} />
       </Head>
       <Progressbar />
       <Navbar />
