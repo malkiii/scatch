@@ -20,13 +20,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 const Search: NextPage<Props> = ({ images, hasMore }) => {
-  const configs = {
+  const params = {
     endpoint: 'curated',
     initialImages: images,
     hasMore
   };
 
-  const imageArray = useFetch(configs);
+  const imageArray = useFetch(params);
   return (
     <div className="px-8">
       <Head>
@@ -35,7 +35,7 @@ const Search: NextPage<Props> = ({ images, hasMore }) => {
       <SearchInput />
       <div className="max-w-screen-xl mx-auto">
         <SearchKeywords />
-        <ImageLayout images={imageArray} />
+        <ImageLayout pathname="/search" images={imageArray} />
       </div>
       <ScrollToTopButton />
     </div>
