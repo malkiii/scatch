@@ -47,7 +47,7 @@ const HeroSection: FC = () => {
         >
           <motion.h1 variants={textVariants} className="my-4">
             welcome to{' '}
-            <span className="relative inline-block text-transparent bg-clip-text theme-gradient after:absolute after:w-0 after:h-1 after:theme-gradient after:left-0 after:-bottom-2 hover:after:w-full after:transition-all">
+            <span className="text-transparent bg-clip-text theme-gradient">
               Scatch
             </span>
           </motion.h1>
