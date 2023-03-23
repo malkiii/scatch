@@ -34,7 +34,7 @@ const SearchResults: NextPage<Props> = ({ searchQuery, images, hasMore }) => {
   const router = useRouter();
   const hasResults = images.length > 0;
   const orientation = (router.query!.o as string) || 'all';
-  const configs = {
+  const params = {
     endpoint: 'search',
     searchQuery,
     initialImages: images,
@@ -42,7 +42,7 @@ const SearchResults: NextPage<Props> = ({ searchQuery, images, hasMore }) => {
     hasMore
   };
 
-  const imageArray = useFetch(configs);
+  const imageArray = useFetch(params);
   return (
     <>
       <Head>
@@ -59,7 +59,7 @@ const SearchResults: NextPage<Props> = ({ searchQuery, images, hasMore }) => {
                 </h3>
                 <FilterMenu query={searchQuery} focusOn={orientation} />
               </div>
-              <ImageLayout images={imageArray} />
+              <ImageLayout pathname={router.pathname} images={imageArray} />
             </>
           ) : (
             <>
