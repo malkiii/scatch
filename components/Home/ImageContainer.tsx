@@ -1,11 +1,7 @@
+import { FC } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FC, MutableRefObject } from 'react';
 import { easeInOutExpo } from '../../constants';
-
-type Props = {
-  refs: MutableRefObject<HTMLDivElement[]>;
-};
 
 const imagesPositions = [
   'top-16 -right-10',
@@ -48,13 +44,7 @@ const layerVariants = {
   }
 };
 
-const ImageContainer: FC<Props> = ({ refs }) => {
-  const addRef = (element: any) => {
-    if (!element) return;
-    const hasThisElement = refs.current.includes(element);
-    if (!hasThisElement) refs.current.push(element);
-  };
-
+const ImageContainer: FC = () => {
   return (
     <motion.div
       className="relative w-full aspect-[560/400] lg:w-[560px]"
@@ -67,11 +57,7 @@ const ImageContainer: FC<Props> = ({ refs }) => {
         className="h-full border-theme border-2"
       ></motion.div>
       {imagesPositions.map((position, index) => (
-        <motion.div
-          key={index}
-          ref={addRef}
-          className={'hero-section-image ' + position}
-        >
+        <motion.div key={index} className={'hero-section-image ' + position}>
           <motion.div
             variants={imageVariants}
             className="h-full overflow-x-hidden absolute top-0 shadow-3xl"
