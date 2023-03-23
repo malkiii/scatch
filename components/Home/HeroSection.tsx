@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ImageContainer from './ImageContainer';
 import { easeInOutExpo } from '../../constants';
@@ -16,9 +16,28 @@ const textVariants = {
   }
 };
 
+const containerImagesSpeeds = [-2, 2, 4];
+
 const HeroSection: FC = () => {
+  const containerImagesRefs = useRef<HTMLDivElement[]>([]);
+
+  function handleMouseMove(e: any) {
+    const isOnMobile = navigator.userAgent.includes('Mobile');
+    if (isOnMobile) return;
+    containerImagesRefs.current.forEach((image, index) => {
+      const speed = containerImagesSpeeds[index];
+      const x = (window.innerWidth - e.pageX * speed) / 100;
+      const y = (window.innerHeight - e.pageY * speed) / 100;
+      image.style.translate = `${x}px ${y}px`;
+    });
+  }
+
   return (
-    <div className="pt-2 md:pt-20 lg:pt-36 pb-20">
+    <div
+      className="pt-2 md:pt-20 lg:pt-36 pb-20"
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseMove}
+    >
       <div className="flex justify-center items-center gap-8 mx-auto max-w-7xl flex-col lg:flex-row">
         <motion.div
           initial="hidden"
@@ -46,7 +65,7 @@ const HeroSection: FC = () => {
             </Link>
           </motion.div>
         </motion.div>
-        <ImageContainer />
+        <ImageContainer refs={containerImagesRefs} />
       </div>
     </div>
   );
