@@ -6,6 +6,9 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply text-dark dark:text-white dark:bg-dark font-monsterrat overflow-x-hidden transition-colors;
+  }
   body::-webkit-scrollbar {
     @apply w-4;
   }
@@ -52,7 +55,7 @@
     @apply absolute aspect-[1149/761] w-4/5 sm:w-3/4 top-0 left-1/2 text-white border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg;
   }
   .hero-section-image {
-    @apply absolute w-2/3 aspect-[1920/1080] shadow-3xl;
+    @apply absolute w-2/3 aspect-[1920/1080] select-none after:absolute after:inset-0 after:bg-theme after:w-0 after:top-0 after:z-10;
   }
   .footer-link {
     @apply flex items-center my-2 dark:text-white/90 text-dark/70 hover:text-dark dark:hover:text-theme transition-colors gap-3;
@@ -61,7 +64,7 @@
     @apply inline-block p-2 bg-white/90 text-dark transition-colors hover:bg-theme hover:text-white rounded-md;
   }
   .image-layout-cover {
-    @apply absolute top-0 left-0 w-full h-full opacity-0 focus-gradient transition-opacity hover:opacity-100;
+    @apply absolute top-0 left-0 w-full h-full opacity-0 before:absolute before:inset-0 before:focus-gradient before:pointer-events-none transition-opacity hover:opacity-100;
   }
   .filter-option {
     @apply flex items-center gap-2 bg-white dark:bg-neutral-900 transition-colors p-3 first:rounded-t-md last:rounded-b-md capitalize;
@@ -71,10 +74,6 @@
 @layer utilities {
   .transition-inherit {
     transition: inherit;
-  }
-  .h-fill {
-    height: -moz-available;
-    height: -webkit-fill-available;
   }
   .focus-gradient {
     background: radial-gradient(#0000, #0005);
