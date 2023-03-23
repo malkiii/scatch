@@ -31,8 +31,8 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
 
     setIsOpen(!isOpen);
     bodyClasses.toggle('overflow-y-hidden');
-    if (!isOnMobile) bodyClasses.add('pr-4');
-    else bodyClasses.remove('pr-4');
+    if (isOnMobile || isOpen) bodyClasses.remove('pr-4');
+    else bodyClasses.add('pr-4');
   }
 
   const animationProps =
