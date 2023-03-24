@@ -28,7 +28,8 @@ const Progressbar: FC = () => {
   const router = useRouter();
   const [isChanging, setIsChanging] = useState(false);
 
-  function handleChanging() {
+  function handleChanging(_: string, { shallow }: any) {
+    if (shallow) return;
     setIsChanging(true);
   }
   function handleComleting() {
