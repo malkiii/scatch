@@ -1,11 +1,11 @@
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 import { motion } from 'framer-motion';
 import ImageContainer from './ImageContainer';
 import { easeInOutExpo } from '../../constants';
 import Link from 'next/link';
 
 const textVariants = {
-  hidden: { y: 400, opacity: 0 },
+  hidden: { y: 300, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
