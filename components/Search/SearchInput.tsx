@@ -1,34 +1,27 @@
-import { useRouter } from 'next/router';
 import { CgSearch } from 'react-icons/cg';
-import { FC, useRef, useEffect } from 'react';
+import { FC, useRef } from 'react';
+import { NextRouter, withRouter } from 'next/router';
 
 type InputProps = {
   value?: string;
+  router: NextRouter;
 };
 
-function generateSlug(text: string) {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, '')
-    .replace(/\s+/g, '%20');
-}
-
-const SearchInput: FC<InputProps> = ({ value }) => {
-  const router = useRouter();
+const SearchInput: FC<InputProps> = ({ value, router }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  function goToSearchResultsPage() {
-    const searchValue = inputRef.current!.value;
-    if (searchValue) router.push('/search/' + generateSlug(searchValue));
+  function triggerTheSearch(input: HTMLInputElement) {
+    const searchValue = input.value;
+    if (searchValue)
+      router.push({
+        href: '/s/image/[query]',
+        query: { query: searchValue }
+      });
   }
 
   function handleKeyDown(event: any) {
-    if (event.key === 'Enter') goToSearchResultsPage();
+    if (event.key === 'Enter') triggerTheSearch(event.target);
   }
-
-  useEffect(() => {
-    inputRef.current!.value = value || '';
-  });
 
   return (
     <div className="mx-auto text-center pt-5 sm:pt-10">
@@ -42,6 +35,7 @@ const SearchInput: FC<InputProps> = ({ value }) => {
         <input
           type="search"
           ref={inputRef}
+          defaultValue={value}
           placeholder="Search.."
           className="h-full flex-grow outline-none bg-transparent py-2 px-4"
           onKeyDown={handleKeyDown}
@@ -50,7 +44,11 @@ const SearchInput: FC<InputProps> = ({ value }) => {
         />
         <button
           className="theme-btn py-2 px-5 sm:px-7 rounded-inherit"
-          onClick={goToSearchResultsPage}
+          onClick={e => {
+            // the search input must always be the previous element
+            const input = e.currentTarget.previousSibling as HTMLInputElement;
+            triggerTheSearch(input);
+          }}
         >
           <CgSearch size={30} className="inline text-center" />
         </button>
@@ -58,4 +56,4 @@ const SearchInput: FC<InputProps> = ({ value }) => {
     </div>
   );
 };
-export default SearchInput;
+export default withRouter(SearchInput);
