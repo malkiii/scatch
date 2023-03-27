@@ -84,11 +84,19 @@ const ImageGridLayout: FC<ImageLayoutProps> = ({ fullPath, images }) => {
                 return (
                   <Link
                     key={currentImage.id}
-                    href={`${pathname}?id=${imageIndex}`}
-                    as={`/search/scatch-${currentImage.id}`}
+                    href={pathname}
+                    onClick={e => {
+                      e.preventDefault();
+                      router.push(
+                        { href: pathname, query: { id: currentImage.id } },
+                        `/image/scatch-${currentImage.id}`,
+                        { shallow: true }
+                      );
+                    }}
                     className="relative"
                     style={{ backgroundColor: currentImage.avgColor }}
-                    shallow
+                    // as={`/image/scatch-${currentImage.id}`}
+                    // shallow
                   >
                     <Image
                       src={imageURL}
