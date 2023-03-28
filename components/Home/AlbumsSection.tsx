@@ -83,6 +83,7 @@ const AlbumsSection: FC = () => {
               }}
             >
               <Image
+                priority
                 src={`/assets/albums-section/image-${index + 1}.jpeg`}
                 className="w-full rounded-inherit"
                 alt="album"
