@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import { NextPage, GetServerSideProps } from 'next';
-import ScrollToTopButton from '../components/ScrollToTopButton';
-import { useFetch, ResponseImage, fetchImages } from '../hooks/useFetch';
+import ScrollToTopButton from '../../components/ScrollToTopButton';
+import { useFetch, ResponseImage, fetchImages } from '../../hooks/useFetch';
 import {
   SearchInput,
   SearchKeywords,
   ImageGridLayout
-} from '../components/Search';
+} from '../../components/Search';
 
 type Props = {
   images: ResponseImage[];
