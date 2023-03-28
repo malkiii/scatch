@@ -14,7 +14,7 @@ const SearchInput: FC<InputProps> = ({ value, router }) => {
     const searchValue = input.value;
     if (searchValue)
       router.push({
-        href: '/s/image/[query]',
+        pathname: '/search/[query]',
         query: { query: searchValue }
       });
   }
