@@ -1,8 +1,8 @@
 import { FC } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ImageContainer from './ImageContainer';
-import { easeInOutExpo } from '../../constants';
-import Link from 'next/link';
+import { easeInOutExpo } from '../../lib/easing';
 
 const textVariants = {
   hidden: { y: 300, opacity: 0 },

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { easeInOutExpo } from '../../constants';
+import { easeInOutExpo } from '../../lib/easing';
 
 const imagesPositions = [
   'top-16 -right-10',

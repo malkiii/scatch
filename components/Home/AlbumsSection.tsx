@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { easeOutExpo } from '../../constants';
+import { easeOutExpo } from '../../lib/easing';
 
 const conntainerVariants = {
   hidden: { y: 100, opacity: 0 },

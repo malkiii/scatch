@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { easeOutExpo } from '../../constants';
+import { easeOutExpo } from '../../lib/easing';
 import { useEffect, useState, FC } from 'react';
 
 const filters = [

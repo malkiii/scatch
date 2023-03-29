@@ -1,9 +1,9 @@
+import Head from 'next/head';
 import TypeIt from 'typeit-react';
 import { useState, FC } from 'react';
 import { motion } from 'framer-motion';
-import { easeOutExpo } from '../../constants';
+import { easeOutExpo } from '../../lib/easing';
 import { searchDemoImages } from '../../constants';
-import Head from 'next/head';
 
 const searchNames = Object.keys(searchDemoImages);
 const imagesURLs = new Array<string>().concat(
