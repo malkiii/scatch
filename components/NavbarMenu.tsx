@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { easeInOutExpo } from '../constants';
+import { easeInOutExpo } from '../lib/easing';
 import DarkThemeButton from './DarkThemeButton';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState, FC } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type NavMenuProps = {
   isOpen: boolean;
