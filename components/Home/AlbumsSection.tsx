@@ -66,14 +66,14 @@ const AlbumsSection: FC = () => {
         className="relative aspect-[500/430] w-full md:w-[500px] mt-10"
       >
         {new Array(4).fill(null).map((_, index) => {
-          const positionY = albumsNumber * 10 - index * 15;
+          const positionY = index * 15;
           return (
             <motion.div
               key={index}
               custom={index}
               variants={albumVariants}
               whileHover={{
-                y: positionY + (index != albumsNumber - 1 ? 60 : 0) + '%',
+                y: positionY + (index != albumsNumber - 1 ? -60 : 0) + '%',
                 transition: { duration: 0.4, type: 'spring' }
               }}
               className="album-example"
