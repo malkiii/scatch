@@ -22,7 +22,7 @@ const DarkThemeButton: FC<ButtonProps> = ({ className, children }) => {
       onClick={toggleTheme}
     >
       {children}
-      <div className="relative before:inline-block before:font-theme before:not-italic before:antialiased before:aspect-square before:font-normal before:content-dark dark:before:content-light before:mt-1"></div>
+      <div className="relative before:inline-block before:font-theme before:not-italic before:antialiased before:aspect-square before:font-normal before:content-dark dark:before:content-light before:mt-2"></div>
     </button>
   );
 };
