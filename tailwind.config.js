@@ -12,8 +12,13 @@ module.exports = {
         theme: 'rgb(34, 211, 238)'
       },
       fontFamily: {
+        theme: '"theme font"',
         monsterrat: ['Montserrat', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif']
+      },
+      content: {
+        dark: '"\\64"',
+        light: '"\\6c"'
       },
       borderRadius: {
         circle: '50%',
