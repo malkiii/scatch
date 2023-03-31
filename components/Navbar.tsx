@@ -26,13 +26,15 @@ const navVariants = {
 const Navbar: FC<NavbarProps> = ({ router }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   function toggleMenu() {
+    setIsOpen(!isOpen);
+    disableScrolling();
+  }
+
+  function disableScrolling() {
     const bodyClasses = document.body.classList;
     const isOnMobile = navigator.userAgent.includes('Mobile');
-
-    setIsOpen(!isOpen);
-    bodyClasses.toggle('overflow-y-hidden');
-    if (isOnMobile || isOpen) bodyClasses.remove('pr-4');
-    else bodyClasses.add('pr-4');
+    if (isOnMobile) bodyClasses.add('overflow-y-hidden');
+    else bodyClasses.remove('overflow-y-hidden');
   }
 
   const animationProps =
@@ -57,20 +59,17 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
               className="logo"
             />
           </Link>
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center">
             <Link href="/search" className="theme-link">
               Search
             </Link>
             <Link href="/albums" className="theme-link">
               My albums
             </Link>
-            <DarkThemeButton
-              containerClassName="inline-flex items-center gap-3 mr-10"
-              buttonClassName="w-10 h-5"
-            />
             <Link href="/" className="theme-btn">
               Login
             </Link>
+            <DarkThemeButton className="text-3xl ml-7" />
           </div>
           <button className="nav-menu-btn" onClick={toggleMenu}></button>
         </motion.nav>
