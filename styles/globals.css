@@ -30,6 +30,12 @@
   input[type='search']::-webkit-search-cancel-button {
     @apply appearance-none;
   }
+  @font-face {
+    font-family: 'theme font';
+    src: url('../public/theme-font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
 }
 
 @layer components {
@@ -68,6 +74,12 @@
   }
   .filter-option {
     @apply flex items-center gap-2 bg-white dark:bg-neutral-900 transition-colors p-3 first:rounded-t-md last:rounded-b-md capitalize;
+  }
+  .modal-arrow {
+    @apply text-7xl disabled:opacity-30 hover:text-theme transition-colors hover:disabled:text-current;
+  }
+  .modal-btn {
+    @apply font-semibold bg-white rounded-md text-dark hover:bg-theme hover:text-white transition-colors p-2 capitalize;
   }
 }
 
