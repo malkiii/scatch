@@ -6,7 +6,7 @@ type ButtonProps = {
   children?: ReactNode;
 };
 
-const DarkThemeButton: FC<ButtonProps> = ({ className, children }) => {
+const ColorSchemeButton: FC<ButtonProps> = ({ className, children }) => {
   const { setTheme } = useTheme();
 
   function toggleTheme() {
@@ -22,8 +22,8 @@ const DarkThemeButton: FC<ButtonProps> = ({ className, children }) => {
       onClick={toggleTheme}
     >
       {children}
-      <div className="relative before:inline-block before:font-theme before:not-italic before:antialiased before:aspect-square before:font-normal before:content-dark dark:before:content-light before:mt-2"></div>
+      <span className="flex items-center mt-1 cs-icon"></span>
     </button>
   );
 };
-export default DarkThemeButton;
+export default ColorSchemeButton;
