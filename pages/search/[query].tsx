@@ -47,7 +47,7 @@ const NoResults: FC<{ query: string }> = ({ query }) => {
   );
 };
 
-const SearchResults: NextPage<Props> = props => {
+const SearchResultsPage: NextPage<Props> = props => {
   const { searchQuery, images, hasMore, router } = props;
 
   const hasResults = images.length > 0;
@@ -92,4 +92,4 @@ const SearchResults: NextPage<Props> = props => {
     </>
   );
 };
-export default withRouter(SearchResults);
+export default withRouter(SearchResultsPage);

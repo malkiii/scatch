@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-const Search: NextPage<Props> = ({ images, hasMore }) => {
+const SearchPage: NextPage<Props> = ({ images, hasMore }) => {
   const params = {
     endpoint: 'curated',
     initialImages: images,
@@ -44,4 +44,4 @@ const Search: NextPage<Props> = ({ images, hasMore }) => {
     </div>
   );
 };
-export default Search;
+export default SearchPage;
