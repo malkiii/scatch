@@ -8,7 +8,7 @@ import {
   EditingSection
 } from '../components/Home';
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   return (
     <>
       <div className="px-8 overflow-x-hidden">
@@ -22,4 +22,4 @@ const Home: NextPage = () => {
     </>
   );
 };
-export default Home;
+export default HomePage;
