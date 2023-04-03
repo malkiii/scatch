@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 import NavbarMenu from './NavbarMenu';
 import { motion } from 'framer-motion';
 import { easeInOutExpo } from '../lib/easing';
-import DarkThemeButton from './DarkThemeButton';
+import ColorSchemeButton from './ColorSchemeButton';
 import { withRouter, NextRouter } from 'next/router';
 
 type NavbarProps = {
@@ -69,7 +69,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
             <Link href="/" className="theme-btn">
               Login
             </Link>
-            <DarkThemeButton className="text-3xl ml-7" />
+            <ColorSchemeButton className="text-3xl ml-7" />
           </div>
           <button className="nav-menu-btn" onClick={toggleMenu}></button>
         </motion.nav>
