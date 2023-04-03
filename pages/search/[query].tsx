@@ -81,7 +81,7 @@ const SearchResultsPage: NextPage<Props> = props => {
                 </h3>
                 <FilterMenu query={searchQuery} focusOn={orientation} />
               </div>
-              <ImageGridLayout fullPath={currentPathname} images={imageArray} />
+              <ImageGridLayout pagePath={currentPathname} images={imageArray} />
             </>
           ) : (
             <NoResults query={searchQuery} />

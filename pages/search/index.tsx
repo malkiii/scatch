@@ -38,7 +38,7 @@ const SearchPage: NextPage<Props> = ({ images, hasMore }) => {
       <SearchInput />
       <div className="max-w-screen-xl mx-auto">
         <SearchKeywords />
-        <ImageGridLayout fullPath="/search" images={imageArray} />
+        <ImageGridLayout pagePath="/search" images={imageArray} />
       </div>
       <ScrollToTopButton />
     </div>
