@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { NextPage, GetServerSideProps } from 'next';
-import { fetchImages } from '../../lib/fetchImages';
+import { fetchImages } from '../../utils/fetchImages';
 import { useFetch, ResponseImage } from '../../hooks/useFetch';
 import ScrollToTopButton from '../../components/ScrollToTopButton';
 import {

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { FC, useState } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
-import { fetchImages } from '../../lib/fetchImages';
+import { fetchImages } from '../../utils/fetchImages';
 import { withRouter, NextRouter } from 'next/router';
 import { useFetch, ResponseImage } from '../../hooks/useFetch';
 import ScrollToTopButton from '../../components/ScrollToTopButton';
