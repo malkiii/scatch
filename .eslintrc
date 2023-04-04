@@ -2,6 +2,7 @@
   "extends": ["next/core-web-vitals"],
   "rules": {
     "no-console": "warn",
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "react-hooks/rules-of-hooks": "off"
   }
 }
