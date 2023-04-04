@@ -34,7 +34,58 @@ const viewport = {
   amount: 0.6
 };
 
-const albumsNumber = 4;
+const AlbumImage: FC<{ number: number }> = ({ number }) => {
+  return (
+    <>
+      <Image
+        priority
+        src={`/assets/albums-section/image-${number}.jpeg`}
+        className="w-full rounded-inherit"
+        alt="album"
+        fill
+      />
+      <span className="absolute bottom-3 left-4 opacity-70 font-bold">
+        album
+      </span>
+    </>
+  );
+};
+
+const AlbunmsContainer: FC = () => {
+  const albumsNumber = 4;
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewport}
+      transition={transition}
+      className="relative aspect-[500/430] w-full md:w-[500px] mt-10"
+    >
+      {new Array(4).fill(null).map((_, index) => {
+        const positionY = albumsNumber * 10 - index * 15;
+        const albumPosition = index != albumsNumber - 1 ? 60 : 0;
+        return (
+          <motion.div
+            key={index}
+            custom={index}
+            variants={albumVariants}
+            whileHover={{
+              y: positionY + albumPosition + '%',
+              transition: { duration: 0.4, type: 'spring' }
+            }}
+            className="album-example"
+            style={{
+              zIndex: index,
+              y: positionY + '%'
+            }}
+          >
+            <AlbumImage number={index + 1} />
+          </motion.div>
+        );
+      })}
+    </motion.div>
+  );
+};
 
 const AlbumsSection: FC = () => {
   return (
@@ -58,44 +109,7 @@ const AlbumsSection: FC = () => {
           See your albums
         </Link>
       </motion.div>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewport}
-        transition={transition}
-        className="relative aspect-[500/430] w-full md:w-[500px] mt-10"
-      >
-        {new Array(4).fill(null).map((_, index) => {
-          const positionY = albumsNumber * 10 - index * 15;
-          return (
-            <motion.div
-              key={index}
-              custom={index}
-              variants={albumVariants}
-              whileHover={{
-                y: positionY + (index != albumsNumber - 1 ? 60 : 0) + '%',
-                transition: { duration: 0.4, type: 'spring' }
-              }}
-              className="album-example"
-              style={{
-                zIndex: index,
-                y: positionY + '%'
-              }}
-            >
-              <Image
-                priority
-                src={`/assets/albums-section/image-${index + 1}.jpeg`}
-                className="w-full rounded-inherit"
-                alt="album"
-                fill
-              />
-              <span className="absolute bottom-3 left-4 opacity-70 font-bold">
-                album
-              </span>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+      <AlbunmsContainer />
     </motion.div>
   );
 };
