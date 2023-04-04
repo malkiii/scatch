@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import { fetchImages } from '../../utils/fetchImages';
 import { withRouter, NextRouter } from 'next/router';
-import { useFetch, ResponseImage } from '../../hooks/useFetch';
+import { useInfinitScroll, ResponseImage } from '../../hooks/useInfinitScroll';
 import ScrollToTopButton from '../../components/ScrollToTopButton';
 import {
   FilterMenu,
@@ -60,7 +60,7 @@ const SearchResultsPage: NextPage<Props> = props => {
     hasMore
   };
 
-  const imageArray = useFetch(params);
+  const imageArray = useInfinitScroll(params);
   const [currentPathname, _] = useState<string>(router.asPath);
 
   return (

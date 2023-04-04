@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { NextPage, GetServerSideProps } from 'next';
 import { fetchImages } from '../../utils/fetchImages';
-import { useFetch, ResponseImage } from '../../hooks/useFetch';
+import { useInfinitScroll, ResponseImage } from '../../hooks/useInfinitScroll';
 import ScrollToTopButton from '../../components/ScrollToTopButton';
 import {
   SearchInput,
@@ -29,7 +29,8 @@ const SearchPage: NextPage<Props> = ({ images, hasMore }) => {
     hasMore
   };
 
-  const imageArray = useFetch(params);
+  const imageArray = useInfinitScroll(params);
+
   return (
     <div className="px-8">
       <Head>
