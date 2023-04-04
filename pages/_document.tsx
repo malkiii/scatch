@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <link
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/malkiAbdoo/color-scheme-icon-cdn/cs-icon.css"
+          href="https://cdn.jsdelivr.net/gh/malkiAbdoo/color-scheme-icon-cdn/cs-icons.css"
         />
       </Head>
       <body>
