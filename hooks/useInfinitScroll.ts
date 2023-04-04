@@ -1,5 +1,5 @@
+import { fetchImages } from '../utils/fetchImages';
 import { useState, useEffect, useCallback } from 'react';
-import { fetchImages } from '../lib/fetchImages';
 
 export type ResponseImage = {
   id: number;
@@ -18,7 +18,8 @@ type FetchConfigs = {
   hasMore: boolean;
 };
 
-export const useFetch = (configs: FetchConfigs): ResponseImage[] => {
+/* eslint-disable react-hooks/exhaustive-deps */
+export const useInfinitScroll = (configs: FetchConfigs): ResponseImage[] => {
   const [imageArray, setImageArray] = useState(configs.initialImages || []);
   const [hasMorePages, setHasMorePages] = useState(configs.hasMore);
   const [isCloseToEnd, setIsCloseToEnd] = useState(false);
