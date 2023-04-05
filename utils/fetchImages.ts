@@ -1,15 +1,25 @@
-import { ResponseImage } from '../hooks/useFetch';
+import { ResponseImage } from '../hooks/useInfinitScroll';
 
-export const fetchImages = async (params: URLSearchParams) => {
+type ResponseData = {
+  images: ResponseImage[];
+  hasMore: boolean;
+};
+
+export const fetchImages = async (
+  params: Record<string, string>,
+  signal?: AbortSignal
+): Promise<ResponseData> => {
   try {
-    const ENDPOINT = 'http://localhost:3000/api/images?' + params;
+    const PARAMS = new URLSearchParams(params);
+    const ENDPOINT = 'http://localhost:3000/api/images?' + PARAMS;
+
     const API_TOKEN = process.env.API_TOKEN as string;
-    const response = await fetch(ENDPOINT, {
-      headers: { token: API_TOKEN }
-    });
+    const headers = { token: API_TOKEN };
+
+    const response = await fetch(ENDPOINT, { headers, signal });
     const data = await response.json();
 
-    const newImages: ResponseImage[] = data.photos.map((image: any) => ({
+    const images: ResponseImage[] = data.photos.map((image: any) => ({
       id: image.id,
       width: image.width,
       height: image.height,
@@ -17,8 +27,9 @@ export const fetchImages = async (params: URLSearchParams) => {
       avgColor: image.avg_color,
       src: image.src.original
     }));
-    return { newImages, hasMore: 'next_page' in data };
-  } catch (err) {
-    return { newImages: [], hasMore: false };
+
+    return { images, hasMore: 'next_page' in data };
+  } catch (error) {
+    return { images: [], hasMore: false };
   }
 };
