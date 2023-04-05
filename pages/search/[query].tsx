@@ -25,14 +25,14 @@ type RouteQuery = {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { query: searchQuery, o: orientation } = query as RouteQuery;
-  const searchParams = new URLSearchParams({ e: 'search', q: searchQuery });
-  if (orientation) searchParams.append('o', orientation);
+  const searchParams: Record<string, string> = { e: 'search', q: searchQuery };
+  if (orientation) searchParams.o = orientation;
 
-  const { newImages, hasMore } = await fetchImages(searchParams);
+  const { images, hasMore } = await fetchImages(searchParams);
   const key = searchQuery + (orientation || '');
 
   return {
-    props: { searchQuery, images: newImages, hasMore, key }
+    props: { searchQuery, images, hasMore, key }
   };
 };
 

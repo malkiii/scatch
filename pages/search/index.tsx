@@ -15,11 +15,10 @@ type Props = {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const searchParams = new URLSearchParams({ e: 'curated' });
-  const { newImages, hasMore } = await fetchImages(searchParams);
-  return {
-    props: { images: newImages, hasMore }
-  };
+  const searchParams = { e: 'curated' };
+  const data = await fetchImages(searchParams);
+
+  return { props: data };
 };
 
 const SearchPage: NextPage<Props> = ({ images, hasMore }) => {
