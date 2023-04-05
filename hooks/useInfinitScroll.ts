@@ -26,20 +26,24 @@ export const useInfinitScroll = (configs: FetchConfigs): ResponseImage[] => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  const appendNewImages = useCallback(async () => {
-    setIsLoading(true);
-    const params = new URLSearchParams({
-      p: currentPage.toString(),
-      e: configs.endpoint,
-      q: configs.searchQuery || '',
-      o: configs.orientation || 'all'
-    });
-    const { newImages, hasMore } = await fetchImages(params);
+  const appendNewImages = useCallback(
+    async (signal: AbortSignal) => {
+      setIsLoading(true);
 
-    setImageArray(prevImages => [...prevImages, ...newImages]);
-    setHasMorePages(hasMore);
-    setIsLoading(false);
-  }, [currentPage]);
+      const params = {
+        p: currentPage.toString(),
+        e: configs.endpoint,
+        q: configs.searchQuery || '',
+        o: configs.orientation || 'all'
+      };
+      const { images: newImages, hasMore } = await fetchImages(params, signal);
+
+      setImageArray(prevImages => [...prevImages, ...newImages]);
+      setHasMorePages(hasMore);
+      setIsLoading(false);
+    },
+    [currentPage]
+  );
 
   const updateImageLayout = () => {
     if (isLoading) return;
@@ -50,7 +54,10 @@ export const useInfinitScroll = (configs: FetchConfigs): ResponseImage[] => {
   };
 
   useEffect(() => {
-    if (currentPage > 1) appendNewImages();
+    if (currentPage > 1) {
+      const controler = new AbortController();
+      appendNewImages(controler.signal);
+    }
   }, [currentPage]);
 
   useEffect(() => {
