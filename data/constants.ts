@@ -24,3 +24,22 @@ export const searchDemoImages = {
     'https://images.pexels.com/photos/92866/pexels-photo-92866.jpeg'
   ]
 };
+
+export const socials = [
+  {
+    name: 'Facebook',
+    url: 'https://web.facebook.com/malkii.abdoo'
+  },
+  {
+    name: 'Twitter',
+    url: 'https://twitter.com/malkiAbdoo'
+  },
+  {
+    name: 'Instagram',
+    url: 'https://www.instagram.com/malki.abdoo'
+  },
+  {
+    name: 'Github',
+    url: 'https://github.com/malkiAbdoo'
+  }
+];
