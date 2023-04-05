@@ -1,7 +1,36 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import socials from '../constants/socials';
+import { socials } from '../data/constants';
+import { FaFacebook, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
+
+const socialIcons = {
+  Facebook: <FaFacebook />,
+  Instagram: <FaInstagram />,
+  Twitter: <FaTwitter />,
+  Github: <FaGithub />
+};
+
+type SocialName = keyof typeof socialIcons;
+
+const SocialList: FC = () => {
+  return (
+    <div>
+      <h4>Social</h4>
+      {socials.map(({ name, url }) => (
+        <a
+          key={name}
+          href={url}
+          className="footer-link"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {socialIcons[name as SocialName]} {name}
+        </a>
+      ))}
+    </div>
+  );
+};
 
 const currentYear = new Date().getFullYear();
 
@@ -38,20 +67,7 @@ const Footer: FC = () => {
                 Blog
               </Link>
             </div>
-            <div>
-              <h4>Social</h4>
-              {socials.map(({ name, icon, url }) => (
-                <a
-                  key={name}
-                  href={url}
-                  className="footer-link"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {icon} {name}
-                </a>
-              ))}
-            </div>
+            <SocialList />
           </div>
         </div>
         <div className="text-center py-6 border-t dark:border-t-white/50 border-t-dark/50">
