@@ -31,7 +31,7 @@ const SearchPage: NextPage<Props> = ({ images, hasMore }) => {
   const imageArray = useInfinitScroll(params);
 
   return (
-    <div className="px-8">
+    <div className="px-2">
       <Head>
         <title>Search for images</title>
       </Head>

@@ -70,7 +70,7 @@ const SearchResultsPage: NextPage<Props> = props => {
           {searchQuery + ' images | Search and save in your albums'}
         </title>
       </Head>
-      <div className="px-8">
+      <div className="px-2">
         <SearchInput value={searchQuery} />
         <div className="max-w-screen-xl mx-auto">
           {hasResults ? (
