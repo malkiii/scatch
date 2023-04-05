@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { FC, useState } from 'react';
 import NavbarMenu from './NavbarMenu';
 import { motion } from 'framer-motion';
-import { easeInOutExpo } from '../lib/easing';
+import { easeInOutExpo } from '../utils/easing';
 import ColorSchemeButton from './ColorSchemeButton';
 import { withRouter, NextRouter } from 'next/router';
 
@@ -21,6 +21,20 @@ const navVariants = {
       ease: easeInOutExpo
     }
   }
+};
+
+const Logo: FC = () => {
+  return (
+    <Link href="/">
+      <Image
+        src="/logotype.svg"
+        alt="Logo"
+        width={144}
+        height={39}
+        className="logo"
+      />
+    </Link>
+  );
 };
 
 const Navbar: FC<NavbarProps> = ({ router }) => {
@@ -44,21 +58,12 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
 
   return (
     <>
-      <header className="relative h-20 w-full px-8">
-        {undefined}
+      <header className="relative h-20 w-full px-4">
         <motion.nav
           {...animationProps}
           className="flex items-center justify-between max-w-7xl h-full mx-auto overflow-y-hidden"
         >
-          <Link href="/">
-            <Image
-              src="/logotype.svg"
-              alt="Logo"
-              width={144}
-              height={39}
-              className="logo"
-            />
-          </Link>
+          <Logo />
           <div className="hidden md:flex items-center">
             <Link href="/search" className="theme-link">
               Search
@@ -74,7 +79,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
           <button className="nav-menu-btn" onClick={toggleMenu}></button>
         </motion.nav>
       </header>
-      <NavbarMenu isOpen={isOpen} onClick={toggleMenu} />
+      <NavbarMenu isOpen={isOpen} toggle={toggleMenu} />
     </>
   );
 };
