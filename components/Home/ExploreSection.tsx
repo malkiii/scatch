@@ -3,7 +3,7 @@ import TypeIt from 'typeit-react';
 import { useState, FC } from 'react';
 import { motion } from 'framer-motion';
 import { easeOutExpo } from '../../utils/easing';
-import { searchDemoImages } from '../../constants';
+import { searchDemoImages } from '../../data/constants';
 
 const searchNames = Object.keys(searchDemoImages);
 const imagesURLs = new Array<string>().concat(
