@@ -1,48 +1,115 @@
-import { FC } from 'react';
-import { ResponseImage } from '../../hooks/useFetch';
+import { FC, ReactNode } from 'react';
+import { ResponseImage } from '../../hooks/useInfinitScroll';
 import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
 
-type LayerProps = {
+const logoSize = 25;
+function cancelEvents(e: any) {
+  e.stopPropagation();
+}
+
+type WithImage = {
   image: ResponseImage;
 };
+type WithChildren = {
+  children: ReactNode;
+};
+type WithClassName = {
+  className?: string;
+};
 
-const ImageLayer: FC<LayerProps> = ({ image }) => {
-  const logoSize = 25;
+type PhotographerNameProps = {
+  name: string;
+} & WithClassName;
+
+export const PhotographerName: FC<PhotographerNameProps> = ({
+  name,
+  className
+}) => {
+  const styleClasses = className || '';
+  return (
+    <strong className={'font-normal text-white ' + styleClasses}>
+      By {name}
+    </strong>
+  );
+};
+
+type SaveButtonPros = WithClassName;
+export const SaveButton: FC<SaveButtonPros> = props => {
+  const className = props.className || '';
+  return (
+    <a
+      href=""
+      className={'image-layer-btn ' + className}
+      onClick={cancelEvents}
+    >
+      <CgMathPlus size={logoSize} />
+    </a>
+  );
+};
+
+type DownloadButtonPops = {
+  content: 'text' | 'icon';
+} & WithImage &
+  WithClassName;
+
+export const DownloadButton: FC<DownloadButtonPops> = props => {
+  const { image, content } = props;
+  const className = props.className || '';
   const downloadURL = `${image.src}?cs=srgb&dl=scatch-${image.id}.jpg&fm=jpg`;
-  function cancelEvents(e: any) {
-    e.stopPropagation();
-  }
+
+  return (
+    <a
+      href={downloadURL}
+      className={'image-layer-btn ' + className}
+      onClick={cancelEvents}
+    >
+      {content == 'icon' ? <CgSoftwareDownload size={logoSize} /> : 'Download'}
+    </a>
+  );
+};
+
+type InnerLayerProps = WithImage;
+
+const InnerImageLayer: FC<InnerLayerProps> = ({ image }) => {
+  return (
+    <div className="image-layout-cover">
+      <SaveButton className="absolute top-5 right-5" />
+      <div className="absolute w-full bottom-0 p-5 flex items-center justify-between">
+        <PhotographerName name={image.photographer} />
+        <DownloadButton image={image} content="icon" />
+      </div>
+    </div>
+  );
+};
+
+type OuterLayerProps = WithImage & WithChildren;
+const OuterImageLayer: FC<OuterLayerProps> = ({ image, children }) => {
+  return (
+    <div key={image.id}>
+      <PhotographerName name={image.photographer} className="block py-3" />
+      {children}
+      <div className="w-full flex items-center justify-between pt-3">
+        <SaveButton />
+        <DownloadButton image={image} content="text" />
+      </div>
+    </div>
+  );
+};
+
+type LayerProps = {
+  hasMobileSize: boolean;
+} & WithImage &
+  WithChildren;
+
+export const ImageLayer: FC<LayerProps> = props => {
+  const { image, hasMobileSize, children } = props;
+  if (hasMobileSize)
+    return <OuterImageLayer image={image}>{children}</OuterImageLayer>;
 
   return (
     <>
-      <a
-        href={downloadURL}
-        className="sm:hidden absolute bottom-5 right-5 text-white hover:text-theme transition-colors p-2"
-      >
-        <CgSoftwareDownload size={40} />
-      </a>
-      <div className="hidden sm:block image-layout-cover">
-        <a
-          href=""
-          className="image-layout-btn absolute top-5 right-5"
-          onClick={cancelEvents}
-        >
-          <CgMathPlus size={logoSize} />
-        </a>
-        <div className="absolute w-full bottom-0 p-5 flex items-center justify-between">
-          <strong className="font-normal text-white">
-            By {image.photographer}
-          </strong>
-          <a
-            href={downloadURL}
-            className="image-layout-btn"
-            onClick={cancelEvents}
-          >
-            <CgSoftwareDownload size={logoSize} />
-          </a>
-        </div>
-      </div>
+      {children}
+      <InnerImageLayer image={image} />
     </>
   );
 };
-export default ImageLayer;
