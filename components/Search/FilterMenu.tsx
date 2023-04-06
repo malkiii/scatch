@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import Link from 'next/link';
 import { BsAspectRatio } from 'react-icons/bs';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { FC, useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useToggleMenu } from '../../hooks/useToggleMenu';
 
 type FilterMenuProps = {
   query: string;
@@ -15,54 +16,72 @@ const menuVarinats = {
   visible: { opacity: 1, transition }
 };
 
-const styles = {
-  focus: 'dark:text-dark dark:bg-white bg-neutral-200',
-  unfocus:
-    'bg-white dark:bg-neutral-900 dark:hover:bg-neutral-800 hover:bg-neutral-200'
-};
+type OptionListProps = FilterMenuProps;
 
-const optionList = ['all', 'portrait', 'landscape'];
-
-const FilterMenu: FC<FilterMenuProps> = ({ query, focusOn }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  function toggleTheMenu() {
-    setIsOpen(!isOpen);
-  }
+const OptionList: FC<OptionListProps> = ({ query, focusOn }) => {
+  const options = ['all', 'portrait', 'landscape'];
+  const styles = {
+    focus: 'dark:text-dark dark:bg-white bg-neutral-200',
+    unfocus:
+      'bg-white dark:bg-neutral-900 dark:hover:bg-neutral-800 hover:bg-neutral-200'
+  };
 
   function getFilterURL(option: string): string {
     const optionParam = option == 'all' ? '' : '?o=' + option;
     return `/search/${query}${optionParam}`;
   }
 
-  const handleClickOutside = (event: MouseEvent) => {
-    const menuContainer = menuRef.current!;
-    const clickOnTheMenu = menuContainer.contains(event.target as Node);
-    if (!clickOnTheMenu) setIsOpen(false);
-  };
+  return (
+    <ul>
+      {options.map((option, index) => (
+        <Link
+          key={index}
+          href={getFilterURL(option)}
+          className={
+            'filter-option ' +
+            (focusOn == option ? styles.focus : styles.unfocus)
+          }
+        >
+          {option != 'all' && (
+            <BsAspectRatio
+              className={option == 'portrait' ? 'rotate-90' : ''}
+            />
+          )}
+          {option}
+        </Link>
+      ))}
+    </ul>
+  );
+};
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+type FilterButtonProps = {
+  open: boolean;
+  onClick: () => void;
+};
 
+const FilterButton: FC<FilterButtonProps> = ({ open, onClick }) => {
+  return (
+    <button
+      className="flex items-center gap-1 border-2 p-2 rounded-md px-4 dark:border-white/40 dark:hover:border-white transition-colors group border-dark/40 hover:border-dark"
+      onClick={onClick}
+    >
+      Filter
+      <MdKeyboardArrowDown
+        size={22}
+        className={
+          'transition-all dark:text-white/40 dark:group-hover:text-white text-dark/40 group-hover:text-dark ' +
+          (open ? 'rotate-180' : '')
+        }
+      />
+    </button>
+  );
+};
+
+const FilterMenu: FC<FilterMenuProps> = props => {
+  const { isOpen, menuRef, toggle } = useToggleMenu();
   return (
     <div ref={menuRef} className="relative">
-      <button
-        className="flex items-center gap-1 border-2 p-2 rounded-md bg-white dark:bg-neutral-900 px-4 dark:border-white/40 dark:hover:border-white transition-colors group border-dark/40 hover:border-dark"
-        onClick={toggleTheMenu}
-      >
-        Filter
-        <MdKeyboardArrowDown
-          size={22}
-          className={
-            'transition-all dark:text-white/40 dark:group-hover:text-white text-dark/40 group-hover:text-dark ' +
-            (isOpen ? 'rotate-180' : '')
-          }
-        />
-      </button>
+      <FilterButton open={isOpen} onClick={toggle} />
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -72,25 +91,7 @@ const FilterMenu: FC<FilterMenuProps> = ({ query, focusOn }) => {
             animate="visible"
             exit="hidden"
           >
-            <ul>
-              {optionList.map((option, index) => (
-                <Link
-                  key={index}
-                  href={getFilterURL(option)}
-                  className={
-                    'filter-option ' +
-                    (focusOn == option ? styles.focus : styles.unfocus)
-                  }
-                >
-                  {option != 'all' && (
-                    <BsAspectRatio
-                      className={option == 'portrait' ? 'rotate-90' : ''}
-                    />
-                  )}
-                  {option}
-                </Link>
-              ))}
-            </ul>
+            <OptionList {...props} />
           </motion.div>
         )}
       </AnimatePresence>
