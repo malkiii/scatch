@@ -17,13 +17,6 @@ type ModalImage = {
   src: string;
 };
 
-type ModalProps = {
-  image: ModalImage;
-  actions: ModalActions;
-  containerRef: ContainerRef;
-  children?: ReactNode;
-};
-
 function disableScrolling(ok: boolean) {
   const bodyClasses = document.body.classList;
   const classNames = ['pr-4', 'overflow-y-hidden'];
@@ -54,8 +47,10 @@ const LoadedImage: FC<LoadedImageProps> = props => {
 
   function handleMouseMove(event: any) {
     if (!inZoomMod) return;
+    const container = imageContainerRef.current;
+    if (!container) return;
+
     const { pageX, pageY } = event;
-    const container = imageContainerRef.current!;
     const viewRect = container.parentElement! as HTMLDivElement;
     const { offsetHeight: height, offsetWidth: width } = viewRect;
     const offsetX = viewRect.offsetLeft + window.scrollX;
@@ -64,6 +59,7 @@ const LoadedImage: FC<LoadedImageProps> = props => {
     const posY = pageY - offsetY;
     const x = (posX / width) * 100;
     const y = (posY / height) * 100 + 45;
+
     getImageElement().style.transform = `translate(${-x}%, ${-y}%)`;
   }
 
@@ -99,19 +95,14 @@ const LoadedImage: FC<LoadedImageProps> = props => {
   );
 };
 
-export const ImageModal: FC<ModalProps> = props => {
-  const { image, actions, containerRef, children } = props;
-  const { prev, next, close } = actions;
-  function handleClick(e: any) {
-    const clickOutside = e.target === e.currentTarget;
-    if (clickOutside) {
-      disableScrolling(false);
-      close();
-    }
-  }
+type ImageContainerProps = {
+  image: ModalImage;
+  containerRef: ContainerRef;
+  children?: ReactNode;
+};
 
-  disableScrolling(true);
-
+const ImageContainer: FC<ImageContainerProps> = props => {
+  const { image, containerRef, children } = props;
   const [inZoomMod, setInZoomMod] = useState<boolean>(false);
   function toggleZoom() {
     setInZoomMod(!inZoomMod);
@@ -129,30 +120,74 @@ export const ImageModal: FC<ModalProps> = props => {
 
   return (
     <div
+      className={
+        inZoomMod
+          ? 'flex items-center justify-center w-full h-full overflow-hidden'
+          : 'max-h-[80vh]'
+      }
+      style={{ aspectRatio }}
+    >
+      {!inZoomMod && children}
+      <LoadedImage {...zoomImageProps} />
+    </div>
+  );
+};
+
+type ModalButtonsProps = {
+  actions: ModalActions;
+  children: ReactNode;
+};
+
+const ModalButtons: FC<ModalButtonsProps> = ({ actions, children }) => {
+  const { prev, next } = actions;
+  return (
+    <>
+      <button onClick={prev} className="modal-arrow" disabled={!prev}>
+        <LeftArrow />
+      </button>
+      {children}
+      <button onClick={next} className="modal-arrow" disabled={!next}>
+        <RightArrow />
+      </button>
+    </>
+  );
+};
+
+type ModalProps = {
+  image: ModalImage;
+  actions: ModalActions;
+  containerRef: ContainerRef;
+  children?: ReactNode;
+};
+
+export const ImageModal: FC<ModalProps> = props => {
+  const { image, actions, containerRef, children } = props;
+  const { close } = actions;
+
+  disableScrolling(true);
+
+  function handleClick(e: any) {
+    const clickOutside = e.target === e.currentTarget;
+    if (clickOutside) {
+      disableScrolling(false);
+      close();
+    }
+  }
+
+  const imageContainerProps = { image, containerRef };
+
+  return (
+    <div
       onClick={handleClick}
       className="fixed px-40 top-0 left-0 z-[995] w-screen h-screen bg-dark/40 dark:bg-dark/60"
     >
       <div
         onClick={handleClick}
-        className="absolute inset-0 flex items-center justify-between m-auto max-w-6xl py-10"
+        className="absolute inset-0 flex items-center justify-between m-auto max-w-6xl py-10 px-3"
       >
-        <button onClick={prev} className="modal-arrow" disabled={!prev}>
-          <LeftArrow />
-        </button>
-        <div
-          className={
-            inZoomMod
-              ? 'flex items-center justify-center w-full h-full overflow-hidden'
-              : 'max-h-[80vh]'
-          }
-          style={{ aspectRatio }}
-        >
-          {!inZoomMod && children}
-          <LoadedImage {...zoomImageProps} />
-        </div>
-        <button onClick={next} className="modal-arrow" disabled={!next}>
-          <RightArrow />
-        </button>
+        <ModalButtons actions={actions}>
+          <ImageContainer {...imageContainerProps}>{children}</ImageContainer>
+        </ModalButtons>
       </div>
     </div>
   );
