@@ -1,13 +1,14 @@
+import { FC } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import ImageModal from './ImageModal';
-import ImageLayer from './ImageLayer';
 import { useRouter } from 'next/router';
-import { ResponseImage } from '../../hooks/useFetch';
-import { FC, useState, useRef, useEffect } from 'react';
+import { ImageLayer } from './ImageLayer';
+import { default as Img } from 'next/image';
+import SearchImageModal from './SearchImageModal';
+import { ResponseImage } from '../../hooks/useInfinitScroll';
+import { useGridColumnsNumber } from '../../hooks/useGridColumnsNumber';
 
 type ImageLayoutProps = {
-  fullPath?: string;
+  pagePath: string;
   images: ResponseImage[];
 };
 
@@ -25,46 +26,55 @@ const PreloadLayout: FC = () => {
   );
 };
 
-const ImageGridLayout: FC<ImageLayoutProps> = ({ fullPath, images }) => {
-  const router = useRouter();
-  const { pathname } = router;
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [columnsNumber, setColumnsNumber] = useState<number>(0);
+type GridImageProps = {
+  index: number;
+  pathname: string;
+  image: ResponseImage;
+  hasMobileSize: boolean;
+};
 
-  function updateColumnsNumber() {
-    const containerStyle = window.getComputedStyle(containerRef.current!);
-    setColumnsNumber(containerStyle.gridTemplateColumns.split(' ').length);
-  }
+const GridImage: FC<GridImageProps> = props => {
+  const { index, image, pathname, hasMobileSize } = props;
+  const { id, width, height, src, avgColor } = image;
+
+  const imageURL = `${src}?auto=compress&cs=tinysrgb&w=940`;
+
+  const layerProps = { image, hasMobileSize };
+  const linkProps = {
+    href: {
+      pathname,
+      query: { query: id, i: index }
+    },
+    as: `/image/${id}`,
+    className: 'relative',
+    shallow: true
+  };
+
+  return (
+    <Link {...linkProps}>
+      <ImageLayer {...layerProps}>
+        <Img
+          key={id}
+          src={imageURL}
+          width={width}
+          height={height}
+          style={{ backgroundColor: avgColor }}
+          alt="scatch image"
+        />
+      </ImageLayer>
+    </Link>
+  );
+};
+
+const ImageGridLayout: FC<ImageLayoutProps> = ({ pagePath, images }) => {
+  const router = useRouter();
+  const { columnsNumber, containerRef } = useGridColumnsNumber();
 
   function getRowsNumber(): number {
     const reminder = images.length % 6;
     const imageNumber = images.length + (reminder == 0 ? 0 : 6 - reminder);
     return imageNumber / columnsNumber;
   }
-
-  function switchBy(imageNumber: number) {
-    const imageIndex = Number(router.query.id) + imageNumber;
-    const inRange = imageIndex >= 0 && imageIndex < images.length;
-    if (!inRange) return;
-
-    const href = `${pathname}?id=${imageIndex}`;
-    const as = `/search/scatch-${images[imageIndex].id}`;
-    router.push(href, as, { shallow: true });
-  }
-
-  function returnToMainPage() {
-    router.push(fullPath || pathname);
-  }
-
-  useEffect(() => {
-    updateColumnsNumber();
-    window.addEventListener('resize', updateColumnsNumber);
-    window.addEventListener('beforeunload', returnToMainPage);
-    return () => {
-      window.removeEventListener('resize', updateColumnsNumber);
-      window.removeEventListener('beforeunload', returnToMainPage);
-    };
-  }, []);
 
   return (
     <>
@@ -80,32 +90,15 @@ const ImageGridLayout: FC<ImageLayoutProps> = ({ fullPath, images }) => {
                 const currentImage = images[imageIndex];
                 if (!currentImage) return <></>;
 
-                const imageURL = `${currentImage.src}?auto=compress&cs=tinysrgb&w=940`;
+                const { id } = currentImage;
                 return (
-                  <Link
-                    key={currentImage.id}
-                    href={pathname}
-                    onClick={e => {
-                      e.preventDefault();
-                      router.push(
-                        { href: pathname, query: { id: currentImage.id } },
-                        `/image/scatch-${currentImage.id}`,
-                        { shallow: true }
-                      );
-                    }}
-                    className="relative"
-                    style={{ backgroundColor: currentImage.avgColor }}
-                    // as={`/image/scatch-${currentImage.id}`}
-                    // shallow
-                  >
-                    <Image
-                      src={imageURL}
-                      width={currentImage.width}
-                      height={currentImage.height}
-                      alt="scatch image"
-                    />
-                    <ImageLayer image={currentImage} />
-                  </Link>
+                  <GridImage
+                    key={id}
+                    index={imageIndex}
+                    image={currentImage}
+                    pathname={router.pathname}
+                    hasMobileSize={columnsNumber == 1}
+                  />
                 );
               })}
             </div>
@@ -114,17 +107,7 @@ const ImageGridLayout: FC<ImageLayoutProps> = ({ fullPath, images }) => {
           <PreloadLayout />
         )}
       </div>
-      {!!router.query.id && (
-        <ImageModal
-          image={images[Number(router.query.id)]}
-          next={() => switchBy(1)}
-          prev={() => switchBy(-1)}
-          close={() => {
-            const href = fullPath || pathname;
-            router.push(href, undefined, { shallow: true });
-          }}
-        />
-      )}
+      <SearchImageModal images={images} pagePath={pagePath} />
     </>
   );
 };
