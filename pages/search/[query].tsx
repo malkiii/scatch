@@ -38,12 +38,12 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
 const NoResults: FC<{ query: string }> = ({ query }) => {
   return (
-    <>
-      <h3 className="text-2xl sm:text-3xl lg:text-5xl mb-5 first-letter:capitalize">
+    <div className="text-center">
+      <h3 className="text-2xl sm:text-3xl lg:text-5xl mb-5">
         No results for “{query}”.
       </h3>
       <p className="text-xl sm:text-2xl lg:text-4xl">Try another search.</p>
-    </>
+    </div>
   );
 };
 
@@ -63,16 +63,16 @@ const SearchResultsPage: NextPage<Props> = props => {
   const imageArray = useInfinitScroll(params);
   const [currentPathname, _] = useState<string>(router.asPath);
 
+  const title = searchQuery + ' images | Search and save in your albums';
+
   return (
     <>
       <Head>
-        <title>
-          {searchQuery + ' images | Search and save in your albums'}
-        </title>
+        <title>{title}</title>
       </Head>
-      <div className="px-2">
+      <div>
         <SearchInput value={searchQuery} />
-        <div className="max-w-screen-xl mx-auto">
+        <div className="max-w-screen-xl mx-auto bg-cs-change p-4 rounded-3xl">
           {hasResults ? (
             <>
               <div className="flex items-center justify-between w-full mb-5">
