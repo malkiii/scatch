@@ -47,7 +47,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
   function disableScrolling() {
     const bodyClasses = document.body.classList;
     const isOnMobile = navigator.userAgent.includes('Mobile');
-    if (isOnMobile) bodyClasses.add('overflow-y-hidden');
+    if (isOnMobile && !isOpen) bodyClasses.add('overflow-y-hidden');
     else bodyClasses.remove('overflow-y-hidden');
   }
 
@@ -58,7 +58,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
 
   return (
     <>
-      <header className="relative h-20 w-full px-4">
+      <header className="relative h-20 w-full px-5">
         <motion.nav
           {...animationProps}
           className="flex items-center justify-between max-w-7xl h-full mx-auto overflow-y-hidden"
