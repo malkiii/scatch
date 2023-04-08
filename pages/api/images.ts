@@ -15,27 +15,29 @@ function getFetchURL({ e, q, p, o }: any) {
 }
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
+  request: NextApiRequest,
+  response: NextApiResponse
 ) {
-  const API_KEY = process.env.API_KEY as string;
-  const fetchURL = getFetchURL(req.query);
-  const token = req.headers.token;
-  if (token != API_KEY) {
-    res.status(401).json({ error: 'Unauthorized' });
+  const API_TOKEN = process.env.API_TOKEN as string;
+  const isAuthorized = request.headers.token === API_TOKEN;
+  if (!isAuthorized) {
+    response.status(401).json({ error: 'Unauthorized' });
     return;
   }
 
+  const fetchURL = getFetchURL(request.query);
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: API_TOKEN
+    }
+  };
+
   try {
-    const response = await fetch(fetchURL, {
-      method: 'GET',
-      headers: {
-        Authorization: API_KEY
-      }
-    });
-    const data = await response.json();
-    res.status(200).json(data);
+    const res = await fetch(fetchURL, options);
+    const data = await res.json();
+    response.status(200).json(data);
   } catch (error) {
-    res.status(500).json(error);
+    response.status(500).json(error);
   }
 }
