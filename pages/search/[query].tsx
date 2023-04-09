@@ -10,9 +10,11 @@ import {
   ImageGridLayout,
   SearchInput
 } from '../../components/Search';
+import translateToEnglish from '../../utils/translate';
 
-type Props = {
-  searchQuery: string;
+type PageProps = {
+  searchKeyword: string;
+  fetchQuery: string;
   images: ResponseImage[];
   hasMore: boolean;
   router: NextRouter;
@@ -23,16 +25,20 @@ type RouteQuery = {
   o: string;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { query: searchQuery, o: orientation } = query as RouteQuery;
-  const searchParams: Record<string, string> = { e: 'search', q: searchQuery };
-  if (orientation) searchParams.o = orientation;
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { query: searchKeyword, o: orientation } = context.query as RouteQuery;
+  const fetchQuery = await translateToEnglish(searchKeyword);
+  const searchParams: Record<string, string> = {
+    e: 'search',
+    q: fetchQuery,
+    o: orientation
+  };
 
   const { images, hasMore } = await fetchImages(searchParams);
-  const key = searchQuery + (orientation || '');
+  const key = searchKeyword + (orientation || '');
 
   return {
-    props: { searchQuery, images, hasMore, key }
+    props: { searchKeyword, fetchQuery, images, hasMore, key }
   };
 };
 
@@ -47,14 +53,14 @@ const NoResults: FC<{ query: string }> = ({ query }) => {
   );
 };
 
-const SearchResultsPage: NextPage<Props> = props => {
-  const { searchQuery, images, hasMore, router } = props;
+const SearchResultsPage: NextPage<PageProps> = props => {
+  const { searchKeyword, fetchQuery, images, hasMore, router } = props;
 
   const hasResults = images.length > 0;
   const orientation = (router.query!.o as string) || 'all';
   const params = {
     endpoint: 'search',
-    searchQuery,
+    fetchQuery,
     initialImages: images,
     orientation,
     hasMore
@@ -63,7 +69,7 @@ const SearchResultsPage: NextPage<Props> = props => {
   const imageArray = useInfinitScroll(params);
   const [currentPathname, _] = useState<string>(router.asPath);
 
-  const title = searchQuery + ' images | Search and save in your albums';
+  const title = `${searchKeyword} images | Search and save in your albums`;
 
   return (
     <>
@@ -71,20 +77,20 @@ const SearchResultsPage: NextPage<Props> = props => {
         <title>{title}</title>
       </Head>
       <div>
-        <SearchInput value={searchQuery} />
+        <SearchInput value={searchKeyword} />
         <div className="max-w-screen-xl mx-auto bg-cs-change p-4 rounded-3xl">
           {hasResults ? (
             <>
               <div className="flex items-center justify-between w-full mb-5">
                 <h3 className="font-bold text-2xl lg:text-4xl first-letter:capitalize">
-                  {searchQuery} images.
+                  {searchKeyword} images.
                 </h3>
-                <FilterMenu query={searchQuery} focusOn={orientation} />
+                <FilterMenu query={searchKeyword} focusOn={orientation} />
               </div>
               <ImageGridLayout pagePath={currentPathname} images={imageArray} />
             </>
           ) : (
-            <NoResults query={searchQuery} />
+            <NoResults query={searchKeyword} />
           )}
         </div>
         <ScrollToTopButton />
