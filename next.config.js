@@ -5,6 +5,7 @@ module.exports = {
     domains: ['images.pexels.com']
   },
   env: {
+    HOSTNAME: process.env.HOSTNAME,
     API_TOKEN: process.env.API_KEY
   }
 };
