@@ -1,43 +1,45 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import withApiMiddleware from './withApiMiddleware';
 
-function getFetchURL({ e, q, p, o }: any) {
-  const endpointName = e;
-  const orientation = o == 'all' ? '' : o;
+type RequestQuery = Record<string, string>;
+
+async function getFetchURL(requestQuery: RequestQuery): Promise<URL> {
   const { API_ENDPOINT } = process.env;
-  const searchParams = new URLSearchParams({
-    page: p || '1',
-    per_page: '24'
-  });
-  if (endpointName == 'search') searchParams.append('query', q);
-  if (orientation) searchParams.append('orientation', orientation);
+  const endpointName = '/v1/' + requestQuery.e;
+  const orientation = requestQuery.o || 'all';
 
-  return `${API_ENDPOINT}/${endpointName}?${searchParams}`;
+  const endpointURL = new URL(endpointName, API_ENDPOINT);
+  endpointURL.searchParams.set('page', requestQuery.p || '1');
+  endpointURL.searchParams.set('per_page', '24');
+
+  if (endpointName.includes('search'))
+    endpointURL.searchParams.set('query', requestQuery.q);
+
+  if (orientation != 'all')
+    endpointURL.searchParams.set('orientation', requestQuery.o);
+
+  return endpointURL;
 }
 
-export default async function handler(
-  request: NextApiRequest,
-  response: NextApiResponse
-) {
-  const API_TOKEN = process.env.API_TOKEN as string;
-  const isAuthorized = request.headers.token === API_TOKEN;
-  if (!isAuthorized) {
-    response.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
+export default withApiMiddleware(
+  async (request: NextApiRequest, response: NextApiResponse) => {
+    const API_KEY = process.env.API_KEY as string;
 
-  const fetchURL = getFetchURL(request.query);
-  const options = {
-    method: 'GET',
-    headers: {
-      Authorization: API_TOKEN
+    const fetchURL = await getFetchURL(request.query as RequestQuery);
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: API_KEY
+      }
+    };
+
+    try {
+      const res = await fetch(fetchURL, options);
+      const data = await res.json();
+
+      response.status(200).json(data);
+    } catch (error) {
+      response.status(500).json(error);
     }
-  };
-
-  try {
-    const res = await fetch(fetchURL, options);
-    const data = await res.json();
-    response.status(200).json(data);
-  } catch (error) {
-    response.status(500).json(error);
   }
-}
+);
