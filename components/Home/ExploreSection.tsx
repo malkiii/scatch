@@ -68,7 +68,7 @@ const ExploreSection: FC = () => {
         className="pb-20 pt-10 lg:pt-32 overflow-hidden"
       >
         <motion.div variants={conntainerVariants} className="text-center">
-          <h2>Explore and save your favored pictures.</h2>
+          <h2>Search for images in any language.</h2>
           <p className="text-xl mb-8">
             On the explore page, you can search and save your favored images or
             download them with <span className="text-theme">10,000+</span>{' '}
