@@ -10,10 +10,12 @@ export const fetchImages = async (
   signal?: AbortSignal
 ): Promise<ResponseData> => {
   try {
-    const PARAMS = new URLSearchParams(params);
-    const ENDPOINT = 'http://localhost:3000/api/images?' + PARAMS;
-
+    const HOSTNAME = process.env.HOSTNAME;
     const API_TOKEN = process.env.API_TOKEN as string;
+
+    const PARAMS = new URLSearchParams(params);
+    const ENDPOINT = `${HOSTNAME}/api/images?${PARAMS}`;
+
     const headers = { token: API_TOKEN };
 
     const response = await fetch(ENDPOINT, { headers, signal });
