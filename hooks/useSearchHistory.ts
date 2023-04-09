@@ -8,7 +8,7 @@ export const useSearchHistory = (prefix = '') => {
   function getSearchHistory(): SearchHistory {
     const searchHistory = localStorage.getItem('search_history');
     const values: SearchHistory = JSON.parse(searchHistory || '[]');
-    return values.filter(value => value.startsWith(prefix));
+    return values.filter(value => value.startsWith(prefix) && value != prefix);
   }
 
   useEffect(() => {
