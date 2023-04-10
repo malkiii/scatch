@@ -1,4 +1,4 @@
-import { ResponseImage } from '@hooks/useInfinitScroll';
+import { ResponseImage } from '@utils/types';
 
 type ResponseData = {
   images: ResponseImage[];
@@ -13,12 +13,12 @@ export const fetchImages = async (
     const HOSTNAME = process.env.HOSTNAME;
     const API_TOKEN = process.env.API_TOKEN as string;
 
-    const PARAMS = new URLSearchParams(params);
-    const ENDPOINT = `${HOSTNAME}/api/images?${PARAMS}`;
+    const endpointURL = new URL('/api/images', HOSTNAME);
+    endpointURL.search = new URLSearchParams(params).toString();
 
     const headers = { token: API_TOKEN };
 
-    const response = await fetch(ENDPOINT, { headers, signal });
+    const response = await fetch(endpointURL, { headers, signal });
     const data = await response.json();
 
     const images: ResponseImage[] = data.photos.map((image: any) => ({
