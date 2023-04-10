@@ -1,7 +1,8 @@
 import Head from 'next/head';
-import { NextPage, GetServerSideProps } from 'next';
+import { ResponseImage } from '@utils/types';
 import { fetchImages } from '@utils/fetchImages';
-import { useInfinitScroll, ResponseImage } from '@hooks/useInfinitScroll';
+import { NextPage, GetServerSideProps } from 'next';
+import { useInfinitScroll } from '@hooks/useInfinitScroll';
 import ScrollToTopButton from '@components/ScrollToTopButton';
 import {
   SearchInput,

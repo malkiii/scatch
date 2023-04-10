@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ImageLayer } from './ImageLayer';
 import { default as Img } from 'next/image';
+import { ResponseImage } from '@utils/types';
 import SearchImageModal from './SearchImageModal';
-import { ResponseImage } from '@hooks/useInfinitScroll';
 import { useGridColumnsNumber } from '@hooks/useGridColumnsNumber';
 
 type ImageLayoutProps = {
