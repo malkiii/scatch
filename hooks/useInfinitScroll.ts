@@ -1,18 +1,10 @@
-import { fetchImages } from '../utils/fetchImages';
+import { ResponseImage } from '@utils/types';
+import { fetchImages } from '@utils/fetchImages';
 import { useState, useEffect, useCallback } from 'react';
-
-export type ResponseImage = {
-  id: number;
-  width: number;
-  height: number;
-  photographer: string;
-  avgColor: string;
-  src: string;
-};
 
 type FetchConfigs = {
   endpoint: string;
-  searchQuery?: string;
+  fetchQuery?: string;
   initialImages?: ResponseImage[];
   orientation?: string;
   hasMore: boolean;
@@ -33,7 +25,7 @@ export const useInfinitScroll = (configs: FetchConfigs): ResponseImage[] => {
       const params = {
         p: currentPage.toString(),
         e: configs.endpoint,
-        q: configs.searchQuery || '',
+        q: configs.fetchQuery || '',
         o: configs.orientation || 'all'
       };
       const { images: newImages, hasMore } = await fetchImages(params, signal);
@@ -57,6 +49,9 @@ export const useInfinitScroll = (configs: FetchConfigs): ResponseImage[] => {
     if (currentPage > 1) {
       const controler = new AbortController();
       appendNewImages(controler.signal);
+      return () => {
+        controler.abort();
+      };
     }
   }, [currentPage]);
 
