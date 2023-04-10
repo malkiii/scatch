@@ -1,12 +1,12 @@
 import type { NextPage } from 'next';
-import Footer from '../components/Footer';
-import ScrollToTopButton from '../components/ScrollToTopButton';
+import Footer from '@components/Footer';
+import ScrollToTopButton from '@components/ScrollToTopButton';
 import {
   HeroSection,
   ExploreSection,
   AlbumsSection,
   EditingSection
-} from '../components/Home';
+} from '@components/Home';
 
 const HomePage: NextPage = () => {
   return (

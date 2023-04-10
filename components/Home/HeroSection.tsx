@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { easeInOutExpo } from '../../utils/easing';
+import { easeInOutExpo } from '@utils/easing';
 
 const textVariants = {
   hidden: { y: 300, opacity: 0 },

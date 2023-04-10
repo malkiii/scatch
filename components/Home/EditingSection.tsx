@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { easeOutExpo } from '../../utils/easing';
+import { easeOutExpo } from '@utils/easing';
 import { useEffect, useState, FC } from 'react';
 
 const filters = [
@@ -33,6 +33,12 @@ const imageVariants = {
   }
 };
 
+const animationProps = {
+  initial: 'hidden',
+  whileInView: 'visible',
+  viewport: { once: true, amount: 0.6 }
+};
+
 const EditingSection: FC = () => {
   const [currentFilterIndex, setCurrentFilterIndex] = useState<number>(-1);
 
@@ -49,14 +55,10 @@ const EditingSection: FC = () => {
   });
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.6 }}
-      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10"
-    >
+    <motion.div className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10">
       <div className="relative aspect-[609/761] w-full sm:w-[400px] mt-12 lg:mt-0">
         <motion.div
+          {...animationProps}
           variants={imageVariants}
           onUpdate={() => setCurrentFilterIndex(0)}
           className="absolute w-full h-full overflow-hidden"
@@ -77,6 +79,7 @@ const EditingSection: FC = () => {
         </motion.div>
       </div>
       <motion.div
+        {...animationProps}
         variants={containerVariants}
         className="max-w-[550px] text-center lg:text-left"
       >

@@ -1,16 +1,12 @@
 import Head from 'next/head';
 import { FC, useState } from 'react';
+import { fetchImages } from '@utils/fetchImages';
+import translateToEnglish from '@utils/translate';
 import { NextPage, GetServerSideProps } from 'next';
-import { fetchImages } from '../../utils/fetchImages';
 import { withRouter, NextRouter } from 'next/router';
-import { useInfinitScroll, ResponseImage } from '../../hooks/useInfinitScroll';
-import ScrollToTopButton from '../../components/ScrollToTopButton';
-import {
-  FilterMenu,
-  ImageGridLayout,
-  SearchInput
-} from '../../components/Search';
-import translateToEnglish from '../../utils/translate';
+import ScrollToTopButton from '@components/ScrollToTopButton';
+import { useInfinitScroll, ResponseImage } from '@hooks/useInfinitScroll';
+import { FilterMenu, ImageGridLayout, SearchInput } from '@components/Search';
 
 type PageProps = {
   searchKeyword: string;

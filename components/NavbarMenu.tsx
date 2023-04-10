@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { easeInOutExpo } from '../utils/easing';
+import { easeInOutExpo } from '@utils/easing';
 import { useEffect, useState, FC } from 'react';
 import ColorSchemeButton from './ColorSchemeButton';
 import { motion, AnimatePresence } from 'framer-motion';

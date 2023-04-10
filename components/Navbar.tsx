@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { FC, useState } from 'react';
 import NavbarMenu from './NavbarMenu';
 import { motion } from 'framer-motion';
-import { easeInOutExpo } from '../utils/easing';
+import { easeInOutExpo } from '@utils/easing';
 import ColorSchemeButton from './ColorSchemeButton';
 import { withRouter, NextRouter } from 'next/router';
 

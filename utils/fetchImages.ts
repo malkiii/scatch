@@ -1,4 +1,4 @@
-import { ResponseImage } from '../hooks/useInfinitScroll';
+import { ResponseImage } from '@hooks/useInfinitScroll';
 
 type ResponseData = {
   images: ResponseImage[];

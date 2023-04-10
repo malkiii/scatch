@@ -1,13 +1,13 @@
 import Head from 'next/head';
 import { NextPage, GetServerSideProps } from 'next';
-import { fetchImages } from '../../utils/fetchImages';
-import { useInfinitScroll, ResponseImage } from '../../hooks/useInfinitScroll';
-import ScrollToTopButton from '../../components/ScrollToTopButton';
+import { fetchImages } from '@utils/fetchImages';
+import { useInfinitScroll, ResponseImage } from '@hooks/useInfinitScroll';
+import ScrollToTopButton from '@components/ScrollToTopButton';
 import {
   SearchInput,
   SearchKeywords,
   ImageGridLayout
-} from '../../components/Search';
+} from '@components/Search';
 
 type Props = {
   images: ResponseImage[];

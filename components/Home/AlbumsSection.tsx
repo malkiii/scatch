@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { easeOutExpo } from '../../utils/easing';
+import { easeOutExpo } from '@utils/easing';
 
 const conntainerVariants = {
   hidden: { y: 100, opacity: 0 },
@@ -26,12 +26,11 @@ const albumVariants = {
   }
 };
 
-const transition = {
-  staggerChildren: 0.1
-};
-const viewport = {
-  once: true,
-  amount: 0.6
+const animationProps = {
+  initial: 'hidden',
+  whileInView: 'visible',
+  viewport: { once: true, amount: 0.6 },
+  transition: { staggerChildren: 0.1 }
 };
 
 const AlbumImage: FC<{ number: number }> = ({ number }) => {
@@ -55,10 +54,7 @@ const AlbunmsContainer: FC = () => {
   const albumsNumber = 4;
   return (
     <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewport}
-      transition={transition}
+      {...animationProps}
       className="relative aspect-[500/430] w-full md:w-[500px] mt-10"
     >
       {new Array(4).fill(null).map((_, index) => {
@@ -90,10 +86,7 @@ const AlbunmsContainer: FC = () => {
 const AlbumsSection: FC = () => {
   return (
     <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewport}
-      transition={transition}
+      {...animationProps}
       className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-20 gap-x-10"
     >
       <motion.div

@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { ResponseImage } from '../../hooks/useInfinitScroll';
+import { ResponseImage } from '@hooks/useInfinitScroll';
 import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
 
 const logoSize = 25;
