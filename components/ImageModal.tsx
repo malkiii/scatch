@@ -86,11 +86,7 @@ const LoadedImage: FC<LoadedImageProps> = props => {
       onMouseMove={handleMouseMove}
       onClick={handleMouseClick}
     >
-      <Image
-        {...imageProps}
-        className="bg-no-repeat bg-cover"
-        alt="scatch image"
-      />
+      <Image {...imageProps} className="bg-image" alt="scatch image" />
     </div>
   );
 };
