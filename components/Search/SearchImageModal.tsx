@@ -1,9 +1,9 @@
 import ImageModal from '../ImageModal';
-import getBlurhash from '@utils/blurhash';
 import { ResponseImage } from '@utils/types';
-import { FC, useEffect, useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useModalRoute } from '@hooks/useModalRoute';
 import { DownloadButton, PhotographerName, SaveButton } from './ImageLayer';
+import { useBlurhashImage } from '@hooks/useBlurhashImage';
 
 type ImageNavProps = {
   image: ResponseImage;
@@ -33,24 +33,10 @@ const SearchImageModal: FC<ModalProps> = props => {
   if (modalIndex == null) return <></>;
 
   const imageContainerRef = useRef<HTMLDivElement>(null);
-
   const currentImage = images[modalIndex];
-  const { src, avgColor } = currentImage;
-  const preloadImageURL = `${src}?auto=compress&cs=tinysrgb&w=4`;
+  const { src } = currentImage;
 
-  const preloadBlurhashImage = async () => {
-    const blurhash = await getBlurhash(preloadImageURL);
-    const container = imageContainerRef.current!;
-    if (container) {
-      const image = container.firstElementChild as HTMLImageElement;
-      image.style.backgroundImage = `url(${blurhash})`;
-      image.style.backgroundColor = avgColor;
-    }
-  };
-
-  useEffect(() => {
-    preloadBlurhashImage();
-  });
+  useBlurhashImage(imageContainerRef, src);
 
   return (
     <ImageModal
