@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import withApiMiddleware from './withApiMiddleware';
+import withApiMiddleware from '../../utils/middlewares/withApiMiddleware';
 
 const translateEndpointURL =
   'https://microsoft-translator-text.p.rapidapi.com/translate?to%5B0%5D=en&api-version=3.0&profanityAction=NoAction&textType=plain';

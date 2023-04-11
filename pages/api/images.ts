@@ -1,16 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import withApiMiddleware from './withApiMiddleware';
+import withApiMiddleware from '../../utils/middlewares/withApiMiddleware';
 
 type RequestQuery = Record<string, string>;
 
 async function getFetchURL(requestQuery: RequestQuery): Promise<URL> {
   const { API_ENDPOINT } = process.env;
   const endpointName = '/v1/' + requestQuery.e;
-  const orientation = requestQuery.o || 'all';
 
   const endpointURL = new URL(endpointName, API_ENDPOINT);
+  if (endpointName.includes('photos')) return endpointURL;
+
   endpointURL.searchParams.set('page', requestQuery.p || '1');
   endpointURL.searchParams.set('per_page', '24');
+
+  const orientation = requestQuery.o || 'all';
 
   if (endpointName.includes('search'))
     endpointURL.searchParams.set('query', requestQuery.q);
