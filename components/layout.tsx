@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import { FC, ReactNode } from 'react';
 import { useTheme } from 'next-themes';
 import Progressbar from './Progressbar';
@@ -20,6 +21,7 @@ const Layout: FC<layoutProps> = ({ children }) => {
       <Progressbar />
       <Navbar />
       {children}
+      <Footer />
     </>
   );
 };
