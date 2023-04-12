@@ -75,7 +75,7 @@ const SearchResultsPage: NextPage<PageProps> = props => {
       </Head>
       <div>
         <SearchInput value={searchKeyword} />
-        <div className="main-container bg-cs-change p-4 rounded-3xl">
+        <div className="main-container bg-cs-change p-4 my-7 rounded-3xl">
           {hasResults ? (
             <>
               <div className="flex items-center justify-between w-full mb-5">
