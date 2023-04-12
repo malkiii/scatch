@@ -17,16 +17,6 @@ type ModalImage = {
   src: string;
 };
 
-function disableScrolling(ok: boolean) {
-  const bodyClasses = document.body.classList;
-  const classNames = ['pr-4', 'overflow-y-hidden'];
-
-  classNames.forEach(className => {
-    if (ok) bodyClasses.add(className);
-    else bodyClasses.remove(className);
-  });
-}
-
 type LoadedImageProps = {
   image: ModalImage;
   inZoomMod: boolean;
@@ -160,14 +150,9 @@ export const ImageModal: FC<ModalProps> = props => {
   const { image, actions, containerRef, children } = props;
   const { close } = actions;
 
-  disableScrolling(true);
-
   function handleClick(e: any) {
     const clickOutside = e.target === e.currentTarget;
-    if (clickOutside) {
-      disableScrolling(false);
-      close();
-    }
+    if (clickOutside) close();
   }
 
   const imageContainerProps = { image, containerRef };
