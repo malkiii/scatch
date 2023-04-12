@@ -15,8 +15,8 @@ const ImageNavbar: FC<ImageNavProps> = ({ image, onClick }) => {
     <div className="flex items-center justify-between pb-5" onClick={onClick}>
       <PhotographerName name={image.photographer} />
       <div className="flex items-center gap-3">
-        <SaveButton />
-        <DownloadButton image={image} content="text" />
+        <SaveButton className="cs-fixed" />
+        <DownloadButton image={image} content="text" className="cs-fixed" />
       </div>
     </div>
   );
