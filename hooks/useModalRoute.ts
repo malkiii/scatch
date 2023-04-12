@@ -10,11 +10,23 @@ enum SwitchDirection {
 }
 type SwitchOption = keyof typeof SwitchDirection;
 
+function disableScrolling(ok: boolean) {
+  const bodyClasses = document.body.classList;
+  const classNames = ['pr-4', 'overflow-y-hidden'];
+
+  classNames.forEach(className => {
+    if (ok) bodyClasses.add(className);
+    else bodyClasses.remove(className);
+  });
+}
+
 export const useModalRoute = (array: ModalImage[], pagePath: string) => {
   const router = useRouter();
   const { pathname } = router;
   const imagesNumber = array.length;
   const modalIndex = router.query.i ? Number(router.query.i) : null;
+
+  disableScrolling(modalIndex != null);
 
   function switchTo(option: SwitchOption) {
     const imageIndex = Number(router.query.i) + SwitchDirection[option];
