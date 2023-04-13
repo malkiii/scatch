@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import withApiMiddleware from '../../utils/middlewares/withApiMiddleware';
+import withApiMiddleware from '@utils/middlewares/withApiMiddleware';
 
 type RequestQuery = Record<string, string>;
 
