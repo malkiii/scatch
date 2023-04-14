@@ -1,9 +1,9 @@
-import ImageModal from '../ImageModal';
-import { ResponseImage } from '@utils/types';
 import { FC, useRef } from 'react';
-import { useModalRoute } from '@hooks/useModalRoute';
-import { DownloadButton, PhotographerName, SaveButton } from './ImageLayer';
+import ImageModal from '../ImageModal';
+import { ModalActions } from '@utils/types';
+import { ResponseImage } from '@utils/types';
 import { useBlurhashImage } from '@hooks/useBlurhashImage';
+import { DownloadButton, PhotographerName, SaveButton } from './ImageLayer';
 
 type ImageNavProps = {
   image: ResponseImage;
@@ -23,29 +23,23 @@ const ImageNavbar: FC<ImageNavProps> = ({ image, onClick }) => {
 };
 
 type ModalProps = {
-  images: ResponseImage[];
-  pagePath: string;
+  index: number;
+  image: ResponseImage;
+  modalActions: ModalActions;
 };
 
-const SearchImageModal: FC<ModalProps> = props => {
-  const { images, pagePath } = props;
-  const { modalIndex, modalActions } = useModalRoute(images, pagePath);
-  if (modalIndex == null) return <></>;
-
+const SearchImageModal: FC<ModalProps> = ({ index, image, modalActions }) => {
   const imageContainerRef = useRef<HTMLDivElement>(null);
-  const currentImage = images[modalIndex];
-  const { src } = currentImage;
-
-  useBlurhashImage(imageContainerRef, src);
+  useBlurhashImage(imageContainerRef, image.src);
 
   return (
     <ImageModal
-      key={modalIndex}
-      image={currentImage}
+      key={index}
+      image={image}
       containerRef={imageContainerRef}
       actions={modalActions}
     >
-      <ImageNavbar image={currentImage} onClick={modalActions.close} />
+      <ImageNavbar image={image} onClick={modalActions.close} />
     </ImageModal>
   );
 };
