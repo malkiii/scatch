@@ -36,6 +36,9 @@
   .logo {
     @apply brightness-0 dark:brightness-100 transition-all;
   }
+  .main-container {
+    @apply max-w-screen-xl mx-auto;
+  }
   .theme-gradient {
     @apply bg-gradient-to-br from-theme to-blue-500;
   }
@@ -61,7 +64,13 @@
     @apply flex items-center my-2 dark:text-white/90 text-dark/70 hover:text-dark dark:hover:text-theme transition-colors gap-3;
   }
   .image-layer-btn {
-    @apply inline-block p-2 bg-white text-dark transition-colors hover:bg-theme hover:text-white rounded-md font-semibold;
+    @apply inline-block p-2 transition-colors rounded-md font-semibold;
+  }
+  .image-layer-btn.cs-fixed {
+    @apply bg-white text-dark hover:bg-theme hover:text-white;
+  }
+  .image-layer-btn.cs-change {
+    @apply bg-dark text-white dark:bg-white dark:text-dark dark:hover:bg-theme hover:bg-theme hover:text-white dark:hover:text-white;
   }
   .image-layout-cover {
     @apply absolute top-0 left-0 w-full h-full opacity-0 before:absolute before:inset-0 before:focus-gradient before:pointer-events-none transition-opacity hover:opacity-100;
@@ -70,10 +79,13 @@
     @apply flex items-center gap-2 bg-white dark:bg-neutral-900 transition-colors p-3 first:rounded-t-md last:rounded-b-md capitalize;
   }
   .modal-arrow {
-    @apply text-7xl disabled:opacity-30 hover:text-theme transition-colors hover:disabled:text-current;
+    @apply text-white text-7xl disabled:opacity-30 hover:text-theme transition-colors hover:disabled:text-current;
   }
   .bg-cs-change {
     @apply bg-neutral-100 dark:bg-neutral-900;
+  }
+  .bg-image {
+    @apply bg-no-repeat bg-cover;
   }
   .menu-suggestion {
     @apply flex items-center gap-4 px-4 py-2 first:rounded-t-xl last:rounded-b-xl dark:hover:bg-neutral-800 hover:bg-neutral-200 bg-cs-change;
