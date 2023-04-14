@@ -1,7 +1,6 @@
-import { RefObject, useEffect } from 'react';
+import { useEffect } from 'react';
 import getBlurhash from '@utils/blurhash';
-
-type ContainerRef = RefObject<HTMLDivElement>;
+import { ContainerRef } from '@utils/types';
 
 export const useBlurhashImage = (containerRef: ContainerRef, src: string) => {
   const preloadImageURL = `${src}?auto=compress&cs=tinysrgb&w=4`;
