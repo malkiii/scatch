@@ -1,21 +1,10 @@
 import Image from 'next/image';
-import { CSSProperties, FC, ReactNode, RefObject, useState } from 'react';
+import { CSSProperties, FC, ReactNode, useState } from 'react';
+import { ContainerRef, ModalActions, ModalImage } from '@utils/types';
 import {
   IoIosArrowDroprightCircle as RightArrow,
   IoIosArrowDropleftCircle as LeftArrow
 } from 'react-icons/io';
-
-type ContainerRef = RefObject<HTMLDivElement>;
-type ModalActions<T = () => void> = {
-  next?: T;
-  prev?: T;
-  close: T;
-};
-type ModalImage = {
-  width: number;
-  height: number;
-  src: string;
-};
 
 type LoadedImageProps = {
   image: ModalImage;
