@@ -1,4 +1,6 @@
+import { ModalActions } from '@utils/types';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 type ModalImage = {
   id: number;
@@ -12,12 +14,8 @@ type SwitchOption = keyof typeof SwitchDirection;
 
 function disableScrolling(ok: boolean) {
   const bodyClasses = document.body.classList;
-  const classNames = ['pr-4', 'overflow-y-hidden'];
-
-  classNames.forEach(className => {
-    if (ok) bodyClasses.add(className);
-    else bodyClasses.remove(className);
-  });
+  if (ok) bodyClasses.add('scrolling-disabled');
+  else bodyClasses.remove('scrolling-disabled');
 }
 
 export const useModalRoute = (array: ModalImage[], pagePath: string) => {
@@ -25,8 +23,6 @@ export const useModalRoute = (array: ModalImage[], pagePath: string) => {
   const { pathname } = router;
   const imagesNumber = array.length;
   const modalIndex = router.query.i ? Number(router.query.i) : null;
-
-  disableScrolling(modalIndex != null);
 
   function switchTo(option: SwitchOption) {
     const imageIndex = Number(router.query.i) + SwitchDirection[option];
@@ -54,11 +50,15 @@ export const useModalRoute = (array: ModalImage[], pagePath: string) => {
   const onFirstImage = !modalIndex;
   const onLastImage = modalIndex == null || modalIndex == imagesNumber - 1;
 
-  const modalActions = {
+  const modalActions: ModalActions = {
     next: onLastImage ? undefined : () => switchTo('next'),
     prev: onFirstImage ? undefined : () => switchTo('prev'),
     close: closeModal
   };
+
+  useEffect(() => {
+    disableScrolling(modalIndex != null);
+  }, [modalIndex]);
 
   return { modalIndex, modalActions };
 };
