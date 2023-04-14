@@ -5,6 +5,7 @@ import { ImageLayer } from './ImageLayer';
 import { default as Img } from 'next/image';
 import { ResponseImage } from '@utils/types';
 import SearchImageModal from './SearchImageModal';
+import { useModalRoute } from '@hooks/useModalRoute';
 import { useGridColumnsNumber } from '@hooks/useGridColumnsNumber';
 
 type ImageLayoutProps = {
@@ -69,6 +70,7 @@ const GridImage: FC<GridImageProps> = props => {
 const ImageGridLayout: FC<ImageLayoutProps> = ({ pagePath, images }) => {
   const router = useRouter();
   const { columnsNumber, containerRef } = useGridColumnsNumber();
+  const { modalIndex, modalActions } = useModalRoute(images, pagePath);
 
   function getRowsNumber(): number {
     const reminder = images.length % 6;
@@ -107,7 +109,13 @@ const ImageGridLayout: FC<ImageLayoutProps> = ({ pagePath, images }) => {
           <PreloadLayout />
         )}
       </div>
-      <SearchImageModal images={images} pagePath={pagePath} />
+      {modalIndex != null && (
+        <SearchImageModal
+          index={modalIndex}
+          image={images[modalIndex]}
+          modalActions={modalActions}
+        />
+      )}
     </>
   );
 };
