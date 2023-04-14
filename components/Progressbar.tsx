@@ -48,9 +48,9 @@ const Progressbar: FC = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-[3px] z-[990]">
-      <AnimatePresence>
-        {isChanging && (
+    <AnimatePresence>
+      {isChanging && (
+        <div className="fixed top-0 left-0 w-full h-[3px] z-[990]">
           <motion.div
             variants={progressVariants}
             initial="initial"
@@ -60,9 +60,9 @@ const Progressbar: FC = () => {
           >
             <div className="absolute w-28 h-full right-0 rotate-3 -translate-y-1 shadow-progressbar shadow-theme"></div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 };
 export default Progressbar;
