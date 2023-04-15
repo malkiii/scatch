@@ -5,8 +5,8 @@ import { fetchImages } from '@utils/fetchImages';
 import translateToEnglish from '@utils/translate';
 import { NextPage, GetServerSideProps } from 'next';
 import { withRouter, NextRouter } from 'next/router';
-import ScrollToTopButton from '@components/ScrollToTopButton';
 import { useInfinitScroll } from '@hooks/useInfinitScroll';
+import ScrollToTopButton from '@components/ScrollToTopButton';
 import { FilterMenu, ImageGridLayout, SearchInput } from '@components/Search';
 
 type PageProps = {
