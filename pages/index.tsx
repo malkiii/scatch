@@ -9,9 +9,9 @@ import {
 
 const HomePage: NextPage = () => {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <div className="fixed top-0 left-0 w-full min-h-screen -z-10 mesh-grandient"></div>
-      <div className="px-8 overflow-x-hidden">
+      <div className="px-8">
         <HeroSection />
         <ExploreSection />
         <AlbumsSection />
