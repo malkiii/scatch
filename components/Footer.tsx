@@ -70,7 +70,7 @@ const Footer: FC = () => {
             <SocialList />
           </div>
         </div>
-        <div className="text-center py-6 border-t dark:border-t-white/50 border-t-dark/50">
+        <div className="text-center max-sm:text-sm py-6 border-t dark:border-t-white/50 border-t-dark/50">
           <p>Copyright &copy; 2022-{currentYear} Malki Abderrahman.</p>
         </div>
       </div>
