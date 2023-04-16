@@ -1,7 +1,8 @@
+import { HOSTNAME } from '@data/constants';
+
 export default async function translateToEnglish(
   text: string
 ): Promise<string> {
-  const { HOSTNAME } = process.env;
   const API_TOKEN = process.env.API_TOKEN as string;
 
   const endpointURL = new URL('/api/translate', HOSTNAME);

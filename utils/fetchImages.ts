@@ -1,3 +1,4 @@
+import { HOSTNAME } from '@data/constants';
 import { ResponseImage } from '@utils/types';
 
 type ResponseData = {
@@ -5,7 +6,6 @@ type ResponseData = {
   hasMore: boolean;
 };
 
-const HOSTNAME = process.env.HOSTNAME as string;
 const API_TOKEN = process.env.API_TOKEN as string;
 const headers = { token: API_TOKEN };
 
