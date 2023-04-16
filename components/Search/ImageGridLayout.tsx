@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ImageLayer } from './ImageLayer';
 import { default as Img } from 'next/image';
@@ -36,34 +35,32 @@ type GridImageProps = {
 
 const GridImage: FC<GridImageProps> = props => {
   const { index, image, pathname, hasMobileSize } = props;
-  const { id, width, height, src, avgColor } = image;
+  const imageURL = `${image.src}?auto=compress&cs=tinysrgb&w=940`;
 
-  const imageURL = `${src}?auto=compress&cs=tinysrgb&w=940`;
-
-  const layerProps = { image, hasMobileSize };
-  const linkProps = {
-    href: {
-      pathname,
-      query: { query: id, i: index }
-    },
-    as: `/image/${id}`,
-    className: 'relative',
-    shallow: true
+  const layerProps = {
+    image,
+    hasMobileSize,
+    linkProps: {
+      href: {
+        pathname,
+        query: { query: image.id, i: index }
+      },
+      as: `/image/${image.id}`,
+      shallow: true
+    }
   };
 
   return (
-    <Link {...linkProps}>
-      <ImageLayer {...layerProps}>
-        <Img
-          key={id}
-          src={imageURL}
-          width={width}
-          height={height}
-          style={{ backgroundColor: avgColor }}
-          alt="scatch image"
-        />
-      </ImageLayer>
-    </Link>
+    <ImageLayer {...layerProps}>
+      <Img
+        key={image.id}
+        src={imageURL}
+        width={image.width}
+        height={image.height}
+        style={{ backgroundColor: image.avgColor }}
+        alt="scatch image"
+      />
+    </ImageLayer>
   );
 };
 
@@ -71,6 +68,7 @@ const ImageGridLayout: FC<ImageLayoutProps> = ({ pagePath, images }) => {
   const router = useRouter();
   const { columnsNumber, containerRef } = useGridColumnsNumber();
   const { modalIndex, modalActions } = useModalRoute(images, pagePath);
+  const shouldShowModal = modalIndex != null;
 
   function getRowsNumber(): number {
     const reminder = images.length % 6;
@@ -109,7 +107,7 @@ const ImageGridLayout: FC<ImageLayoutProps> = ({ pagePath, images }) => {
           <PreloadLayout />
         )}
       </div>
-      {modalIndex != null && (
+      {shouldShowModal && (
         <SearchImageModal
           index={modalIndex}
           image={images[modalIndex]}

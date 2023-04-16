@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FC, ReactNode } from 'react';
 import { ResponseImage } from '@utils/types';
 import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
@@ -62,22 +63,28 @@ export const DownloadButton: FC<DownloadButtonPops> = props => {
   );
 };
 
-type InnerLayerProps = WithImage;
+type LayerProps = {
+  linkProps: any;
+  hasMobileSize: boolean;
+} & WithImage &
+  WithChildren;
 
-const InnerImageLayer: FC<InnerLayerProps> = ({ image }) => {
+const InnerImageLayer: FC<LayerProps> = ({ image, linkProps, children }) => {
   return (
-    <div className="image-layout-cover">
-      <SaveButton className="absolute top-5 right-5 cs-fixed" />
-      <div className="absolute w-full bottom-0 p-5 flex items-center justify-between">
-        <PhotographerName name={image.photographer} />
-        <DownloadButton image={image} content="icon" className="cs-fixed" />
+    <Link {...linkProps} className="relative">
+      {children}
+      <div className="image-layout-cover">
+        <SaveButton className="absolute top-5 right-5 cs-fixed" />
+        <div className="absolute w-full bottom-0 p-5 flex items-center justify-between">
+          <PhotographerName name={image.photographer} />
+          <DownloadButton image={image} content="icon" className="cs-fixed" />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
-type OuterLayerProps = WithImage & WithChildren;
-const OuterImageLayer: FC<OuterLayerProps> = ({ image, children }) => {
+const OuterImageLayer: FC<LayerProps> = ({ image, children }) => {
   return (
     <div key={image.id}>
       <PhotographerName name={image.photographer} className="block py-3" />
@@ -90,20 +97,7 @@ const OuterImageLayer: FC<OuterLayerProps> = ({ image, children }) => {
   );
 };
 
-type LayerProps = {
-  hasMobileSize: boolean;
-} & WithImage &
-  WithChildren;
-
 export const ImageLayer: FC<LayerProps> = props => {
-  const { image, hasMobileSize, children } = props;
-  if (hasMobileSize)
-    return <OuterImageLayer image={image}>{children}</OuterImageLayer>;
-
-  return (
-    <>
-      {children}
-      <InnerImageLayer image={image} />
-    </>
-  );
+  if (props.hasMobileSize) return <OuterImageLayer {...props} />;
+  return <InnerImageLayer {...props} />;
 };
