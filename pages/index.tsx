@@ -9,12 +9,15 @@ import {
 
 const HomePage: NextPage = () => {
   return (
-    <div className="px-8 overflow-x-hidden">
-      <HeroSection />
-      <ExploreSection />
-      <AlbumsSection />
-      <EditingSection />
-      <ScrollToTopButton />
+    <div>
+      <div className="fixed inset-0 -z-10 mesh-grandient"></div>
+      <div className="px-8 overflow-x-hidden">
+        <HeroSection />
+        <ExploreSection />
+        <AlbumsSection />
+        <EditingSection />
+        <ScrollToTopButton />
+      </div>
     </div>
   );
 };
