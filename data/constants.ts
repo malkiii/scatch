@@ -1,4 +1,4 @@
-export const HOSTNAME = 'http://sctch.vercel.app';
+export const HOSTNAME = 'https://sctch.vercel.app';
 
 export const searchDemoImages = {
   nature: [
