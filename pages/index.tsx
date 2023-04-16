@@ -10,7 +10,7 @@ import {
 const HomePage: NextPage = () => {
   return (
     <div>
-      <div className="fixed inset-0 -z-10 mesh-grandient"></div>
+      <div className="fixed top-0 left-0 w-full min-h-screen -z-10 mesh-grandient"></div>
       <div className="px-8 overflow-x-hidden">
         <HeroSection />
         <ExploreSection />
