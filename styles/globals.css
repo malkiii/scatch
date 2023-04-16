@@ -30,6 +30,9 @@
   input[type='search']::-webkit-search-cancel-button {
     @apply appearance-none;
   }
+  ::selection {
+    @apply text-white bg-cyan-500;
+  }
 }
 
 @layer components {
@@ -105,4 +108,17 @@
   .focus-gradient {
     background: radial-gradient(#0000, #0005);
   }
+}
+
+.scrolling-disabled {
+  @apply pr-4 overflow-y-hidden;
+}
+/* prettier-ignore */
+.mesh-grandient {
+  background-color: hsla(0, 0%, 0%, 0);
+  background-image:
+    radial-gradient(at 18% 120%, hsla(187, 68%, 50%, 0.471) 0px, transparent 50%),
+    radial-gradient(at 100% 130%, hsla(187, 85%, 53%, 0.655) 0px, transparent 50%),
+    radial-gradient(at 150% 33%, hsla(187, 79%, 60%, 1) 0px, transparent 50%),
+    radial-gradient(at 35% -60%, hsla(187, 85%, 53%, 1) 0px, transparent 50%);
 }
