@@ -17,15 +17,15 @@ const textVariants = {
 
 const HeroSection: FC = () => {
   return (
-    <div className="pt-2 md:pt-20 lg:pt-36 pb-20">
+    <div className="relative pt-10 pb-20 md:py-36">
       <div className="max-w-7xl mx-auto flex-col lg:flex-row">
         <motion.div
           initial="hidden"
           animate="visible"
           transition={{ staggerChildren: 0.1 }}
-          className="max-w-5xl text-center mx-auto"
+          className="max-w-5xl text-center mx-auto flex flex-col gap-y-6"
         >
-          <motion.h1 variants={textVariants} className="my-4">
+          <motion.h1 variants={textVariants}>
             welcome to{' '}
             <span className="text-transparent bg-clip-text theme-gradient">
               Scatch
@@ -33,14 +33,14 @@ const HeroSection: FC = () => {
           </motion.h1>
           <motion.p
             variants={textVariants}
-            className="text-lg sm:text-2xl leading-relaxed mb-4 md:mb-7 opacity-75"
+            className="text-xl sm:text-2xl sm:leading-[1.7] leading-[1.7] opacity-75"
           >
             Scatch is an online image gallery where you can find your favored
             images and edit, save, or download them for free with high
             resolution.
           </motion.p>
           <motion.div variants={textVariants} className="inline-block">
-            <Link href="/search" className="theme-btn text-lg mb-5">
+            <Link href="/search" className="theme-btn text-lg ">
               Get Started
             </Link>
           </motion.div>

@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -41,6 +42,7 @@ const animationProps = {
 
 const EditingSection: FC = () => {
   const [currentFilterIndex, setCurrentFilterIndex] = useState<number>(-1);
+  const imageURL = '/assets/editing-image.jpeg';
 
   useEffect(() => {
     if (currentFilterIndex == -1) return;
@@ -56,12 +58,15 @@ const EditingSection: FC = () => {
 
   return (
     <motion.div className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10">
+      <Head>
+        <link rel="preload" as="image" href={imageURL} />
+      </Head>
       <div className="relative aspect-[609/761] w-full sm:w-[400px] mt-12 lg:mt-0">
         <motion.div
           {...animationProps}
           variants={imageVariants}
           onUpdate={() => setCurrentFilterIndex(0)}
-          className="absolute w-full h-full overflow-hidden"
+          className="absolute w-full h-full overflow-hidden shadow-3xl"
         >
           <div
             className={
@@ -70,8 +75,8 @@ const EditingSection: FC = () => {
             }
           >
             <Image
-              src="/assets/editing-image.jpeg"
-              alt="editing-image"
+              src={imageURL}
+              alt="scatch edit"
               className="hover:scale-105 transition-transform duration-500"
               fill
             />

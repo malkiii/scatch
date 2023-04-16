@@ -36,7 +36,7 @@ const currentYear = new Date().getFullYear();
 
 const Footer: FC = () => {
   return (
-    <footer className="bg-neutral-800/10 py-4 px-8">
+    <footer className="dark:bg-neutral-900 bg-neutral-100 py-4 px-8">
       <div className="mx-auto max-w-6xl">
         <div className="flex justify-between flex-wrap gap-8 py-4">
           <div className="max-w-md">
