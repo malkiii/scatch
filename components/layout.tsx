@@ -17,6 +17,7 @@ const Layout: FC<layoutProps> = ({ children }) => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href={favionPath} />
+        <link rel="preload" as="image" href="/logotype.svg" />
       </Head>
       <Progressbar />
       <Navbar />
