@@ -1,3 +1,5 @@
+export const HOSTNAME = 'http://sctch.vercel.app';
+
 export const searchDemoImages = {
   nature: [
     'https://images.pexels.com/photos/1671325/pexels-photo-1671325.jpeg',
