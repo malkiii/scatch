@@ -15,6 +15,9 @@ module.exports = {
         monsterrat: ['Montserrat', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif']
       },
+      transitionProperty: {
+        'bg-image': 'background-image'
+      },
       borderRadius: {
         circle: '50%',
         inherit: 'inherit'
