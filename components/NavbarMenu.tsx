@@ -108,7 +108,7 @@ const MenuContainer: FC<MenuProps> = ({ toggle }) => {
       variants={menuVariants}
       animate="open"
       exit="close"
-      className="fixed top-0 left-full h-screen border-l-2 border-l-dark dark:border-l-white text-dark dark:text-white dark:bg-dark bg-white z-[999] w-full text-4xl font-bold px-10"
+      className="fixed top-0 left-full h-screen border-l-2 border-l-theme text-dark dark:text-white dark:bg-dark bg-white z-[999] w-full text-4xl font-bold px-10"
     >
       <div className="w-full">
         <ul className="mt-24">
