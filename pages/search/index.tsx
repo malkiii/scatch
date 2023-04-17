@@ -37,7 +37,7 @@ const SearchPage: NextPage<Props> = ({ images, hasMore }) => {
         <title>Search for images</title>
       </Head>
       <SearchInput />
-      <div className="main-container">
+      <div className="main-container mb-7">
         <SearchKeywords />
         <ImageGridLayout pagePath="/search" images={imageArray} />
       </div>
