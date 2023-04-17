@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { easeOutExpo } from '@utils/easing';
-import { useEffect, useState, FC } from 'react';
+import { useInterval } from '@hooks/useInterval';
 
 const filters = [
   'after:opacity-0 after:mix-blend-difference',
@@ -49,7 +50,7 @@ type EditingImageProps = {
 
 const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
   return (
-    <div className="relative aspect-[609/761] w-full sm:w-[400px] mt-12 lg:mt-0">
+    <div className="relative aspect-[609/761] w-[90%] sm:w-[400px] mt-12 lg:mt-0 lg:group-hover:rotate-3d-left transition-transform duration-300">
       <motion.div
         {...animationProps}
         variants={imageVariants}
@@ -62,12 +63,7 @@ const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
             filterClassName
           }
         >
-          <Image
-            src={imageURL}
-            alt="scatch edit"
-            className="hover:scale-105 transition-transform duration-500"
-            fill
-          />
+          <Image src={imageURL} alt="scatch edit" fill />
         </div>
       </motion.div>
     </div>
@@ -75,22 +71,10 @@ const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
 };
 
 const EditingSection: FC = () => {
-  const [currentFilterIndex, setCurrentFilterIndex] = useState<number>(-1);
-
-  useEffect(() => {
-    if (currentFilterIndex == -1) return;
-    const interval = setInterval(() => {
-      setCurrentFilterIndex(
-        currentFilterIndex == filters.length - 1 ? 0 : currentFilterIndex + 1
-      );
-    }, 2200);
-    return () => {
-      clearInterval(interval);
-    };
-  });
+  const [filterIndex, setFilterIndex] = useInterval(filters.length, 2200);
 
   return (
-    <motion.div className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-36 gap-x-10">
+    <motion.div className="group flex items-center flex-col lg:flex-row justify-center py-20 gap-x-10">
       <Head>
         <link rel="preload" as="image" href={imageURL} />
       </Head>
@@ -109,8 +93,8 @@ const EditingSection: FC = () => {
         </Link>
       </motion.div>
       <EditingImage
-        filterClassName={filters[currentFilterIndex]}
-        onUpdate={() => setCurrentFilterIndex(0)}
+        filterClassName={filters[filterIndex]}
+        onUpdate={() => setFilterIndex(0)}
       />
     </motion.div>
   );

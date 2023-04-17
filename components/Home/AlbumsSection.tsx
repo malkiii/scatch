@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { easeOutExpo } from '@utils/easing';
+import { useInterval } from '@hooks/useInterval';
 
 const conntainerVariants = {
   hidden: { y: 100, opacity: 0 },
@@ -16,9 +17,9 @@ const conntainerVariants = {
   }
 };
 const albumVariants = {
-  hidden: { x: '-100vw' },
+  hidden: { x: '-150vw' },
   visible: {
-    x: '-50%',
+    x: 0,
     transition: {
       duration: 0.6,
       ease: easeOutExpo
@@ -43,42 +44,31 @@ const AlbumImage: FC<{ number: number }> = ({ number }) => {
         alt="album"
         fill
       />
-      <span className="absolute bottom-3 left-4 opacity-70 font-bold">
-        album
-      </span>
     </>
   );
 };
 
 const AlbunmsContainer: FC = () => {
   const albumsNumber = 4;
+  const [albumIndex, setAlbumIndex] = useInterval(albumsNumber, 2800);
+  const imageIndex = albumIndex == -1 ? 1 : albumIndex + 1;
+  const albumImageURL = `/assets/albums-section/image-${imageIndex}.jpeg`;
+
   return (
     <motion.div
       {...animationProps}
-      className="relative aspect-[500/430] w-full md:w-[500px] mt-10"
+      className="group relative w-full md:w-[500px] mt-10 lg:group-hover:rotate-3d-right transition-transform duration-300"
     >
-      {new Array(4).fill(null).map((_, index) => {
-        const positionY = albumsNumber * 10 - index * 15;
-        const albumPosition = index != albumsNumber - 1 ? 60 : 0;
-        return (
-          <motion.div
-            key={index}
-            custom={index}
-            variants={albumVariants}
-            whileHover={{
-              y: positionY + albumPosition + '%',
-              transition: { duration: 0.4, type: 'spring' }
-            }}
-            className="album-example"
-            style={{
-              zIndex: index,
-              y: positionY + '%'
-            }}
-          >
-            <AlbumImage number={index + 1} />
-          </motion.div>
-        );
-      })}
+      <motion.div
+        variants={albumVariants}
+        className="album-image"
+        style={{ backgroundImage: `url(${albumImageURL})` }}
+        onUpdate={() => setAlbumIndex(0)}
+      >
+        <span className="absolute bottom-3 left-4 opacity-70 font-bold">
+          album
+        </span>
+      </motion.div>
     </motion.div>
   );
 };
@@ -87,7 +77,7 @@ const AlbumsSection: FC = () => {
   return (
     <motion.div
       {...animationProps}
-      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-20 gap-x-10"
+      className="group flex items-center flex-col-reverse lg:flex-row justify-center py-10 gap-x-10"
     >
       <AlbunmsContainer />
       <motion.div
