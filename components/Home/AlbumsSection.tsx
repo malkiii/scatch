@@ -44,7 +44,6 @@ const AlbunmsContainer: FC = () => {
     images.forEach((_, index) => {
       const img = new Image();
       img.src = `/assets/albums-section/image-${index + 1}.jpeg`;
-      img.onload = () => console.log('image', index + 1, 'is loaded.');
     });
   }, []);
 
