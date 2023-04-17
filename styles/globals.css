@@ -62,7 +62,7 @@
     @apply inline-flex md:hidden relative w-10 h-4 before:absolute before:w-full before:h-[3px] before:top-0 before:bg-dark before:right-0 after:absolute after:w-[66%] after:h-[3px] after:bottom-0 after:bg-dark after:right-0 hover:after:bg-theme hover:before:bg-theme transition-colors after:transition-inherit before:transition-inherit dark:after:bg-white dark:before:bg-white;
   }
   .album-image {
-    @apply aspect-[1149/761] w-[90%] mx-auto text-white bg-neutral-800/10 transition-bg-image duration-500 bg-cover bg-no-repeat shadow-3xl mb-10;
+    @apply aspect-[1149/761] w-full mx-auto text-white bg-neutral-800/10 transition-bg-image duration-500 bg-cover bg-no-repeat shadow-3xl mb-10;
   }
   .hero-section-image {
     @apply absolute w-2/3 aspect-[1920/1080] select-none after:absolute after:inset-0 after:bg-theme after:w-0 after:top-0 after:z-10;
