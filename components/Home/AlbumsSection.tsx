@@ -36,32 +36,32 @@ const animationProps = {
 const AlbunmsContainer: FC = () => {
   const albumsNumber = 4;
   const [albumIndex, setAlbumIndex] = useInterval(albumsNumber, 2800);
-  const imageIndex = albumIndex == -1 ? 1 : albumIndex + 1;
-  const albumImageURL = `/assets/albums-section/image-${imageIndex}.jpeg`;
-
-  useEffect(() => {
-    const images = new Array(albumsNumber).fill(null);
-    images.forEach((_, index) => {
-      const img = new Image();
-      img.src = `/assets/albums-section/image-${index + 1}.jpeg`;
-    });
-  }, []);
+  const imageIndex = albumIndex == -1 ? 0 : albumIndex;
+  function albumImageURL(index: number) {
+    return `url(/assets/albums-section/image-${index + 1}.jpeg)`;
+  }
 
   return (
     <motion.div
       {...animationProps}
-      className="group relative w-full md:w-[500px] mt-10 lg:group-hover:rotate-3d-right transition-transform duration-300"
+      className="relative w-full md:w-[500px] mt-10"
     >
-      <motion.div
-        variants={albumVariants}
-        className="album-image"
-        style={{ backgroundImage: `url(${albumImageURL})` }}
-        onUpdate={() => setAlbumIndex(0)}
-      >
-        <span className="absolute bottom-3 left-4 opacity-70 font-bold">
-          album
-        </span>
-      </motion.div>
+      <div className="relative w-[90%] lg:group-hover:rotate-3d-right transition-transform duration-300">
+        <motion.div
+          variants={albumVariants}
+          className="album-image"
+          style={{ backgroundImage: albumImageURL(imageIndex) }}
+          onUpdate={() => setAlbumIndex(0)}
+        >
+          <span className="absolute bottom-3 left-4 opacity-70 font-bold">
+            album
+          </span>
+        </motion.div>
+        <div
+          className="absolute w-4/5 h-4/5 inset-0 m-auto -z-20 bg-cover bg-no-repeat"
+          style={{ backgroundImage: albumImageURL(imageIndex + 1) }}
+        ></div>
+      </div>
     </motion.div>
   );
 };
