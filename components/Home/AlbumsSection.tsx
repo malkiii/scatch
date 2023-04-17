@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { easeOutExpo } from '@utils/easing';
@@ -35,7 +35,7 @@ const animationProps = {
 
 const AlbunmsContainer: FC = () => {
   const albumsNumber = 4;
-  const [albumIndex, setAlbumIndex] = useInterval(albumsNumber, 2800);
+  const [albumIndex, setAlbumIndex, counter] = useInterval(albumsNumber, 2800);
   const imageIndex = albumIndex == -1 ? 0 : albumIndex;
   function albumImageURL(index: number) {
     return `url(/assets/albums-section/image-${index + 1}.jpeg)`;
@@ -57,10 +57,12 @@ const AlbunmsContainer: FC = () => {
             album
           </span>
         </motion.div>
-        <div
-          className="absolute w-4/5 h-4/5 inset-0 m-auto -z-20 bg-cover bg-no-repeat"
-          style={{ backgroundImage: albumImageURL(imageIndex + 1) }}
-        ></div>
+        {counter <= 0 && (
+          <div
+            className="absolute w-4/5 h-4/5 inset-0 m-auto -z-20 bg-cover bg-no-repeat"
+            style={{ backgroundImage: albumImageURL(imageIndex + 1) }}
+          ></div>
+        )}
       </div>
     </motion.div>
   );
