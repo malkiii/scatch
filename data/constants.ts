@@ -1,4 +1,4 @@
-export const HOSTNAME = 'https://sctch.vercel.app';
+export const HOSTNAME = 'https://malki-scatch.vercel.app';
 
 export const searchDemoImages = {
   nature: [
