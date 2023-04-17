@@ -1,6 +1,5 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { easeOutExpo } from '@utils/easing';
 import { useInterval } from '@hooks/useInterval';
@@ -34,25 +33,20 @@ const animationProps = {
   transition: { staggerChildren: 0.1 }
 };
 
-const AlbumImage: FC<{ number: number }> = ({ number }) => {
-  return (
-    <>
-      <Image
-        priority
-        src={`/assets/albums-section/image-${number}.jpeg`}
-        className="w-full rounded-inherit"
-        alt="album"
-        fill
-      />
-    </>
-  );
-};
-
 const AlbunmsContainer: FC = () => {
   const albumsNumber = 4;
   const [albumIndex, setAlbumIndex] = useInterval(albumsNumber, 2800);
   const imageIndex = albumIndex == -1 ? 1 : albumIndex + 1;
   const albumImageURL = `/assets/albums-section/image-${imageIndex}.jpeg`;
+
+  useEffect(() => {
+    const images = new Array(albumsNumber).fill(null);
+    images.forEach((_, index) => {
+      const img = new Image();
+      img.src = `/assets/albums-section/image-${index + 1}.jpeg`;
+      img.onload = () => console.log('image', index + 1, 'is loaded.');
+    });
+  }, []);
 
   return (
     <motion.div
