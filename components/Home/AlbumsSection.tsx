@@ -16,7 +16,7 @@ const conntainerVariants = {
   }
 };
 const albumVariants = {
-  hidden: { x: '100vw' },
+  hidden: { x: '-100vw' },
   visible: {
     x: '-50%',
     transition: {
@@ -87,8 +87,9 @@ const AlbumsSection: FC = () => {
   return (
     <motion.div
       {...animationProps}
-      className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-20 gap-x-10"
+      className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-20 gap-x-10"
     >
+      <AlbunmsContainer />
       <motion.div
         variants={conntainerVariants}
         className="max-w-[500px] text-center lg:text-left"
@@ -102,7 +103,6 @@ const AlbumsSection: FC = () => {
           See your albums
         </Link>
       </motion.div>
-      <AlbunmsContainer />
     </motion.div>
   );
 };

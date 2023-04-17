@@ -26,7 +26,7 @@ const containerVariants = {
 };
 
 const imageVariants = {
-  hidden: { x: -100, opacity: 0 },
+  hidden: { x: 100, opacity: 0 },
   visible: {
     x: 0,
     opacity: 1,
@@ -40,9 +40,42 @@ const animationProps = {
   viewport: { once: true, amount: 0.6 }
 };
 
+const imageURL = '/assets/editing-image.jpeg';
+
+type EditingImageProps = {
+  filterClassName: string;
+  onUpdate: () => void;
+};
+
+const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
+  return (
+    <div className="relative aspect-[609/761] w-full sm:w-[400px] mt-12 lg:mt-0">
+      <motion.div
+        {...animationProps}
+        variants={imageVariants}
+        onUpdate={onUpdate}
+        className="absolute w-full h-full overflow-hidden shadow-3xl"
+      >
+        <div
+          className={
+            'absolute w-full h-full overflow-hidden transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full after:pointer-events-none ' +
+            filterClassName
+          }
+        >
+          <Image
+            src={imageURL}
+            alt="scatch edit"
+            className="hover:scale-105 transition-transform duration-500"
+            fill
+          />
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
 const EditingSection: FC = () => {
   const [currentFilterIndex, setCurrentFilterIndex] = useState<number>(-1);
-  const imageURL = '/assets/editing-image.jpeg';
 
   useEffect(() => {
     if (currentFilterIndex == -1) return;
@@ -57,32 +90,10 @@ const EditingSection: FC = () => {
   });
 
   return (
-    <motion.div className="flex items-center flex-col-reverse lg:flex-row justify-center pt-10 pb-36 gap-x-10">
+    <motion.div className="flex items-center flex-col lg:flex-row justify-center pt-10 pb-36 gap-x-10">
       <Head>
         <link rel="preload" as="image" href={imageURL} />
       </Head>
-      <div className="relative aspect-[609/761] w-full sm:w-[400px] mt-12 lg:mt-0">
-        <motion.div
-          {...animationProps}
-          variants={imageVariants}
-          onUpdate={() => setCurrentFilterIndex(0)}
-          className="absolute w-full h-full overflow-hidden shadow-3xl"
-        >
-          <div
-            className={
-              'absolute w-full h-full overflow-hidden transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full after:pointer-events-none ' +
-              filters[currentFilterIndex]
-            }
-          >
-            <Image
-              src={imageURL}
-              alt="scatch edit"
-              className="hover:scale-105 transition-transform duration-500"
-              fill
-            />
-          </div>
-        </motion.div>
-      </div>
       <motion.div
         {...animationProps}
         variants={containerVariants}
@@ -97,6 +108,10 @@ const EditingSection: FC = () => {
           Edit some picture
         </Link>
       </motion.div>
+      <EditingImage
+        filterClassName={filters[currentFilterIndex]}
+        onUpdate={() => setCurrentFilterIndex(0)}
+      />
     </motion.div>
   );
 };
