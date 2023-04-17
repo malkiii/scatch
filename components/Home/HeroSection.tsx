@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { easeInOutExpo } from '@utils/easing';
 
 const textVariants = {
-  hidden: { y: 300, opacity: 0 },
+  hidden: { y: 250, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.8,
+      duration: 0.7,
       ease: easeInOutExpo
     }
   }

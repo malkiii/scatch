@@ -130,7 +130,7 @@ const ExploreSection: FC = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         transition={{ staggerChildren: 0.1 }}
-        className="py-20 overflow-hidden"
+        className="py-20"
       >
         <motion.div variants={conntainerVariants} className="text-center">
           <h2>Search for images in any language.</h2>
@@ -142,7 +142,7 @@ const ExploreSection: FC = () => {
         </motion.div>
         <motion.div
           variants={conntainerVariants}
-          className="max-w-[600px] aspect-[600/500] mx-auto"
+          className="max-w-[600px] aspect-[600/510] mx-auto"
         >
           <SearchDemoInput afterString={setNextNameIndex} />
           <SearchDemoImageRender nameIndex={currentNameIndex} />

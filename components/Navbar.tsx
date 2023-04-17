@@ -12,12 +12,12 @@ type NavbarProps = {
 };
 
 const navVariants = {
-  hidden: { y: 200, opacity: 0 },
+  hidden: { y: 110, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.8,
+      duration: 0.7,
       ease: easeInOutExpo
     }
   }
