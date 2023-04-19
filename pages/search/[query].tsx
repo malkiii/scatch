@@ -3,19 +3,11 @@ import { FC, useState } from 'react';
 import { ResponseImage } from '@/utils/types';
 import { fetchImages } from '@/utils/fetchImages';
 import translateToEnglish from '@/utils/translate';
-import { NextPage, GetServerSideProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { withRouter, NextRouter } from 'next/router';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { FilterMenu, ImageGridLayout, SearchInput } from '@/components/Search';
-
-type PageProps = {
-  searchKeyword: string;
-  fetchQuery: string;
-  images: ResponseImage[];
-  hasMore: boolean;
-  router: NextRouter;
-};
 
 type RouteQuery = {
   query: string;
@@ -50,7 +42,15 @@ const NoResults: FC<{ query: string }> = ({ query }) => {
   );
 };
 
-const SearchResultsPage: NextPage<PageProps> = props => {
+type PageProps = {
+  searchKeyword: string;
+  fetchQuery: string;
+  images: ResponseImage[];
+  hasMore: boolean;
+  router: NextRouter;
+};
+
+export default withRouter((props: PageProps) => {
   const { searchKeyword, fetchQuery, images, hasMore, router } = props;
 
   const hasResults = images.length > 0;
@@ -94,5 +94,4 @@ const SearchResultsPage: NextPage<PageProps> = props => {
       </div>
     </>
   );
-};
-export default withRouter(SearchResultsPage);
+});
