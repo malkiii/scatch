@@ -8,6 +8,8 @@ type ButtonProps = {
 
 const ColorSchemeButton: FC<ButtonProps> = ({ className, children }) => {
   const { setTheme } = useTheme();
+  const buttonStyle =
+    'group hover:text-theme transition-colors duration-200 ' + className;
 
   function toggleTheme() {
     const preferDarkTheme = document.documentElement.classList.contains('dark');
@@ -16,9 +18,8 @@ const ColorSchemeButton: FC<ButtonProps> = ({ className, children }) => {
 
   return (
     <button
-      className={
-        'group hover:text-theme transition-colors duration-200 ' + className
-      }
+      data-testid="cs-button"
+      className={buttonStyle}
       onClick={toggleTheme}
     >
       {children}

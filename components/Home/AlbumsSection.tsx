@@ -16,9 +16,10 @@ const conntainerVariants = {
   }
 };
 const albumVariants = {
-  hidden: { x: '-150vw' },
+  hidden: { x: -100, opacity: 0 },
   visible: {
     x: 0,
+    opacity: 1,
     transition: {
       duration: 0.6,
       ease: easeOutExpo
@@ -29,7 +30,7 @@ const albumVariants = {
 const animationProps = {
   initial: 'hidden',
   whileInView: 'visible',
-  viewport: { once: true, amount: 0.6 },
+  viewport: { once: true, amount: 0.91 },
   transition: { staggerChildren: 0.1 }
 };
 
@@ -59,7 +60,7 @@ const AlbunmsContainer: FC = () => {
         </motion.div>
         {counter <= 0 && (
           <div
-            className="absolute w-4/5 h-4/5 inset-0 m-auto -z-20 bg-cover bg-no-repeat"
+            className="opacity-0 absolute w-4/5 h-4/5 inset-0 m-auto -z-20 bg-cover bg-no-repeat"
             style={{ backgroundImage: albumImageURL(imageIndex + 1) }}
           ></div>
         )}
