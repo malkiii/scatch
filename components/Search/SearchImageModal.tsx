@@ -1,8 +1,8 @@
 import { FC, useRef } from 'react';
 import ImageModal from '../ImageModal';
-import { ModalActions } from '@utils/types';
-import { ResponseImage } from '@utils/types';
-import { useBlurhashImage } from '@hooks/useBlurhashImage';
+import { ModalActions } from '@/utils/types';
+import { ResponseImage } from '@/utils/types';
+import { useBlurhashImage } from '@/hooks/useBlurhashImage';
 import { DownloadButton, PhotographerName, SaveButton } from './ImageLayer';
 
 type ImageNavProps = {

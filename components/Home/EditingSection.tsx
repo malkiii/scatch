@@ -3,8 +3,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { easeOutExpo } from '@utils/easing';
-import { useInterval } from '@hooks/useInterval';
+import { easeOutExpo } from '@/utils/easing';
+import { useInterval } from '@/hooks/useInterval';
 
 const filters = [
   'after:opacity-0 after:mix-blend-difference',

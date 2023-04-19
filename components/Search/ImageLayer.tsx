@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FC, ReactNode } from 'react';
-import { ResponseImage } from '@utils/types';
+import { ResponseImage } from '@/utils/types';
 import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
 
 const logoSize = 25;

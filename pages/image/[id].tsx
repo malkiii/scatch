@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import { ResponseImage } from '@utils/types';
-import { fetchPhoto } from '@utils/fetchImages';
+import { ResponseImage } from '@/utils/types';
+import { fetchPhoto } from '@/utils/fetchImages';
 import { GetServerSideProps, NextPage } from 'next';
-import ImagePageContent from '@components/Search/ImagePageContent';
+import ImagePageContent from '@/components/Search/ImagePageContent';
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = query.id as string;

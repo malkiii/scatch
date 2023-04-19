@@ -1,4 +1,4 @@
-import { HOSTNAME } from '@data/constants';
+import { HOSTNAME } from '@/data/constants';
 
 export default async function translateToEnglish(
   text: string

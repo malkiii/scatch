@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { NextRouter, withRouter } from 'next/router';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
-import { useSearchHistory } from '@hooks/useSearchHistory';
+import { useSearchHistory } from '@/hooks/useSearchHistory';
 
 type InputProps = {
   value?: string;

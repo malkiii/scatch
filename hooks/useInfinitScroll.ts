@@ -1,5 +1,5 @@
-import { ResponseImage } from '@utils/types';
-import { fetchImages } from '@utils/fetchImages';
+import { ResponseImage } from '@/utils/types';
+import { fetchImages } from '@/utils/fetchImages';
 import { useState, useEffect, useCallback } from 'react';
 
 type FetchConfigs = {

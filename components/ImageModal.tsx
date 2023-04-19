@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { CSSProperties, FC, ReactNode, useState } from 'react';
-import { ContainerRef, ModalActions, ModalImage } from '@utils/types';
+import { ContainerRef, ModalActions, ModalImage } from '@/utils/types';
 import {
   IoIosArrowDroprightCircle as RightArrow,
   IoIosArrowDropleftCircle as LeftArrow

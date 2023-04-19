@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { easeOutExpo } from '@utils/easing';
-import { useInterval } from '@hooks/useInterval';
+import { easeOutExpo } from '@/utils/easing';
+import { useInterval } from '@/hooks/useInterval';
 
 const conntainerVariants = {
   hidden: { y: 100, opacity: 0 },
@@ -46,7 +46,7 @@ const AlbunmsContainer: FC = () => {
       {...animationProps}
       className="relative w-full md:w-[500px] mt-10"
     >
-      <div className="relative w-[90%] lg:group-hover:rotate-3d-right transition-transform duration-300">
+      <div className="relative w-[90%] mx-auto lg:group-hover:rotate-3d-right transition-transform duration-300">
         <motion.div
           variants={albumVariants}
           className="album-image"

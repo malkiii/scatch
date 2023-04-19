@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import { FC, useRef } from 'react';
-import { ResponseImage } from '@utils/types';
-import { useBlurhashImage } from '@hooks/useBlurhashImage';
+import { ResponseImage } from '@/utils/types';
+import { useBlurhashImage } from '@/hooks/useBlurhashImage';
 import {
   SaveButton,
   DownloadButton,
   PhotographerName
-} from '@components/Search/ImageLayer';
+} from '@/components/Search/ImageLayer';
 
 const ImageNavbar: FC<{ image: ResponseImage }> = ({ image }) => {
   return (

@@ -23,7 +23,7 @@ const ScrollToTopButton: FC = () => {
 
   function showScrollButton() {
     const isWindowSmall = window.innerWidth < 768;
-    const scrolledFar = window.scrollY > 300;
+    const scrolledFar = window.scrollY > 150;
     setIsScrolling(!isWindowSmall && scrolledFar);
   }
 

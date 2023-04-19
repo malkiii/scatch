@@ -1,5 +1,5 @@
-import { HOSTNAME } from '@data/constants';
-import { ResponseImage } from '@utils/types';
+import { HOSTNAME } from '@/data/constants';
+import { ResponseImage } from './types';
 
 type ResponseData = {
   images: ResponseImage[];

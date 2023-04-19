@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { socials } from '@data/constants';
+import { socials } from '@/data/constants';
 import { FaFacebook, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
 
 const socialIcons = {

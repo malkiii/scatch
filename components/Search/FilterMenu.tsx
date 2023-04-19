@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BsAspectRatio } from 'react-icons/bs';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useToggleMenu } from '@hooks/useToggleMenu';
+import { useToggleMenu } from '@/hooks/useToggleMenu';
 
 type FilterMenuProps = {
   query: string;
