@@ -1,11 +1,6 @@
 import { HOSTNAME } from '@/data/constants';
 import { ResponseImage } from './types';
 
-type ResponseData = {
-  images: ResponseImage[];
-  hasMore: boolean;
-};
-
 const API_TOKEN = process.env.API_TOKEN as string;
 const headers = { token: API_TOKEN };
 
@@ -20,10 +15,16 @@ function extractImageObject(data: Record<string, any>): ResponseImage {
   };
 }
 
+type fetchImagesData = {
+  images: ResponseImage[];
+  hasMore: boolean;
+  error?: any;
+};
+
 export const fetchImages = async (
   params: Record<string, string>,
   signal?: AbortSignal
-): Promise<ResponseData> => {
+): Promise<fetchImagesData> => {
   try {
     const endpointURL = new URL('/api/images', HOSTNAME);
     endpointURL.search = new URLSearchParams(params).toString();
@@ -37,11 +38,17 @@ export const fetchImages = async (
 
     return { images, hasMore: 'next_page' in data };
   } catch (error) {
-    return { images: [], hasMore: false };
+    return { images: [], hasMore: false, error };
   }
 };
 
-export const fetchPhoto = async (id: string) => {
+type fetchPhotoData = {
+  image: ResponseImage | null;
+  alt: string;
+  error?: any;
+};
+
+export const fetchPhoto = async (id: string): Promise<fetchPhotoData> => {
   try {
     const endpointURL = new URL('/api/images', HOSTNAME);
     endpointURL.searchParams.set('e', '/photos/' + id);
@@ -53,6 +60,6 @@ export const fetchPhoto = async (id: string) => {
 
     return { image, alt: data.alt };
   } catch (error) {
-    return { image: null, alt: '' };
+    return { image: null, alt: '', error };
   }
 };
