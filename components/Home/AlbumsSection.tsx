@@ -30,7 +30,7 @@ const albumVariants = {
 const animationProps = {
   initial: 'hidden',
   whileInView: 'visible',
-  viewport: { once: true, amount: 0.91 },
+  viewport: { once: true, amount: 0.74 },
   transition: { staggerChildren: 0.1 }
 };
 

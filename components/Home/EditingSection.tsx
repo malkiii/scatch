@@ -38,7 +38,7 @@ const imageVariants = {
 const animationProps = {
   initial: 'hidden',
   whileInView: 'visible',
-  viewport: { once: true, amount: 0.81 }
+  viewport: { once: true, amount: 0.78 }
 };
 
 const imageURL = '/assets/editing-image.jpeg';
