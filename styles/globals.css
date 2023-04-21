@@ -80,7 +80,7 @@
     @apply bg-dark text-white dark:bg-white dark:text-dark dark:hover:bg-theme hover:bg-theme hover:text-white dark:hover:text-white;
   }
   .image-layout-cover {
-    @apply absolute top-0 left-0 w-full h-full opacity-0 before:absolute before:inset-0 before:focus-gradient before:pointer-events-none transition-opacity hover:opacity-100;
+    @apply absolute inset-0 opacity-0 before:absolute before:inset-0 before:focus-gradient before:pointer-events-none transition-opacity hover:opacity-100;
   }
   .filter-option {
     @apply flex items-center gap-2 bg-white dark:bg-neutral-900 transition-colors p-3 first:rounded-t-md last:rounded-b-md capitalize;
