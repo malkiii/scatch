@@ -79,6 +79,7 @@ const ImageGridLayout: FC<ImageLayoutProps> = ({ pagePath, images }) => {
   return (
     <>
       <div
+        data-test="images-grid-layout"
         ref={containerRef}
         className="w-full grid grid-cols-images gap-4 items-start"
       >

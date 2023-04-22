@@ -17,11 +17,7 @@ const ColorSchemeButton: FC<ButtonProps> = ({ className, children }) => {
   }
 
   return (
-    <button
-      data-testid="cs-button"
-      className={buttonStyle}
-      onClick={toggleTheme}
-    >
+    <button data-test="cs-button" className={buttonStyle} onClick={toggleTheme}>
       {children}
       <span className="flex items-center mt-1 cs-icon"></span>
     </button>

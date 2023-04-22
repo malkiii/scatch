@@ -148,12 +148,13 @@ export const ImageModal: FC<ModalProps> = props => {
 
   return (
     <div
-      onClick={handleClick}
+      data-test="image-modal"
       className="fixed px-40 top-0 left-0 z-[995] w-screen h-screen bg-dark/40 dark:bg-dark/60"
+      onClick={handleClick}
     >
       <div
-        onClick={handleClick}
         className="absolute inset-0 flex items-center justify-between m-auto max-w-6xl py-10 px-3"
+        onClick={handleClick}
       >
         <ModalButtons actions={actions}>
           <ImageContainer {...imageContainerProps}>{children}</ImageContainer>

@@ -25,7 +25,11 @@ type PhotographerNameProps = {
 export const PhotographerName: FC<PhotographerNameProps> = props => {
   const { name, className } = props;
   const styleClasses = className || '';
-  return <strong className={'font-normal ' + styleClasses}>By {name}</strong>;
+  return (
+    <strong className={'text-white font-normal ' + styleClasses}>
+      By {name}
+    </strong>
+  );
 };
 
 type SaveButtonPros = WithClassName;
@@ -71,7 +75,7 @@ type LayerProps = {
 
 const InnerImageLayer: FC<LayerProps> = ({ image, linkProps, children }) => {
   return (
-    <Link {...linkProps} className="relative">
+    <Link {...linkProps} data-test="modal-link" className="relative">
       {children}
       <div className="image-layout-cover">
         <SaveButton className="absolute top-5 right-5 cs-fixed" />
