@@ -42,6 +42,6 @@ export const socials = [
   },
   {
     name: 'Github',
-    url: 'https://github.com/malkiAbdoo'
+    url: 'https://github.com/malkiii'
   }
 ];
