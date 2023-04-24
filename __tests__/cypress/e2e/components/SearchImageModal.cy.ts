@@ -1,4 +1,4 @@
-describe.skip('Image modal test', () => {
+describe('Image modal test', () => {
   let currentURL: string;
   before('display the modal', () => {
     cy.visit('/search');
@@ -13,7 +13,7 @@ describe.skip('Image modal test', () => {
   });
 });
 
-describe('Test the modal action', () => {
+describe.only('Test the modal action', () => {
   before('search for "juce" that contains only 2 images', () => {
     cy.visit('/search/juce');
   });
