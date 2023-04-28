@@ -17,7 +17,7 @@ const textVariants = {
 
 const HeroSection: FC = () => {
   return (
-    <div className="relative pt-10 pb-20 md:py-36">
+    <div className="relative py-20 md:py-44">
       <div className="max-w-7xl mx-auto flex-col lg:flex-row">
         <motion.div
           initial="hidden"

@@ -130,7 +130,7 @@ const ExploreSection: FC = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         transition={{ staggerChildren: 0.1 }}
-        className="py-20"
+        className="py-24"
       >
         <motion.div variants={conntainerVariants} className="text-center">
           <h2>Search for images in any language.</h2>
