@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <link
           rel="preload"
-          href="https://cdn.jsdelivr.net/gh/malkiii/color-scheme-icon-cdn/font/theme-font.woff2"
+          href="https://raw.githubusercontent.com/malkiii/color-scheme-icon-cdn/master/font/theme-font.woff2"
           as="font"
           crossOrigin="anonymous"
         />
