@@ -71,10 +71,13 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
             <Link href="/albums" className="theme-link">
               My albums
             </Link>
+            <ColorSchemeButton
+              containerClassName="inline-flex items-center gap-3 mr-10"
+              buttonClassName="w-10 h-5"
+            />
             <Link href="/" className="theme-btn">
               Login
             </Link>
-            <ColorSchemeButton className="text-3xl ml-7" />
           </div>
           <button className="nav-menu-btn" onClick={toggleMenu}></button>
         </motion.nav>

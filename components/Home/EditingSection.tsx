@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -25,7 +24,6 @@ const containerVariants = {
     transition
   }
 };
-
 const imageVariants = {
   hidden: { x: 100, opacity: 0 },
   visible: {
@@ -38,10 +36,8 @@ const imageVariants = {
 const animationProps = {
   initial: 'hidden',
   whileInView: 'visible',
-  viewport: { once: true, amount: 0.78 }
+  viewport: { once: true, amount: 0.95 }
 };
-
-const imageURL = '/assets/editing-image.jpeg';
 
 type EditingImageProps = {
   filterClassName: string;
@@ -49,8 +45,9 @@ type EditingImageProps = {
 };
 
 const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
+  const imageURL = '/assets/editing-image.jpeg';
   return (
-    <div className="relative aspect-[609/761] w-[90%] sm:w-[400px] mt-12 lg:mt-0 lg:group-hover:rotate-3d-left transition-transform duration-300">
+    <div className="relative aspect-[609/761] w-[90%] sm:w-[400px] mt-12">
       <motion.div
         {...animationProps}
         variants={imageVariants}
@@ -59,11 +56,11 @@ const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
       >
         <div
           className={
-            'absolute w-full h-full overflow-hidden transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full after:pointer-events-none ' +
+            'absolute w-full h-full overflow-hidden transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full after:pointer-events-none border-2 hover:text-theme border-white hover:border-theme rounded-lg ' +
             filterClassName
           }
         >
-          <Image src={imageURL} alt="scatch edit" fill />
+          <Image priority src={imageURL} alt="scatch edit" fill />
         </div>
       </motion.div>
     </div>
@@ -74,10 +71,7 @@ const EditingSection: FC = () => {
   const [filterIndex, setFilterIndex] = useInterval(filters.length, 2200);
 
   return (
-    <motion.div className="group flex items-center flex-col lg:flex-row justify-center py-20 gap-x-10">
-      <Head>
-        <link rel="preload" as="image" href={imageURL} />
-      </Head>
+    <motion.div className="group flex items-center flex-col lg:flex-row justify-center py-24 gap-x-10">
       <motion.div
         {...animationProps}
         variants={containerVariants}

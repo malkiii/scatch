@@ -1,24 +1,79 @@
-import { FC } from 'react';
-import Link from 'next/link';
+import { FC, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { easeInOutExpo } from '@/utils/easing';
+import { CgSearch as SearchIcon } from 'react-icons/cg';
 
 const textVariants = {
-  hidden: { y: 250, opacity: 0 },
+  hidden: { y: 130, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
+      when: 'beforeChildren',
       duration: 0.7,
       ease: easeInOutExpo
     }
   }
 };
 
+const inputVariants = {
+  hidden: { width: '90px' },
+  visible: {
+    width: '100%',
+    transition: {
+      duration: 0.55,
+      ease: easeInOutExpo
+    }
+  }
+};
+
+const SearchInput: FC = () => {
+  const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
+  function triggerTheSearch() {
+    const searchValue = inputRef.current?.value.trim();
+    if (searchValue) {
+      router.push({
+        pathname: '/search/[query]',
+        query: { query: searchValue }
+      });
+    }
+  }
+  function handleKeyDown({ key }: any) {
+    if (key === 'Enter') triggerTheSearch();
+  }
+
+  return (
+    <motion.div
+      variants={inputVariants}
+      className="relative text-lg flex mx-auto items-center rounded-3xl dark:bg-neutral-900/60 bg-neutral-200/40 shadow-xl transition-colors"
+    >
+      <div className="overflow-hidden w-full">
+        <input
+          type="search"
+          ref={inputRef}
+          placeholder="Search.."
+          className="block w-full h-full outline-none bg-transparent py-2 px-4"
+          onKeyDown={handleKeyDown}
+          autoComplete="off"
+          required
+        />
+      </div>
+      <button
+        className="theme-btn w-[90px] flex items-center py-2 px-5 sm:px-7 rounded-inherit"
+        onClick={() => triggerTheSearch()}
+      >
+        <SearchIcon size={30} />
+      </button>
+    </motion.div>
+  );
+};
+
 const HeroSection: FC = () => {
   return (
     <div className="relative py-20 md:py-44">
-      <div className="max-w-7xl mx-auto flex-col lg:flex-row">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial="hidden"
           animate="visible"
@@ -27,7 +82,7 @@ const HeroSection: FC = () => {
         >
           <motion.h1 variants={textVariants}>
             welcome to{' '}
-            <span className="text-transparent bg-clip-text theme-gradient">
+            <span className="relative text-transparent bg-clip-text theme-gradient after:absolute after:h-1 after:theme-gradient after:w-full after:top-full after:left-0">
               Scatch
             </span>
           </motion.h1>
@@ -39,10 +94,11 @@ const HeroSection: FC = () => {
             images and edit, save, or download them for free with high
             resolution.
           </motion.p>
-          <motion.div variants={textVariants} className="inline-block">
-            <Link href="/search" className="theme-btn text-lg ">
-              Get Started
-            </Link>
+          <motion.div
+            variants={textVariants}
+            className="w-full md:w-3/5 mx-auto"
+          >
+            <SearchInput />
           </motion.div>
         </motion.div>
       </div>

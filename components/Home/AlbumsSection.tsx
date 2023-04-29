@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { easeOutExpo } from '@/utils/easing';
-import { useInterval } from '@/hooks/useInterval';
 
 const conntainerVariants = {
   hidden: { y: 100, opacity: 0 },
@@ -16,9 +16,9 @@ const conntainerVariants = {
   }
 };
 const albumVariants = {
-  hidden: { x: -100, opacity: 0 },
+  hidden: { y: 50, opacity: 0 },
   visible: {
-    x: 0,
+    y: 0,
     opacity: 1,
     transition: {
       duration: 0.6,
@@ -26,57 +26,59 @@ const albumVariants = {
     }
   }
 };
+const AlbumImage: FC<{ number: number }> = ({ number }) => {
+  return (
+    <>
+      <Image
+        priority
+        src={`/assets/albums-section/image-${number}.jpeg`}
+        className="w-full rounded-inherit"
+        alt="album"
+        fill
+      />
+      <span className="absolute bottom-2 left-3 opacity-70 font-bold">
+        album
+      </span>
+    </>
+  );
+};
 
 const animationProps = {
   initial: 'hidden',
   whileInView: 'visible',
-  viewport: { once: true, amount: 0.74 },
+  viewport: { once: true, amount: 1 },
   transition: { staggerChildren: 0.1 }
 };
 
 const AlbunmsContainer: FC = () => {
   const albumsNumber = 4;
-  const [albumIndex, setAlbumIndex, counter] = useInterval(albumsNumber, 2800);
-  const imageIndex = albumIndex == -1 ? 0 : albumIndex;
-  function albumImageURL(index: number) {
-    return `url(/assets/albums-section/image-${index + 1}.jpeg)`;
-  }
-
   return (
     <motion.div
       {...animationProps}
-      className="relative w-full md:w-[500px] mt-10"
+      className="relative grid grid-rows-2 grid-cols-2 gap-4 items-center aspect-[2298/1522] w-full md:w-[500px] mt-10"
     >
-      <div className="relative w-[90%] mx-auto lg:group-hover:rotate-3d-right transition-transform duration-300">
-        <motion.div
-          variants={albumVariants}
-          className="album-image"
-          style={{ backgroundImage: albumImageURL(imageIndex) }}
-          onUpdate={() => setAlbumIndex(0)}
-        >
-          <span className="absolute bottom-3 left-4 opacity-70 font-bold">
-            album
-          </span>
-        </motion.div>
-        {counter <= 0 && (
-          <div
-            className="opacity-0 absolute w-4/5 h-4/5 inset-0 m-auto -z-20 bg-cover bg-no-repeat"
-            style={{ backgroundImage: albumImageURL(imageIndex + 1) }}
-          ></div>
-        )}
-      </div>
+      {new Array(albumsNumber).fill(null).map((_, index) => {
+        return (
+          <motion.div
+            key={index}
+            custom={index}
+            variants={albumVariants}
+            className="album-image"
+          >
+            <AlbumImage number={index + 1} />
+          </motion.div>
+        );
+      })}
     </motion.div>
   );
 };
 
 const AlbumsSection: FC = () => {
   return (
-    <motion.div
-      {...animationProps}
-      className="group flex items-center flex-col-reverse lg:flex-row justify-center py-10 gap-x-10"
-    >
+    <motion.div className="flex items-center flex-col-reverse lg:flex-row justify-center py-10 gap-x-10">
       <AlbunmsContainer />
       <motion.div
+        {...animationProps}
         variants={conntainerVariants}
         className="max-w-[500px] text-center lg:text-left"
       >

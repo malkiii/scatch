@@ -16,7 +16,7 @@ type DemoInputProps = {
 
 const SearchDemoInput: FC<DemoInputProps> = ({ afterString }) => {
   return (
-    <div className="w-2/3 sm:w-80 h-11 mb-4 py-2 px-3 border-theme border-2 rounded-lg mx-auto dark:bg-neutral-800/40 bg-neutral-50/50">
+    <div className="w-2/3 sm:w-80 h-11 mb-4 py-2 px-3 border-theme border-2 rounded-3xl mx-auto dark:bg-neutral-800/40 bg-neutral-50/50">
       <TypeIt
         options={{
           loop: true,
