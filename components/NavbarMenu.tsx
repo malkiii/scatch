@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { easeInOutExpo } from '@/utils/easing';
+import { easeInOutExpo, easeOutExpo } from '@/utils/easing';
 import { useEffect, useState, FC } from 'react';
 import ColorSchemeButton from './ColorSchemeButton';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,7 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 // animation variants
 const transition = {
   duration: 0.8,
-  ease: easeInOutExpo
+  ease: easeInOutExpo,
+  staggerChildren: 0.11
 };
 const buttonTransition = {
   duration: 0.7,
@@ -64,6 +65,18 @@ const menuVariants = {
   }
 };
 
+const menuItemInit = { x: 550, opacity: 0 };
+const menuItemVariants = {
+  open: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.7,
+      ease: easeOutExpo
+    }
+  }
+};
+
 type NavMenuProps = {
   isOpen: boolean;
   toggle: () => void;
@@ -108,24 +121,32 @@ const MenuContainer: FC<MenuProps> = ({ toggle }) => {
       variants={menuVariants}
       animate="open"
       exit="close"
-      className="fixed top-0 left-full h-screen border-l-2 border-l-theme text-dark dark:text-white dark:bg-dark bg-white z-[999] w-full text-4xl font-bold px-10"
+      className="fixed top-0 left-full h-screen text-white bg-dark/90 z-[999] w-full text-4xl font-bold px-10"
     >
       <div className="w-full">
         <ul className="mt-24">
           {navMenuLinks.map((url, index) => (
-            <Link
+            <motion.div
               key={index}
-              className="nav-menu-link"
-              href={index == 0 ? '/' : '/' + url}
-              onClick={toggle}
+              variants={menuItemVariants}
+              style={menuItemInit}
             >
-              {url}
-            </Link>
+              <Link
+                className="nav-menu-link"
+                href={index == 0 ? '/' : '/' + url}
+                onClick={toggle}
+              >
+                {url}
+              </Link>
+            </motion.div>
           ))}
         </ul>
-        <ColorSchemeButton className="flex w-full items-center justify-between p-5 text-4xl">
-          Dark
-        </ColorSchemeButton>
+        <motion.div variants={menuItemVariants} style={menuItemInit}>
+          <ColorSchemeButton
+            containerClassName="flex w-full items-center justify-between p-5"
+            buttonClassName="w-[57px] h-7 border-white after:bg-white"
+          />
+        </motion.div>
       </div>
     </motion.div>
   );
