@@ -56,16 +56,16 @@
     @apply font-bold inline-flex text-white dark:text-dark bg-dark dark:bg-white rounded-3xl px-6 py-3 hover:text-white hover:bg-cyan-500 dark:hover:text-white dark:hover:bg-cyan-500 transition-colors duration-200;
   }
   .nav-menu-link {
-    @apply block p-5 border-b-2 border-b-cyan-500 dark:hover:text-theme capitalize transition-all;
+    @apply block p-5 dark:hover:text-theme capitalize border-b-2 border-white transition-all hover:border-b-theme;
   }
   .nav-menu-btn {
     @apply inline-flex md:hidden relative w-10 h-4 before:absolute before:w-full before:h-[3px] before:top-0 before:bg-dark before:right-0 after:absolute after:w-[66%] after:h-[3px] after:bottom-0 after:bg-dark after:right-0 hover:after:bg-theme hover:before:bg-theme transition-colors after:transition-inherit before:transition-inherit dark:after:bg-white dark:before:bg-white;
   }
   .album-image {
-    @apply aspect-[1149/761] w-full mx-auto text-white bg-neutral-800/10 transition-bg-image duration-500 bg-cover bg-no-repeat shadow-3xl mb-10;
+    @apply relative aspect-[1149/761] text-white border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg shadow-3xl;
   }
   .hero-section-image {
-    @apply absolute w-2/3 aspect-[1920/1080] select-none after:absolute after:inset-0 after:bg-theme after:w-0 after:top-0 after:z-10;
+    @apply absolute w-1/2 aspect-[1920/1080] select-none after:absolute after:inset-0 after:bg-theme after:w-0 after:top-0 after:z-10;
   }
   .footer-link {
     @apply flex items-center my-2 dark:text-white/90 text-dark/70 hover:text-dark dark:hover:text-theme transition-colors gap-3;
@@ -111,12 +111,6 @@
   }
   .focus-gradient {
     background: radial-gradient(#0000, #0005);
-  }
-  .rotate-3d-right {
-    transform: rotate3d(0.3, 0.82, -0.06, 35deg);
-  }
-  .rotate-3d-left {
-    transform: rotate3d(-0.3, 1, 0.06, 35deg);
   }
 }
 
