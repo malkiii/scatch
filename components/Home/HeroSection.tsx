@@ -61,10 +61,10 @@ const SearchInput: FC = () => {
         />
       </div>
       <button
-        className="theme-btn w-[90px] flex items-center py-2 px-5 sm:px-7 rounded-inherit"
+        className="theme-btn w-[90px] flex items-center py-2 rounded-inherit"
         onClick={() => triggerTheSearch()}
       >
-        <SearchIcon size={30} />
+        <SearchIcon size={30} className="block mx-auto" />
       </button>
     </motion.div>
   );

@@ -35,8 +35,7 @@ const imageVariants = {
 
 const animationProps = {
   initial: 'hidden',
-  whileInView: 'visible',
-  viewport: { once: true, amount: 0.95 }
+  whileInView: 'visible'
 };
 
 type EditingImageProps = {
@@ -47,9 +46,12 @@ type EditingImageProps = {
 const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
   const imageURL = '/assets/editing-image.jpeg';
   return (
-    <div className="relative aspect-[609/761] w-[90%] sm:w-[400px] mt-12">
+    <motion.div
+      {...animationProps}
+      viewport={{ once: true, amount: 0.84 }}
+      className="relative aspect-[609/761] w-[90%] sm:w-[400px] mt-12"
+    >
       <motion.div
-        {...animationProps}
         variants={imageVariants}
         onUpdate={onUpdate}
         className="absolute w-full h-full overflow-hidden shadow-3xl"
@@ -63,7 +65,7 @@ const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
           <Image priority src={imageURL} alt="scatch edit" fill />
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -75,6 +77,7 @@ const EditingSection: FC = () => {
       <motion.div
         {...animationProps}
         variants={containerVariants}
+        viewport={{ once: true, amount: 0.95 }}
         className="max-w-[550px] text-center lg:text-left"
       >
         <h2>Upload and Edit the images.</h2>
