@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { socials } from '@/data/constants';
+import { siteInfos, socials } from '@/data/constants';
 import { FaFacebook, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
 
 const socialIcons = {
@@ -71,7 +71,9 @@ const Footer: FC = () => {
           </div>
         </div>
         <div className="text-center max-sm:text-sm py-6 border-t dark:border-t-white/50 border-t-dark/50">
-          <p>Copyright &copy; 2022-{currentYear} Malki Abderrahman.</p>
+          <p>
+            Copyright &copy; 2022-{currentYear} {siteInfos.author}.
+          </p>
         </div>
       </div>
     </footer>

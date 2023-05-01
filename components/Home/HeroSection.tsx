@@ -1,6 +1,7 @@
 import { FC, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { siteInfos } from '@/data/constants';
 import { easeInOutExpo } from '@/utils/easing';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 
@@ -83,16 +84,14 @@ const HeroSection: FC = () => {
           <motion.h1 variants={textVariants}>
             welcome to{' '}
             <span className="relative text-transparent bg-clip-text theme-gradient after:absolute after:h-1 after:theme-gradient after:w-full after:top-full after:left-0">
-              Scatch
+              {siteInfos.name}
             </span>
           </motion.h1>
           <motion.p
             variants={textVariants}
             className="text-xl sm:text-2xl sm:leading-[1.7] leading-[1.7] opacity-75"
           >
-            Scatch is an online image gallery where you can find your favored
-            images and edit, save, or download them for free with high
-            resolution.
+            {siteInfos.description}
           </motion.p>
           <motion.div
             variants={textVariants}
