@@ -3,9 +3,7 @@ import FacebookProvider from 'next-auth/providers/facebook';
 
 const env = process.env as Record<string, string>;
 export const authOptions = {
-  pages: {
-    signIn: '/login'
-  },
+  pages: { signIn: '/login' },
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
