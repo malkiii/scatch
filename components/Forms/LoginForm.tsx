@@ -25,6 +25,7 @@ const LoginProviders: FC = () => {
       {providers.map(({ name, icon, style, handleSignIn }, id) => (
         <button
           key={id}
+          type="button"
           style={style}
           onClick={handleSignIn}
           className="flex items-center justify-center gap-3 w-full text-white p-3 rounded-3xl font-semibold"
