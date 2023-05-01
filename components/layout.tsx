@@ -5,24 +5,41 @@ import { FC, ReactNode } from 'react';
 import { useTheme } from 'next-themes';
 import Progressbar from './Progressbar';
 
-type layoutProps = {
+type withChildren = {
   children: ReactNode;
 };
+type layoutProps = withChildren & {
+  route: string;
+};
 
-const Layout: FC<layoutProps> = ({ children }) => {
+const WithNavbarAndFooter: FC<withChildren> = ({ children }) => {
+  return (
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
+  );
+};
+
+const Layout: FC<layoutProps> = ({ route, children }) => {
   const { systemTheme } = useTheme();
-  const favionPath = `/favicon-${systemTheme || 'light'}.ico`;
+  const favionPath = `/favicon-${systemTheme || 'dark'}.ico`;
+  const exculdedRoutes = ['/login', '/register'];
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href={favionPath} />
         <link rel="preload" as="image" href="/logotype.svg" />
+        <title>Scatch</title>
       </Head>
       <Progressbar />
-      <Navbar />
-      {children}
-      <Footer />
+      {exculdedRoutes.includes(route) ? (
+        <>{children}</>
+      ) : (
+        <WithNavbarAndFooter>{children}</WithNavbarAndFooter>
+      )}
     </>
   );
 };
