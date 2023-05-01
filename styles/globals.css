@@ -43,6 +43,9 @@
   .logo {
     @apply brightness-0 dark:brightness-100 transition-all select-none;
   }
+  .bg-mesh-grandient {
+    @apply fixed top-0 left-0 w-full min-h-screen -z-10 mesh-grandient;
+  }
   .main-container {
     @apply max-w-screen-xl mx-auto;
   }
@@ -100,8 +103,12 @@
   .menu-suggestion.focus {
     @apply dark:bg-neutral-800 bg-neutral-200;
   }
+  .credential-input {
+    @apply border border-neutral-500 outline-cyan-500 w-full h-full bg-transparent py-3 px-4 rounded-3xl;
+  }
 }
 
+/* prettier-ignore */
 @layer utilities {
   .h-inherit {
     height: inherit;
@@ -112,18 +119,19 @@
   .focus-gradient {
     background: radial-gradient(#0000, #0005);
   }
+  .vertical-line-gradient {
+    background:
+      linear-gradient(90deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
+  }
+  .mesh-grandient {
+    background-image:
+      radial-gradient(at 18% 120%, hsla(191, 85%, 53%, 0.4) 0px, transparent 50%),
+      radial-gradient(at 100% 130%, hsla(191, 85%, 53%, 0.6) 0px, transparent 50%),
+      radial-gradient(at 150% 33%, hsla(191, 85%, 53%, 1) 0px, transparent 50%),
+      radial-gradient(at 35% -60%, hsla(191, 85%, 53%, 1) 0px, transparent 50%);
+  }
 }
 
 .scrolling-disabled {
   @apply pr-4 overflow-y-hidden;
-}
-
-/* prettier-ignore */
-.mesh-grandient {
-  background-color: hsla(0, 0%, 0%, 0);
-  background-image:
-    radial-gradient(at 18% 120%, hsla(191, 85%, 53%, 0.4) 0px, transparent 50%),
-    radial-gradient(at 100% 130%, hsla(191, 85%, 53%, 0.6) 0px, transparent 50%),
-    radial-gradient(at 150% 33%, hsla(191, 85%, 53%, 1) 0px, transparent 50%),
-    radial-gradient(at 35% -60%, hsla(191, 85%, 53%, 1) 0px, transparent 50%);
 }
