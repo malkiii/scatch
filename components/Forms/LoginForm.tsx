@@ -3,21 +3,19 @@ import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
-import { siteInfos } from '@/data/constants';
 
-const signInOptions = { callbackUrl: siteInfos.url };
 const providers = [
   {
     name: 'Google',
     icon: <GoogleIcon size={25} />,
     style: { color: '#000', backgroundColor: '#fff', border: '1px solid gray' },
-    handleSignIn: () => signIn('google', signInOptions)
+    handleSignIn: () => signIn('google')
   },
   {
     name: 'Facebook',
     icon: <FacebookIcon size={25} />,
     style: { backgroundColor: '#1877F2' },
-    handleSignIn: () => signIn('facebook', signInOptions)
+    handleSignIn: () => signIn('facebook')
   }
 ];
 
