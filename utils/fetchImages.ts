@@ -1,4 +1,4 @@
-import { HOSTNAME } from '@/data/constants';
+import { siteInfos } from '@/data/constants';
 import { ResponseImage } from './types';
 
 const API_TOKEN = process.env.API_TOKEN as string;
@@ -26,7 +26,7 @@ export const fetchImages = async (
   signal?: AbortSignal
 ): Promise<fetchImagesData> => {
   try {
-    const endpointURL = new URL('/api/images', HOSTNAME);
+    const endpointURL = new URL('/api/images', siteInfos.url);
     endpointURL.search = new URLSearchParams(params).toString();
 
     const response = await fetch(endpointURL, { headers, signal });
@@ -50,7 +50,7 @@ type fetchPhotoData = {
 
 export const fetchPhoto = async (id: string): Promise<fetchPhotoData> => {
   try {
-    const endpointURL = new URL('/api/images', HOSTNAME);
+    const endpointURL = new URL('/api/images', siteInfos.url);
     endpointURL.searchParams.set('e', '/photos/' + id);
 
     const response = await fetch(endpointURL, { headers });
