@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { easeInOutExpo } from '@/utils/easing';
 import ColorSchemeButton from './ColorSchemeButton';
 import { withRouter, NextRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 type NavbarProps = {
   router: NextRouter;
@@ -39,6 +40,9 @@ const Logo: FC = () => {
 
 const Navbar: FC<NavbarProps> = ({ router }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { data: session } = useSession();
+  console.log({ session });
+
   function toggleMenu() {
     setIsOpen(!isOpen);
     disableScrolling();
@@ -75,7 +79,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
               containerClassName="inline-flex items-center gap-3 mr-10"
               buttonClassName="w-10 h-5"
             />
-            <Link href="/" className="theme-btn">
+            <Link href="/login" className="theme-btn">
               Login
             </Link>
           </div>
