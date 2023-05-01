@@ -1,4 +1,11 @@
-export const HOSTNAME = 'https://malki-scatch.vercel.app';
+export const siteInfos = {
+  name: 'Scatch',
+  author: 'Malki Abdurrahman',
+  description:
+    'Scatch is an online image gallery where you can find your favored images and edit, save, or download them for free with high resolution.',
+  url: 'https://malki-scatch.vercel.app',
+  ogImage: ''
+};
 
 export const searchDemoImages = {
   nature: [
