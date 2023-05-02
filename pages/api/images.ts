@@ -11,7 +11,7 @@ async function getFetchURL(requestQuery: RequestQuery): Promise<URL> {
   if (endpointName.includes('photos')) return endpointURL;
 
   endpointURL.searchParams.set('page', requestQuery.p || '1');
-  endpointURL.searchParams.set('per_page', '24');
+  endpointURL.searchParams.set('per_page', requestQuery.pp || '24');
 
   const orientation = requestQuery.o || 'all';
 
