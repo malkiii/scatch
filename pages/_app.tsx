@@ -10,6 +10,7 @@ export default function MyApp({
   Component,
   pageProps: { session, ...pageProps }
 }: AppProps) {
+  const isAuthRoute = ['/login', '/register'].includes(router.pathname);
   return (
     <ThemeProvider attribute="class">
       <Head>
@@ -18,7 +19,7 @@ export default function MyApp({
         <title>Scatch</title>
       </Head>
       <SessionProvider session={session}>
-        <Layout route={router.pathname}>
+        <Layout empty={isAuthRoute}>
           <Component {...pageProps} />
         </Layout>
       </SessionProvider>
