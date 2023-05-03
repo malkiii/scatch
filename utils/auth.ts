@@ -1,8 +1,9 @@
+import { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 
 const env = process.env as Record<string, string>;
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   pages: { signIn: '/login' },
   providers: [
     GoogleProvider({
@@ -11,7 +12,8 @@ export const authOptions = {
     }),
     FacebookProvider({
       clientId: env.FACEBOOK_CLIENT_ID,
-      clientSecret: env.FACEBOOK_CLIENT_SECRET
+      clientSecret: env.FACEBOOK_CLIENT_SECRET,
+      authorization: { url: 'https://www.facebook.com/v5.0/dialog/oauth' }
     })
   ]
 };
