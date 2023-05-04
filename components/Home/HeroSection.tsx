@@ -48,7 +48,7 @@ const SearchInput: FC = () => {
   return (
     <motion.div
       variants={inputVariants}
-      className="relative text-lg flex mx-auto items-center rounded-3xl dark:bg-neutral-900/60 bg-neutral-200/40 shadow-xl transition-colors"
+      className="relative text-lg flex mx-auto items-center rounded-3xl dark:bg-neutral-900/60 bg-white/80 shadow-xl transition-colors"
     >
       <div className="overflow-hidden w-full">
         <input
