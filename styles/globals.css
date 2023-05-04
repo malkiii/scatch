@@ -104,7 +104,10 @@
     @apply dark:bg-neutral-800 bg-neutral-200;
   }
   .credential-input {
-    @apply border border-neutral-500 outline-cyan-500 w-full h-full bg-transparent py-3 px-4 rounded-3xl;
+    @apply border border-neutral-500 outline-cyan-500 dark:outline-cyan-500 w-full h-full bg-transparent py-3 px-4 rounded-3xl;
+  }
+  .submit-btn {
+    @apply block w-full bg-dark hover:bg-cyan-500 font-bold p-3 text-white transition-colors rounded-3xl;
   }
 }
 
@@ -118,6 +121,9 @@
   }
   .focus-gradient {
     background: radial-gradient(#0000, #0005);
+  }
+  .focus-gradient-lg {
+    background: radial-gradient(#0000, #000000bf);
   }
   .vertical-line-gradient {
     background:
