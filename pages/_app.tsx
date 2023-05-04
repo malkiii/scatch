@@ -12,7 +12,7 @@ export default function MyApp({
 }: AppProps) {
   const isAuthRoute = ['/login', '/register'].includes(router.pathname);
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider attribute="class" defaultTheme="dark">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preload" as="image" href="/logotype.svg" />
