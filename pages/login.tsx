@@ -3,12 +3,9 @@ import LoginForm from '@/components/Forms/LoginForm';
 
 const LoginPage: NextPage = () => {
   return (
-    <div className="flex items-center justify-center bg-mesh-grandient px-4">
-      <div
-        className="text-center text-dark p-4 w-[460px] bg-white shadow-2xl rounded-xl"
-        style={{ colorScheme: 'light' }}
-      >
-        <h1 className="my-4 text-4xl capitalize">welcome to scatch</h1>
+    <div className="h-screen flex items-center p-7">
+      <div className="w-[540px] mx-auto text-center">
+        <h2 className="auth-title mb-10">welcome to scatch</h2>
         <LoginForm />
       </div>
     </div>
