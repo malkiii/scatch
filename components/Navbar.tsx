@@ -29,7 +29,7 @@ const Logo: FC = () => {
     <Link href="/">
       <Image
         src="/logotype.svg"
-        alt="Logo"
+        alt="scatch logo"
         width={144}
         height={39}
         className="logo"
@@ -41,7 +41,6 @@ const Logo: FC = () => {
 const Navbar: FC<NavbarProps> = ({ router }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { data: session } = useSession();
-  console.log({ session });
 
   function toggleMenu() {
     setIsOpen(!isOpen);
