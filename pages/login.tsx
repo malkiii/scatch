@@ -3,7 +3,7 @@ import LoginForm from '@/components/Forms/LoginForm';
 
 const LoginPage: NextPage = () => {
   return (
-    <div className="font-rubik flex items-center justify-center bg-mesh-grandient px-4">
+    <div className="flex items-center justify-center bg-mesh-grandient px-4">
       <div
         className="text-center text-dark p-4 w-[460px] bg-white shadow-2xl rounded-xl"
         style={{ colorScheme: 'light' }}
