@@ -19,7 +19,7 @@ const textVariants = {
 };
 
 const inputVariants = {
-  hidden: { width: '90px' },
+  hidden: { width: '80px' },
   visible: {
     width: '100%',
     transition: {
