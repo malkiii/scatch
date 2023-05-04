@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import AuthProviders from './authProviders';
+import Providers from './Providers';
+import Head from 'next/head';
 
 const CredentialInputs: FC = () => {
   return (
@@ -32,16 +33,16 @@ const LoginForm = () => {
       className="flex flex-col gap-4"
       autoComplete="on"
     >
-      <AuthProviders message="Continue with" />
+      <Head>
+        <title>Login to Scatch</title>
+      </Head>
+      <Providers message="Continue with" />
       <div className="relative z-10">
         <span className="absolute inset-0 m-auto vertical-line-gradient h-px z-0"></span>
         <span className="relative bg-white px-4">OR</span>
       </div>
       <CredentialInputs />
-      <button
-        type="submit"
-        className="block w-full bg-dark hover:bg-cyan-500 font-bold p-3 text-white transition-colors rounded-3xl"
-      >
+      <button type="submit" className="submit-btn">
         Login
       </button>
       <div className="text-neutral-500 my-2">
