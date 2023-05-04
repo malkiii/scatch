@@ -13,7 +13,10 @@ export const authOptions: NextAuthOptions = {
     FacebookProvider({
       clientId: env.FACEBOOK_CLIENT_ID,
       clientSecret: env.FACEBOOK_CLIENT_SECRET,
-      authorization: { url: 'https://www.facebook.com/v5.0/dialog/oauth' }
+      authorization: {
+        url: 'https://www.facebook.com/v16.0/dialog/oauth',
+        params: { scope: 'email,public_profile' }
+      }
     })
   ]
 };
