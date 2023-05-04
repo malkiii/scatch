@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import Providers from './Providers';
+import { AuthProviders, VerticalLine } from './FormItems';
 import Head from 'next/head';
 
 const CredentialInputs: FC = () => {
@@ -28,26 +28,19 @@ const CredentialInputs: FC = () => {
 
 const LoginForm = () => {
   return (
-    <form
-      onSubmit={undefined}
-      className="flex flex-col gap-4"
-      autoComplete="on"
-    >
+    <form onSubmit={undefined} className="flex flex-col gap-4">
       <Head>
         <title>Login to Scatch</title>
       </Head>
-      <Providers message="Continue with" />
-      <div className="relative z-10">
-        <span className="absolute inset-0 m-auto vertical-line-gradient h-px z-0"></span>
-        <span className="relative bg-white px-4">OR</span>
-      </div>
+      <AuthProviders text="Continue with" />
+      <VerticalLine text="OR" />
       <CredentialInputs />
-      <button type="submit" className="submit-btn">
+      <button type="submit" className="block theme-btn text-center">
         Login
       </button>
       <div className="text-neutral-500 my-2">
         New to scatch?{' '}
-        <Link href="/register" className="text-dark underline">
+        <Link href="/register" className="dark:text-white text-dark underline">
           Sign Up
         </Link>
       </div>

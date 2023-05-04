@@ -1,7 +1,5 @@
 import { FC } from 'react';
-import Link from 'next/link';
-import { siteInfos } from '@/data/constants';
-import AuthProviders from '@/components/Forms/Providers';
+import { AuthProviders, VerticalLine } from './FormItems';
 
 const CredentialInputs: FC = () => {
   return (
@@ -46,29 +44,14 @@ const CredentialInputs: FC = () => {
 
 const SignUpForm: FC = () => {
   return (
-    <div className="flex flex-col gap-y-4 w-[540px] mx-auto">
-      <div className="text-center mb-5">
-        <h2 className="capitalize text-4xl lg:text-5xl">
-          join to {siteInfos.name}
-        </h2>
-        <div>
-          Already have an account?{' '}
-          <Link href="/login" className="underline">
-            Login
-          </Link>
-        </div>
-      </div>
-      <AuthProviders message="Join using" />
-      <span className="text-center"></span>
-      <div className="relative text-center z-10">
-        <span className="absolute inset-0 m-auto vertical-line-gradient h-px z-0"></span>
-        <span className="relative bg-white px-3">or join with your email</span>
-      </div>
+    <form onSubmit={undefined} className="flex flex-col gap-y-4">
+      <AuthProviders text="Join using" />
+      <VerticalLine text="or join with your email" />
       <CredentialInputs />
-      <button type="submit" className="submit-btn">
+      <button type="submit" className="block theme-btn text-center">
         Sign Up
       </button>
-    </div>
+    </form>
   );
 };
 export default SignUpForm;
