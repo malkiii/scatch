@@ -3,12 +3,12 @@ import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
 import { FC, useState } from 'react';
 
-export const providers = [
+const providers = [
   {
     name: 'Google',
     icon: <GoogleIcon size={25} />,
     className:
-      'text-dark bg-white border border-neutral-400 hover:bg-neutral-50',
+      'text-dark bg-white border border-neutral-400 dark:border-none hover:bg-neutral-50',
     handleSignIn: () => signIn('google')
   },
   {
@@ -20,10 +20,10 @@ export const providers = [
 ];
 
 type AuthProvidersProps = {
-  message: string;
+  text: string;
 };
 
-const Providers: FC<AuthProvidersProps> = ({ message }) => {
+export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   function handleClick(target: HTMLButtonElement, handler: Function) {
     if (isLoading) return;
@@ -44,11 +44,21 @@ const Providers: FC<AuthProvidersProps> = ({ message }) => {
             className
           }
         >
-          {icon} {message} {name}
+          {icon} {text} {name}
         </button>
       ))}
     </>
   );
 };
 
-export default Providers;
+type VerticalLineProps = {
+  text?: string;
+};
+export const VerticalLine: FC<VerticalLineProps> = ({ text }) => {
+  return (
+    <div className="relative z-10">
+      <span className="absolute inset-0 m-auto vertical-line-gradient dark:invert h-px z-0"></span>
+      <span className="relative bg-white dark:bg-dark px-3">{text}</span>
+    </div>
+  );
+};
