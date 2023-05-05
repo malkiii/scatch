@@ -5,8 +5,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cypress": "cypress open",
-    "e2e": "cypress run"
+    "cypress": "cypress open --e2e",
+    "e2e": "bash __tests__/cypress/serve.sh"
   },
   "dependencies": {
     "framer-motion": "^9.0.4",
