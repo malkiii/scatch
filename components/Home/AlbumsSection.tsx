@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { easeOutExpo } from '@/utils/easing';
+import { easeExpOut } from '@malkiii/d3-ease';
 
 const conntainerVariants = {
   hidden: { y: 100, opacity: 0 },
@@ -11,7 +11,7 @@ const conntainerVariants = {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: easeOutExpo
+      ease: easeExpOut
     }
   }
 };
@@ -22,7 +22,7 @@ const albumVariants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: easeOutExpo
+      ease: easeExpOut
     }
   }
 };

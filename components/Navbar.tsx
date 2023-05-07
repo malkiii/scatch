@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { FC, useState } from 'react';
 import NavbarMenu from './NavbarMenu';
 import { motion } from 'framer-motion';
-import { easeInOutExpo } from '@/utils/easing';
+import { easeExpInOut } from '@malkiii/d3-ease';
 import ColorSchemeButton from './ColorSchemeButton';
 import { withRouter, NextRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
@@ -19,7 +19,7 @@ const navVariants = {
     opacity: 1,
     transition: {
       duration: 0.7,
-      ease: easeInOutExpo
+      ease: easeExpInOut
     }
   }
 };

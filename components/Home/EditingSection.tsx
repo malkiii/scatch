@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { easeOutExpo } from '@/utils/easing';
+import { easeExpOut } from '@malkiii/d3-ease';
 import { useInterval } from '@/hooks/useInterval';
 
 const filters = [
@@ -14,7 +14,7 @@ const filters = [
 
 const transition = {
   duration: 0.4,
-  ease: easeOutExpo
+  ease: easeExpOut
 };
 const containerVariants = {
   hidden: { y: 100, opacity: 0 },

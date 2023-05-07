@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import { easeInOutExpo, easeOutExpo } from '@/utils/easing';
 import { useEffect, useState, FC } from 'react';
 import ColorSchemeButton from './ColorSchemeButton';
 import { motion, AnimatePresence } from 'framer-motion';
+import { easeExpInOut, easeExpOut } from '@malkiii/d3-ease';
 
 // animation variants
 const transition = {
   duration: 0.8,
-  ease: easeInOutExpo,
+  ease: easeExpInOut,
   staggerChildren: 0.11
 };
 const buttonTransition = {
@@ -72,7 +72,7 @@ const menuItemVariants = {
     opacity: 1,
     transition: {
       duration: 0.7,
-      ease: easeOutExpo
+      ease: easeExpOut
     }
   }
 };

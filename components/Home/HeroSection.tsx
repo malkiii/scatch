@@ -2,7 +2,7 @@ import { FC, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { siteInfos } from '@/data/constants';
-import { easeInOutExpo } from '@/utils/easing';
+import { easeExpInOut } from '@malkiii/d3-ease';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 
 const textVariants = {
@@ -13,7 +13,7 @@ const textVariants = {
     transition: {
       when: 'beforeChildren',
       duration: 0.7,
-      ease: easeInOutExpo
+      ease: easeExpInOut
     }
   }
 };
@@ -24,7 +24,7 @@ const inputVariants = {
     width: '100%',
     transition: {
       duration: 0.55,
-      ease: easeInOutExpo
+      ease: easeExpInOut
     }
   }
 };
