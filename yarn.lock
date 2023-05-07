@@ -343,6 +343,11 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@malkiii/d3-ease@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@malkiii/d3-ease/-/d3-ease-3.0.1.tgz#8973e51263319deb8bdd93de7a9cd5265c9b38c6"
+  integrity sha512-Iu5rbwKrRC9irrABLlUjQFtkzqa9sVo2v3z1VdP3j8At8yGcmaIKYka4HkhsnujHBCwA21TigTlMNFvLNRewjA==
+
 "@next/env@13.3.1":
   version "13.3.1"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-13.3.1.tgz#589707043065f6b71d411ed9b8f1ffd057c0fd4a"

@@ -9,6 +9,7 @@
     "e2e": "bash __tests__/cypress/serve.sh"
   },
   "dependencies": {
+    "@malkiii/d3-ease": "^3.0.1",
     "framer-motion": "^9.0.4",
     "next": "latest",
     "next-auth": "^4.22.1",
