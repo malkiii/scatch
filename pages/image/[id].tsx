@@ -4,9 +4,13 @@ import { fetchPhoto } from '@/utils/fetchImages';
 import { GetServerSideProps, NextPage } from 'next';
 import ImagePageContent from '@/components/Search/ImagePageContent';
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { query, res } = context;
   const id = query.id as string;
+
+  res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
   const { image, alt } = await fetchPhoto(id);
+
   return {
     props: { image, alt, key: id }
   };

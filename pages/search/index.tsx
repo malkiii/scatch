@@ -15,8 +15,9 @@ type Props = {
   hasMore: boolean;
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const searchParams = { e: 'curated' };
+  res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
   const data = await fetchImages(searchParams);
 
   return { props: data };

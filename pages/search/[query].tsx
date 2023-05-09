@@ -23,6 +23,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
     o: orientation
   };
 
+  const { res } = context;
+  res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
+
   const { images, hasMore } = await fetchImages(searchParams);
   const key = searchKeyword + (orientation || '');
 
