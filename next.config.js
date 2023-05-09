@@ -4,6 +4,9 @@ module.exports = {
   images: {
     domains: ['images.pexels.com']
   },
+  experimental: {
+    serverComponentsExternalPackages: ['@prisma/client']
+  },
   env: {
     API_TOKEN: process.env.API_KEY
   }
