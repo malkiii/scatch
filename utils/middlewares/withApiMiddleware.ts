@@ -1,13 +1,14 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
 const withApiMiddleware =
-  (next: NextApiHandler) => (req: NextApiRequest, res: NextApiResponse) => {
+  (next: NextApiHandler) =>
+  async (req: NextApiRequest, res: NextApiResponse) => {
     const API_TOKEN = process.env.API_TOKEN as string;
 
     const isAuthorized = req.headers.token === API_TOKEN;
     if (!isAuthorized) {
       res.status(401).json({ error: 'Unauthorized' });
-      return;
+      return null;
     }
 
     return next(req, res);
