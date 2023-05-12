@@ -85,8 +85,8 @@
   .image-layout-cover {
     @apply absolute inset-0 opacity-0 before:absolute before:inset-0 before:focus-gradient before:pointer-events-none transition-opacity hover:opacity-100;
   }
-  .filter-option {
-    @apply flex items-center gap-2 bg-white dark:bg-neutral-900 transition-colors p-3 first:rounded-t-md last:rounded-b-md capitalize;
+  .menu-option {
+    @apply bg-white dark:bg-neutral-900 transition-colors p-3 first:rounded-t-md last:rounded-b-md capitalize;
   }
   .modal-arrow {
     @apply text-white text-7xl disabled:opacity-30 hover:text-theme transition-colors hover:disabled:text-current;
