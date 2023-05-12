@@ -87,7 +87,7 @@ export default withRouter((props: PageProps) => {
                 <FilterMenu query={searchKeyword} focusOn={orientation} />
               </div>
               <ImageGridLayout pagePath={currentPathname} images={images} />
-              {<PulseAnimation />}
+              {hasMore && <PulseAnimation />}
             </>
           ) : (
             <NoResults query={searchKeyword} />
