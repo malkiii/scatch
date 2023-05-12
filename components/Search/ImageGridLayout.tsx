@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useRouter } from 'next/router';
 import { ImageLayer } from './ImageLayer';
 import { default as Img } from 'next/image';
-import { ResponseImage } from '@/utils/types';
+import { ResponseImage } from '@/types';
 import SearchImageModal from './SearchImageModal';
 import { useModalRoute } from '@/hooks/useModalRoute';
 import { useGridColumnsNumber } from '@/hooks/useGridColumnsNumber';

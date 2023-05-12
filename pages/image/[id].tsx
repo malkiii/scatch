@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { ResponseImage } from '@/utils/types';
+import { ResponseImage } from '@/types';
 import { fetchPhoto } from '@/utils/fetchImages';
 import { GetServerSideProps, NextPage } from 'next';
 import ImagePageContent from '@/components/Search/ImagePageContent';

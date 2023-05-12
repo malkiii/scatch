@@ -1,4 +1,4 @@
-import { ModalActions } from '@/utils/types';
+import { ModalActions } from '@/types';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 

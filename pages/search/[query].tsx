@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { FC, useState } from 'react';
-import { ResponseImage } from '@/utils/types';
+import { ResponseImage } from '@/types';
 import { fetchImages } from '@/utils/fetchImages';
 import translateToEnglish from '@/utils/translate';
 import { GetServerSideProps } from 'next';

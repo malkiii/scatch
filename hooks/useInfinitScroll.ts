@@ -1,4 +1,4 @@
-import { ResponseImage } from '@/utils/types';
+import { ResponseImage } from '@/types';
 import { fetchImages } from '@/utils/fetchImages';
 import { useState, useEffect, useCallback } from 'react';
 

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { ResponseImage } from '@/utils/types';
+import { ResponseImage } from '@/types';
 import { fetchImages } from '@/utils/fetchImages';
 import { NextPage, GetServerSideProps } from 'next';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';

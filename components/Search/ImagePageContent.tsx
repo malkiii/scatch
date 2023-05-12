@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { FC, useRef } from 'react';
-import { ResponseImage } from '@/utils/types';
+import { ResponseImage } from '@/types';
 import { useBlurhashImage } from '@/hooks/useBlurhashImage';
 import {
   SaveButton,
