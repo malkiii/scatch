@@ -1,4 +1,4 @@
-import { ResponseImage } from '@/types';
+import { ImagePage, ResponseImage } from '@/types';
 import { fetchImages } from '@/utils/fetchImages';
 import { useState, useEffect, useCallback } from 'react';
 
@@ -10,8 +10,10 @@ type FetchConfigs = {
   hasMore: boolean;
 };
 
+type InfinitScrollHook = (configs: FetchConfigs) => ImagePage;
+
 /* eslint-disable react-hooks/exhaustive-deps */
-export const useInfinitScroll = (configs: FetchConfigs): ResponseImage[] => {
+export const useInfinitScroll: InfinitScrollHook = configs => {
   const [imageArray, setImageArray] = useState(configs.initialImages || []);
   const [hasMorePages, setHasMorePages] = useState(configs.hasMore);
   const [isCloseToEnd, setIsCloseToEnd] = useState(false);
@@ -66,5 +68,5 @@ export const useInfinitScroll = (configs: FetchConfigs): ResponseImage[] => {
     };
   }, []);
 
-  return imageArray;
+  return { images: imageArray, hasMore: hasMorePages };
 };
