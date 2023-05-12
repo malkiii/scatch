@@ -1,11 +1,11 @@
+import Image from 'next/image';
 import { FC, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { siteInfos } from '@/data/constants';
+import { SpinnerAnimation } from '../Loading';
+import { renderToString } from 'react-dom/server';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
-import { CgSpinner as Spinner } from 'react-icons/cg';
-import Image from 'next/image';
-import { renderToString } from 'react-dom/server';
 
 type MarkProps = {
   className?: string;
@@ -48,9 +48,7 @@ export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
   function handleClick(target: HTMLButtonElement, handler: Function) {
     if (isLoading) return;
     setIsLoading(true);
-    target.innerHTML = renderToString(
-      <Spinner size={iconSize} className="animate-spin" />
-    );
+    target.innerHTML = renderToString(<SpinnerAnimation size={iconSize} />);
     handler();
   }
 
