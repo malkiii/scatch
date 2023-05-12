@@ -15,6 +15,9 @@ module.exports = {
         monsterrat: ['Montserrat', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif']
       },
+      animation: {
+        'spin-slow': 'spin 10s linear infinite',
+      },
       transitionProperty: {
         'bg-image': 'background-image'
       },
