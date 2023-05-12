@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import SignUpForm from '@/components/Forms/SignUpForm';
+import { ScatchMark } from '@/components/Forms/FormItems';
 
 const RegisterPage: NextPage = () => {
   return (
@@ -10,7 +11,8 @@ const RegisterPage: NextPage = () => {
         <title>Join to Scatch</title>
       </Head>
       <div className="text-center w-[540px] mx-auto">
-        <div className="mb-10">
+        <ScatchMark className="mx-auto animate-spin-slow" />
+        <div className="my-9">
           <h2 className="auth-title">join to scatch</h2>
           <div className="text-neutral-500">
             Already have an account?{' '}
