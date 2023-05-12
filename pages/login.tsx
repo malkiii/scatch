@@ -11,7 +11,7 @@ const LoginPage: NextPage = () => {
         <title>Login to Scatch</title>
       </Head>
       <div className="w-[540px] mx-auto text-center">
-        <ScatchMark className="mx-auto animate-spin-slow" />
+        <ScatchMark className="mx-auto" />
         <h2 className="auth-title my-10">welcome to scatch</h2>
         <LoginForm />
         <div className="text-neutral-500 my-6">

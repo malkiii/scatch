@@ -11,7 +11,7 @@ const RegisterPage: NextPage = () => {
         <title>Join to Scatch</title>
       </Head>
       <div className="text-center w-[540px] mx-auto">
-        <ScatchMark className="mx-auto animate-spin-slow" />
+        <ScatchMark className="mx-auto" />
         <div className="my-9">
           <h2 className="auth-title">join to scatch</h2>
           <div className="text-neutral-500">
