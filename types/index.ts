@@ -1,5 +1,10 @@
 import { RefObject } from 'react';
 
+export type ImagePage = {
+  images: ResponseImage[];
+  hasMore: boolean;
+};
+
 export type ResponseImage = {
   id: number;
   width: number;
@@ -16,6 +21,7 @@ export type ModalActions<T = () => void> = {
   prev?: T;
   close: T;
 };
+
 export type ModalImage = {
   width: number;
   height: number;
