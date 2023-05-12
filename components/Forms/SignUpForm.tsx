@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { AuthProviders, VerticalLine } from './FormItems';
+import { AuthProviders, SubmitButton, VerticalLine } from './FormItems';
 
 const CredentialInputs: FC = () => {
   return (
@@ -48,9 +48,7 @@ const SignUpForm: FC = () => {
       <AuthProviders text="Join using" />
       <VerticalLine text="or join with your email" />
       <CredentialInputs />
-      <button type="submit" className="block theme-btn text-center">
-        Sign Up
-      </button>
+      <SubmitButton text="Sign Up" />
     </form>
   );
 };

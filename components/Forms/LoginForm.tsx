@@ -1,7 +1,5 @@
 import { FC } from 'react';
-import Link from 'next/link';
-import { AuthProviders, VerticalLine } from './FormItems';
-import Head from 'next/head';
+import { AuthProviders, SubmitButton, VerticalLine } from './FormItems';
 
 const CredentialInputs: FC = () => {
   return (
@@ -29,21 +27,10 @@ const CredentialInputs: FC = () => {
 const LoginForm = () => {
   return (
     <form onSubmit={undefined} className="flex flex-col gap-4">
-      <Head>
-        <title>Login to Scatch</title>
-      </Head>
       <AuthProviders text="Continue with" />
       <VerticalLine text="OR" />
       <CredentialInputs />
-      <button type="submit" className="block theme-btn text-center">
-        Login
-      </button>
-      <div className="text-neutral-500 my-2">
-        New to scatch?{' '}
-        <Link href="/register" className="dark:text-white text-dark underline">
-          Sign Up
-        </Link>
-      </div>
+      <SubmitButton text="Login" />
     </form>
   );
 };
