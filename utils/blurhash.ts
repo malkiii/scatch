@@ -1,6 +1,4 @@
-type ImageURL = string;
-
-const loadImage = (src: ImageURL): Promise<HTMLImageElement> =>
+const loadImage = (src: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
     const image = new Image();
     image.onload = () => resolve(image);
@@ -9,7 +7,7 @@ const loadImage = (src: ImageURL): Promise<HTMLImageElement> =>
     image.src = src;
   });
 
-export default async function getBlurhash(ImageURL: ImageURL) {
+export default async function getBlurhash(ImageURL: string): Promise<string> {
   const preloadImage = await loadImage(ImageURL);
 
   const canvas = document.createElement('canvas');

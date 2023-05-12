@@ -30,9 +30,7 @@ export const fetchImages = async (
     const response = await fetch(endpointURL, { headers, signal });
     const data = await response.json();
 
-    const images: ResponseImage[] = data.photos.map((image: any) =>
-      extractImageObject(image)
-    );
+    const images: ResponseImage[] = data.photos.map((image: any) => extractImageObject(image));
 
     return { images, hasMore: 'next_page' in data };
   } catch (error) {
