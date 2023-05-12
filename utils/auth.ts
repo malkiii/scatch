@@ -2,13 +2,12 @@ import { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/server/db/client';
 
-const prisma = new PrismaClient();
 const env = process.env as Record<string, string>;
-
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  session: { strategy: 'jwt' },
   pages: { signIn: '/login' },
   providers: [
     GoogleProvider({
@@ -22,5 +21,25 @@ export const authOptions: NextAuthOptions = {
         url: 'https://www.facebook.com/v16.0/dialog/oauth'
       }
     })
-  ]
+  ],
+  callbacks: {
+    async session({ token, session }) {
+      session.user = token;
+      return session;
+    },
+    async jwt({ token, user }) {
+      const clientUser = await prisma.user.findFirst({
+        where: {
+          email: token.email
+        }
+      });
+
+      if (!clientUser) {
+        if (user) token.id = user.id;
+        return token;
+      }
+
+      return { ...clientUser! };
+    }
+  }
 };
