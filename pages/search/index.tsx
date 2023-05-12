@@ -1,22 +1,18 @@
 import Head from 'next/head';
 import { ResponseImage } from '@/types';
 import { fetchImages } from '@/utils/fetchImages';
-import { NextPage, GetServerSideProps } from 'next';
 import { PulseAnimation } from '@/components/Loading';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
-import {
-  SearchInput,
-  SearchKeywords,
-  ImageGridLayout
-} from '@/components/Search';
+import { NextPage, GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { SearchInput, SearchKeywords, ImageGridLayout } from '@/components/Search';
 
 type Props = {
   images: ResponseImage[];
   hasMore: boolean;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({ res }) => {
   const searchParams = { e: 'curated' };
   res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
   const data = await fetchImages(searchParams);
@@ -24,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   return { props: data };
 };
 
-const SearchPage: NextPage<Props> = props => {
+const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = props => {
   const params = {
     endpoint: 'curated',
     initialImages: props.images,
