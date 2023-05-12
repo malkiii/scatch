@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { ResponseImage } from '@/types';
 import { fetchImages } from '@/utils/fetchImages';
 import { NextPage, GetServerSideProps } from 'next';
+import { PulseAnimation } from '@/components/Loading';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import {
@@ -23,14 +24,14 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   return { props: data };
 };
 
-const SearchPage: NextPage<Props> = ({ images, hasMore }) => {
+const SearchPage: NextPage<Props> = props => {
   const params = {
     endpoint: 'curated',
-    initialImages: images,
-    hasMore
+    initialImages: props.images,
+    hasMore: props.hasMore
   };
 
-  const imageArray = useInfinitScroll(params);
+  const { images, hasMore } = useInfinitScroll(params);
 
   return (
     <div className="px-2">
@@ -40,7 +41,8 @@ const SearchPage: NextPage<Props> = ({ images, hasMore }) => {
       <SearchInput />
       <div className="main-container mb-7">
         <SearchKeywords />
-        <ImageGridLayout pagePath="/search" images={imageArray} />
+        <ImageGridLayout pagePath="/search" images={images} />
+        {hasMore && <PulseAnimation />}
       </div>
       <ScrollToTopButton />
     </div>

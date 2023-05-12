@@ -1,19 +1,19 @@
 import Head from 'next/head';
 import { FC, useState } from 'react';
 import { ResponseImage } from '@/types';
+import { GetServerSideProps } from 'next';
 import { fetchImages } from '@/utils/fetchImages';
 import translateToEnglish from '@/utils/translate';
-import { GetServerSideProps } from 'next';
 import { withRouter, NextRouter } from 'next/router';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
+import { PulseAnimation } from '@/components/Loading';
 import { FilterMenu, ImageGridLayout, SearchInput } from '@/components/Search';
 
 type RouteQuery = {
   query: string;
   o: string;
 };
-
 export const getServerSideProps: GetServerSideProps = async context => {
   const { query: searchKeyword, o: orientation } = context.query as RouteQuery;
   const fetchQuery = await translateToEnglish(searchKeyword);
@@ -52,21 +52,20 @@ type PageProps = {
   hasMore: boolean;
   router: NextRouter;
 };
-
 export default withRouter((props: PageProps) => {
-  const { searchKeyword, fetchQuery, images, hasMore, router } = props;
+  const { searchKeyword, fetchQuery, router } = props;
 
-  const hasResults = images.length > 0;
+  const hasResults = props.images.length > 0;
   const orientation = (router.query!.o as string) || 'all';
   const params = {
     endpoint: 'search',
     fetchQuery,
-    initialImages: images,
+    initialImages: props.images,
     orientation,
-    hasMore
+    hasMore: props.hasMore
   };
 
-  const imageArray = useInfinitScroll(params);
+  const { images, hasMore } = useInfinitScroll(params);
   const [currentPathname, _] = useState<string>(router.asPath);
 
   const title = `${searchKeyword} images | Search and save in your albums`;
@@ -87,7 +86,8 @@ export default withRouter((props: PageProps) => {
                 </h3>
                 <FilterMenu query={searchKeyword} focusOn={orientation} />
               </div>
-              <ImageGridLayout pagePath={currentPathname} images={imageArray} />
+              <ImageGridLayout pagePath={currentPathname} images={images} />
+              {<PulseAnimation />}
             </>
           ) : (
             <NoResults query={searchKeyword} />
