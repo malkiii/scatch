@@ -1,5 +1,5 @@
 import { siteInfos } from '@/data/constants';
-import { ResponseImage } from './types';
+import { ImagePage, ResponseImage } from '@/types';
 
 const API_TOKEN = process.env.API_TOKEN as string;
 const headers = { token: API_TOKEN };
@@ -15,9 +15,7 @@ function extractImageObject(data: Record<string, any>): ResponseImage {
   };
 }
 
-type fetchImagesData = {
-  images: ResponseImage[];
-  hasMore: boolean;
+type fetchImagesData = ImagePage & {
   error?: any;
 };
 
