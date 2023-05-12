@@ -1,12 +1,7 @@
 import type { NextPage } from 'next';
-import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { motion } from 'framer-motion';
-import {
-  HeroSection,
-  ExploreSection,
-  AlbumsSection,
-  EditingSection
-} from '@/components/Home';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
+import { HeroSection, ExploreSection, AlbumsSection, EditingSection } from '@/components/Home';
 
 const MeshGradientBackground = () => {
   return (
