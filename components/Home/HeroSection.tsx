@@ -58,6 +58,7 @@ const SearchInput: FC = () => {
           className="block w-full h-full outline-none bg-transparent py-2 px-4"
           onKeyDown={handleKeyDown}
           autoComplete="off"
+          autoFocus
           required
         />
       </div>
@@ -93,10 +94,7 @@ const HeroSection: FC = () => {
           >
             {siteInfos.description}
           </motion.p>
-          <motion.div
-            variants={textVariants}
-            className="w-full md:w-3/5 mx-auto"
-          >
+          <motion.div variants={textVariants} className="w-full md:w-3/5 mx-auto">
             <SearchInput />
           </motion.div>
         </motion.div>
