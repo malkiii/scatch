@@ -15,18 +15,18 @@ const OptionList: FC<OptionListProps> = props => {
   return (
     <ul>
       {Children.toArray(container.props.children).map((option, index) => (
-        <div
+        <li
           key={index}
           onClick={onItemClick}
           className={
-            'menu-option ' +
+            'group menu-option ' +
             (index == focusOn
               ? 'dark:text-dark dark:bg-white bg-neutral-200'
               : 'bg-white dark:bg-neutral-900 dark:hover:bg-neutral-800 hover:bg-neutral-200')
           }
         >
           {option}
-        </div>
+        </li>
       ))}
     </ul>
   );
@@ -36,18 +36,20 @@ type ClickFunction = (e: any) => void;
 type MenuProps = {
   isOpen: boolean;
   focusOn?: number;
+  className?: string;
   children: ReactNode;
   onClick?: ClickFunction;
   onItemClick?: ClickFunction;
 };
 
 const OptionMenu: FC<MenuProps> = props => {
+  const { isOpen, className, onClick } = props;
   return (
     <AnimatePresence>
-      {props.isOpen && (
+      {isOpen && (
         <motion.div
-          onClick={props.onClick}
-          className="absolute top-full translate-y-2 right-0 z-10 shadow-3xl"
+          onClick={onClick}
+          className={`absolute translate-y-2 z-10 rounded-md shadow-3xl ${className}`}
           variants={menuVarinats}
           initial="hidden"
           animate="visible"
