@@ -85,8 +85,20 @@
   .image-layout-cover {
     @apply absolute inset-0 opacity-0 before:absolute before:inset-0 before:focus-gradient before:pointer-events-none transition-opacity hover:opacity-100;
   }
+  .loading-circle {
+    @apply block w-5 aspect-square rounded-circle bg-neutral-700;
+  }
   .menu-option {
-    @apply bg-white dark:bg-neutral-900 transition-colors p-3 first:rounded-t-md last:rounded-b-md capitalize;
+    @apply bg-white dark:bg-neutral-900 transition-colors first:rounded-t-md last:rounded-b-md capitalize;
+  }
+  .avatar-menu-option {
+    @apply flex items-center gap-x-2 normal-case p-3;
+  }
+  .avatar-menu {
+    @apply top-full right-0 w-56 translate-x-2;
+  }
+  .menu-separator {
+    @apply border-b-2 border-neutral-600 border-dotted;
   }
   .modal-arrow {
     @apply text-white text-7xl disabled:opacity-30 hover:text-theme transition-colors hover:disabled:text-current;
@@ -108,6 +120,9 @@
   }
   .auth-title {
     @apply capitalize text-4xl lg:text-5xl;
+  }
+  .cs-button {
+    @apply relative rounded-2xl after:absolute after:top-1/2 after:translate-y-[-48%] after:h-[90%] after:rounded-circle after:aspect-square after:transition-inherit border-2 dark:border-white border-dark dark:after:bg-white after:bg-dark after:left-px dark:after:left-[57%] aspect-[57/28] transition-colors;
   }
 }
 
