@@ -60,13 +60,11 @@ const SuggestionsMenu: FC<SuggestionsMenuProps> = ({ value, onClick }) => {
         {searchHistory.map((searchValue, index) => (
           <div
             key={index}
+            className={'menu-suggestion ' + (focusIndex == index ? 'focus' : '')}
             onMouseEnter={() => setFocusIndex(index)}
-            onMouseLeave={() => setFocusIndex(-1)}
             onMouseDown={() => onClick(searchValue)}
+            onMouseLeave={() => setFocusIndex(-1)}
             onKeyDown={handleKeyDown}
-            className={
-              'menu-suggestion ' + (focusIndex == index ? 'focus' : '')
-            }
           >
             <SearchIcon />
             {searchValue}
@@ -103,10 +101,7 @@ const SearchInput: FC<InputProps> = ({ value, router }) => {
   return (
     <div className="mx-auto text-center pt-5 px-4 sm:pt-10">
       <h2>
-        Search for{' '}
-        <span className="theme-gradient bg-clip-text text-transparent">
-          images
-        </span>
+        Search for <span className="theme-gradient bg-clip-text text-transparent">images</span>
       </h2>
       <div className="relative group max-w-[730px] text-lg flex items-center mx-auto my-7 rounded-3xl bg-cs-change shadow-lg transition-colors">
         <input
