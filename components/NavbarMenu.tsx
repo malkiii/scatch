@@ -10,59 +10,26 @@ const transition = {
   ease: easeExpInOut,
   staggerChildren: 0.11
 };
-const buttonTransition = {
-  duration: 0.7,
-  ease: 'anticipate'
-};
+const buttonTransition = { duration: 0.7, ease: 'anticipate' };
 
 const transformValue = 180;
 const menuButtonVariants = {
-  hidden: {
-    top: -112,
-    transition: buttonTransition
-  },
-  visible: {
-    top: 20,
-    transition: buttonTransition
-  }
+  hidden: { top: -112, transition: buttonTransition },
+  visible: { top: 20, transition: buttonTransition }
 };
 
 const buttonTopVariants = {
-  close: {
-    y: 0,
-    rotate: 0,
-    transition
-  },
-  open: {
-    y: transformValue + '%',
-    rotate: -45,
-    transition
-  }
+  close: { y: 0, rotate: 0, transition },
+  open: { y: transformValue + '%', rotate: -45, transition }
 };
 const buttonBottomVariants = {
-  close: {
-    y: 0,
-    rotate: 0,
-    width: '66%',
-    transition
-  },
-  open: {
-    y: -transformValue + '%',
-    rotate: 45,
-    width: '100%',
-    transition
-  }
+  close: { y: 0, rotate: 0, width: '66%', transition },
+  open: { y: -transformValue + '%', rotate: 45, width: '100%', transition }
 };
 
 const menuVariants = {
-  close: {
-    x: 0,
-    transition
-  },
-  open: {
-    x: '-100%',
-    transition
-  }
+  close: { x: 0, transition },
+  open: { x: '-100%', transition }
 };
 
 const menuItemInit = { x: 550, opacity: 0 };
@@ -93,10 +60,7 @@ const MenuButton: FC<ButtonProps> = ({ isOpen, toggle }) => {
       exit="hidden"
       onClick={toggle}
     >
-      <motion.div
-        animate={isOpen ? 'open' : 'close'}
-        className="relative m-auto w-3/5 h-[22%]"
-      >
+      <motion.div animate={isOpen ? 'open' : 'close'} className="relative m-auto w-3/5 h-[22%]">
         <motion.div
           variants={buttonTopVariants}
           className="absolute w-full h-[3px] top-0 bg-white dark:bg-dark right-0 transition-colors"
@@ -126,16 +90,8 @@ const MenuContainer: FC<MenuProps> = ({ toggle }) => {
       <div className="w-full">
         <ul className="mt-24">
           {navMenuLinks.map((url, index) => (
-            <motion.div
-              key={index}
-              variants={menuItemVariants}
-              style={menuItemInit}
-            >
-              <Link
-                className="nav-menu-link"
-                href={index == 0 ? '/' : '/' + url}
-                onClick={toggle}
-              >
+            <motion.div key={index} variants={menuItemVariants} style={menuItemInit}>
+              <Link className="nav-menu-link" href={index == 0 ? '/' : '/' + url} onClick={toggle}>
                 {url}
               </Link>
             </motion.div>
@@ -143,9 +99,11 @@ const MenuContainer: FC<MenuProps> = ({ toggle }) => {
         </ul>
         <motion.div variants={menuItemVariants} style={menuItemInit}>
           <ColorSchemeButton
-            containerClassName="flex w-full items-center justify-between p-5"
-            buttonClassName="w-[57px] h-7 border-white after:bg-white"
-          />
+            containerClassName="flex w-full items-center justify-between p-5 hover:text-theme transition-colors"
+            buttonClassName="w-[57px] border-white after:bg-white group-hover:border-theme group-hover:after:bg-theme"
+          >
+            Dark
+          </ColorSchemeButton>
         </motion.div>
       </div>
     </motion.div>
@@ -172,12 +130,8 @@ const NavbarMenu: FC<NavMenuProps> = props => {
 
   return (
     <>
-      <AnimatePresence>
-        {(isOpen || canShowButton) && <MenuButton {...props} />}
-      </AnimatePresence>
-      <AnimatePresence>
-        {isOpen && <MenuContainer toggle={toggle} />}
-      </AnimatePresence>
+      <AnimatePresence>{(isOpen || canShowButton) && <MenuButton {...props} />}</AnimatePresence>
+      <AnimatePresence>{isOpen && <MenuContainer toggle={toggle} />}</AnimatePresence>
     </>
   );
 };
