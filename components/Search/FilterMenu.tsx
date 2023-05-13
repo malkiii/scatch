@@ -44,7 +44,7 @@ const FilterMenu: FC<FilterMenuProps> = props => {
     return '/search/' + query + optionParam;
   }
 
-  const toggleParams = { isOpen, onClick: toggle };
+  const toggleParams = { isOpen, onClick: toggle, className: 'top-full right-0' };
 
   return (
     <div ref={menuRef} className="relative">
@@ -52,15 +52,9 @@ const FilterMenu: FC<FilterMenuProps> = props => {
       <OptionMenu {...toggleParams} focusOn={filterOptions.indexOf(focusOn)}>
         <div>
           {filterOptions.map((option, index) => (
-            <Link
-              key={index}
-              href={getFilterURL(option)}
-              className="flex items-center gap-2"
-            >
+            <Link key={index} href={getFilterURL(option)} className="flex items-center gap-2 p-3">
               {option != 'all' && (
-                <BsAspectRatio
-                  className={option == 'portrait' ? 'rotate-90' : ''}
-                />
+                <BsAspectRatio className={option == 'portrait' ? 'rotate-90' : ''} />
               )}
               {option}
             </Link>
