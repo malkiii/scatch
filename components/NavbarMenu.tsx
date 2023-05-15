@@ -44,11 +44,6 @@ const menuItemVariants = {
   }
 };
 
-type NavMenuProps = {
-  isOpen: boolean;
-  toggle: () => void;
-};
-
 type ButtonProps = NavMenuProps;
 
 const MenuButton: FC<ButtonProps> = ({ isOpen, toggle }) => {
@@ -75,11 +70,17 @@ const MenuButton: FC<ButtonProps> = ({ isOpen, toggle }) => {
 };
 
 type MenuProps = {
+  hasSession: boolean;
   toggle: () => void;
 };
+const MenuContainer: FC<MenuProps> = ({ toggle, hasSession }) => {
+  const navMenuItems = [
+    { name: 'home', route: '/' },
+    hasSession ? { name: 'profile', route: '/me' } : { name: 'login', route: '/login' },
+    { name: 'search', route: '/search' },
+    { name: 'albums', route: '/albums' }
+  ];
 
-const MenuContainer: FC<MenuProps> = ({ toggle }) => {
-  const navMenuLinks = ['home', 'login', 'search', 'albums'];
   return (
     <motion.div
       variants={menuVariants}
@@ -89,10 +90,10 @@ const MenuContainer: FC<MenuProps> = ({ toggle }) => {
     >
       <div className="w-full">
         <ul className="mt-24">
-          {navMenuLinks.map((url, index) => (
+          {navMenuItems.map(({ name, route }, index) => (
             <motion.div key={index} variants={menuItemVariants} style={menuItemInit}>
-              <Link className="nav-menu-link" href={index == 0 ? '/' : '/' + url} onClick={toggle}>
-                {url}
+              <Link className="nav-menu-link" href={route} onClick={toggle}>
+                {name}
               </Link>
             </motion.div>
           ))}
@@ -110,8 +111,13 @@ const MenuContainer: FC<MenuProps> = ({ toggle }) => {
   );
 };
 
+type NavMenuProps = {
+  isOpen: boolean;
+  hasSession: boolean;
+  toggle: () => void;
+};
 const NavbarMenu: FC<NavMenuProps> = props => {
-  const { isOpen, toggle } = props;
+  const { isOpen, hasSession, toggle } = props;
   const [canShowButton, setCanShowButton] = useState<boolean>(false);
 
   function showButtonOnScroll() {
@@ -131,7 +137,7 @@ const NavbarMenu: FC<NavMenuProps> = props => {
   return (
     <>
       <AnimatePresence>{(isOpen || canShowButton) && <MenuButton {...props} />}</AnimatePresence>
-      <AnimatePresence>{isOpen && <MenuContainer toggle={toggle} />}</AnimatePresence>
+      <AnimatePresence>{isOpen && <MenuContainer {...{ toggle, hasSession }} />}</AnimatePresence>
     </>
   );
 };
