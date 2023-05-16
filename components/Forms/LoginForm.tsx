@@ -1,19 +1,31 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { AuthProviders, SubmitButton, VerticalLine } from './FormItems';
+import { useForm } from '@/hooks/useForm';
+import { LoginFormData } from '@/types';
 
-const CredentialInputs: FC = () => {
+type CredentialInputsProps = {
+  data: LoginFormProps;
+  handleInput: (e: any) => void;
+};
+const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
   return (
     <>
       <input
+        id="email"
         type="email"
+        value={data.email}
+        onInput={handleInput}
         name="user[email]"
         placeholder="Email"
         className="credential-input"
         required
       />
       <input
+        id="password"
         type="password"
         name="user[password]"
+        value={data.password}
+        onInput={handleInput}
         placeholder="Password"
         className="credential-input"
         pattern=".{6,}"
@@ -24,13 +36,18 @@ const CredentialInputs: FC = () => {
   );
 };
 
+type LoginFormProps = LoginFormData;
+
 const LoginForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const form = useForm<LoginFormProps>({ email: '', password: '' });
+
   return (
-    <form onSubmit={undefined} className="flex flex-col gap-4">
+    <form onSubmit={() => setIsSubmitting(true)} className="flex flex-col gap-4">
       <AuthProviders text="Continue with" />
       <VerticalLine text="OR" />
-      <CredentialInputs />
-      <SubmitButton text="Login" />
+      <CredentialInputs {...form} />
+      <SubmitButton {...{ text: 'Login', isSubmitting }} />
     </form>
   );
 };

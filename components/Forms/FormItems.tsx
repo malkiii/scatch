@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import { FC, useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { siteInfos } from '@/data/constants';
 import { SpinnerAnimation } from '../Loading';
 import { renderToString } from 'react-dom/server';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
+import { FC, useState } from 'react';
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
 
 type MarkProps = {
@@ -23,13 +22,12 @@ export const ScatchMark: FC<MarkProps> = ({ className }) => {
 };
 
 const iconSize = 25;
-const signInOptions = { callbackUrl: siteInfos.url };
+const signInOptions = { callbackUrl: '/' };
 const providers = [
   {
     name: 'Google',
     icon: <GoogleIcon size={iconSize} />,
-    className:
-      'text-dark bg-white border border-neutral-400 dark:border-none hover:bg-neutral-50',
+    className: 'text-dark bg-white border border-neutral-400 dark:border-none hover:bg-neutral-50',
     handleSignIn: () => signIn('google', signInOptions)
   },
   {
@@ -73,16 +71,21 @@ export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
 
 type SubmitButtonProps = {
   text: string;
-  onClick?: () => void;
+  isSubmitting: boolean;
+  onClick?: (e?: any) => void;
 };
-export const SubmitButton: FC<SubmitButtonProps> = ({ text, onClick }) => {
+export const SubmitButton: FC<SubmitButtonProps> = ({ text, isSubmitting, onClick }) => {
+  function handleClick(e: any) {
+    if (isSubmitting) e.preventDefault();
+    else onClick ? onClick(e) : null;
+  }
   return (
     <button
       type="submit"
-      onClick={onClick}
-      className="block theme-btn text-center"
+      onClick={handleClick}
+      className="flex justify-center items-center theme-btn text-center"
     >
-      {text}
+      {isSubmitting ? <SpinnerAnimation size={24} /> : text}
     </button>
   );
 };
