@@ -2,38 +2,26 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 import NavbarMenu from './NavbarMenu';
+import AvatarMenu from './AvatarMenu';
 import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 import { easeExpInOut } from '@malkiii/d3-ease';
 import ColorSchemeButton from './ColorSchemeButton';
 import { withRouter, NextRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
 
 type NavbarProps = {
   router: NextRouter;
 };
 
 const navVariants = {
-  hidden: { y: 110, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.7,
-      ease: easeExpInOut
-    }
-  }
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.7, ease: easeExpInOut } }
 };
 
 const Logo: FC = () => {
   return (
     <Link href="/">
-      <Image
-        src="/logotype.svg"
-        alt="scatch logo"
-        width={144}
-        height={39}
-        className="logo"
-      />
+      <Image src="/logotype.svg" alt="scatch logo" width={144} height={39} className="logo" />
     </Link>
   );
 };
@@ -64,28 +52,40 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
       <header className="relative h-20 w-full px-5">
         <motion.nav
           {...animationProps}
-          className="flex items-center justify-between max-w-7xl h-full mx-auto overflow-y-hidden"
+          className="flex items-center justify-between max-w-7xl h-full mx-auto"
         >
           <Logo />
-          <div className="hidden md:flex items-center">
-            <Link href="/search" className="theme-link">
-              Search
-            </Link>
-            <Link href="/albums" className="theme-link">
-              My albums
-            </Link>
-            <ColorSchemeButton
-              containerClassName="inline-flex items-center gap-3 mr-10"
-              buttonClassName="w-10 h-5"
-            />
-            <Link href="/login" className="theme-btn">
-              Login
-            </Link>
+          <div className="flex items-center">
+            <div className="hidden md:flex items-center">
+              <Link href="/search" className="theme-link">
+                Search
+              </Link>
+              <Link href="/albums" className="theme-link">
+                My albums
+              </Link>
+              <Link href="/about" className="theme-link">
+                About
+              </Link>
+              {!session && (
+                <>
+                  <ColorSchemeButton
+                    containerClassName="inline-flex items-center gap-3 mr-10 transition-colors hover:text-theme"
+                    buttonClassName="w-10 group-hover:border-theme group-hover:after:bg-theme"
+                  >
+                    Dark
+                  </ColorSchemeButton>
+                  <Link href="/login" className="theme-btn">
+                    Login
+                  </Link>
+                </>
+              )}
+            </div>
+            {session && <AvatarMenu user={session.user} />}
+            <button className="nav-menu-btn" onClick={toggleMenu}></button>
           </div>
-          <button className="nav-menu-btn" onClick={toggleMenu}></button>
         </motion.nav>
       </header>
-      <NavbarMenu isOpen={isOpen} toggle={toggleMenu} />
+      <NavbarMenu isOpen={isOpen} hasSession={!!session} toggle={toggleMenu} />
     </>
   );
 };
