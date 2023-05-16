@@ -27,3 +27,15 @@ export type ModalImage = {
   height: number;
   src: string;
 };
+
+export type SignUpFormData = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
+
+export type LoginFormData = {
+  email: string;
+  password: string;
+};
