@@ -92,7 +92,7 @@
     @apply bg-white dark:bg-neutral-900 transition-colors first:rounded-t-md last:rounded-b-md capitalize;
   }
   .avatar-menu-option {
-    @apply flex items-center gap-x-2 normal-case p-3;
+    @apply flex items-center gap-x-4 normal-case p-3;
   }
   .avatar-menu {
     @apply top-full right-0 w-56 translate-x-2;
