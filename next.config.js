@@ -8,6 +8,7 @@ module.exports = {
     serverComponentsExternalPackages: ['@prisma/client']
   },
   env: {
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     API_TOKEN: process.env.API_KEY
   }
 };
