@@ -1,22 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}'
-  ],
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
         dark: '#0a0a0a',
-        theme: 'rgb(34, 211, 238)'
+        theme: 'rgb(34, 211, 238)',
+        error: '#ff1a1a'
       },
       fontFamily: {
         monsterrat: ['Montserrat', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif']
       },
       animation: {
-        'spin-slow': 'spin 10s linear infinite',
+        'spin-slow': 'spin 10s linear infinite'
       },
       transitionProperty: {
         'bg-image': 'background-image'
