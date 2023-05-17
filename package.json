@@ -8,7 +8,7 @@
     "cypress": "cypress open --e2e",
     "e2e": "bash __tests__/cypress/serve.sh",
     "postinstall": "prisma generate",
-    "migrate": "prisma migrate dev --preview-feature"
+    "migrate": "prisma db push"
   },
   "dependencies": {
     "@malkiii/d3-ease": "^3.0.1",
