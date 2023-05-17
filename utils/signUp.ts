@@ -4,7 +4,7 @@ import { SignUpFormData } from '@/types';
 type CachedData = { user?: any; message: string; error?: string };
 
 export default async function signUp(data: SignUpFormData): Promise<CachedData> {
-  const endpointURL = new URL('/api/signup', siteInfos.url);
+  const endpointURL = new URL('/api/auth/signup', siteInfos.url);
 
   const { firstName, lastName, email, password } = data;
   const name = firstName + ' ' + lastName;
