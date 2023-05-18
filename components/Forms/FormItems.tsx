@@ -3,8 +3,9 @@ import { signIn } from 'next-auth/react';
 import { SpinnerAnimation } from '../Loading';
 import { renderToString } from 'react-dom/server';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
-import { FC, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
+import { IoIosWarning as WarningIcon } from 'react-icons/io';
 
 type MarkProps = {
   className?: string;
@@ -98,6 +99,14 @@ export const VerticalLine: FC<VerticalLineProps> = ({ text }) => {
     <div className="relative z-10">
       <span className="absolute inset-0 m-auto vertical-line-gradient dark:invert h-px z-0"></span>
       <span className="relative bg-white dark:bg-dark px-3">{text}</span>
+    </div>
+  );
+};
+
+export const ErrorMessage: FC<{ children: ReactNode }> = ({ children }) => {
+  return (
+    <div className="flex items-center justify-center gap-x-2 w-full text-sm md:text-base font-semibold mt-1 text-error">
+      <WarningIcon /> {children}
     </div>
   );
 };
