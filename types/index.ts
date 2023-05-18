@@ -39,3 +39,7 @@ export type LoginFormData = {
   email: string;
   password: string;
 };
+
+export type WithFormError = {
+  error?: 'Email' | 'Password';
+};
