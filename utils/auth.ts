@@ -27,9 +27,9 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       type: 'credentials',
       credentials: {},
-      async authorize(credentials: any) {
+      async authorize(credentials) {
         if (!credentials) return null;
-        const { email, password } = credentials;
+        const { email, password } = credentials as Record<string, string>;
 
         // Check if it's an existing user
         const user = await db.user.findUnique({ where: { email } });
