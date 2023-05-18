@@ -55,13 +55,13 @@ const LoginForm: FC = () => {
 
     // Login with the new account
     const { email, password } = form.data;
-    const response = await signIn('credentials', { email, password, callbackUrl: '/' });
+    const response = await signIn('credentials', { email, password, redirect: false });
     if (response) {
       const { error } = response as WithFormError;
       if (error) {
         form.setError(error);
         setIsSubmitting(false);
-      }
+      } else location.pathname = '/';
     }
   };
 
