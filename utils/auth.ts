@@ -31,13 +31,13 @@ export const authOptions: NextAuthOptions = {
         if (!credentials) return null;
         const { email, password } = credentials;
 
-        // Check if user exists
+        // Check if it's an existing user
         const user = await db.user.findUnique({ where: { email } });
-        if (!user) throw new Error(`email:${email} does not exsist!`);
+        if (!user) throw new Error('Email');
 
-        // Validate password
+        // Validate the password
         const isPasswordValid = await compare(password, user.password!);
-        if (!isPasswordValid) throw new Error(`password:Password is not valid!`);
+        if (!isPasswordValid) throw new Error('Password');
 
         return {
           id: user.id,
