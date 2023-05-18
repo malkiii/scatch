@@ -118,6 +118,9 @@
   .credential-input {
     @apply border border-neutral-500 outline-cyan-500 dark:outline-cyan-500 w-full h-full bg-transparent py-3 px-4 rounded-3xl;
   }
+  .credential-input.error {
+    @apply outline-none border-error;
+  }
   .auth-title {
     @apply capitalize text-4xl lg:text-5xl;
   }
