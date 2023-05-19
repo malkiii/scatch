@@ -61,9 +61,6 @@
   .nav-menu-link {
     @apply block p-5 dark:hover:text-theme capitalize border-b-2 border-white transition-all hover:border-b-theme;
   }
-  .nav-menu-btn {
-    @apply inline-flex md:hidden relative w-10 h-4 before:absolute before:w-full before:h-[3px] before:top-0 before:bg-dark before:right-0 after:absolute after:w-[66%] after:h-[3px] after:bottom-0 after:bg-dark after:right-0 hover:after:bg-theme hover:before:bg-theme transition-colors after:transition-inherit before:transition-inherit dark:after:bg-white dark:before:bg-white;
-  }
   .album-image {
     @apply relative aspect-[1149/761] text-white border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg shadow-3xl;
   }
@@ -89,7 +86,7 @@
     @apply block w-5 aspect-square rounded-circle bg-neutral-700;
   }
   .menu-option {
-    @apply bg-white dark:bg-neutral-900 transition-colors first:rounded-t-md last:rounded-b-md capitalize;
+    @apply transition-colors first:rounded-t-md last:rounded-b-md capitalize;
   }
   .avatar-menu-option {
     @apply flex items-center gap-x-4 normal-case p-3;
@@ -110,7 +107,7 @@
     @apply bg-no-repeat bg-cover;
   }
   .menu-suggestion {
-    @apply flex items-center gap-4 px-4 py-2 first:rounded-t-xl last:rounded-b-xl dark:hover:bg-neutral-800 hover:bg-neutral-200 bg-cs-change;
+    @apply flex items-center gap-4 pl-4 py-2 first:rounded-t-xl last:rounded-b-xl dark:hover:bg-neutral-800 hover:bg-neutral-200 bg-cs-change cursor-pointer;
   }
   .menu-suggestion.focus {
     @apply dark:bg-neutral-800 bg-neutral-200;
