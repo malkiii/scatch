@@ -30,7 +30,7 @@ const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps
   const { images, hasMore } = useInfinitScroll(params);
 
   return (
-    <div className="px-2">
+    <div>
       <Head>
         <title>Search for images</title>
       </Head>

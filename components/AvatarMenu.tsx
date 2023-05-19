@@ -20,7 +20,7 @@ type AvatarIconProps = AvatarMenuProps & {
 const AvatarIcon: FC<AvatarIconProps> = ({ user, className }) => {
   return (
     <img
-      src={user.image || ''}
+      src={user.image || '/assets/avatar-placeholder.png'}
       alt={user.name || 'scatch avatar'}
       className={className}
       referrerPolicy="no-referrer"

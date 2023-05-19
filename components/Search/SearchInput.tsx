@@ -3,11 +3,6 @@ import { NextRouter, withRouter } from 'next/router';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { useSearchHistory } from '@/hooks/useSearchHistory';
 
-type InputProps = {
-  value?: string;
-  router: NextRouter;
-};
-
 function storeInHistory(searchValue: string) {
   const searchHistory = localStorage.getItem('search_history') || '[]';
   const historyValues = JSON.parse(searchHistory) as string[];
@@ -56,9 +51,9 @@ const SuggestionsMenu: FC<SuggestionsMenuProps> = ({ value, onClick }) => {
 
   return (
     <div className="group-focus-within:block hidden absolute w-full left-0 top-full z-[101] translate-y-3">
-      <ul className="shadow-3xl rounded-xl">
+      <ul className="shadow-3xl rounded-xl w-full">
         {searchHistory.map((searchValue, index) => (
-          <div
+          <li
             key={index}
             className={'menu-suggestion ' + (focusIndex == index ? 'focus' : '')}
             onMouseEnter={() => setFocusIndex(index)}
@@ -66,15 +61,21 @@ const SuggestionsMenu: FC<SuggestionsMenuProps> = ({ value, onClick }) => {
             onMouseLeave={() => setFocusIndex(-1)}
             onKeyDown={handleKeyDown}
           >
-            <SearchIcon />
-            {searchValue}
-          </div>
+            <SearchIcon size={21} />
+            <span className="inline-block whitespace-nowrap text-ellipsis overflow-hidden">
+              {searchValue}
+            </span>
+          </li>
         ))}
       </ul>
     </div>
   );
 };
 
+type InputProps = {
+  value?: string;
+  router: NextRouter;
+};
 const SearchInput: FC<InputProps> = ({ value, router }) => {
   const [inputValue, setInputValue] = useState<string>(value || '');
 

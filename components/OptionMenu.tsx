@@ -3,8 +3,8 @@ import { FC, ReactElement, ReactNode, Children } from 'react';
 
 const transition = { type: 'tween', duration: 0.1 };
 const menuVarinats = {
-  hidden: { opacity: 0, transition },
-  visible: { opacity: 1, transition }
+  hidden: { opacity: 0, y: -4, transition },
+  visible: { opacity: 1, y: 10, transition }
 };
 
 type OptionListProps = MenuProps;
@@ -13,20 +13,20 @@ const OptionList: FC<OptionListProps> = props => {
   const { focusOn, children, onItemClick } = props;
   const container = Children.toArray(children)[0] as ReactElement;
   return (
-    <ul>
+    <ul className="bg-white dark:bg-neutral-900 rounded-inherit">
       {Children.toArray(container.props.children).map((option, index) => (
-        <li
+        <div
           key={index}
           onClick={onItemClick}
           className={
             'group menu-option ' +
             (index == focusOn
               ? 'dark:text-dark dark:bg-white bg-neutral-200'
-              : 'bg-white dark:bg-neutral-900 dark:hover:bg-neutral-800 hover:bg-neutral-200')
+              : 'dark:hover:bg-neutral-800 hover:bg-neutral-200')
           }
         >
           {option}
-        </li>
+        </div>
       ))}
     </ul>
   );
@@ -49,7 +49,7 @@ const OptionMenu: FC<MenuProps> = props => {
       {isOpen && (
         <motion.div
           onClick={onClick}
-          className={`absolute translate-y-2 z-10 rounded-md shadow-3xl ${className}`}
+          className={`absolute z-10 rounded-md shadow-3xl ${className}`}
           variants={menuVarinats}
           initial="hidden"
           animate="visible"
