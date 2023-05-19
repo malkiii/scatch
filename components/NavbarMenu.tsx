@@ -1,5 +1,5 @@
+import { FC } from 'react';
 import Link from 'next/link';
-import { useEffect, useState, FC } from 'react';
 import ColorSchemeButton from './ColorSchemeButton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { easeExpInOut, easeExpOut } from '@malkiii/d3-ease';
@@ -9,22 +9,6 @@ const transition = {
   duration: 0.8,
   ease: easeExpInOut,
   staggerChildren: 0.11
-};
-const buttonTransition = { duration: 0.7, ease: 'anticipate' };
-
-const transformValue = 180;
-const menuButtonVariants = {
-  hidden: { top: -112, transition: buttonTransition },
-  visible: { top: 20, transition: buttonTransition }
-};
-
-const buttonTopVariants = {
-  close: { y: 0, rotate: 0, transition },
-  open: { y: transformValue + '%', rotate: -45, transition }
-};
-const buttonBottomVariants = {
-  close: { y: 0, rotate: 0, width: '66%', transition },
-  open: { y: -transformValue + '%', rotate: 45, width: '100%', transition }
 };
 
 const menuVariants = {
@@ -42,31 +26,6 @@ const menuItemVariants = {
       ease: easeExpOut
     }
   }
-};
-
-type ButtonProps = NavMenuProps;
-
-const MenuButton: FC<ButtonProps> = ({ isOpen, toggle }) => {
-  return (
-    <motion.button
-      className="fixed -top-28 right-6 w-16 shadow-4xl transition-colors bg-theme dark:bg-white aspect-square rounded-circle z-[1000]"
-      variants={menuButtonVariants}
-      animate="visible"
-      exit="hidden"
-      onClick={toggle}
-    >
-      <motion.div animate={isOpen ? 'open' : 'close'} className="relative m-auto w-3/5 h-[22%]">
-        <motion.div
-          variants={buttonTopVariants}
-          className="absolute w-full h-[3px] top-0 bg-white dark:bg-dark right-0 transition-colors"
-        ></motion.div>
-        <motion.div
-          variants={buttonBottomVariants}
-          className="absolute w-[66%] h-[3px] bottom-0 bg-white dark:bg-dark right-0 transition-colors"
-        ></motion.div>
-      </motion.div>
-    </motion.button>
-  );
 };
 
 type MenuProps = {
@@ -118,27 +77,9 @@ type NavMenuProps = {
 };
 const NavbarMenu: FC<NavMenuProps> = props => {
   const { isOpen, hasSession, toggle } = props;
-  const [canShowButton, setCanShowButton] = useState<boolean>(false);
-
-  function showButtonOnScroll() {
-    const isWindowLarge = window.innerWidth > 768;
-    const haspassedTheNavbar = window.scrollY > 50;
-    setCanShowButton(!isWindowLarge && haspassedTheNavbar);
-  }
-
-  useEffect(() => {
-    showButtonOnScroll();
-    window.addEventListener('scroll', showButtonOnScroll);
-    return () => {
-      window.removeEventListener('scroll', showButtonOnScroll);
-    };
-  });
 
   return (
-    <>
-      <AnimatePresence>{(isOpen || canShowButton) && <MenuButton {...props} />}</AnimatePresence>
-      <AnimatePresence>{isOpen && <MenuContainer {...{ toggle, hasSession }} />}</AnimatePresence>
-    </>
+    <AnimatePresence>{isOpen && <MenuContainer {...{ toggle, hasSession }} />}</AnimatePresence>
   );
 };
 export default NavbarMenu;

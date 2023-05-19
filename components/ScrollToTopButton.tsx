@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { AiOutlineArrowUp } from 'react-icons/ai';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useScrolling } from '@/hooks/useScrolling';
 
 const buttonTransition = {
   duration: 0.7,
@@ -19,25 +20,13 @@ const buttonVariants = {
 };
 
 const ScrollToTopButton: FC = () => {
-  const [isScrolling, setIsScrolling] = useState<boolean>(false);
-
-  function showScrollButton() {
-    const isWindowSmall = window.innerWidth < 768;
-    const scrolledFar = window.scrollY > 150;
-    setIsScrolling(!isWindowSmall && scrolledFar);
-  }
+  const isScrolling = useScrolling(() => {
+    return window.scrollY > 150;
+  });
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  useEffect(() => {
-    showScrollButton();
-    window.addEventListener('scroll', showScrollButton);
-    return () => {
-      window.removeEventListener('scroll', showScrollButton);
-    };
-  });
 
   return (
     <AnimatePresence>
@@ -46,7 +35,7 @@ const ScrollToTopButton: FC = () => {
           variants={buttonVariants}
           animate="visible"
           exit="hidden"
-          className="theme-btn fixed -bottom-28 flex right-8 shadow-4xl text-white dark:text-dark aspect-square rounded-circle z-50 items-center justify-center"
+          className="theme-btn fixed -bottom-28 flex right-8 shadow-3xl text-white dark:text-dark aspect-square rounded-circle z-50 items-center justify-center"
           onClick={scrollToTop}
         >
           <AiOutlineArrowUp size={22} />

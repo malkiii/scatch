@@ -23,7 +23,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
           onInput={handleInput}
           required
         />
-        {error == 'Email' && <ErrorMessage>This email does not exists!</ErrorMessage>}
+        {error == 'Email' && <ErrorMessage>This user does not exists!</ErrorMessage>}
       </div>
       <div>
         <input

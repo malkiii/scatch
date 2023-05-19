@@ -35,11 +35,11 @@ const AvatarMenu: FC<AvatarMenuProps> = props => {
   const { isOpen, menuRef, toggle } = useToggleMenu();
   const iconSize = 25;
   return (
-    <div ref={menuRef} className="relative">
+    <div ref={menuRef} className="relative flex items-center justify-center">
       <button onClick={toggle}>
         <AvatarIcon
           user={props.user}
-          className="w-10 hover:outline-[5px] outline-0 dark:outline-white/10 outline-black/10 outline rounded-circle transition-all mr-7 md:mr-0"
+          className="w-10 hover:outline-[5px] outline-0 dark:outline-white/10 outline-black/10 outline rounded-circle transition-all md:mr-0"
         />
       </button>
       <OptionMenu isOpen={isOpen} className="avatar-menu" onClick={toggle}>
@@ -66,7 +66,7 @@ const AvatarMenu: FC<AvatarMenuProps> = props => {
               </div>
             </ColorSchemeButton>
           </div>
-          <button className="avatar-menu-option" onClick={() => signOut()}>
+          <button className="avatar-menu-option w-full" onClick={() => signOut()}>
             <LogOutIcon size={iconSize} />
             Log Out
           </button>

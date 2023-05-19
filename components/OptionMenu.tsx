@@ -49,7 +49,7 @@ const OptionMenu: FC<MenuProps> = props => {
       {isOpen && (
         <motion.div
           onClick={onClick}
-          className={`absolute z-10 rounded-md shadow-3xl ${className}`}
+          className={`absolute z-10 rounded-md shadow-2xl ${className}`}
           variants={menuVarinats}
           initial="hidden"
           animate="visible"

@@ -1,14 +1,14 @@
 import { FC, useEffect, useState } from 'react';
-import { NextRouter, withRouter } from 'next/router';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { useSearchHistory } from '@/hooks/useSearchHistory';
+import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 
-function storeInHistory(searchValue: string) {
+function storeInHistory(searchValue?: string) {
   const searchHistory = localStorage.getItem('search_history') || '[]';
   const historyValues = JSON.parse(searchHistory) as string[];
   const historyLimit = 5;
 
-  const index = historyValues.indexOf(searchValue);
+  const index = historyValues.indexOf(searchValue as string);
   if (index > -1) historyValues.splice(index, 1);
   else if (historyValues.length == historyLimit) historyValues.pop();
 
@@ -74,25 +74,10 @@ const SuggestionsMenu: FC<SuggestionsMenuProps> = ({ value, onClick }) => {
 
 type InputProps = {
   value?: string;
-  router: NextRouter;
 };
-const SearchInput: FC<InputProps> = ({ value, router }) => {
+const SearchInput: FC<InputProps> = ({ value }) => {
   const [inputValue, setInputValue] = useState<string>(value || '');
-
-  function triggerTheSearch(query?: string) {
-    const searchValue = query || inputValue.trim();
-    if (searchValue) {
-      storeInHistory(searchValue);
-      router.push({
-        pathname: '/search/[query]',
-        query: { query: searchValue }
-      });
-    }
-  }
-
-  function handleKeyDown(event: any) {
-    if (event.key === 'Enter') triggerTheSearch();
-  }
+  const { inputRef, triggerTheSearch, handleEnter } = useSearchTrigger(storeInHistory);
 
   function handleMouseClick(searchText: string) {
     setInputValue(searchText);
@@ -100,18 +85,19 @@ const SearchInput: FC<InputProps> = ({ value, router }) => {
   }
 
   return (
-    <div className="mx-auto text-center pt-5 px-4 sm:pt-10">
+    <div className="mx-auto text-center pt-20 px-4 sm:pt-28">
       <h2>
         Search for <span className="theme-gradient bg-clip-text text-transparent">images</span>
       </h2>
       <div className="relative group max-w-[730px] text-lg flex items-center mx-auto my-7 rounded-3xl bg-cs-change shadow-lg transition-colors">
         <input
           type="search"
+          ref={inputRef}
           value={inputValue}
           placeholder="Search.."
           className="h-full flex-grow outline-none bg-transparent py-2 px-4"
           onInput={e => setInputValue(e.currentTarget.value)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleEnter}
           autoComplete="off"
           required
         />
@@ -126,4 +112,4 @@ const SearchInput: FC<InputProps> = ({ value, router }) => {
     </div>
   );
 };
-export default withRouter(SearchInput);
+export default SearchInput;

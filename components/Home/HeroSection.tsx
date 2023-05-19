@@ -1,9 +1,9 @@
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
 import { siteInfos } from '@/data/constants';
 import { easeExpInOut } from '@malkiii/d3-ease';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
+import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 
 const textVariants = {
   hidden: { y: 130, opacity: 0 },
@@ -30,20 +30,7 @@ const inputVariants = {
 };
 
 const SearchInput: FC = () => {
-  const router = useRouter();
-  const inputRef = useRef<HTMLInputElement>(null);
-  function triggerTheSearch() {
-    const searchValue = inputRef.current?.value.trim();
-    if (searchValue) {
-      router.push({
-        pathname: '/search/[query]',
-        query: { query: searchValue }
-      });
-    }
-  }
-  function handleKeyDown({ key }: any) {
-    if (key === 'Enter') triggerTheSearch();
-  }
+  const { inputRef, triggerTheSearch, handleEnter } = useSearchTrigger();
 
   return (
     <motion.div
@@ -56,7 +43,7 @@ const SearchInput: FC = () => {
           ref={inputRef}
           placeholder="Search.."
           className="block w-full h-full outline-none bg-transparent py-2 px-4"
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleEnter}
           autoComplete="off"
           autoFocus
           required
@@ -74,7 +61,7 @@ const SearchInput: FC = () => {
 
 const HeroSection: FC = () => {
   return (
-    <div className="relative py-20 md:py-44">
+    <div className="relative py-20 md:py-44 mt-20">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial="hidden"
