@@ -44,7 +44,7 @@ export const useInfinitScroll: InfinitScrollHook = configs => {
     const windowHeight = window.innerHeight;
     const fullHeight = document.body.scrollHeight;
     const scrollPosition = window.scrollY;
-    setIsCloseToEnd(scrollPosition >= fullHeight - windowHeight - 860);
+    setIsCloseToEnd(scrollPosition >= fullHeight - windowHeight - 1000);
   };
 
   useEffect(() => {

@@ -75,25 +75,22 @@ const FixedSearchInput: FC = () => {
       <Link href="/" tabIndex={-1}>
         <Image src="/mark.svg" alt="scatch mark" width={39} height={39} className="logo" />
       </Link>
-      <div className="border-2 border-neutral-500 dark:bg-dark/50 bg-white/50 dark:focus-within:border-white focus-within:border-dark transition-colors rounded-3xl h-full w-full flex items-center">
-        <button
-          onClick={() => triggerTheSearch()}
-          className="hover:text-theme transition-colors px-4"
-        >
+      <div className="border-2 border-neutral-500 dark:bg-dark/50 bg-white/50 dark:focus-within:border-white focus-within:border-dark transition-colors rounded-3xl h-full w-full flex items-center px-3">
+        <button onClick={() => triggerTheSearch()} className="hover:text-theme transition-colors">
           <SearchIcon size={22} />
         </button>
         <input
           type="search"
           ref={inputRef}
           placeholder="Search.."
-          className="h-full w-full outline-none bg-transparent py-2"
+          className="h-full w-full outline-none bg-transparent p-2"
           onInput={handleInput}
           onKeyDown={handleEnter}
           autoComplete="off"
         />
         {showClearButton && (
           <button
-            className="hover:text-theme transition-colors border-l px-4"
+            className="hover:text-theme transition-colors"
             onClick={() => {
               inputRef.current!.value = '';
               setShowClearButton(false);
