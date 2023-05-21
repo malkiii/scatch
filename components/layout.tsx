@@ -8,7 +8,6 @@ import Progressbar from './Progressbar';
 type withChildren = {
   children: ReactNode;
 };
-
 const WithNavbarAndFooter: FC<withChildren> = ({ children }) => {
   return (
     <>
@@ -22,7 +21,6 @@ const WithNavbarAndFooter: FC<withChildren> = ({ children }) => {
 type layoutProps = withChildren & {
   empty: boolean;
 };
-
 const Layout: FC<layoutProps> = ({ empty, children }) => {
   const { systemTheme } = useTheme();
   const favionPath = `/favicon-${systemTheme || 'dark'}.ico`;
@@ -32,11 +30,7 @@ const Layout: FC<layoutProps> = ({ empty, children }) => {
         <link rel="icon" href={favionPath} />
       </Head>
       <Progressbar />
-      {empty ? (
-        <>{children}</>
-      ) : (
-        <WithNavbarAndFooter>{children}</WithNavbarAndFooter>
-      )}
+      {empty ? <>{children}</> : <WithNavbarAndFooter>{children}</WithNavbarAndFooter>}
     </>
   );
 };

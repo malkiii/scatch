@@ -49,16 +49,16 @@ const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
     <motion.div
       {...animationProps}
       viewport={{ once: true, amount: 0.84 }}
-      className="relative aspect-[609/761] w-[90%] sm:w-[400px] mt-12"
+      className="relative mt-12 aspect-[609/761] w-[90%] sm:w-[400px]"
     >
       <motion.div
         variants={imageVariants}
         onUpdate={onUpdate}
-        className="absolute w-full h-full overflow-hidden shadow-3xl"
+        className="absolute h-full w-full overflow-hidden shadow-3xl"
       >
         <div
           className={
-            'absolute w-full h-full overflow-hidden transition-all duration-1000 after:transition-inherit after:absolute after:w-full after:h-full after:pointer-events-none border-2 hover:text-theme border-white hover:border-theme rounded-lg ' +
+            'after:transition-inherit absolute h-full w-full overflow-hidden rounded-lg border-2 border-white transition-all duration-1000 after:pointer-events-none after:absolute after:h-full after:w-full hover:border-theme hover:text-theme ' +
             filterClassName
           }
         >
@@ -73,7 +73,7 @@ const EditingSection: FC = () => {
   const [filterIndex, setFilterIndex] = useInterval(filters.length, 2200);
 
   return (
-    <motion.div className="group flex items-center flex-col lg:flex-row justify-center py-24 gap-x-10">
+    <motion.div className="group flex flex-col items-center justify-center gap-x-10 py-24 lg:flex-row">
       <motion.div
         {...animationProps}
         variants={containerVariants}
@@ -81,18 +81,14 @@ const EditingSection: FC = () => {
         className="max-w-[550px] text-center lg:text-left"
       >
         <h2>Upload and Edit the images.</h2>
-        <p className="text-xl mb-6">
-          Upload images to the albums you create, and edit them with many
-          features and filters.
+        <p className="mb-6 text-xl">
+          Upload images to the albums you create, and edit them with many features and filters.
         </p>
         <Link href="/search" className="theme-btn">
           Edit some picture
         </Link>
       </motion.div>
-      <EditingImage
-        filterClassName={filters[filterIndex]}
-        onUpdate={() => setFilterIndex(0)}
-      />
+      <EditingImage filterClassName={filters[filterIndex]} onUpdate={() => setFilterIndex(0)} />
     </motion.div>
   );
 };

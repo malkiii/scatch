@@ -6,25 +6,25 @@ import Image from 'next/image';
 
 const LoginPage: NextPage = () => {
   return (
-    <div className="h-screen flex flex-col items-center">
+    <div className="flex h-screen flex-col items-center">
       <Head>
         <title>Login to Scatch</title>
       </Head>
       <header className="w-full">
-        <nav className="flex items-center justify-between max-w-7xl px-7 py-5 mx-auto">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-7 py-5">
           <Link href="/">
             <Image src="/logotype.svg" alt="scatch logo" width={144} height={39} className="logo" />
           </Link>
           <div className="z-10">
-            <span className="hidden sm:inline text-neutral-500">New to scatch?</span>
-            <Link href="/register" className="theme-btn py-[11px] ml-4">
+            <span className="hidden text-neutral-500 sm:inline">New to scatch?</span>
+            <Link href="/register" className="theme-btn ml-4 py-[11px]">
               Sign Up
             </Link>
           </div>
         </nav>
       </header>
-      <div className="flex items-center flex-1 px-7 w-full -mt-20">
-        <div className="w-[540px] mx-auto text-center">
+      <div className="-mt-20 flex w-full flex-1 items-center px-7">
+        <div className="mx-auto w-[540px] text-center">
           <h2 className="auth-title my-10">welcome to scatch</h2>
           <LoginForm />
         </div>

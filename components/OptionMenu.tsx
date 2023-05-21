@@ -13,16 +13,16 @@ const OptionList: FC<OptionListProps> = props => {
   const { focusOn, children, onItemClick } = props;
   const container = Children.toArray(children)[0] as ReactElement;
   return (
-    <ul className="bg-white dark:bg-neutral-900 rounded-inherit">
+    <ul className="rounded-inherit bg-white dark:bg-neutral-900">
       {Children.toArray(container.props.children).map((option, index) => (
         <div
           key={index}
           onClick={onItemClick}
           className={
-            'group menu-option ' +
+            'menu-option group ' +
             (index == focusOn
-              ? 'dark:text-dark dark:bg-white bg-neutral-200'
-              : 'dark:hover:bg-neutral-800 hover:bg-neutral-200')
+              ? 'bg-neutral-200 dark:bg-white dark:text-dark'
+              : 'hover:bg-neutral-200 dark:hover:bg-neutral-800')
           }
         >
           {option}

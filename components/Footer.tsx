@@ -18,13 +18,7 @@ const SocialList: FC = () => {
     <div>
       <h4>Social</h4>
       {socials.map(({ name, url }) => (
-        <a
-          key={name}
-          href={url}
-          className="footer-link"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a key={name} href={url} className="footer-link" target="_blank" rel="noreferrer">
           {socialIcons[name as SocialName]} {name}
         </a>
       ))}
@@ -36,11 +30,11 @@ const currentYear = new Date().getFullYear();
 
 const Footer: FC = () => {
   return (
-    <footer className="dark:bg-neutral-900 bg-neutral-100 py-4 px-8">
+    <footer className="bg-neutral-100 px-8 py-4 dark:bg-neutral-900">
       <div className="mx-auto max-w-6xl">
-        <div className="flex justify-between flex-wrap gap-8 py-4">
+        <div className="flex flex-wrap justify-between gap-8 py-4">
           <div className="max-w-md">
-            <Link href="/" className="inline-block my-4">
+            <Link href="/" className="my-4 inline-block">
               <Image
                 src="/logotype.svg"
                 alt="Logo-footer"
@@ -50,11 +44,11 @@ const Footer: FC = () => {
               />
             </Link>
             <p className="text-lg">
-              Scatch is an online image gallery where you can edit, save, or
-              download images for free.
+              Scatch is an online image gallery where you can edit, save, or download images for
+              free.
             </p>
           </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-4 items-baseline mx-auto lg:mx-0">
+          <div className="mx-auto flex flex-wrap items-baseline gap-x-8 gap-y-4 lg:mx-0">
             <div className="mr-10">
               <h4>Useful links</h4>
               <Link href="/" className="footer-link">
@@ -70,7 +64,7 @@ const Footer: FC = () => {
             <SocialList />
           </div>
         </div>
-        <div className="text-center max-sm:text-sm py-6 border-t dark:border-t-white/50 border-t-dark/50">
+        <div className="border-t border-t-dark/50 py-6 text-center dark:border-t-white/50 max-sm:text-sm">
           <p>
             Copyright &copy; 2022-{currentYear} {siteInfos.author}.
           </p>

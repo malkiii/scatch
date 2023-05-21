@@ -36,9 +36,7 @@ const AlbumImage: FC<{ number: number }> = ({ number }) => {
         alt="album"
         fill
       />
-      <span className="absolute bottom-2 left-3 opacity-70 font-bold">
-        album
-      </span>
+      <span className="absolute bottom-2 left-3 font-bold opacity-70">album</span>
     </>
   );
 };
@@ -55,16 +53,11 @@ const AlbunmsContainer: FC = () => {
   return (
     <motion.div
       {...animationProps}
-      className="relative grid grid-rows-2 grid-cols-2 gap-4 items-center aspect-[2298/1522] w-full md:w-[500px] mt-10"
+      className="relative mt-10 grid aspect-[2298/1522] w-full grid-cols-2 grid-rows-2 items-center gap-4 md:w-[500px]"
     >
       {new Array(albumsNumber).fill(null).map((_, index) => {
         return (
-          <motion.div
-            key={index}
-            custom={index}
-            variants={albumVariants}
-            className="album-image"
-          >
+          <motion.div key={index} custom={index} variants={albumVariants} className="album-image">
             <AlbumImage number={index + 1} />
           </motion.div>
         );
@@ -75,7 +68,7 @@ const AlbunmsContainer: FC = () => {
 
 const AlbumsSection: FC = () => {
   return (
-    <motion.div className="flex items-center flex-col-reverse lg:flex-row justify-center py-10 gap-x-10">
+    <motion.div className="flex flex-col-reverse items-center justify-center gap-x-10 py-10 lg:flex-row">
       <AlbunmsContainer />
       <motion.div
         {...animationProps}
@@ -83,9 +76,8 @@ const AlbumsSection: FC = () => {
         className="max-w-[500px] text-center lg:text-left"
       >
         <h2>Create your own albums.</h2>
-        <p className="text-xl mb-6">
-          After creating your account, you can save images in albums which you
-          can check later.
+        <p className="mb-6 text-xl">
+          After creating your account, you can save images in albums which you can check later.
         </p>
         <Link href="/" className="theme-btn">
           See your albums

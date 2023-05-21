@@ -13,14 +13,14 @@ type FilterButtonProps = {
 const FilterButton: FC<FilterButtonProps> = ({ isOpen, onClick }) => {
   return (
     <button
-      className="flex items-center gap-1 border-2 p-2 rounded-md px-4 dark:border-white/40 dark:hover:border-white transition-colors group border-dark/40 hover:border-dark"
+      className="group flex items-center gap-1 rounded-md border-2 border-dark/40 p-2 px-4 transition-colors hover:border-dark dark:border-white/40 dark:hover:border-white"
       onClick={onClick}
     >
       Filter
       <MdKeyboardArrowDown
         size={22}
         className={
-          'transition-all dark:text-white/40 dark:group-hover:text-white text-dark/40 group-hover:text-dark ' +
+          'text-dark/40 transition-all group-hover:text-dark dark:text-white/40 dark:group-hover:text-white ' +
           (isOpen ? 'rotate-180' : '')
         }
       />

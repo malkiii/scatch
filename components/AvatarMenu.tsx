@@ -39,7 +39,7 @@ const AvatarMenu: FC<AvatarMenuProps> = props => {
       <button onClick={toggle}>
         <AvatarIcon
           user={props.user}
-          className="w-10 hover:outline-[5px] outline-0 dark:outline-white/10 outline-black/10 outline rounded-circle transition-all md:mr-0"
+          className="w-10 rounded-circle outline outline-0 outline-black/10 transition-all hover:outline-[5px] dark:outline-white/10 md:mr-0"
         />
       </button>
       <OptionMenu isOpen={isOpen} className="avatar-menu" onClick={toggle}>

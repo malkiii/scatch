@@ -35,14 +35,14 @@ const SearchInput: FC = () => {
   return (
     <motion.div
       variants={inputVariants}
-      className="relative text-lg flex mx-auto items-center rounded-3xl dark:bg-neutral-900/60 bg-white/80 shadow-xl transition-colors"
+      className="relative mx-auto flex items-center rounded-3xl bg-white/80 text-lg shadow-xl transition-colors dark:bg-neutral-900/60"
     >
-      <div className="overflow-hidden w-full">
+      <div className="w-full overflow-hidden">
         <input
           type="search"
           ref={inputRef}
           placeholder="Search.."
-          className="block w-full h-full outline-none bg-transparent py-2 px-4"
+          className="block h-full w-full bg-transparent px-4 py-2 outline-none"
           onKeyDown={handleEnter}
           autoComplete="off"
           autoFocus
@@ -50,10 +50,10 @@ const SearchInput: FC = () => {
         />
       </div>
       <button
-        className="theme-btn w-[90px] flex items-center py-2 rounded-inherit"
+        className="theme-btn flex w-[90px] items-center rounded-inherit py-2"
         onClick={() => triggerTheSearch()}
       >
-        <SearchIcon size={30} className="block mx-auto" />
+        <SearchIcon size={30} className="mx-auto block" />
       </button>
     </motion.div>
   );
@@ -61,27 +61,27 @@ const SearchInput: FC = () => {
 
 const HeroSection: FC = () => {
   return (
-    <div className="relative py-20 md:py-44 mt-20">
-      <div className="max-w-7xl mx-auto">
+    <div className="relative mt-20 py-20 md:py-44">
+      <div className="mx-auto max-w-7xl">
         <motion.div
           initial="hidden"
           animate="visible"
           transition={{ staggerChildren: 0.1 }}
-          className="max-w-5xl text-center mx-auto flex flex-col gap-y-6"
+          className="mx-auto flex max-w-5xl flex-col gap-y-6 text-center"
         >
           <motion.h1 variants={textVariants}>
             welcome to{' '}
-            <span className="relative text-transparent bg-clip-text theme-gradient after:absolute after:h-1 after:theme-gradient after:w-full after:top-full after:left-0">
+            <span className="theme-gradient after:theme-gradient relative bg-clip-text text-transparent after:absolute after:left-0 after:top-full after:h-1 after:w-full">
               {siteInfos.name}
             </span>
           </motion.h1>
           <motion.p
             variants={textVariants}
-            className="text-xl sm:text-2xl sm:leading-[1.7] leading-[1.7] opacity-75"
+            className="text-xl leading-[1.7] opacity-75 sm:text-2xl sm:leading-[1.7]"
           >
             {siteInfos.description}
           </motion.p>
-          <motion.div variants={textVariants} className="w-full md:w-3/5 mx-auto">
+          <motion.div variants={textVariants} className="mx-auto w-full md:w-3/5">
             <SearchInput />
           </motion.div>
         </motion.div>

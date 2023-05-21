@@ -33,12 +33,7 @@ const SearchImageModal: FC<ModalProps> = ({ index, image, modalActions }) => {
   useBlurhashImage(imageContainerRef, image.src);
 
   return (
-    <ImageModal
-      key={index}
-      image={image}
-      containerRef={imageContainerRef}
-      actions={modalActions}
-    >
+    <ImageModal key={index} image={image} containerRef={imageContainerRef} actions={modalActions}>
       <ImageNavbar image={image} onClick={modalActions.close} />
     </ImageModal>
   );

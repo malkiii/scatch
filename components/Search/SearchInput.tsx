@@ -50,8 +50,8 @@ const SuggestionsMenu: FC<SuggestionsMenuProps> = ({ value, onClick }) => {
   });
 
   return (
-    <div className="group-focus-within:block hidden absolute w-full left-0 top-full z-[101] translate-y-3">
-      <ul className="shadow-3xl rounded-xl w-full">
+    <div className="absolute left-0 top-full z-[101] hidden w-full translate-y-3 group-focus-within:block">
+      <ul className="w-full rounded-xl shadow-3xl">
         {searchHistory.map((searchValue, index) => (
           <li
             key={index}
@@ -62,7 +62,7 @@ const SuggestionsMenu: FC<SuggestionsMenuProps> = ({ value, onClick }) => {
             onKeyDown={handleKeyDown}
           >
             <SearchIcon size={21} />
-            <span className="inline-block whitespace-nowrap text-ellipsis overflow-hidden">
+            <span className="inline-block overflow-hidden text-ellipsis whitespace-nowrap">
               {searchValue}
             </span>
           </li>
@@ -85,24 +85,24 @@ const SearchInput: FC<InputProps> = ({ value }) => {
   }
 
   return (
-    <div className="mx-auto text-center pt-20 px-4 sm:pt-28">
+    <div className="mx-auto px-4 pt-20 text-center sm:pt-28">
       <h2>
         Search for <span className="theme-gradient bg-clip-text text-transparent">images</span>
       </h2>
-      <div className="relative group max-w-[730px] text-lg flex items-center mx-auto my-7 rounded-3xl bg-cs-change shadow-lg transition-colors">
+      <div className="bg-cs-change group relative mx-auto my-7 flex max-w-[730px] items-center rounded-3xl text-lg shadow-lg transition-colors">
         <input
           type="search"
           ref={inputRef}
           value={inputValue}
           placeholder="Search.."
-          className="h-full flex-grow outline-none bg-transparent py-2 px-4"
+          className="h-full flex-grow bg-transparent px-4 py-2 outline-none"
           onInput={e => setInputValue(e.currentTarget.value)}
           onKeyDown={handleEnter}
           autoComplete="off"
           required
         />
         <button
-          className="theme-btn py-2 px-5 sm:px-7 rounded-inherit"
+          className="theme-btn rounded-inherit px-5 py-2 sm:px-7"
           onClick={() => triggerTheSearch()}
         >
           <SearchIcon size={30} className="inline text-center" />

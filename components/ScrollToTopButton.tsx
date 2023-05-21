@@ -35,7 +35,7 @@ const ScrollToTopButton: FC = () => {
           variants={buttonVariants}
           animate="visible"
           exit="hidden"
-          className="theme-btn fixed -bottom-28 flex right-8 shadow-3xl text-white dark:text-dark aspect-square rounded-circle z-50 items-center justify-center"
+          className="theme-btn fixed -bottom-28 right-8 z-50 flex aspect-square items-center justify-center rounded-circle text-white shadow-3xl dark:text-dark"
           onClick={scrollToTop}
         >
           <AiOutlineArrowUp size={22} />

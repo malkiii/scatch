@@ -45,7 +45,7 @@ const MenuContainer: FC<MenuProps> = ({ toggle, hasSession }) => {
       variants={menuVariants}
       animate="open"
       exit="close"
-      className="fixed top-0 left-full h-screen text-white bg-dark/90 z-[999] w-full text-4xl font-bold px-10"
+      className="fixed left-full top-0 z-[999] h-screen w-full bg-dark/90 px-10 text-4xl font-bold text-white"
     >
       <div className="w-full">
         <ul className="mt-24">

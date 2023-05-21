@@ -8,7 +8,7 @@ const MeshGradientBackground = () => {
     <motion.div
       style={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 0.8, type: 'tween' } }}
-      className="opacity-1 bg-mesh-grandient dark:bg-dark bg-white"
+      className="opacity-1 bg-mesh-grandient bg-white dark:bg-dark"
     ></motion.div>
   );
 };

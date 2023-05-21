@@ -36,17 +36,17 @@ type ButtonProps = {
 const MenuButton: FC<ButtonProps> = ({ isOpen, toggleMenu }) => {
   return (
     <motion.button
-      className="block w-10 transition-colors aspect-square md:hidden ml-2"
+      className="ml-2 block aspect-square w-10 transition-colors md:hidden"
       onClick={toggleMenu}
     >
-      <motion.div animate={isOpen ? 'open' : 'close'} className="relative m-auto w-full h-1/3">
+      <motion.div animate={isOpen ? 'open' : 'close'} className="relative m-auto h-1/3 w-full">
         <motion.div
           variants={buttonTopVariants}
-          className="absolute w-full h-[3.2px] top-0 bg-dark dark:bg-white right-0 transition-colors"
+          className="absolute right-0 top-0 h-[3.2px] w-full bg-dark transition-colors dark:bg-white"
         ></motion.div>
         <motion.div
           variants={buttonBottomVariants}
-          className="absolute w-[66%] h-[3.2px] bottom-0 bg-dark dark:bg-white right-0 transition-colors"
+          className="absolute bottom-0 right-0 h-[3.2px] w-[66%] bg-dark transition-colors dark:bg-white"
         ></motion.div>
       </motion.div>
     </motion.button>
@@ -71,26 +71,26 @@ const FixedSearchInput: FC = () => {
   }
 
   return (
-    <div className="flex items-center gap-x-2 max-w-2xl mr-2">
+    <div className="mr-2 flex max-w-2xl items-center gap-x-2">
       <Link href="/" tabIndex={-1}>
         <Image src="/mark.svg" alt="scatch mark" width={39} height={39} className="logo" />
       </Link>
-      <div className="border-2 border-neutral-500 dark:bg-dark/50 bg-white/50 dark:focus-within:border-white focus-within:border-dark transition-colors rounded-3xl h-full w-full flex items-center px-3">
-        <button onClick={() => triggerTheSearch()} className="hover:text-theme transition-colors">
+      <div className="flex h-full w-full items-center rounded-3xl border-2 border-neutral-500 bg-white/50 px-3 transition-colors focus-within:border-dark dark:bg-dark/50 dark:focus-within:border-white">
+        <button onClick={() => triggerTheSearch()} className="transition-colors hover:text-theme">
           <SearchIcon size={22} />
         </button>
         <input
           type="search"
           ref={inputRef}
           placeholder="Search.."
-          className="h-full w-full outline-none bg-transparent p-2"
+          className="h-full w-full bg-transparent p-2 outline-none"
           onInput={handleInput}
           onKeyDown={handleEnter}
           autoComplete="off"
         />
         {showClearButton && (
           <button
-            className="hover:text-theme transition-colors"
+            className="transition-colors hover:text-theme"
             onClick={() => {
               inputRef.current!.value = '';
               setShowClearButton(false);
@@ -146,19 +146,19 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
     <>
       <header
         className={
-          'py-3 w-full px-5 z-[1001] transition-[box-shadow_color] duration-200' +
+          'z-[1001] w-full px-5 py-3 transition-[box-shadow_color] duration-200' +
           (inHomePage ? ' absolute' : ' fixed') +
           (isScrolling ? ' bg-cs-change shadow-xl' : '')
         }
       >
         <motion.nav
           {...animationProps}
-          className="flex items-center justify-between max-w-7xl h-full mx-auto"
+          className="mx-auto flex h-full max-w-7xl items-center justify-between"
         >
-          <div className="h-[41px] overflow-hidden flex-1">
+          <div className="h-[41px] flex-1 overflow-hidden">
             <div
               className={
-                'transition-transform flex gap-y-1 justify-center flex-col' +
+                'flex flex-col justify-center gap-y-1 transition-transform' +
                 (!shouldShowSearchInput ? ' -translate-y-[calc(50%+1px)]' : '')
               }
             >
@@ -167,7 +167,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
             </div>
           </div>
           <div className="flex items-center">
-            <div className="hidden md:flex items-center">
+            <div className="hidden items-center md:flex">
               <Link href="/search" className="theme-link">
                 Search
               </Link>

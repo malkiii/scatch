@@ -58,7 +58,7 @@ export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
           type="button"
           onClick={e => handleClick(e.currentTarget, handleSignIn)}
           className={
-            'flex items-center justify-center gap-3 w-full text-center p-3 rounded-3xl font-semibold transition-colors ' +
+            'flex w-full items-center justify-center gap-3 rounded-3xl p-3 text-center font-semibold transition-colors ' +
             className
           }
         >
@@ -83,7 +83,7 @@ export const SubmitButton: FC<SubmitButtonProps> = ({ text, isSubmitting, onClic
     <button
       type="submit"
       onClick={handleClick}
-      className="flex justify-center items-center theme-btn text-center"
+      className="theme-btn flex items-center justify-center text-center"
     >
       {isSubmitting ? <SpinnerAnimation size={24} /> : text}
     </button>
@@ -96,15 +96,15 @@ type VerticalLineProps = {
 export const VerticalLine: FC<VerticalLineProps> = ({ text }) => {
   return (
     <div className="relative z-10">
-      <span className="absolute inset-0 m-auto vertical-line-gradient dark:invert h-px z-0"></span>
-      <span className="relative bg-white dark:bg-dark px-3">{text}</span>
+      <span className="vertical-line-gradient absolute inset-0 z-0 m-auto h-px dark:invert"></span>
+      <span className="relative bg-white px-3 dark:bg-dark">{text}</span>
     </div>
   );
 };
 
 export const ErrorMessage: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="flex items-center justify-center gap-x-2 w-full text-sm md:text-base font-semibold mt-1 text-error">
+    <div className="mt-1 flex w-full items-center justify-center gap-x-2 text-sm font-semibold text-error md:text-base">
       <WarningIcon /> {children}
     </div>
   );

@@ -61,7 +61,7 @@ const LoadedImage: FC<LoadedImageProps> = props => {
   return (
     <div
       ref={imageContainerRef}
-      className="flex items-center cursor-zoom-in"
+      className="flex cursor-zoom-in items-center"
       onMouseMove={handleMouseMove}
       onClick={handleMouseClick}
     >
@@ -97,7 +97,7 @@ const ImageContainer: FC<ImageContainerProps> = props => {
     <div
       className={
         inZoomMod
-          ? 'flex items-center justify-center w-full h-full overflow-hidden'
+          ? 'flex h-full w-full items-center justify-center overflow-hidden'
           : 'max-h-[80vh]'
       }
       style={{ aspectRatio }}
@@ -149,11 +149,11 @@ export const ImageModal: FC<ModalProps> = props => {
   return (
     <div
       data-test="image-modal"
-      className="fixed px-40 top-0 left-0 z-[2000] w-screen h-screen bg-dark/60 dark:bg-dark/80"
+      className="fixed left-0 top-0 z-[2000] h-screen w-screen bg-dark/60 px-40 dark:bg-dark/80"
       onClick={handleClick}
     >
       <div
-        className="absolute inset-0 flex items-center justify-between m-auto max-w-6xl py-10 px-3"
+        className="absolute inset-0 m-auto flex max-w-6xl items-center justify-between px-3 py-10"
         onClick={handleClick}
       >
         <ModalButtons actions={actions}>

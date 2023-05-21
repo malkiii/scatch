@@ -50,15 +50,15 @@ const Progressbar: FC = () => {
   return (
     <AnimatePresence>
       {isChanging && (
-        <div className="fixed top-0 left-0 w-full h-1 z-[3333]">
+        <div className="fixed left-0 top-0 z-[3333] h-1 w-full">
           <motion.div
             variants={progressVariants}
             initial="initial"
             animate="visible"
             exit="hidden"
-            className="relative theme-gradient h-full"
+            className="theme-gradient relative h-full"
           >
-            <div className="absolute w-28 h-full right-0 rotate-3 -translate-y-1 shadow-progressbar shadow-theme"></div>
+            <div className="absolute right-0 h-full w-28 -translate-y-1 rotate-3 shadow-progressbar shadow-theme"></div>
           </motion.div>
         </div>
       )}

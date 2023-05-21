@@ -13,13 +13,13 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
   const { firstName, lastName, email, password, error } = data;
   return (
     <>
-      <div className="flex align-center gap-x-4">
+      <div className="align-center flex gap-x-4">
         <input
           id="firstName"
           type="text"
           name="user[first_name]"
           placeholder="First name"
-          className="inline-block credential-input"
+          className="credential-input inline-block"
           value={firstName}
           onInput={handleInput}
           required
@@ -29,7 +29,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
           type="text"
           name="user[last_name]"
           placeholder="Last name"
-          className="inline-block credential-input"
+          className="credential-input inline-block"
           value={lastName}
           onInput={handleInput}
         />

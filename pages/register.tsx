@@ -6,17 +6,17 @@ import { ScatchMark } from '@/components/Forms/FormItems';
 
 const RegisterPage: NextPage = () => {
   return (
-    <div className="w-full h-screen flex items-center overflow-hidden p-7">
+    <div className="flex h-screen w-full items-center overflow-hidden p-7">
       <Head>
         <title>Join to Scatch</title>
       </Head>
-      <div className="text-center w-[540px] mx-auto">
+      <div className="mx-auto w-[540px] text-center">
         <ScatchMark className="mx-auto" />
         <div className="my-9">
           <h2 className="auth-title">join to scatch</h2>
           <div className="text-neutral-500">
             Already have an account?{' '}
-            <Link href="/login" className="underline dark:text-white text-dark">
+            <Link href="/login" className="text-dark underline dark:text-white">
               Login
             </Link>
           </div>
