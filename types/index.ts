@@ -41,5 +41,5 @@ export type LoginFormData = {
 };
 
 export type WithFormError = {
-  error?: 'Email' | 'Password';
+  error?: 'Email' | 'Password' | 'Name';
 };
