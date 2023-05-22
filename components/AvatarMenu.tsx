@@ -44,7 +44,7 @@ const AvatarMenu: FC<AvatarMenuProps> = props => {
       </button>
       <OptionMenu isOpen={isOpen} className="avatar-menu" onClick={toggle}>
         <div>
-          <Link href="/" className="avatar-menu-option">
+          <Link href="/me" className="avatar-menu-option">
             <ProfileIcon size={iconSize} /> View profile
           </Link>
           <Link href="/" className="avatar-menu-option">

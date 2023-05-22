@@ -51,13 +51,13 @@ const Footer: FC = () => {
           <div className="mx-auto flex flex-wrap items-baseline gap-x-8 gap-y-4 lg:mx-0">
             <div className="mr-10">
               <h4>Useful links</h4>
-              <Link href="/" className="footer-link">
+              <Link href="/login" className="footer-link">
                 Login
               </Link>
-              <Link href="/" className="footer-link">
+              <Link href="/about" className="footer-link">
                 About
               </Link>
-              <Link href="/" className="footer-link">
+              <Link href="/blog" className="footer-link">
                 Blog
               </Link>
             </div>

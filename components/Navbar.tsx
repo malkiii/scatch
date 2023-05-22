@@ -55,9 +55,16 @@ const MenuButton: FC<ButtonProps> = ({ isOpen, toggleMenu }) => {
 
 const Logo: FC = () => {
   return (
-    <Link href="/" className="relative h-full w-fit" tabIndex={-1}>
-      <Image src="/logotype.svg" alt="scatch logo" width={144} height={39} className="logo" />
-    </Link>
+    <div className="relative overflow-hidden">
+      <Link href="/" className="-ml-11 block h-[40px] w-[144px]" tabIndex={-1}>
+        <img
+          src="/logotype.svg"
+          alt="scatch logo"
+          className="logo h-full w-full"
+          style={{ clipPath: 'inset(0 0 0 30%)' }}
+        />
+      </Link>
+    </div>
   );
 };
 
@@ -72,9 +79,6 @@ const FixedSearchInput: FC = () => {
 
   return (
     <div className="mr-2 flex max-w-2xl items-center gap-x-2">
-      <Link href="/" tabIndex={-1}>
-        <Image src="/mark.svg" alt="scatch mark" width={39} height={39} className="logo" />
-      </Link>
       <div className="flex h-full w-full items-center rounded-3xl border-2 border-neutral-500 bg-white/50 px-3 transition-colors focus-within:border-dark dark:bg-dark/50 dark:focus-within:border-white">
         <button onClick={() => triggerTheSearch()} className="transition-colors hover:text-theme">
           <SearchIcon size={22} />
@@ -155,6 +159,9 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
           {...animationProps}
           className="mx-auto flex h-full max-w-7xl items-center justify-between"
         >
+          <Link href="/" tabIndex={-1} className="relative mr-1 block aspect-square h-[39px]">
+            <Image src="/mark.svg" alt="scatch mark" fill className="logo" />
+          </Link>
           <div className="h-[41px] flex-1 overflow-hidden">
             <div
               className={
