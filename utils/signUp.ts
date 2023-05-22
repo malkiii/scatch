@@ -7,7 +7,7 @@ export default async function signUp(data: SignUpFormData): Promise<CachedData> 
   const endpointURL = new URL('/api/auth/signup', siteInfos.url);
 
   const { firstName, lastName, email, password } = data;
-  const name = firstName + ' ' + lastName;
+  const name = (firstName.trim() + ' ' + lastName.trim()).trim();
 
   const response = await fetch(endpointURL, {
     method: 'POST',

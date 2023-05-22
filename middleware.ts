@@ -8,7 +8,7 @@ export default withAuth(
     const isAuthenticated = !!token;
 
     if (isAuthenticated) {
-      return NextResponse.redirect(new URL('/', req.url));
+      return NextResponse.redirect(new URL('/me', req.url));
     }
     return null;
   },
