@@ -11,28 +11,39 @@ type CredentialInputsProps = {
 };
 const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
   const { firstName, lastName, email, password, error } = data;
+  const name = firstName.trim() + lastName.trim();
   return (
     <>
-      <div className="align-center flex gap-x-4">
-        <input
-          id="firstName"
-          type="text"
-          name="user[first_name]"
-          placeholder="First name"
-          className="credential-input inline-block"
-          value={firstName}
-          onInput={handleInput}
-          required
-        />
-        <input
-          id="lastName"
-          type="text"
-          name="user[last_name]"
-          placeholder="Last name"
-          className="credential-input inline-block"
-          value={lastName}
-          onInput={handleInput}
-        />
+      <div>
+        <div className="align-center flex gap-x-4">
+          <input
+            id="firstName"
+            type="text"
+            name="user[first_name]"
+            placeholder="First name"
+            className={`credential-input ${error == 'Name' ? 'error' : ''}`}
+            value={firstName}
+            onInput={handleInput}
+            required
+          />
+          <input
+            id="lastName"
+            type="text"
+            name="user[last_name]"
+            placeholder="Last name"
+            className={`credential-input ${error == 'Name' ? 'error' : ''}`}
+            value={lastName}
+            onInput={handleInput}
+          />
+        </div>
+        {error == 'Name' &&
+          (name.length > 30 ? (
+            <ErrorMessage>Username is too long!</ErrorMessage>
+          ) : name.length < 3 ? (
+            <ErrorMessage>Username is too short!</ErrorMessage>
+          ) : /[^\w]/.test(name) ? (
+            <ErrorMessage>No spaces and special characters!</ErrorMessage>
+          ) : null)}
       </div>
       <div>
         <input
@@ -45,7 +56,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
           onInput={handleInput}
           required
         />
-        {error === 'Email' && <ErrorMessage>This email is already exists!</ErrorMessage>}
+        {error == 'Email' && <ErrorMessage>This email is already exists!</ErrorMessage>}
       </div>
       <div>
         <input
@@ -74,21 +85,54 @@ const SignUpForm: FC = () => {
     lastName: ''
   });
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  function validate(input: WithFormError['error'], text: string) {
+    if (!input) return;
+    const patterns = {
+      Name: /^[a-z_A-Z]{3,15} [a-z_A-Z]{0,15}$/m,
+      Email: /^[\w-\.]+@([\w-]+\.)+\w{2,7}$/,
+      Password: /.{6,}/
+    };
+    const isValid = patterns[input].test(text);
+    if (!isValid) form.setError(input);
+    return isValid;
+  }
+
+  function inputHandler(e: any) {
+    const { id, value } = e.target as Record<string, string>;
+    form.handleInput(e);
     form.setError(undefined);
 
-    // validate the password
-    if (form.data.password.length < 6) {
-      form.setError('Password');
-      setIsSubmitting(false);
-      return;
+    const { firstName, lastName, email, password } = form.data;
+    switch (id) {
+      case 'email':
+        if (validate('Name', firstName.trim() + ' ' + lastName.trim())) {
+          validate('Email', value);
+        }
+        break;
+      case 'password':
+        if (
+          validate('Name', firstName.trim() + ' ' + lastName.trim()) &&
+          validate('Email', email)
+        ) {
+          validate('Password', value);
+        }
+        break;
+      default:
+        if (id == 'firstName') validate('Name', value.trim() + ' ' + lastName.trim());
+        else validate('Name', firstName.trim() + ' ' + value.trim());
+        break;
     }
+  }
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setIsSubmitting(!form.data.error);
+    if (form.data.error) return;
+
+    // trying to sign up
     const { user, error } = await signUp(form.data);
     if (!user) {
-      if (error == 'email') form.setError('Email');
+      if (error == 'Email') form.setError('Email');
       setIsSubmitting(false);
       return;
     }
@@ -102,7 +146,7 @@ const SignUpForm: FC = () => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-y-4" autoComplete="on">
       <AuthProviders text="Join using" />
       <VerticalLine text="or join with your email" />
-      <CredentialInputs {...form} />
+      <CredentialInputs data={form.data} handleInput={inputHandler} />
       <SubmitButton {...{ text: 'Sign Up', isSubmitting }} />
     </form>
   );
