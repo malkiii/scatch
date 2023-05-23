@@ -1,4 +1,4 @@
-import signUp from '@/utils/signUp';
+import { signUp } from '@/utils';
 import { FC, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useForm } from '@/hooks/useForm';

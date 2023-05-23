@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { User } from 'next-auth';
 import OptionMenu from './OptionMenu';
 import { signOut } from 'next-auth/react';
+import { createUsernameParam } from '@/utils';
 import ColorSchemeButton from './ColorSchemeButton';
 import { useToggleMenu } from '@/hooks/useToggleMenu';
 import {
@@ -32,8 +33,9 @@ type AvatarMenuProps = {
   user: User;
 };
 const AvatarMenu: FC<AvatarMenuProps> = props => {
-  const { isOpen, menuRef, toggle } = useToggleMenu();
   const iconSize = 25;
+  const { isOpen, menuRef, toggle } = useToggleMenu();
+  const userProfileRoute = '/' + createUsernameParam(props.user.name!);
   return (
     <div ref={menuRef} className="relative flex items-center justify-center">
       <button onClick={toggle}>
@@ -44,16 +46,16 @@ const AvatarMenu: FC<AvatarMenuProps> = props => {
       </button>
       <OptionMenu isOpen={isOpen} className="avatar-menu" onClick={toggle}>
         <div>
-          <Link href="/me" className="avatar-menu-option">
+          <Link href={userProfileRoute} className="avatar-menu-option">
             <ProfileIcon size={iconSize} /> View profile
           </Link>
-          <Link href="/" className="avatar-menu-option">
+          <Link href="/albums" className="avatar-menu-option">
             <AlbumIcon size={iconSize} /> Your albums
           </Link>
-          <Link href="/" className="avatar-menu-option menu-separator">
-            <StatesIcon size={iconSize} /> Your states
+          <Link href={userProfileRoute + '/stats'} className="avatar-menu-option menu-separator">
+            <StatesIcon size={iconSize} /> Your stats
           </Link>
-          <Link href="/" className="avatar-menu-option">
+          <Link href="/settings" className="avatar-menu-option">
             <SettingsIcon size={iconSize} /> Settings
           </Link>
           <div onClick={e => e.stopPropagation()}>
