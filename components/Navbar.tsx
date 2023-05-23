@@ -159,7 +159,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
           {...animationProps}
           className="mx-auto flex h-full max-w-7xl items-center justify-between"
         >
-          <Link href="/" tabIndex={-1} className="relative mr-1 block aspect-square h-[39px]">
+          <Link href="/" tabIndex={-1} className="relative mr-[6px] block aspect-square h-[39px]">
             <Image src="/mark.svg" alt="scatch mark" fill className="logo" />
           </Link>
           <div className="h-[41px] flex-1 overflow-hidden">
