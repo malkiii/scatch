@@ -3,6 +3,7 @@ import Link from 'next/link';
 import ColorSchemeButton from './ColorSchemeButton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { easeExpInOut, easeExpOut } from '@malkiii/d3-ease';
+import { createUsernameParam } from '@/utils';
 
 // animation variants
 const transition = {
@@ -22,20 +23,20 @@ const menuItemVariants = {
     x: 0,
     opacity: 1,
     transition: {
-      duration: 0.7,
+      duration: 0.8,
       ease: easeExpOut
     }
   }
 };
 
 type MenuProps = {
-  hasSession: boolean;
+  profileRoute?: string;
   toggle: () => void;
 };
-const MenuContainer: FC<MenuProps> = ({ toggle, hasSession }) => {
+const MenuContainer: FC<MenuProps> = ({ toggle, profileRoute }) => {
   const navMenuItems = [
     { name: 'home', route: '/' },
-    hasSession ? { name: 'profile', route: '/me' } : { name: 'login', route: '/login' },
+    profileRoute ? { name: 'profile', route: profileRoute } : { name: 'login', route: '/login' },
     { name: 'search', route: '/search' },
     { name: 'albums', route: '/albums' }
   ];
@@ -72,14 +73,15 @@ const MenuContainer: FC<MenuProps> = ({ toggle, hasSession }) => {
 
 type NavMenuProps = {
   isOpen: boolean;
-  hasSession: boolean;
+  username?: string | null;
   toggle: () => void;
 };
 const NavbarMenu: FC<NavMenuProps> = props => {
-  const { isOpen, hasSession, toggle } = props;
+  const { isOpen, username, toggle } = props;
+  const profileRoute = username ? '/' + createUsernameParam(username) : undefined;
 
   return (
-    <AnimatePresence>{isOpen && <MenuContainer {...{ toggle, hasSession }} />}</AnimatePresence>
+    <AnimatePresence>{isOpen && <MenuContainer {...{ toggle, profileRoute }} />}</AnimatePresence>
   );
 };
 export default NavbarMenu;

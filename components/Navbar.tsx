@@ -17,7 +17,7 @@ import { MdClear as ClearIcon } from 'react-icons/md';
 const transition = {
   duration: 0.8,
   ease: easeExpInOut,
-  staggerChildren: 0.11
+  staggerChildren: 0.1
 };
 const transformValue = 146;
 const buttonTopVariants = {
@@ -36,7 +36,7 @@ type ButtonProps = {
 const MenuButton: FC<ButtonProps> = ({ isOpen, toggleMenu }) => {
   return (
     <motion.button
-      className="ml-2 block aspect-square w-10 transition-colors md:hidden"
+      className="ml-3 block aspect-square w-10 transition-colors md:hidden"
       onClick={toggleMenu}
     >
       <motion.div animate={isOpen ? 'open' : 'close'} className="relative m-auto h-1/3 w-full">
@@ -203,7 +203,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
           </div>
         </motion.nav>
       </header>
-      <NavbarMenu isOpen={isOpen} hasSession={!!session} toggle={toggleMenu} />
+      <NavbarMenu isOpen={isOpen} username={session?.user.name} toggle={toggleMenu} />
     </>
   );
 };

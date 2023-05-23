@@ -28,13 +28,13 @@ const providers = [
     name: 'Google',
     icon: <GoogleIcon size={iconSize} />,
     className: 'text-dark bg-white border border-neutral-400 dark:border-none hover:bg-neutral-50',
-    handleSignIn: () => signIn('google')
+    handleSignIn: () => signIn('google', { callbackUrl: '/' })
   },
   {
     name: 'Facebook',
     icon: <FacebookIcon size={iconSize} />,
     className: 'text-white bg-[#1877F2] hover:bg-[#166ee1]',
-    handleSignIn: () => signIn('facebook')
+    handleSignIn: () => signIn('facebook', { callbackUrl: '/' })
   }
 ];
 

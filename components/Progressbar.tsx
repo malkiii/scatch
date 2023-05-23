@@ -24,14 +24,17 @@ const progressVariants: Variants = {
   }
 };
 
+const staticPages = ['/', '/login', '/register', '/about', '/blog'];
+
 const Progressbar: FC = () => {
   const router = useRouter();
   const [isChanging, setIsChanging] = useState(false);
 
-  function handleChanging(_: string, { shallow }: any) {
-    if (shallow) return;
+  function handleChanging(url: string, { shallow }: any) {
+    if (staticPages.includes(url) || shallow) return;
     setIsChanging(true);
   }
+
   function handleComleting() {
     setIsChanging(false);
   }
