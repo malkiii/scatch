@@ -1,6 +1,6 @@
-import { siteInfos } from '@/data/constants';
 import { ImagePage, ResponseImage } from '@/types';
 
+const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL as string;
 const API_TOKEN = process.env.API_TOKEN as string;
 const headers = { token: API_TOKEN };
 
@@ -24,7 +24,7 @@ export const fetchImages = async (
   signal?: AbortSignal
 ): Promise<fetchImagesData> => {
   try {
-    const endpointURL = new URL('/api/images', siteInfos.url);
+    const endpointURL = new URL('/api/images', NEXT_PUBLIC_APP_URL);
     endpointURL.search = new URLSearchParams(params).toString();
 
     const response = await fetch(endpointURL, { headers, signal });
@@ -46,7 +46,7 @@ type fetchPhotoData = {
 
 export const fetchPhoto = async (id: string): Promise<fetchPhotoData> => {
   try {
-    const endpointURL = new URL('/api/images', siteInfos.url);
+    const endpointURL = new URL('/api/images', NEXT_PUBLIC_APP_URL);
     endpointURL.searchParams.set('e', '/photos/' + id);
 
     const response = await fetch(endpointURL, { headers });
