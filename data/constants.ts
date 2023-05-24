@@ -37,15 +37,15 @@ export const searchDemoImages = {
 export const socials = [
   {
     name: 'Facebook',
-    url: 'https://web.facebook.com/malkii.abdoo'
+    url: 'https://web.facebook.com/malkiabduu'
   },
   {
     name: 'Twitter',
-    url: 'https://twitter.com/malkiAbdoo'
+    url: 'https://twitter.com/MalkiAbduu'
   },
   {
     name: 'Instagram',
-    url: 'https://www.instagram.com/malki.abdoo'
+    url: 'https://www.instagram.com/malkiabduu'
   },
   {
     name: 'Github',
