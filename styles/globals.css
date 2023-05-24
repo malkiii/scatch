@@ -153,6 +153,7 @@
   }
 }
 
+body.transition-off,
 body.transition-off * {
   transition: none !important;
 }

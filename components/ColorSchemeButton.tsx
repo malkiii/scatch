@@ -17,8 +17,8 @@ const ColorSchemeButton: FC<ButtonProps> = props => {
     const preferDarkTheme = document.documentElement.classList.contains('dark');
     setTheme(preferDarkTheme ? 'light' : 'dark');
 
-    // wait for all the transitions to complete and then remove transition-off
-    setTimeout(() => document.body.classList.remove('transition-off'), 999);
+    // wait a few ms for transition-off to be applyed and then remove it
+    setTimeout(() => document.body.classList.remove('transition-off'), 99);
   }
 
   return (

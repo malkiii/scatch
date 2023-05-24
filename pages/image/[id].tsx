@@ -25,11 +25,13 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async context =
 const imagePage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = props => {
   const title = `Scatch | ${props.alt || props.image.photographer}`;
   return (
-    <div className="main-container bg-cs-change my-6 rounded-xl p-5 shadow-2xl">
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <ImagePageContent {...props} />
+    <div className="pt-24">
+      <div className="main-container bg-cs-change mb-6 rounded-xl p-5 shadow-2xl">
+        <Head>
+          <title>{title}</title>
+        </Head>
+        <ImagePageContent {...props} />
+      </div>
     </div>
   );
 };
