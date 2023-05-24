@@ -7,22 +7,22 @@
 
 @layer base {
   body {
-    @apply text-dark dark:text-white dark:bg-dark font-monsterrat overflow-x-hidden transition-colors;
+    @apply overflow-x-hidden font-monsterrat text-dark transition-colors dark:bg-dark dark:text-white;
   }
   body::-webkit-scrollbar {
-    @apply w-4 dark:bg-neutral-900 bg-neutral-100;
+    @apply w-4 bg-neutral-100 dark:bg-neutral-900;
   }
   body::-webkit-scrollbar-thumb {
-    @apply dark:bg-white bg-dark border-4 border-solid border-transparent rounded-3xl dark:hover:bg-white/90 hover:bg-dark/90 bg-clip-content;
+    @apply rounded-3xl border-4 border-solid border-transparent bg-dark bg-clip-content hover:bg-dark/90 dark:bg-white dark:hover:bg-white/90;
   }
   h1 {
-    @apply text-5xl sm:text-6xl font-extrabold;
+    @apply text-5xl font-extrabold sm:text-6xl;
   }
   h2 {
-    @apply text-3xl sm:text-4xl font-extrabold mb-4;
+    @apply mb-4 text-3xl font-extrabold sm:text-4xl;
   }
   h4 {
-    @apply font-rubik text-lg font-bold my-4;
+    @apply my-4 font-rubik text-lg font-bold;
   }
   p {
     @apply font-rubik leading-relaxed;
@@ -35,94 +35,94 @@
     @apply appearance-none;
   }
   ::selection {
-    @apply text-white bg-cyan-500;
+    @apply bg-cyan-500 text-white;
   }
 }
 
 @layer components {
   .logo {
-    @apply brightness-0 dark:brightness-100 transition-all select-none;
+    @apply select-none brightness-0 transition-all dark:brightness-100;
   }
   .bg-mesh-grandient {
-    @apply fixed top-0 left-0 w-full min-h-screen -z-10 mesh-grandient;
+    @apply mesh-grandient fixed left-0 top-0 -z-10 min-h-screen w-full;
   }
   .main-container {
-    @apply max-w-screen-xl mx-auto;
+    @apply mx-auto max-w-screen-xl;
   }
   .theme-gradient {
     @apply bg-gradient-to-br from-theme to-cyan-500;
   }
   .theme-link {
-    @apply mr-10 hover:text-theme transition-colors;
+    @apply mr-10 transition-colors hover:text-theme;
   }
   .theme-btn {
-    @apply font-bold inline-flex text-white dark:text-dark bg-dark dark:bg-white rounded-3xl px-6 py-3 hover:text-white hover:bg-cyan-500 dark:hover:text-white dark:hover:bg-cyan-500 transition-colors duration-200;
+    @apply inline-flex rounded-3xl bg-dark px-6 py-3 font-bold text-white transition-colors duration-200 hover:bg-cyan-500 hover:text-white dark:bg-white dark:text-dark dark:hover:bg-cyan-500 dark:hover:text-white;
   }
   .nav-menu-link {
-    @apply block p-5 dark:hover:text-theme capitalize border-b-2 border-white transition-all hover:border-b-theme;
+    @apply block border-b-2 border-white p-5 capitalize transition-all hover:border-b-theme dark:hover:text-theme;
   }
   .album-image {
-    @apply relative aspect-[1149/761] text-white border-2 hover:text-theme border-white hover:border-theme transition-colors rounded-lg shadow-3xl;
+    @apply relative aspect-[1149/761] rounded-lg border-2 border-white text-white shadow-3xl transition-colors hover:border-theme hover:text-theme;
   }
   .hero-section-image {
-    @apply absolute w-1/2 aspect-[1920/1080] select-none after:absolute after:inset-0 after:bg-theme after:w-0 after:top-0 after:z-10;
+    @apply absolute aspect-[1920/1080] w-1/2 select-none after:absolute after:inset-0 after:top-0 after:z-10 after:w-0 after:bg-theme;
   }
   .footer-link {
-    @apply flex items-center my-2 dark:text-white/90 text-dark/70 hover:text-dark dark:hover:text-theme transition-colors gap-3;
+    @apply my-2 flex items-center gap-3 text-dark/70 transition-colors hover:text-dark dark:text-white/90 dark:hover:text-theme;
   }
   .image-layer-btn {
-    @apply inline-block p-2 transition-colors rounded-md font-semibold;
+    @apply inline-block rounded-md p-2 font-semibold transition-colors;
   }
   .image-layer-btn.cs-fixed {
     @apply bg-white text-dark hover:bg-theme hover:text-white;
   }
   .image-layer-btn.cs-change {
-    @apply bg-dark text-white dark:bg-white dark:text-dark dark:hover:bg-theme hover:bg-theme hover:text-white dark:hover:text-white;
+    @apply bg-dark text-white hover:bg-theme hover:text-white dark:bg-white dark:text-dark dark:hover:bg-theme dark:hover:text-white;
   }
   .image-layout-cover {
-    @apply absolute inset-0 opacity-0 before:absolute before:inset-0 before:focus-gradient before:pointer-events-none transition-opacity hover:opacity-100;
+    @apply before:focus-gradient absolute inset-0 opacity-0 transition-opacity before:pointer-events-none before:absolute before:inset-0 hover:opacity-100;
   }
   .loading-circle {
-    @apply block w-5 aspect-square rounded-circle bg-neutral-700;
+    @apply block aspect-square w-5 rounded-circle bg-neutral-700;
   }
   .menu-option {
-    @apply transition-colors first:rounded-t-md last:rounded-b-md capitalize;
+    @apply capitalize transition-colors first:rounded-t-md last:rounded-b-md;
   }
   .avatar-menu-option {
-    @apply flex items-center gap-x-4 normal-case p-3;
+    @apply flex items-center gap-x-4 p-3 normal-case;
   }
   .avatar-menu {
-    @apply top-full right-0 w-56 translate-x-2;
+    @apply right-0 top-full w-56 translate-x-2;
   }
   .menu-separator {
-    @apply border-b-2 border-neutral-600 border-dotted;
+    @apply border-b-2 border-dotted border-neutral-600;
   }
   .modal-arrow {
-    @apply text-white text-7xl disabled:opacity-30 hover:text-theme transition-colors hover:disabled:text-current;
+    @apply text-7xl text-white transition-colors hover:text-theme disabled:opacity-30 hover:disabled:text-current;
   }
   .bg-cs-change {
     @apply bg-neutral-100 dark:bg-neutral-900;
   }
   .bg-image {
-    @apply bg-no-repeat bg-cover;
+    @apply bg-cover bg-no-repeat;
   }
   .menu-suggestion {
-    @apply flex items-center gap-4 pl-4 py-2 first:rounded-t-xl last:rounded-b-xl dark:hover:bg-neutral-800 hover:bg-neutral-200 bg-cs-change cursor-pointer;
+    @apply bg-cs-change flex cursor-pointer items-center gap-4 py-2 pl-4 first:rounded-t-xl last:rounded-b-xl hover:bg-neutral-200 dark:hover:bg-neutral-800;
   }
   .menu-suggestion.focus {
-    @apply dark:bg-neutral-800 bg-neutral-200;
+    @apply bg-neutral-200 dark:bg-neutral-800;
   }
   .credential-input {
-    @apply border border-neutral-500 outline-cyan-500 dark:outline-cyan-500 w-full h-full bg-transparent py-3 px-4 rounded-3xl;
+    @apply h-full w-full rounded-3xl border border-neutral-500 bg-transparent px-4 py-3 outline-cyan-500 dark:outline-cyan-500;
   }
   .credential-input.error {
-    @apply outline-none border-error;
+    @apply border-error outline-none;
   }
   .auth-title {
-    @apply capitalize text-4xl lg:text-5xl;
+    @apply text-4xl capitalize lg:text-5xl;
   }
   .cs-button {
-    @apply relative rounded-2xl after:absolute after:top-1/2 after:translate-y-[-48%] after:h-[90%] after:rounded-circle after:aspect-square after:transition-inherit border-2 dark:border-white border-dark dark:after:bg-white after:bg-dark after:left-px dark:after:left-[57%] aspect-[57/28] transition-colors;
+    @apply after:transition-inherit relative aspect-[57/28] rounded-2xl border-2 border-dark transition-colors after:absolute after:left-px after:top-1/2 after:aspect-square after:h-[90%] after:translate-y-[-48%] after:rounded-circle after:bg-dark dark:border-white dark:after:left-[57%] dark:after:bg-white;
   }
 }
 
@@ -153,6 +153,9 @@
   }
 }
 
+body.transition-off * {
+  transition: none !important;
+}
 .scrolling-disabled {
-  @apply pr-4 overflow-y-hidden;
+  @apply overflow-y-hidden pr-4;
 }

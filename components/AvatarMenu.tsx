@@ -61,7 +61,7 @@ const AvatarMenu: FC<AvatarMenuProps> = props => {
           <div onClick={e => e.stopPropagation()}>
             <ColorSchemeButton
               containerClassName="flex w-full items-center justify-between p-3 menu-separator"
-              buttonClassName="w-9"
+              buttonClassName="w-10"
             >
               <div className="flex items-center gap-x-3">
                 <MoonIcon size={iconSize} /> Dark
