@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import { authOptions } from '@/utils/auth';
-import { User, getServerSession } from 'next-auth';
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
-import UserSection from '@/components/Dashboard/UserSection';
+import { NextPageWithLayout } from '@/types';
 import { createUsernameParam } from '@/utils';
+import { User, getServerSession } from 'next-auth';
+import DashboardLayout from '@/components/Dashboard/layout';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
 type PageProps = {
   user: User;
@@ -30,15 +31,21 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async context =
   return { props: { user: session.user } };
 };
 
-const dashboardPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = props => {
+const dashboardPage: NextPageWithLayout<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = props => {
   const title = `${props.user.name} | Scatch`;
   return (
-    <div className="py-20">
+    <div className="">
       <Head>
         <title>{title}</title>
       </Head>
-      <UserSection {...props} />
     </div>
   );
 };
+
+dashboardPage.getLayout = page => {
+  return <DashboardLayout {...page.props}>{page}</DashboardLayout>;
+};
+
 export default dashboardPage;
