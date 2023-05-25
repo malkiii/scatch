@@ -155,53 +155,55 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
           (isScrolling ? ' bg-cs-change shadow-xl' : '')
         }
       >
-        <motion.nav
-          {...animationProps}
-          className="mx-auto flex h-full max-w-7xl items-center justify-between"
-        >
-          <Link href="/" tabIndex={-1} className="relative block aspect-square h-[39px]">
-            <Image src="/mark.svg" alt="scatch mark" fill className="logo" />
-          </Link>
-          <div className="h-[41px] flex-1 overflow-hidden">
-            <div
-              className={
-                'flex flex-col justify-center gap-y-1 transition-transform' +
-                (!shouldShowSearchInput ? ' -translate-y-[calc(50%+1px)]' : '')
-              }
-            >
-              <FixedSearchInput />
-              <Logo />
+        <div className="h-full w-full">
+          <motion.nav
+            {...animationProps}
+            className="mx-auto flex h-full max-w-7xl items-center justify-between"
+          >
+            <Link href="/" tabIndex={-1} className="relative block aspect-square h-[39px]">
+              <Image src="/mark.svg" alt="scatch mark" fill className="logo" />
+            </Link>
+            <div className="h-[41px] flex-1 overflow-hidden">
+              <div
+                className={
+                  'flex flex-col justify-center gap-y-1 transition-transform' +
+                  (!shouldShowSearchInput ? ' -translate-y-[calc(50%+1px)]' : '')
+                }
+              >
+                <FixedSearchInput />
+                <Logo />
+              </div>
             </div>
-          </div>
-          <div className="flex items-center">
-            <div className="hidden items-center md:flex">
-              <Link href="/search" className="theme-link">
-                Search
-              </Link>
-              <Link href="/albums" className="theme-link">
-                My albums
-              </Link>
-              <Link href="/about" className="theme-link">
-                About
-              </Link>
-              {!session && (
-                <>
-                  <ColorSchemeButton
-                    containerClassName="inline-flex items-center gap-3 mr-10 transition-colors hover:text-theme"
-                    buttonClassName="w-10 group-hover:border-theme group-hover:after:bg-theme"
-                  >
-                    Dark
-                  </ColorSchemeButton>
-                  <Link href="/login" className="theme-btn">
-                    Login
-                  </Link>
-                </>
-              )}
+            <div className="flex items-center">
+              <div className="hidden items-center md:flex">
+                <Link href="/search" className="theme-link">
+                  Search
+                </Link>
+                <Link href="/albums" className="theme-link">
+                  My albums
+                </Link>
+                <Link href="/about" className="theme-link">
+                  About
+                </Link>
+                {!session && (
+                  <>
+                    <ColorSchemeButton
+                      containerClassName="inline-flex items-center gap-3 mr-10 transition-colors hover:text-theme"
+                      buttonClassName="w-10 group-hover:border-theme group-hover:after:bg-theme"
+                    >
+                      Dark
+                    </ColorSchemeButton>
+                    <Link href="/login" className="theme-btn">
+                      Login
+                    </Link>
+                  </>
+                )}
+              </div>
+              {session && <AvatarMenu user={session.user} />}
+              <MenuButton {...{ isOpen, toggleMenu }}></MenuButton>
             </div>
-            {session && <AvatarMenu user={session.user} />}
-            <MenuButton {...{ isOpen, toggleMenu }}></MenuButton>
-          </div>
-        </motion.nav>
+          </motion.nav>
+        </div>
       </header>
       <NavbarMenu isOpen={isOpen} username={session?.user.name} toggle={toggleMenu} />
     </>

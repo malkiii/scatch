@@ -70,6 +70,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
           onInput={handleInput}
           required
         />
+        <div></div>
         {error == 'Password' && <ErrorMessage>Password minimum 6 characters!</ErrorMessage>}
       </div>
     </>

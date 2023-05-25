@@ -153,10 +153,12 @@
   }
 }
 
-body.transition-off,
-body.transition-off * {
+html.transition-off * {
   transition: none !important;
 }
-.scrolling-disabled {
+body.scrolling-disabled {
   @apply overflow-y-hidden pr-4;
+}
+body.scrolling-disabled header > div {
+  @apply pr-4;
 }
