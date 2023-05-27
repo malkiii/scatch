@@ -120,14 +120,15 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const inHomePage = router.pathname == '/';
+  const { pathname } = router;
+  const isExcludedPage = ['/', '/about', '/blog', '/[username]'].includes(pathname);
 
   const isScrolling = useScrolling(() => {
-    return !inHomePage && window.scrollY > 10;
+    return !isExcludedPage && window.scrollY > 10;
   });
 
   const shouldShowSearchInput = useScrolling(() => {
-    return !inHomePage && window.scrollY > 150;
+    return !isExcludedPage && window.scrollY > 150;
   });
 
   function toggleMenu() {
@@ -142,7 +143,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
     else bodyClasses.remove('overflow-y-hidden');
   }
 
-  const animationProps = inHomePage
+  const animationProps = isExcludedPage
     ? { variants: navVariants, initial: 'hidden', animate: 'visible' }
     : null;
 
@@ -151,7 +152,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
       <header
         className={
           'z-[1001] w-full px-5 py-3 transition-[box-shadow_color] duration-200' +
-          (inHomePage ? ' absolute' : ' fixed') +
+          (isExcludedPage ? ' absolute' : ' fixed') +
           (isScrolling ? ' bg-cs-change shadow-xl' : '')
         }
       >
