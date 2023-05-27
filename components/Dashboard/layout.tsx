@@ -14,7 +14,7 @@ function resizeAvatar(avatarSrc?: string | null) {
 const EditProfileLink: FC = () => {
   return (
     <Link
-      href="/me"
+      href="/settings"
       className="text-md group flex w-fit items-center gap-x-2 rounded-md border-2 border-dark/40 px-2 py-1 transition-colors hover:border-dark dark:border-white/40 dark:hover:border-white"
     >
       <EditIcon

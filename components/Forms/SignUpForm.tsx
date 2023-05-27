@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react';
 import { useForm } from '@/hooks/useForm';
 import { SignUpFormData, WithFormError } from '@/types';
 import { AuthProviders, ErrorMessage, SubmitButton, VerticalLine } from './FormItems';
+import { BiShow as ShowIcon, BiHide as HideIcon } from 'react-icons/bi';
 
 type CredentialInputsProps = {
   data: SignUpFormData & WithFormError;
@@ -12,6 +13,9 @@ type CredentialInputsProps = {
 const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
   const { firstName, lastName, email, password, error } = data;
   const name = firstName.trim() + lastName.trim();
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   return (
     <>
       <div>
@@ -59,18 +63,25 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
         {error == 'Email' && <ErrorMessage>This email is already exists!</ErrorMessage>}
       </div>
       <div>
-        <input
-          id="password"
-          type="password"
-          name="user[password]"
-          placeholder="Password (min. 6 characters)"
-          className={`credential-input ${error == 'Password' ? 'error' : ''}`}
-          title="Password must be at least 6 characters"
-          value={password}
-          onInput={handleInput}
-          required
-        />
-        <div></div>
+        <div className="flex h-full w-full items-center rounded-3xl border border-neutral-500 pr-3 text-gray-400 outline-offset-[-2px] focus-within:text-current focus-within:outline focus-within:outline-2">
+          <input
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            name="user[password]"
+            placeholder="Password (min. 6 characters)"
+            className={`h-full w-full rounded-inherit bg-transparent px-4 py-3 focus:outline-none ${
+              error == 'Password' ? 'error' : ''
+            }`}
+            title="Password must be at least 6 characters"
+            value={password}
+            onInput={handleInput}
+            required
+          />
+          <button type="button" className="h-full" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword && <ShowIcon size={22} />}
+            {!showPassword && <HideIcon size={22} />}
+          </button>
+        </div>
         {error == 'Password' && <ErrorMessage>Password minimum 6 characters!</ErrorMessage>}
       </div>
     </>
