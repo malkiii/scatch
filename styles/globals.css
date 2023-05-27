@@ -113,7 +113,7 @@
     @apply bg-neutral-200 dark:bg-neutral-800;
   }
   .credential-input {
-    @apply h-full w-full rounded-3xl border border-neutral-500 bg-transparent px-4 py-3 outline-cyan-500 dark:outline-cyan-500;
+    @apply h-full w-full rounded-3xl border border-neutral-500 bg-transparent px-4 py-3;
   }
   .credential-input.error {
     @apply border-error outline-none;
@@ -123,6 +123,9 @@
   }
   .cs-button {
     @apply after:transition-inherit relative aspect-[57/28] rounded-2xl border-2 border-dark transition-colors after:absolute after:left-px after:top-1/2 after:aspect-square after:h-[90%] after:translate-y-[-48%] after:rounded-circle after:bg-dark dark:border-white dark:after:left-[57%] dark:after:bg-white;
+  }
+  .profile-page-link {
+    @apply block px-4 py-3 capitalize transition-colors first:relative first:after:absolute first:after:bottom-0 first:after:left-[var(--trailer-border-position)] first:after:h-[2px] first:after:w-[var(--trailer-border-width)] first:after:translate-y-1/2 first:after:bg-dark first:after:transition-all first:after:duration-300 first:after:dark:bg-white;
   }
 }
 
