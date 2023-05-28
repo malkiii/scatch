@@ -13,7 +13,7 @@ const OptionList: FC<OptionListProps> = props => {
   const { focusOn, children, onItemClick } = props;
   const container = Children.toArray(children)[0] as ReactElement;
   return (
-    <ul className="rounded-inherit bg-white dark:bg-neutral-900">
+    <ul className="rounded-inherit bg-white dark:bg-[#222]">
       {Children.toArray(container.props.children).map((option, index) => (
         <div
           key={index}
@@ -22,7 +22,7 @@ const OptionList: FC<OptionListProps> = props => {
             'menu-option group ' +
             (index == focusOn
               ? 'bg-neutral-200 dark:bg-white dark:text-dark'
-              : 'hover:bg-neutral-200 dark:hover:bg-neutral-800')
+              : 'hover:bg-neutral-200 dark:hover:bg-[#292929]')
           }
         >
           {option}

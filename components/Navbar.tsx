@@ -30,37 +30,43 @@ const buttonBottomVariants = {
 };
 
 type ButtonProps = {
-  isOpen: boolean;
+  isMenuOpen: boolean;
   toggleMenu: () => void;
 };
-const MenuButton: FC<ButtonProps> = ({ isOpen, toggleMenu }) => {
+const MenuButton: FC<ButtonProps> = ({ isMenuOpen, toggleMenu }) => {
   return (
     <motion.button
       className="ml-3 block aspect-square w-10 transition-colors md:hidden"
       onClick={toggleMenu}
     >
-      <motion.div animate={isOpen ? 'open' : 'close'} className="relative m-auto h-1/3 w-full">
+      <motion.div animate={isMenuOpen ? 'open' : 'close'} className="relative m-auto h-1/3 w-full">
         <motion.div
           variants={buttonTopVariants}
-          className="absolute right-0 top-0 h-[3.2px] w-full bg-dark transition-colors dark:bg-white"
+          className={
+            'absolute right-0 top-0 h-[3.2px] w-full transition-colors ' +
+            (isMenuOpen ? ' bg-white' : 'bg-dark dark:bg-white')
+          }
         ></motion.div>
         <motion.div
           variants={buttonBottomVariants}
-          className="absolute bottom-0 right-0 h-[3.2px] w-[66%] bg-dark transition-colors dark:bg-white"
+          className={
+            'absolute bottom-0 right-0 h-[3.2px] w-[66%] bg-dark transition-colors dark:bg-white' +
+            (isMenuOpen ? ' bg-white' : 'bg-dark dark:bg-white')
+          }
         ></motion.div>
       </motion.div>
     </motion.button>
   );
 };
 
-const Logo: FC = () => {
+const Logo: FC<{ isMenuOpen: boolean }> = ({ isMenuOpen }) => {
   return (
     <div className="relative overflow-hidden">
       <Link href="/" className="-ml-11 block h-[40px] w-[144px] pl-[6px]" tabIndex={-1}>
         <img
           src="/logotype.svg"
           alt="scatch logo"
-          className="logo h-full w-full"
+          className={'logo h-full w-full' + (isMenuOpen ? ' force-white' : '')}
           style={{ clipPath: 'inset(0 0 0 30%)' }}
         />
       </Link>
@@ -118,34 +124,28 @@ type NavbarProps = {
 };
 const Navbar: FC<NavbarProps> = ({ router }) => {
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const { pathname } = router;
-  const isExcludedPage = ['/', '/about', '/blog', '/[username]'].includes(pathname);
+  const isExcludedPage = ['/', '/about', '/blog'].includes(pathname);
 
-  const isScrolling = useScrolling(() => {
-    return !isExcludedPage && window.scrollY > 10;
-  });
-
-  const shouldShowSearchInput = useScrolling(() => {
-    return !isExcludedPage && window.scrollY > 150;
-  });
+  const isScrolling = useScrolling(() => !isExcludedPage && window.scrollY > 10);
+  const shouldShowSearchInput = useScrolling(() => !isExcludedPage && window.scrollY > 150);
 
   function toggleMenu() {
-    setIsOpen(!isOpen);
+    setIsMenuOpen(!isMenuOpen);
     disableScrolling();
   }
 
   function disableScrolling() {
     const bodyClasses = document.body.classList;
     const isOnMobile = navigator.userAgent.includes('Mobile');
-    if (isOnMobile && !isOpen) bodyClasses.add('overflow-y-hidden');
+    if (isOnMobile && !isMenuOpen) bodyClasses.add('overflow-y-hidden');
     else bodyClasses.remove('overflow-y-hidden');
   }
 
-  const animationProps = isExcludedPage
-    ? { variants: navVariants, initial: 'hidden', animate: 'visible' }
-    : null;
+  const animationProps =
+    pathname == '/' ? { variants: navVariants, initial: 'hidden', animate: 'visible' } : null;
 
   return (
     <>
@@ -162,7 +162,12 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
             className="mx-auto flex h-full max-w-7xl items-center justify-between"
           >
             <Link href="/" tabIndex={-1} className="relative block aspect-square h-[39px]">
-              <Image src="/mark.svg" alt="scatch mark" fill className="logo" />
+              <Image
+                src="/mark.svg"
+                alt="scatch mark"
+                className={'logo' + (isMenuOpen ? ' force-white' : '')}
+                fill
+              />
             </Link>
             <div className="h-[41px] flex-1 overflow-hidden">
               <div
@@ -172,7 +177,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
                 }
               >
                 <FixedSearchInput />
-                <Logo />
+                <Logo {...{ isMenuOpen }} />
               </div>
             </div>
             <div className="flex items-center">
@@ -201,12 +206,12 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
                 )}
               </div>
               {session && <AvatarMenu user={session.user} />}
-              <MenuButton {...{ isOpen, toggleMenu }}></MenuButton>
+              <MenuButton {...{ isMenuOpen, toggleMenu }}></MenuButton>
             </div>
           </motion.nav>
         </div>
       </header>
-      <NavbarMenu isOpen={isOpen} username={session?.user.name} toggle={toggleMenu} />
+      <NavbarMenu isMenuOpen={isMenuOpen} username={session?.user.name} toggle={toggleMenu} />
     </>
   );
 };

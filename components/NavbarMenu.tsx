@@ -72,16 +72,18 @@ const MenuContainer: FC<MenuProps> = ({ toggle, profileRoute }) => {
 };
 
 type NavMenuProps = {
-  isOpen: boolean;
+  isMenuOpen: boolean;
   username?: string | null;
   toggle: () => void;
 };
 const NavbarMenu: FC<NavMenuProps> = props => {
-  const { isOpen, username, toggle } = props;
+  const { isMenuOpen, username, toggle } = props;
   const profileRoute = username ? '/' + createUsernameParam(username) : undefined;
 
   return (
-    <AnimatePresence>{isOpen && <MenuContainer {...{ toggle, profileRoute }} />}</AnimatePresence>
+    <AnimatePresence>
+      {isMenuOpen && <MenuContainer {...{ toggle, profileRoute }} />}
+    </AnimatePresence>
   );
 };
 export default NavbarMenu;

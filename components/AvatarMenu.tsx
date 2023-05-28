@@ -55,7 +55,7 @@ const AvatarMenu: FC<AvatarMenuProps> = props => {
           <Link href={userProfileRoute + '/stats'} className="avatar-menu-option menu-separator">
             <StatesIcon size={iconSize} /> Your stats
           </Link>
-          <Link href={userProfileRoute + '/settings'} className="avatar-menu-option">
+          <Link href="/settings" className="avatar-menu-option">
             <SettingsIcon size={iconSize} /> Settings
           </Link>
           <div onClick={e => e.stopPropagation()}>
