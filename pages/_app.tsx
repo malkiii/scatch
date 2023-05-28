@@ -18,9 +18,6 @@ export default function MyApp({
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preload" as="image" href="/logotype.svg" />
-        <link rel="preload" as="image" href="/mark.svg" />
         <title>Scatch</title>
       </Head>
       <SessionProvider session={session}>

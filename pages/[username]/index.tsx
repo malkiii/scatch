@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async context =
   return { props: { user: session.user } };
 };
 
-const dashboardPage: NextPageWithLayout<
+const DashboardPage: NextPageWithLayout<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = props => {
   const title = `${props.user.name} | Scatch`;
@@ -44,8 +44,8 @@ const dashboardPage: NextPageWithLayout<
   );
 };
 
-dashboardPage.getLayout = page => {
+DashboardPage.getLayout = page => {
   return <DashboardLayout {...page.props}>{page}</DashboardLayout>;
 };
 
-export default dashboardPage;
+export default DashboardPage;
