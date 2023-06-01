@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { FC, useState } from 'react';
-import { ResponseImage } from '@/types';
+import { ImageAPIRequestQuery, ResponseImage } from '@/types';
 import { withRouter } from 'next/router';
 import { translateToEnglish } from '@/utils';
 import { fetchImages } from '@/utils/fetchImages';
@@ -25,7 +25,7 @@ type PageProps = {
 export const getServerSideProps: GetServerSideProps<PageProps> = async context => {
   const { query: searchKeyword, o: orientation } = context.query as RouteQuery;
   const fetchQuery = await translateToEnglish(searchKeyword);
-  const searchParams: Record<string, string> = {
+  const searchParams: ImageAPIRequestQuery = {
     e: 'search',
     q: fetchQuery,
     o: orientation

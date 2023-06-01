@@ -1,4 +1,4 @@
-import { ImagePage, ResponseImage } from '@/types';
+import { ImageAPIRequestQuery, ImagePage, ResponseImage } from '@/types';
 
 const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL as string;
 const API_TOKEN = process.env.API_TOKEN as string;
@@ -20,7 +20,7 @@ type fetchImagesData = ImagePage & {
 };
 
 export const fetchImages = async (
-  params: Record<string, string>,
+  params: ImageAPIRequestQuery,
   signal?: AbortSignal
 ): Promise<fetchImagesData> => {
   try {

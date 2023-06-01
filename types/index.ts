@@ -53,3 +53,26 @@ export type LoginFormData = {
 export type WithFormError = {
   error?: 'Email' | 'Password' | 'Name';
 };
+
+export type ImageAPIRequestQuery = {
+  /**
+   * - **E**ndpoint name `/search` or `/curated` or `/photos/:id`
+   */
+  e: string;
+  /**
+   * - the search **q**uery in `/search/:query`
+   */
+  q?: string;
+  /**
+   * - **O**rientation: `landscape` or `portrait` or `square`
+   */
+  o?: string;
+  /**
+   * - **P**age number
+   */
+  p?: string;
+  /**
+   * - Images **P**er **P**age
+   */
+  pp?: string;
+};

@@ -1,6 +1,6 @@
-import { ImagePage, ResponseImage } from '@/types';
 import { fetchImages } from '@/utils/fetchImages';
 import { useState, useEffect, useCallback } from 'react';
+import { ImageAPIRequestQuery, ImagePage, ResponseImage } from '@/types';
 
 type FetchConfigs = {
   endpoint: string;
@@ -24,7 +24,7 @@ export const useInfinitScroll: InfinitScrollHook = configs => {
     async (signal: AbortSignal) => {
       setIsLoading(true);
 
-      const params = {
+      const params: ImageAPIRequestQuery = {
         p: currentPage.toString(),
         e: configs.endpoint,
         q: configs.fetchQuery || '',

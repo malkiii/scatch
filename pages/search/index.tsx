@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { ResponseImage } from '@/types';
+import { ImageAPIRequestQuery, ResponseImage } from '@/types';
 import { fetchImages } from '@/utils/fetchImages';
 import { PulseAnimation } from '@/components/Loading';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({ res }) => {
-  const searchParams = { e: 'curated' };
+  const searchParams: ImageAPIRequestQuery = { e: 'curated' };
   res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
   const data = await fetchImages(searchParams);
 
