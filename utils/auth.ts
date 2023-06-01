@@ -1,5 +1,5 @@
 import { NextAuthOptions } from 'next-auth';
-import { db } from '@/utils/db';
+import { db } from '@/server/db/client';
 import { compare } from 'bcryptjs';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';

@@ -1,4 +1,4 @@
-import { db } from '@/utils/db';
+import { db } from '@/server/db/client';
 import { hash } from 'bcryptjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 
