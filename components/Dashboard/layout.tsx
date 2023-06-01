@@ -54,7 +54,7 @@ const dashboardNavPages = [
   }
 ];
 
-const DashboardNav: FC = () => {
+const DashboardNav: FC<{ profileRoute: string }> = ({ profileRoute }) => {
   const [currentPage, setCurrentPage] = useState<string>(dashboardNavPages[0].name);
   const [trailerBorderStyle, setTrailerBorderStyle] = useState({
     '--trailer-border-width': '100%',
@@ -62,9 +62,9 @@ const DashboardNav: FC = () => {
   });
 
   const navbarRef = useRef<HTMLDivElement>(null);
-  const isOnTop = useScrolling(() => {
-    const itIs = navbarRef.current!.offsetTop - window.scrollY < 65;
-    if (itIs) {
+  useScrolling(() => {
+    const isOnTop = navbarRef.current!.offsetTop - window.scrollY < 65;
+    if (isOnTop) {
       document.querySelector('header')!.style.boxShadow = 'none';
       navbarRef.current!.classList.add('bg-cs-change');
       navbarRef.current!.classList.add('shadow-xl');
@@ -73,15 +73,13 @@ const DashboardNav: FC = () => {
       navbarRef.current!.classList.remove('bg-cs-change');
       navbarRef.current!.classList.remove('shadow-xl');
     }
-    return itIs;
+    return isOnTop;
   });
 
   function handleClick(e: any, page: string) {
-    e.preventDefault(); // just in the development mode
-
     const link = e.currentTarget;
-
     setCurrentPage(page);
+
     setTrailerBorderStyle({
       '--trailer-border-width': link.offsetWidth + 'px',
       '--trailer-border-position': link.offsetLeft - link.parentElement!.offsetLeft + 'px'
@@ -98,7 +96,7 @@ const DashboardNav: FC = () => {
           {dashboardNavPages.map(({ name: page, icon }, id) => (
             <Link
               key={id}
-              href={'/' + page}
+              href={profileRoute + '/' + page}
               onClick={e => handleClick(e, page)}
               className={
                 'profile-page-link' + (currentPage == page ? ' text-dark dark:text-white' : '')
@@ -144,7 +142,7 @@ const DashboardLayout: FC<LayoutProps> = ({ user, children }) => {
         </div>
       </div>
       <div className="min-h-[600px] w-full">
-        <DashboardNav />
+        <DashboardNav profileRoute={userProfileRoute} />
         {children}
       </div>
     </>
