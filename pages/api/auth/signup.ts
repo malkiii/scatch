@@ -3,11 +3,11 @@ import { hash } from 'bcryptjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function signUpRequest(req: NextApiRequest, res: NextApiResponse) {
-  const errorResposne = (type: string, message: string, status: number) => {
+  const errorResposne = (type: 'Method' | 'Email' | 'Server', message: string, status: number) => {
     res.status(status).json({ error: type, message });
   };
 
-  if (req.method !== 'POST') return errorResposne('method', 'Method Not Allowed', 405);
+  if (req.method !== 'POST') return errorResposne('Method', 'Method Not Allowed', 405);
 
   const { name, email, password } = req.body;
 
@@ -17,7 +17,7 @@ export default async function signUpRequest(req: NextApiRequest, res: NextApiRes
       where: { email }
     });
 
-    if (existingUser) return errorResposne('email', 'User already exists', 409);
+    if (existingUser) return errorResposne('Email', 'User already exists', 409);
 
     // Hash the password
     const hashedPassword = await hash(password, 12);
@@ -29,6 +29,6 @@ export default async function signUpRequest(req: NextApiRequest, res: NextApiRes
 
     res.status(201).json({ message: 'User created successfully', user: newUser });
   } catch (error) {
-    return errorResposne('server', 'Internal Server Error', 500);
+    return errorResposne('Server', 'Internal Server Error', 500);
   }
 }
