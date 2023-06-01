@@ -74,7 +74,7 @@ const Logo: FC<{ isMenuOpen: boolean }> = ({ isMenuOpen }) => {
   );
 };
 
-const FixedSearchInput: FC = () => {
+const FixedSearchInput: FC<{ searchQuery?: string }> = ({ searchQuery }) => {
   const { inputRef, triggerTheSearch, handleEnter } = useSearchTrigger();
   const [showClearButton, setShowClearButton] = useState<boolean>(false);
 
@@ -92,6 +92,7 @@ const FixedSearchInput: FC = () => {
         <input
           type="search"
           ref={inputRef}
+          defaultValue={searchQuery}
           placeholder="Search.."
           className="h-full w-full bg-transparent p-2 outline-none"
           onInput={handleInput}
@@ -176,7 +177,7 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
                   (!shouldShowSearchInput ? ' -translate-y-[calc(50%+1px)]' : '')
                 }
               >
-                <FixedSearchInput />
+                <FixedSearchInput searchQuery={router.query.query as string} />
                 <Logo {...{ isMenuOpen }} />
               </div>
             </div>
