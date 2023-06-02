@@ -1,4 +1,25 @@
+import { z } from 'zod';
 import { SignUpFormData } from '@/types';
+import { ImageAPIRequestQuerySchema } from '@/types/zod';
+
+export function getImageFetchURL(requestQuery: z.infer<typeof ImageAPIRequestQuerySchema>): URL {
+  const { API_ENDPOINT } = process.env;
+  const endpointName = '/v1/' + requestQuery.endpoint;
+
+  const endpointURL = new URL(endpointName, API_ENDPOINT);
+  if (endpointName.includes('/photos')) return endpointURL;
+
+  endpointURL.searchParams.set('page', (requestQuery.page || 1).toString());
+  endpointURL.searchParams.set('per_page', (requestQuery.per_page || 24).toString());
+
+  const orientation = requestQuery.orientation || 'all';
+
+  if (endpointName.includes('/search')) endpointURL.searchParams.set('query', endpointName);
+
+  if (orientation != 'all') endpointURL.searchParams.set('orientation', orientation);
+
+  return endpointURL;
+}
 
 type CachedData = { user?: any; message: string; error?: string };
 
