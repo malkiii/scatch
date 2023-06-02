@@ -14,7 +14,7 @@ import {
 function resizeAvatar(avatarSrc?: string | null) {
   if (!avatarSrc) return null;
   if (avatarSrc.includes('lh3.googleusercontent.com')) {
-    return avatarSrc.replace(/g=s\d+(-c)?/g, 'g=s360');
+    return avatarSrc.replace(/=s\d+(-c)?/g, '=s360');
   }
   return avatarSrc;
 }
