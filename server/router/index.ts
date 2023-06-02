@@ -1,8 +1,8 @@
 import { mergeRouters } from '../trpc';
-import { exampleRouter } from './example';
-import { imageAPIProcedure } from './imageAPIProcedure';
+import { ImageRouter } from './imageRouter';
+import { translateRouter } from './translateRouter';
 
-export const appRouter = mergeRouters(exampleRouter);
+export const appRouter = mergeRouters(ImageRouter, translateRouter);
 
 // export type definition of API
 export type AppRouter = typeof appRouter;
