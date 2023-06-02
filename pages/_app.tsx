@@ -1,13 +1,11 @@
 import '@/styles/globals.css';
 import Head from 'next/head';
 import Layout from '@/components/layout';
+import { AppType } from 'next/app';
+import { trpc } from '@/utils/trpc';
 import { ThemeProvider } from 'next-themes';
 import { AppPropsWithLayout } from '@/types';
 import { SessionProvider } from 'next-auth/react';
-import { withTRPC } from '@trpc/next';
-import { AppType } from 'next/app';
-import { AppRouter } from '@/server/router';
-import { trpcOptions } from '@/utils/trpc';
 
 const MyApp: AppType = ({
   router,
@@ -32,4 +30,4 @@ const MyApp: AppType = ({
   );
 };
 
-export default withTRPC<AppRouter>(trpcOptions)(MyApp);
+export default trpc.withTRPC(MyApp);
