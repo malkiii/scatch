@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { ResponseImage } from '@/types';
-import { fetchPhoto } from '@/utils/fetchImages';
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
+import { caller } from '@/server/router';
 import ImagePageContent from '@/components/Search/ImagePageContent';
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 
 type PageProps = {
   image: ResponseImage;
@@ -13,13 +13,14 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async context =
   const id = context.query.id as string;
   context.res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
 
-  const { image, alt } = await fetchPhoto(id);
-
-  if (!image) return { notFound: true };
-
-  return {
-    props: { image, alt, key: id }
-  };
+  try {
+    const { image, alt } = await caller.fetchPhoto(Number.parseInt(id));
+    return {
+      props: { image, alt, key: id }
+    };
+  } catch (error) {
+    return { notFound: true };
+  }
 };
 
 const imagePage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = props => {
