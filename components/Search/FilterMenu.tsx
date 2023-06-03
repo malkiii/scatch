@@ -4,6 +4,7 @@ import OptionMenu from '../OptionMenu';
 import { BsAspectRatio } from 'react-icons/bs';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useToggleMenu } from '@/hooks/useToggleMenu';
+import { ImageAPIRequestQuery } from '@/types';
 
 type FilterButtonProps = {
   isOpen: boolean;
@@ -32,7 +33,7 @@ const filterOptions = ['all', 'portrait', 'landscape'];
 
 type FilterMenuProps = {
   query: string;
-  focusOn: string;
+  focusOn: ImageAPIRequestQuery['orientation'];
 };
 
 const FilterMenu: FC<FilterMenuProps> = props => {
@@ -49,7 +50,7 @@ const FilterMenu: FC<FilterMenuProps> = props => {
   return (
     <div ref={menuRef} className="relative">
       <FilterButton {...toggleParams} />
-      <OptionMenu {...toggleParams} focusOn={filterOptions.indexOf(focusOn)}>
+      <OptionMenu {...toggleParams} focusOn={filterOptions.indexOf(focusOn as any)}>
         <div>
           {filterOptions.map((option, index) => (
             <Link key={index} href={getFilterURL(option)} className="flex items-center gap-2 p-3">
