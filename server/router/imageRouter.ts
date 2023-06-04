@@ -2,11 +2,19 @@ import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import { getImageFetchURL } from '@/utils';
 import { router, publicProcedure } from '../trpc';
-import { ImageAPIRequestQuerySchema } from '@/types/zod';
-import { ResponseImageSchema, ImagePageSchema } from '@/types/zod';
+import {
+  ResponseImageSchema,
+  ImageAPIRequestQuerySchema,
+  ImagePageSchema
+} from '@/utils/validation';
 
 type ImagePage = z.infer<typeof ImagePageSchema>;
 type ResponseImage = z.infer<typeof ResponseImageSchema>;
+
+const requestInit = {
+  method: 'GET',
+  headers: { Authorization: process.env.API_KEY as string }
+};
 
 function extractImageObject(data: Record<string, any>): ResponseImage {
   return {
@@ -21,11 +29,13 @@ function extractImageObject(data: Record<string, any>): ResponseImage {
 
 const fetchImagesInputSchema = z.object({
   params: ImageAPIRequestQuerySchema,
-  signal: z.custom<AbortSignal>().optional()
+  signal: z.custom<AbortSignal>().optional(),
+  // we have to add `cursor` to use the useInfinitQuery hook
+  cursor: z.number().nullish().optional()
 });
 const fetchPhotoOutputSchema = z.object({
   image: ResponseImageSchema,
-  alt: z.string().optional()
+  alt: z.string()
 });
 
 export const ImageRouter = router({
@@ -35,15 +45,14 @@ export const ImageRouter = router({
     .output(ImagePageSchema)
     .query(async ({ input }) => {
       try {
-        const { params, signal } = input;
-        const res = await fetch(getImageFetchURL(params), { signal });
+        const { params, signal, cursor: page } = input;
+        const res = await fetch(getImageFetchURL({ ...params, page }), { ...requestInit, signal });
         const data = await res.json();
 
         const images: ResponseImage[] = data.photos.map(extractImageObject);
         return { images, hasMore: 'next_page' in data };
       } catch (error) {
         throw new TRPCError({ code: 'UNPROCESSABLE_CONTENT', cause: error });
-        // return { images: [], hasMore: false, error };
       }
     }),
   // fetch one image with ID
@@ -54,13 +63,12 @@ export const ImageRouter = router({
       try {
         const requestQuery = { endpoint: '/photos/' + id };
 
-        const response = await fetch(getImageFetchURL(requestQuery));
+        const response = await fetch(getImageFetchURL(requestQuery), requestInit);
         const data = await response.json();
 
-        return { image: extractImageObject(data), alt: data.alt };
+        return { image: extractImageObject(data), alt: data.alt || '' };
       } catch (error) {
         throw new TRPCError({ code: 'NOT_FOUND', cause: error });
-        // return { image: null, alt: '', error };
       }
     })
 });
