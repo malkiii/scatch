@@ -1,72 +1,46 @@
-import { fetchImages } from '@/utils/fetchImages';
-import { useState, useEffect, useCallback } from 'react';
-import { ImageAPIRequestQuery, ImagePage, ResponseImage } from '@/types';
+import { trpc } from '@/utils/trpc';
+import { useScrolling } from './useScrolling';
+import { useEffect } from 'react';
+import { ImageAPIRequestQuery, ImagePage } from '@/types';
 
 type FetchConfigs = {
-  endpoint: string;
-  fetchQuery?: string;
-  initialImages?: ResponseImage[];
-  orientation?: string;
-  hasMore: boolean;
+  requestQuery: ImageAPIRequestQuery;
+  initialData: ImagePage;
 };
 
 type InfinitScrollHook = (configs: FetchConfigs) => ImagePage;
 
 /* eslint-disable react-hooks/exhaustive-deps */
 export const useInfinitScroll: InfinitScrollHook = configs => {
-  const [imageArray, setImageArray] = useState(configs.initialImages || []);
-  const [hasMorePages, setHasMorePages] = useState(configs.hasMore);
-  const [isCloseToEnd, setIsCloseToEnd] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const initialData = {
+    pageParams: [undefined],
+    pages: [configs.initialData]
+  };
 
-  const appendNewImages = useCallback(
-    async (signal: AbortSignal) => {
-      setIsLoading(true);
-
-      const params: ImageAPIRequestQuery = {
-        p: currentPage.toString(),
-        e: configs.endpoint,
-        q: configs.fetchQuery || '',
-        o: configs.orientation || 'all'
-      };
-      const { images: newImages, hasMore } = await fetchImages(params, signal);
-
-      setImageArray(prevImages => [...prevImages, ...newImages]);
-      setHasMorePages(hasMore);
-      setIsLoading(false);
-    },
-    [currentPage]
+  const { data, hasNextPage, fetchNextPage } = trpc.fetchImages.useInfiniteQuery(
+    { params: configs.requestQuery },
+    {
+      initialCursor: 1,
+      initialData: initialData,
+      getNextPageParam: ({ hasMore }, lastPage) => {
+        if (!hasMore) return undefined;
+        return lastPage.length + 1;
+      }
+    }
   );
 
-  const updateImageLayout = () => {
-    if (isLoading) return;
+  const images = data?.pages.flatMap(data => data.images) || [];
+
+  const isCloseToEnd = useScrolling(() => {
     const windowHeight = window.innerHeight;
     const fullHeight = document.body.scrollHeight;
     const scrollPosition = window.scrollY;
-    setIsCloseToEnd(scrollPosition >= fullHeight - windowHeight - 1000);
-  };
+    return scrollPosition >= fullHeight - windowHeight - 1000;
+  });
 
   useEffect(() => {
-    if (currentPage > 1) {
-      const controler = new AbortController();
-      appendNewImages(controler.signal);
-      return () => {
-        controler.abort();
-      };
-    }
-  }, [currentPage]);
-
-  useEffect(() => {
-    if (isCloseToEnd && hasMorePages) setCurrentPage(currentPage + 1);
+    if (isCloseToEnd && hasNextPage) fetchNextPage();
   }, [isCloseToEnd]);
 
-  useEffect(() => {
-    window.addEventListener('scroll', updateImageLayout);
-    return () => {
-      window.removeEventListener('scroll', updateImageLayout);
-    };
-  }, []);
-
-  return { images: imageArray, hasMore: hasMorePages };
+  return { images, hasMore: !!hasNextPage };
 };
