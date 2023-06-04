@@ -1,26 +1,27 @@
 import Head from 'next/head';
 import { FC, useState } from 'react';
-import { ImageAPIRequestQuery, ImagePage } from '@/types';
+import { caller } from '@/server/router';
 import { withRouter } from 'next/router';
 import { PulseAnimation } from '@/components/Loading';
+import { ImageAPIRequestQuery, ImagePage } from '@/types';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { FilterMenu, ImageGridLayout, SearchInput } from '@/components/Search';
 import { WithRouterProps } from 'next/dist/client/with-router';
-import { caller } from '@/server/router';
 
 type RouteQuery = {
   query: string;
-  orientation: ImageAPIRequestQuery['orientation'];
+  o: ImageAPIRequestQuery['orientation'];
 };
-type PageProps = ImagePage & {
+type PageProps = {
   searchKeyword: string;
-  fetchQuery: string;
+  requestQuery: ImageAPIRequestQuery;
+  initialData: ImagePage;
 };
 
 export const getServerSideProps: GetServerSideProps<PageProps> = async context => {
-  const { query: searchKeyword, orientation } = context.query as RouteQuery;
+  const { query: searchKeyword, o: orientation } = context.query as RouteQuery;
 
   let fetchQuery: string;
   try {
@@ -29,24 +30,24 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async context =
     fetchQuery = searchKeyword;
   }
 
-  const searchParams: ImageAPIRequestQuery = {
+  const requestQuery: ImageAPIRequestQuery = {
     endpoint: '/search',
     query: fetchQuery,
-    orientation
+    orientation: orientation || 'all'
   };
 
   const key = `${searchKeyword}-${orientation || 'all'}`;
-  const returnProps = { searchKeyword, fetchQuery, key };
+  const returnProps = { searchKeyword, requestQuery, key };
   context.res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
 
   try {
-    const { images, hasMore } = await caller.fetchImages({ params: searchParams });
+    const initialData = await caller.fetchImages({ params: requestQuery });
     return {
-      props: { images, hasMore, ...returnProps }
+      props: { initialData, ...returnProps }
     };
   } catch (error) {
     return {
-      props: { images: [], hasMore: false, ...returnProps }
+      props: { initialData: { images: [], hasMore: false }, ...returnProps }
     };
   }
 };
@@ -62,20 +63,17 @@ const NoResults: FC<{ query: string }> = ({ query }) => {
 
 export default withRouter(
   (props: InferGetServerSidePropsType<typeof getServerSideProps> & WithRouterProps) => {
-    const { searchKeyword, fetchQuery, router } = props;
+    const { searchKeyword, requestQuery, initialData, router } = props;
 
-    const hasResults = props.images.length > 0;
+    const hasResults = initialData.images.length > 0;
     const orientation = (router.query!.o || 'all') as ImageAPIRequestQuery['orientation'];
     const params = {
-      endpoint: 'search',
-      fetchQuery,
-      initialImages: props.images,
-      orientation,
-      hasMore: props.hasMore
+      requestQuery: { ...requestQuery, orientation },
+      initialData
     };
 
     const { images, hasMore } = useInfinitScroll(params);
-    const [currentPathname, _] = useState<string>(router.asPath);
+    const [currentPathname] = useState<string>(router.asPath);
 
     const title = `${searchKeyword} images | Search and save in your albums`;
 
