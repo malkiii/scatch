@@ -1,6 +1,12 @@
+import { z } from 'zod';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import { ReactElement, ReactNode, RefObject } from 'react';
+import {
+  ResponseImageSchema,
+  ImageAPIRequestQuerySchema,
+  ImagePageSchema
+} from '@/utils/validation';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -10,19 +16,7 @@ export type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-export type ImagePage = {
-  images: ResponseImage[];
-  hasMore: boolean;
-};
-
-export type ResponseImage = {
-  id: number;
-  width: number;
-  height: number;
-  photographer: string;
-  avgColor: string;
-  src: string;
-};
+export type ResponseImage = z.infer<typeof ResponseImageSchema>;
 
 export type ContainerRef = RefObject<HTMLDivElement>;
 
@@ -54,25 +48,5 @@ export type WithFormError = {
   error?: 'Email' | 'Password' | 'Name';
 };
 
-export type ImageAPIRequestQuery = {
-  /**
-   * - **E**ndpoint name `/search` or `/curated` or `/photos/:id`
-   */
-  e: string;
-  /**
-   * - the search **q**uery in `/search/:query`
-   */
-  q?: string;
-  /**
-   * - **O**rientation: `landscape` or `portrait` or `square`
-   */
-  o?: string;
-  /**
-   * - **P**age number
-   */
-  p?: string;
-  /**
-   * - Images **P**er **P**age
-   */
-  pp?: string;
-};
+export type ImageAPIRequestQuery = z.infer<typeof ImageAPIRequestQuerySchema>;
+export type ImagePage = z.infer<typeof ImagePageSchema>;

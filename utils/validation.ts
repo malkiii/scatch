@@ -6,7 +6,7 @@ export const ImageAPIRequestQuerySchema = z.object({
   orientation: z
     .union([z.literal('all'), z.literal('landscape'), z.literal('portrait')])
     .optional(),
-  page: z.number().optional(),
+  page: z.number().nullish().optional(),
   per_page: z.number().optional()
 });
 
@@ -21,5 +21,5 @@ export const ResponseImageSchema = z.object({
 
 export const ImagePageSchema = z.object({
   images: z.array(ResponseImageSchema),
-  hasMore: z.boolean()
+  hasMore: z.boolean().optional()
 });
