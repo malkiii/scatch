@@ -125,7 +125,10 @@
     @apply after:transition-inherit relative aspect-[57/28] rounded-2xl border-2 border-dark transition-colors after:absolute after:left-px after:top-1/2 after:aspect-square after:h-[90%] after:translate-y-[-48%] after:rounded-circle after:bg-dark dark:border-white dark:after:left-[57%] dark:after:bg-white;
   }
   .profile-page-link {
-    @apply flex items-center gap-x-2 px-4 py-3 font-semibold capitalize transition-colors first:relative first:after:absolute first:after:bottom-0 first:after:left-[var(--trailer-border-position)] first:after:h-[2px] first:after:w-[var(--trailer-border-width)] first:after:translate-y-1/2 first:after:bg-dark first:after:transition-all first:after:duration-300 first:after:dark:bg-white hover:[&:not(.text-dark,.dark\:text-white)]:text-theme;
+    @apply relative flex items-center gap-x-2 px-4 py-3 font-semibold capitalize transition-colors after:absolute after:bottom-0 after:translate-y-1/2 after:bg-dark after:transition-all after:duration-300 after:dark:bg-white hover:[&:not(.text-dark,.dark\:text-white)]:text-theme;
+  }
+  .profile-page-link.focus {
+    @apply after:left-[var(--trailer-border-position)] after:h-[2px] after:w-[var(--trailer-border-width)];
   }
 }
 
