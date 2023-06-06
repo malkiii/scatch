@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 import { easeExpInOut } from '@malkiii/d3-ease';
 import ColorSchemeButton from './ColorSchemeButton';
 import { withRouter, NextRouter } from 'next/router';
-import { useScrolling } from '@/hooks/useScrolling';
+import { useScrollingEvent } from '@/hooks/useScrollingEvent';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 import { MdClear as ClearIcon } from 'react-icons/md';
@@ -130,8 +130,8 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
   const { pathname } = router;
   const isExcludedPage = ['/', '/about', '/blog'].includes(pathname);
 
-  const isScrolling = useScrolling(() => !isExcludedPage && window.scrollY > 10);
-  const shouldShowSearchInput = useScrolling(() => !isExcludedPage && window.scrollY > 150);
+  const isScrolling = useScrollingEvent(() => !isExcludedPage && window.scrollY > 10);
+  const shouldShowSearchInput = useScrollingEvent(() => !isExcludedPage && window.scrollY > 150);
 
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen);

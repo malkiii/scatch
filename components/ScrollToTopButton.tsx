@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { AiOutlineArrowUp } from 'react-icons/ai';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useScrolling } from '@/hooks/useScrolling';
+import { useScrollingEvent } from '@/hooks/useScrollingEvent';
 
 const buttonTransition = {
   duration: 0.7,
@@ -20,7 +20,7 @@ const buttonVariants = {
 };
 
 const ScrollToTopButton: FC = () => {
-  const isScrolling = useScrolling(() => {
+  const isScrolling = useScrollingEvent(() => {
     return window.scrollY > 150;
   });
 

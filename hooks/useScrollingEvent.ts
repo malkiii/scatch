@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useScrolling = (shouldScroll: () => boolean) => {
+export const useScrollingEvent = (shouldScroll: () => boolean) => {
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
   function handleScrolling() {

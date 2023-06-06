@@ -1,5 +1,5 @@
 import { trpc } from '@/utils/trpc';
-import { useScrolling } from './useScrolling';
+import { useScrollingEvent } from './useScrollingEvent';
 import { useEffect } from 'react';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
 
@@ -31,7 +31,7 @@ export const useInfinitScroll: InfinitScrollHook = configs => {
 
   const images = data?.pages.flatMap(data => data.images) || [];
 
-  const isCloseToEnd = useScrolling(() => {
+  const isCloseToEnd = useScrollingEvent(() => {
     const windowHeight = window.innerHeight;
     const fullHeight = document.body.scrollHeight;
     const scrollPosition = window.scrollY;
