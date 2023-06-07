@@ -25,7 +25,7 @@ type PhotographerNameProps = {
 export const PhotographerName: FC<PhotographerNameProps> = props => {
   const { name, className } = props;
   const styleClasses = className || '';
-  return <strong className={'font-normal text-white ' + styleClasses}>By {name}</strong>;
+  return <strong className={'font-normal ' + styleClasses}>By {name}</strong>;
 };
 
 type SaveButtonPros = WithClassName;
@@ -68,7 +68,7 @@ const InnerImageLayer: FC<LayerProps> = ({ image, linkProps, children }) => {
       <div className="image-layout-cover">
         <SaveButton className="cs-fixed absolute right-5 top-5" />
         <div className="absolute bottom-0 flex w-full items-center justify-between p-5">
-          <PhotographerName name={image.photographer} />
+          <PhotographerName name={image.photographer} className="text-white" />
           <DownloadButton image={image} content="icon" className="cs-fixed" />
         </div>
       </div>
@@ -79,7 +79,7 @@ const InnerImageLayer: FC<LayerProps> = ({ image, linkProps, children }) => {
 const OuterImageLayer: FC<LayerProps> = ({ image, children }) => {
   return (
     <div key={image.id}>
-      <PhotographerName name={image.photographer} className="block py-3 pl-1" />
+      <PhotographerName name={image.photographer} className="block py-3 pl-1 text-white" />
       {children}
       <div className="flex w-full items-center justify-between px-2 pt-3">
         <SaveButton className="cs-change" />

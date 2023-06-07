@@ -14,7 +14,7 @@ const buttonVariants = {
     transition: buttonTransition
   },
   visible: {
-    bottom: 60,
+    bottom: 50,
     transition: buttonTransition
   }
 };
@@ -35,10 +35,10 @@ const ScrollToTopButton: FC = () => {
           variants={buttonVariants}
           animate="visible"
           exit="hidden"
-          className="theme-btn fixed -bottom-28 right-8 z-50 flex aspect-square items-center justify-center rounded-circle text-white shadow-3xl dark:text-dark"
+          className="theme-btn fixed -bottom-28 right-6 z-50 flex aspect-square translate-y-8 items-center justify-center rounded-circle text-white shadow-3xl dark:text-dark sm:translate-y-0"
           onClick={scrollToTop}
         >
-          <AiOutlineArrowUp size={22} />
+          <AiOutlineArrowUp className="text-xl" />
         </motion.button>
       )}
     </AnimatePresence>
