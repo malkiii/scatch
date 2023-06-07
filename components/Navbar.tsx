@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import NavbarMenu from './NavbarMenu';
 import AvatarMenu from './AvatarMenu';
 import { motion } from 'framer-motion';
@@ -75,7 +75,7 @@ const Logo: FC<{ isMenuOpen: boolean }> = ({ isMenuOpen }) => {
   );
 };
 
-const FixedSearchInput: FC<{ searchQuery?: string }> = ({ searchQuery }) => {
+const FixedSearchInput: FC<{ searchQuery: string }> = ({ searchQuery }) => {
   const { inputRef, triggerTheSearch, handleEnter } = useSearchTrigger();
   const [showClearButton, setShowClearButton] = useState<boolean>(false);
 
@@ -147,6 +147,19 @@ const Navbar: FC = () => {
   const animationProps =
     pathname == '/' ? { variants: navVariants, initial: 'hidden', animate: 'visible' } : null;
 
+  function getSearchQuery() {
+    return pathname.startsWith('/search')
+      ? !router.asPath.startsWith('/image')
+        ? (router.query.query as string)
+        : null
+      : '';
+  }
+  const [searchQuery, setSearchQuery] = useState<string | null>(getSearchQuery());
+  useEffect(() => {
+    const currentSearchQuery = getSearchQuery();
+    if (currentSearchQuery !== null) setSearchQuery(currentSearchQuery);
+  }, [router]);
+
   return (
     <>
       <header
@@ -176,7 +189,7 @@ const Navbar: FC = () => {
                   (!shouldShowSearchInput ? ' -translate-y-[calc(50%+1px)]' : '')
                 }
               >
-                <FixedSearchInput searchQuery={router.query.query as string} />
+                <FixedSearchInput searchQuery={searchQuery || ''} />
                 <Logo {...{ isMenuOpen }} />
               </div>
             </div>

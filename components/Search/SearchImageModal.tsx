@@ -13,7 +13,7 @@ type ImageNavProps = {
 const ImageNavbar: FC<ImageNavProps> = ({ image, onClick }) => {
   return (
     <div className="flex items-center justify-between pb-5" onClick={onClick}>
-      <PhotographerName name={image.photographer} />
+      <PhotographerName name={image.photographer} className="text-white" />
       <div className="flex items-center gap-3">
         <SaveButton className="cs-fixed" />
         <DownloadButton image={image} content="text" className="cs-fixed" />
