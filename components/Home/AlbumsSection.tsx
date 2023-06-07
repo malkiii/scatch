@@ -31,7 +31,7 @@ const AlbumImage: FC<{ number: number }> = ({ number }) => {
     <>
       <Image
         priority
-        src={`/assets/albums-section/image-${number}.jpeg`}
+        src={`/assets/Home/albums-section/image-${number}.jpeg`}
         className="w-full rounded-inherit"
         alt="album"
         fill
