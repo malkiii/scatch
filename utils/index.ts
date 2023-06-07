@@ -1,5 +1,6 @@
 import { SignUpFormData } from '@/types';
 import { ImageAPIRequestQuery } from '@/types';
+import { DashboardPageRoute } from '@/components/Dashboard';
 
 const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL as string;
 
@@ -38,4 +39,21 @@ export async function signUp(data: SignUpFormData): Promise<CachedData> {
 
 export function createUsernameParam(username: string): string {
   return '@' + username.trim().replace(/\W+/g, '-');
+}
+
+type ProfileRoutes = {
+  profileRoute: string;
+  profileSubRoutes: Record<DashboardPageRoute, string>;
+};
+export function getUserProfileRoutes(username: string): ProfileRoutes {
+  const userRoute = '/' + createUsernameParam(username);
+  return {
+    profileRoute: userRoute,
+    profileSubRoutes: {
+      images: userRoute + '/images',
+      albums: userRoute + '/albums',
+      favorite: userRoute + '/favorite',
+      stats: userRoute + '/stats'
+    }
+  };
 }

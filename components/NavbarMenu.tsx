@@ -3,7 +3,7 @@ import Link from 'next/link';
 import ColorSchemeButton from './ColorSchemeButton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { easeExpInOut, easeExpOut } from '@malkiii/d3-ease';
-import { createUsernameParam } from '@/utils';
+import { getUserProfileRoutes } from '@/utils';
 
 // animation variants
 const transition = {
@@ -29,16 +29,16 @@ const menuItemVariants = {
   }
 };
 
-type MenuProps = {
-  profileRoute?: string;
-  toggle: () => void;
-};
-const MenuContainer: FC<MenuProps> = ({ toggle, profileRoute }) => {
+type MenuProps = NavMenuProps;
+const MenuContainer: FC<MenuProps> = ({ toggle, username }) => {
+  const profileRoutes = username ? getUserProfileRoutes(username) : null;
   const navMenuItems = [
     { name: 'home', route: '/' },
-    profileRoute ? { name: 'profile', route: profileRoute } : { name: 'login', route: '/login' },
+    profileRoutes
+      ? { name: 'profile', route: profileRoutes.profileRoute }
+      : { name: 'login', route: '/login' },
     { name: 'search', route: '/search' },
-    { name: 'albums', route: '/albums' }
+    { name: 'albums', route: profileRoutes ? profileRoutes.profileSubRoutes.albums : '/login' }
   ];
 
   return (
@@ -77,13 +77,7 @@ type NavMenuProps = {
   toggle: () => void;
 };
 const NavbarMenu: FC<NavMenuProps> = props => {
-  const { isMenuOpen, username, toggle } = props;
-  const profileRoute = username ? '/' + createUsernameParam(username) : undefined;
-
-  return (
-    <AnimatePresence>
-      {isMenuOpen && <MenuContainer {...{ toggle, profileRoute }} />}
-    </AnimatePresence>
-  );
+  const { isMenuOpen } = props;
+  return <AnimatePresence>{isMenuOpen && <MenuContainer {...props} />}</AnimatePresence>;
 };
 export default NavbarMenu;

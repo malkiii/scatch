@@ -4,14 +4,15 @@ import { FC, useState } from 'react';
 import NavbarMenu from './NavbarMenu';
 import AvatarMenu from './AvatarMenu';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import { easeExpInOut } from '@malkiii/d3-ease';
 import ColorSchemeButton from './ColorSchemeButton';
-import { withRouter, NextRouter } from 'next/router';
 import { useScrollingEvent } from '@/hooks/useScrollingEvent';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 import { MdClear as ClearIcon } from 'react-icons/md';
+import { getUserProfileRoutes } from '@/utils';
 
 // animation variants
 const transition = {
@@ -120,10 +121,8 @@ const navVariants = {
   visible: { opacity: 1, transition: { duration: 0.7, ease: easeExpInOut } }
 };
 
-type NavbarProps = {
-  router: NextRouter;
-};
-const Navbar: FC<NavbarProps> = ({ router }) => {
+const Navbar: FC = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -186,7 +185,14 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
                 <Link href="/search" className="theme-link">
                   Search
                 </Link>
-                <Link href="/albums" className="theme-link">
+                <Link
+                  href={
+                    session
+                      ? getUserProfileRoutes(session.user.name!).profileSubRoutes.albums
+                      : '/login'
+                  }
+                  className="theme-link"
+                >
                   My albums
                 </Link>
                 <Link href="/about" className="theme-link">
@@ -216,4 +222,4 @@ const Navbar: FC<NavbarProps> = ({ router }) => {
     </>
   );
 };
-export default withRouter(Navbar);
+export default Navbar;

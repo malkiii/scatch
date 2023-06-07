@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { User } from 'next-auth';
 import OptionMenu from './OptionMenu';
 import { signOut } from 'next-auth/react';
-import { createUsernameParam } from '@/utils';
 import ColorSchemeButton from './ColorSchemeButton';
 import { useToggleMenu } from '@/hooks/useToggleMenu';
+import { getUserProfileRoutes } from '@/utils';
 import {
   BiMoon as MoonIcon,
   BiCog as SettingsIcon,
@@ -35,7 +35,7 @@ type AvatarMenuProps = {
 const AvatarMenu: FC<AvatarMenuProps> = props => {
   const iconSize = 25;
   const { isOpen, menuRef, toggle } = useToggleMenu();
-  const userProfileRoute = '/' + createUsernameParam(props.user.name!);
+  const { profileRoute, profileSubRoutes } = getUserProfileRoutes(props.user.name!);
   return (
     <div ref={menuRef} className="relative flex items-center justify-center">
       <button onClick={toggle}>
@@ -46,13 +46,13 @@ const AvatarMenu: FC<AvatarMenuProps> = props => {
       </button>
       <OptionMenu isOpen={isOpen} className="avatar-menu" onClick={toggle}>
         <div>
-          <Link href={userProfileRoute} className="avatar-menu-option">
+          <Link href={profileRoute} className="avatar-menu-option">
             <ProfileIcon size={iconSize} /> View profile
           </Link>
-          <Link href="/albums" className="avatar-menu-option">
+          <Link href={profileSubRoutes.albums} className="avatar-menu-option">
             <AlbumIcon size={iconSize} /> Your albums
           </Link>
-          <Link href={userProfileRoute + '/stats'} className="avatar-menu-option menu-separator">
+          <Link href={profileSubRoutes.stats} className="avatar-menu-option menu-separator">
             <StatesIcon size={iconSize} /> Your stats
           </Link>
           <Link href="/settings" className="avatar-menu-option">
