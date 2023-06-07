@@ -44,7 +44,7 @@ type EditingImageProps = {
 };
 
 const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
-  const imageURL = '/assets/editing-image.jpeg';
+  const imageURL = '/assets/Home/editing-image.jpeg';
   return (
     <motion.div
       {...animationProps}
