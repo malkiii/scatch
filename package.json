@@ -7,8 +7,8 @@
     "lint": "next lint",
     "cypress": "cypress open --e2e",
     "e2e": "bash __tests__/cypress/serve.sh",
-    "postinstall": "prisma generate",
-    "migrate": "prisma db push"
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma db push"
   },
   "dependencies": {
     "@malkiii/d3-ease": "^3.0.1",
