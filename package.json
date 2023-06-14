@@ -6,7 +6,7 @@
     "start": "next start",
     "lint": "next lint",
     "cypress": "cypress open --e2e",
-    "e2e": "bash __tests__/cypress/serve.sh",
+    "e2e": "cmd.exe /c bash __tests__/cypress/serve.sh",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma db push"
   },
