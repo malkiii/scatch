@@ -8,8 +8,8 @@ generator client {
 
 datasource db {
   provider     = "mysql"
-  url          = env("DATABASE_URL")
   relationMode = "prisma"
+  url          = env("DATABASE_URL")
 }
 
 // Necessary for Next auth
@@ -73,17 +73,16 @@ model VerificationToken {
 }
 
 model Image {
-  id         String     @unique @default(cuid())
-  userId     String     @map("user_id")
-  src        String     @db.Text
-  alt        String?    @db.Text
+  id         String  @unique @default(cuid())
+  userId     String  @map("user_id")
+  src        String  @db.Text
+  alt        String? @db.Text
   width      Int
   height     Int
-  isFavorite Boolean    @default(false) @map("is_favorite")
+  isFavorite Boolean @default(false) @map("is_favorite")
   albumName  String
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  album      Album?     @relation(fields: [albumName], references: [name], onDelete: Cascade)
-  activities Activity[]
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  album      Album   @relation(fields: [albumName], references: [name], onDelete: Cascade)
 
   @@unique([id, userId])
   @@index([albumName])
@@ -101,19 +100,16 @@ model Album {
 }
 
 enum ActivityType {
-  VIEW
+  SEARCH
   DOWNLOAD
 }
 
 model Activity {
-  userId  String       @map("user_id")
-  imageId String
-  Date    DateTime     @map("image_id")
-  type    ActivityType
-  user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  image   Image        @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  userId String       @map("user_id")
+  date   DateTime
+  type   ActivityType
+  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, imageId, Date])
-  @@index([imageId])
+  @@unique([userId, date])
   @@map("activities")
 }
