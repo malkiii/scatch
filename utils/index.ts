@@ -2,7 +2,7 @@ import { SignUpFormData } from '@/types';
 import { ImageAPIRequestQuery } from '@/types';
 import { DashboardPageRoute } from '@/components/Dashboard';
 
-const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL as string;
+export { default as cn } from 'classnames';
 
 export function getImageFetchURL(requestQuery: ImageAPIRequestQuery): URL {
   const { API_ENDPOINT } = process.env;
@@ -23,6 +23,7 @@ export function getImageFetchURL(requestQuery: ImageAPIRequestQuery): URL {
 
 type CachedData = { user?: any; message: string; error?: string };
 export async function signUp(data: SignUpFormData): Promise<CachedData> {
+  const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL as string;
   const endpointURL = new URL('/api/auth/signup', NEXT_PUBLIC_APP_URL);
 
   const { firstName, lastName, email, password } = data;
