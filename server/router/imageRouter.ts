@@ -29,7 +29,6 @@ function extractImageObject(data: Record<string, any>): ResponseImage {
 
 const fetchImagesInputSchema = z.object({
   params: ImageAPIRequestQuerySchema,
-  signal: z.custom<AbortSignal>().optional(),
   // we have to add `cursor` to use the useInfinitQuery hook
   cursor: z.number().nullish().optional()
 });
@@ -38,15 +37,15 @@ const fetchPhotoOutputSchema = z.object({
   alt: z.string()
 });
 
-export const ImageRouter = router({
+export const imageRouter = router({
   // fetch an image page
   fetchImages: publicProcedure
     .input(fetchImagesInputSchema)
     .output(ImagePageSchema)
     .query(async ({ input }) => {
       try {
-        const { params, signal, cursor: page } = input;
-        const res = await fetch(getImageFetchURL({ ...params, page }), { ...requestInit, signal });
+        const { params, cursor: page } = input;
+        const res = await fetch(getImageFetchURL({ ...params, page }), requestInit);
         const data = await res.json();
 
         const images: ResponseImage[] = data.photos.map(extractImageObject);
