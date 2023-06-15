@@ -21,6 +21,7 @@
     "@trpc/react-query": "^10.28.1",
     "@trpc/server": "^10.28.0",
     "bcryptjs": "^2.4.3",
+    "classnames": "^2.3.2",
     "framer-motion": "^9.0.4",
     "next": "latest",
     "next-auth": "^4.22.1",
