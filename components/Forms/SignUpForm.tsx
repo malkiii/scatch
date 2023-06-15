@@ -5,6 +5,7 @@ import { useForm } from '@/hooks/useForm';
 import { SignUpFormData, WithFormError } from '@/types';
 import { AuthProviders, ErrorMessage, SubmitButton, VerticalLine } from './FormItems';
 import { BiShow as ShowIcon, BiHide as HideIcon } from 'react-icons/bi';
+import { cn } from '@/utils';
 
 type CredentialInputsProps = {
   data: SignUpFormData & WithFormError;
@@ -25,7 +26,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
             type="text"
             name="user[first_name]"
             placeholder="First name"
-            className={`credential-input ${error == 'Name' ? 'error' : ''}`}
+            className={cn('credential-input', { 'error': error == 'Name' })}
             value={firstName}
             onInput={handleInput}
             required
@@ -35,7 +36,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
             type="text"
             name="user[last_name]"
             placeholder="Last name"
-            className={`credential-input ${error == 'Name' ? 'error' : ''}`}
+            className={cn('credential-input', { 'error': error == 'Name' })}
             value={lastName}
             onInput={handleInput}
           />
@@ -55,7 +56,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
           type="email"
           name="user[email]"
           placeholder="Email"
-          className={`credential-input ${error == 'Email' ? 'error' : ''}`}
+          className={cn('credential-input', { 'error': error == 'Email' })}
           value={email}
           onInput={handleInput}
           required
@@ -69,9 +70,10 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
             type={showPassword ? 'text' : 'password'}
             name="user[password]"
             placeholder="Password (min. 6 characters)"
-            className={`h-full w-full rounded-inherit bg-transparent px-4 py-3 focus:outline-none ${
-              error == 'Password' ? 'error' : ''
-            }`}
+            className={cn(
+              'h-full w-full rounded-inherit bg-transparent px-4 py-3 focus:outline-none',
+              { 'error': error == 'Password' }
+            )}
             title="Password must be at least 6 characters"
             value={password}
             onInput={handleInput}

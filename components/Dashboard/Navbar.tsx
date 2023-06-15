@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { DashboardPageRoute } from '.';
 import { useScrollingEvent } from '@/hooks/useScrollingEvent';
 import { FC, useRef, useState, useEffect } from 'react';
+import { cn } from '@/utils';
 import {
   BiImages as ImagesIcon,
   BiPhotoAlbum as AlbumsIcon,
@@ -88,11 +89,10 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
             <Link
               key={id}
               href={userProfileRoute + '/' + page}
-              className={
-                'profile-page-link' +
-                (page == firstRoute ? ' focus' : '') +
-                (page == currentPageRoute ? ' text-dark dark:text-white' : '')
-              }
+              className={cn('profile-page-link', {
+                'focus': page == firstRoute,
+                'text-dark dark:text-white': page == currentPageRoute
+              })}
               shallow
             >
               {icon} {page}

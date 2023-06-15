@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { FC, ReactNode } from 'react';
 import { ResponseImage } from '@/types';
 import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
+import { FaRegHeart as FavoriteOutlineIcon, FaHeart as FavoriteSolidIcon } from 'react-icons/fa';
+import { cn } from '@/utils';
 
 const logoSize = 25;
 function cancelEvents(e: any) {
@@ -25,15 +27,32 @@ type PhotographerNameProps = {
 export const PhotographerName: FC<PhotographerNameProps> = props => {
   const { name, className } = props;
   const styleClasses = className || '';
-  return <strong className={'font-normal ' + styleClasses}>By {name}</strong>;
+
+  return <strong className={cn('font-normal', styleClasses)}>By {name}</strong>;
 };
 
 type SaveButtonPros = WithClassName;
 export const SaveButton: FC<SaveButtonPros> = props => {
-  const className = props.className || '';
+  function handleClick(e: any) {
+    cancelEvents(e);
+    // add it to an album
+  }
   return (
-    <a href="" className={'image-layer-btn ' + className} onClick={cancelEvents}>
+    <a href="" className={cn('image-layer-btn', props.className)} onClick={handleClick}>
       <CgMathPlus size={logoSize} />
+    </a>
+  );
+};
+
+type FavoriteButtonProps = WithClassName;
+export const FavoriteButton: FC<FavoriteButtonProps> = props => {
+  function handleClick(e: any) {
+    cancelEvents(e);
+    // make it favorite
+  }
+  return (
+    <a href="" className={cn('image-layer-btn', props.className)} onClick={handleClick}>
+      <FavoriteOutlineIcon size={logoSize} />
     </a>
   );
 };
@@ -44,12 +63,11 @@ type DownloadButtonPops = {
   WithClassName;
 
 export const DownloadButton: FC<DownloadButtonPops> = props => {
-  const { image, content } = props;
-  const className = props.className || '';
+  const { image, content, className } = props;
   const downloadURL = `${image.src}?cs=srgb&dl=scatch-${image.id}.jpg&fm=jpg`;
 
   return (
-    <a href={downloadURL} className={'image-layer-btn ' + className} onClick={cancelEvents}>
+    <a href={downloadURL} className={cn('image-layer-btn', className)} onClick={cancelEvents}>
       {content == 'icon' ? <CgSoftwareDownload size={logoSize} /> : 'Download'}
     </a>
   );

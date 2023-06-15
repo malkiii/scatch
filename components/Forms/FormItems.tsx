@@ -6,6 +6,7 @@ import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { FC, ReactNode, useState } from 'react';
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
 import { IoIosWarning as WarningIcon } from 'react-icons/io';
+import { cn } from '@/utils';
 
 type MarkProps = {
   className?: string;
@@ -17,7 +18,7 @@ export const ScatchMark: FC<MarkProps> = ({ className }) => {
       alt="scatch mark"
       width={65}
       height={65}
-      className={'logo ' + (className || '')}
+      className={cn('logo', className)}
     />
   );
 };
@@ -57,10 +58,10 @@ export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
           key={id}
           type="button"
           onClick={e => handleClick(e.currentTarget, handleSignIn)}
-          className={
-            'flex w-full items-center justify-center gap-3 rounded-3xl p-3 text-center font-semibold transition-colors ' +
+          className={cn(
+            'flex w-full items-center justify-center gap-3 rounded-3xl p-3 text-center font-semibold transition-colors',
             className
-          }
+          )}
         >
           {icon} {text} {name}
         </button>

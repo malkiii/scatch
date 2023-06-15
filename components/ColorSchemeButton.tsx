@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { useTheme } from 'next-themes';
+import { cn } from '@/utils';
 
 type ButtonProps = {
   containerClassName: string;
@@ -9,7 +10,7 @@ type ButtonProps = {
 
 const ColorSchemeButton: FC<ButtonProps> = props => {
   const { setTheme } = useTheme();
-  const buttonStyle = 'relative group ' + props.containerClassName;
+  const { containerClassName, buttonClassName } = props;
 
   function toggleTheme() {
     const HtmlClasses = document.documentElement.classList;
@@ -23,9 +24,14 @@ const ColorSchemeButton: FC<ButtonProps> = props => {
   }
 
   return (
-    <button data-test="cs-button" className={buttonStyle} onClick={toggleTheme}>
+    <button
+      data-test="cs-button"
+      className={cn('group relative', containerClassName)}
+      onClick={toggleTheme}
+    >
       {props.children}
-      <div className={'cs-button ' + props.buttonClassName}></div>
+
+      <div className={cn('cs-button', buttonClassName)}></div>
     </button>
   );
 };

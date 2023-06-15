@@ -3,6 +3,7 @@ import { signIn } from 'next-auth/react';
 import { useForm } from '@/hooks/useForm';
 import { LoginFormData, WithFormError } from '@/types';
 import { AuthProviders, SubmitButton, VerticalLine, ErrorMessage } from './FormItems';
+import { cn } from '@/utils';
 
 type CredentialInputsProps = {
   data: LoginFormData & WithFormError;
@@ -18,7 +19,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
           type="email"
           name="user[email]"
           placeholder="Email"
-          className={`credential-input ${error == 'Email' ? 'error' : ''}`}
+          className={cn('credential-input', { 'error': error == 'Email' })}
           value={email}
           onInput={handleInput}
           required
@@ -31,7 +32,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
           type="password"
           name="user[password]"
           placeholder="Password"
-          className={`credential-input ${error == 'Password' ? 'error' : ''}`}
+          className={cn('credential-input', { 'error': error == 'Password' })}
           pattern=".{6,}"
           title="Password must be at least 6 characters"
           value={password}
