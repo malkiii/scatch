@@ -1,7 +1,7 @@
 import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 import { withAuth } from 'next-auth/middleware';
-import { createUsernameParam } from './utils';
+import { getUserProfileRoutes } from '@/utils';
 
 export default withAuth(
   async function middleware(req) {
@@ -9,8 +9,8 @@ export default withAuth(
     const isAuthenticated = !!token;
 
     if (isAuthenticated) {
-      const username = token.name!;
-      return NextResponse.redirect(new URL('/' + createUsernameParam(username), req.url));
+      const { profileRoute } = getUserProfileRoutes(token.name!);
+      return NextResponse.redirect(new URL(profileRoute, req.url));
     }
     return null;
   },
