@@ -5,6 +5,7 @@ import {
   IoIosArrowDroprightCircle as RightArrow,
   IoIosArrowDropleftCircle as LeftArrow
 } from 'react-icons/io';
+import { cn } from '@/utils';
 
 type LoadedImageProps = {
   image: ModalImage;
@@ -95,11 +96,10 @@ const ImageContainer: FC<ImageContainerProps> = props => {
 
   return (
     <div
-      className={
-        inZoomMod
-          ? 'flex h-full w-full items-center justify-center overflow-hidden'
-          : 'max-h-[80vh]'
-      }
+      className={cn({
+        'flex h-full w-full items-center justify-center overflow-hidden': inZoomMod,
+        'max-h-[80vh]': !inZoomMod
+      })}
       style={{ aspectRatio }}
     >
       {!inZoomMod && children}

@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { useSearchHistory } from '@/hooks/useSearchHistory';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
+import { cn } from '@/utils';
 
 function storeInHistory(searchValue?: string) {
   const searchHistory = localStorage.getItem('search_history') || '[]';
@@ -55,7 +56,7 @@ const SuggestionsMenu: FC<SuggestionsMenuProps> = ({ value, onClick }) => {
         {searchHistory.map((searchValue, index) => (
           <li
             key={index}
-            className={'menu-suggestion ' + (focusIndex == index ? 'focus' : '')}
+            className={cn('menu-suggestion', { 'focus': focusIndex == index })}
             onMouseEnter={() => setFocusIndex(index)}
             onMouseDown={() => onClick(searchValue)}
             onMouseLeave={() => setFocusIndex(-1)}

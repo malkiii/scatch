@@ -3,6 +3,7 @@ import { FC, useRef } from 'react';
 import { ResponseImage } from '@/types';
 import { useBlurhashImage } from '@/hooks/useBlurhashImage';
 import { SaveButton, DownloadButton, PhotographerName } from '@/components/Search/ImageLayer';
+import { cn } from '@/utils';
 
 const ImageNavbar: FC<{ image: ResponseImage }> = ({ image }) => {
   return (
@@ -30,10 +31,8 @@ const RenderedImage: FC<PageContentProps> = ({ image, alt }) => {
 
   useBlurhashImage(imageContainerRef, src);
 
-  const containerClassName = 'mx-auto w-full ' + (height > width ? 'md:w-1/2' : '');
-
   return (
-    <div ref={imageContainerRef} className={containerClassName}>
+    <div ref={imageContainerRef} className={cn('mx-auto w-full', { 'md:w-1/2': height > width })}>
       <Image src={src} width={width} height={height} className="bg-image" alt={'scatch ' + alt} />
     </div>
   );

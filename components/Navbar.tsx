@@ -12,7 +12,7 @@ import { useScrollingEvent } from '@/hooks/useScrollingEvent';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 import { MdClear as ClearIcon } from 'react-icons/md';
-import { getUserProfileRoutes } from '@/utils';
+import { cn, getUserProfileRoutes } from '@/utils';
 
 // animation variants
 const transition = {
@@ -43,17 +43,17 @@ const MenuButton: FC<ButtonProps> = ({ isMenuOpen, toggleMenu }) => {
       <motion.div animate={isMenuOpen ? 'open' : 'close'} className="relative m-auto h-1/3 w-full">
         <motion.div
           variants={buttonTopVariants}
-          className={
-            'absolute right-0 top-0 h-[3.2px] w-full transition-colors ' +
-            (isMenuOpen ? ' bg-white' : 'bg-dark dark:bg-white')
-          }
+          className={cn(
+            'absolute right-0 top-0 h-[3.2px] w-full transition-colors',
+            ['bg-white', 'bg-dark dark:bg-white'][+!isMenuOpen]
+          )}
         ></motion.div>
         <motion.div
           variants={buttonBottomVariants}
-          className={
-            'absolute bottom-0 right-0 h-[3.2px] w-[66%] bg-dark transition-colors dark:bg-white' +
-            (isMenuOpen ? ' bg-white' : 'bg-dark dark:bg-white')
-          }
+          className={cn(
+            'absolute bottom-0 right-0 h-[3.2px] w-[66%] bg-dark transition-colors dark:bg-white',
+            ['bg-white', 'bg-dark dark:bg-white'][+!isMenuOpen]
+          )}
         ></motion.div>
       </motion.div>
     </motion.button>
@@ -67,7 +67,7 @@ const Logo: FC<{ isMenuOpen: boolean }> = ({ isMenuOpen }) => {
         <img
           src="/logotype.svg"
           alt="scatch logo"
-          className={'logo h-full w-full' + (isMenuOpen ? ' force-white' : '')}
+          className={cn('logo h-full w-full', { 'force-white': isMenuOpen })}
           style={{ clipPath: 'inset(0 0 0 30%)' }}
         />
       </Link>
@@ -163,11 +163,11 @@ const Navbar: FC = () => {
   return (
     <>
       <header
-        className={
-          'z-[1001] w-full px-5 py-3 transition-[box-shadow_color] duration-200' +
-          (isExcludedPage ? ' absolute' : ' fixed') +
-          (isScrolling ? ' bg-cs-change shadow-xl' : '')
-        }
+        className={cn(
+          'z-[1001] w-full px-5 py-3 transition-[box-shadow_color] duration-200',
+          { 'bg-cs-change shadow-xl': isScrolling },
+          ['absolute', 'fixed'][+!isExcludedPage]
+        )}
       >
         <div className="h-full w-full">
           <motion.nav
@@ -178,16 +178,15 @@ const Navbar: FC = () => {
               <Image
                 src="/mark.svg"
                 alt="scatch mark"
-                className={'logo' + (isMenuOpen ? ' force-white' : '')}
+                className={cn('logo', { 'force-white': isMenuOpen })}
                 fill
               />
             </Link>
             <div className="h-[41px] flex-1 overflow-hidden">
               <div
-                className={
-                  'flex flex-col justify-center gap-y-1 transition-transform' +
-                  (!shouldShowSearchInput ? ' -translate-y-[calc(50%+1px)]' : '')
-                }
+                className={cn('flex flex-col justify-center gap-y-1 transition-transform', {
+                  '-translate-y-[calc(50%+1px)]': !shouldShowSearchInput
+                })}
               >
                 <FixedSearchInput searchQuery={searchQuery || ''} />
                 <Logo {...{ isMenuOpen }} />

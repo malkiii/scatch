@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FC, ReactElement, ReactNode, Children } from 'react';
+import { cn } from '@/utils';
 
 const transition = { type: 'tween', duration: 0.1 };
 const menuVarinats = {
@@ -18,12 +19,13 @@ const OptionList: FC<OptionListProps> = props => {
         <div
           key={index}
           onClick={onItemClick}
-          className={
-            'menu-option group ' +
-            (index == focusOn
-              ? 'bg-neutral-200 dark:bg-white dark:text-dark'
-              : 'hover:bg-neutral-200 dark:hover:bg-[#292929]')
-          }
+          className={cn(
+            'menu-option group',
+            [
+              'bg-neutral-200 dark:bg-white dark:text-dark',
+              'hover:bg-neutral-200 dark:hover:bg-[#292929]'
+            ][+!(index == focusOn)]
+          )}
         >
           {option}
         </div>
@@ -49,7 +51,7 @@ const OptionMenu: FC<MenuProps> = props => {
       {isOpen && (
         <motion.div
           onClick={onClick}
-          className={`absolute z-10 rounded-md shadow-2xl ${className}`}
+          className={cn('absolute z-10 rounded-md shadow-2xl', className)}
           variants={menuVarinats}
           initial="hidden"
           animate="visible"

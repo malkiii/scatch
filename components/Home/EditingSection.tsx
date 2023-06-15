@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { easeExpOut } from '@malkiii/d3-ease';
 import { useInterval } from '@/hooks/useInterval';
+import { cn } from '@/utils';
 
 const filters = [
   'after:opacity-0 after:mix-blend-difference',
@@ -57,10 +58,10 @@ const EditingImage: FC<EditingImageProps> = ({ filterClassName, onUpdate }) => {
         className="absolute h-full w-full overflow-hidden shadow-3xl"
       >
         <div
-          className={
-            'after:transition-inherit absolute h-full w-full overflow-hidden rounded-lg border-2 border-white transition-all duration-1000 after:pointer-events-none after:absolute after:h-full after:w-full hover:border-theme hover:text-theme ' +
+          className={cn(
+            'after:transition-inherit absolute h-full w-full overflow-hidden rounded-lg border-2 border-white transition-all duration-1000 after:pointer-events-none after:absolute after:h-full after:w-full hover:border-theme hover:text-theme',
             filterClassName
-          }
+          )}
         >
           <Image priority src={imageURL} alt="scatch edit" fill />
         </div>
