@@ -1,11 +1,44 @@
 import { z } from 'zod';
-import { TRPCError } from '@trpc/server';
+import { db } from '@/server/db/client';
 import { router, publicProcedure } from '@/server/trpc';
+import { ResponseImageSchema } from '@/utils/validation';
+
+const images = db.image;
+
+const ImageSchema = ResponseImageSchema.merge(
+  z.object({
+    userId: z.string(),
+    albumName: z.string()
+  })
+);
+
+const IdUserIdSchema = z.object({
+  id: z.number(),
+  userId: z.string()
+});
 
 export const userImageRouter = router({
-  addNewImage: publicProcedure.input(z.string()).query(async ({ input }) => {})
-  // deleteImage: publicProcedure.input(z.string()).query(async ({ input }) => {}),
-  // getAllImages: publicProcedure.input(z.string()).query(async ({ input }) => {}),
-  // getAllFavoriteImages: publicProcedure.input(z.string()).query(async ({ input }) => {}),
-  // setFavoriteImage: publicProcedure.input(z.string()).query(async ({ input }) => {}),
+  addNewImage: publicProcedure.input(ImageSchema).query(async ({ input }) => {
+    const { userId, albumName, photographer, ...image } = input;
+    return await images.create({
+      data: {
+        ...image,
+        user: { connect: { id: userId } },
+        album: { connect: { name_userId: { name: albumName, userId } } }
+      },
+      include: { album: true }
+    });
+  }),
+  deleteImage: publicProcedure.input(IdUserIdSchema).query(async ({ input: id_userId }) => {
+    return await images.delete({ where: { id_userId } });
+  }),
+  getAllImages: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
+    return await images.findMany({ where: { userId } });
+  }),
+  setFavoriteImage: publicProcedure.input(IdUserIdSchema).query(async ({ input: id_userId }) => {
+    return await images.update({ where: { id_userId }, data: { isFavorite: true } });
+  }),
+  getAllFavoriteImages: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
+    return await images.findMany({ where: { userId, isFavorite: true } });
+  })
 });
