@@ -1,9 +1,21 @@
 import { z } from 'zod';
-import { TRPCError } from '@trpc/server';
+import { db } from '@/server/db/client';
+import { ActivityType } from '@prisma/client';
 import { router, publicProcedure } from '@/server/trpc';
 
+const stats = db.activity;
+
+const ActivitySchema = z.object({
+  userId: z.string(),
+  type: z.nativeEnum(ActivityType)
+});
+
 export const userStatsRouter = router({
-  // saveSearchAcion: publicProcedure.input(z.string()).query(async ({ input }) => {}),
-  // saveDownloadAcion: publicProcedure.input(z.string()).query(async ({ input }) => {}),
-  // getCurrentStats: publicProcedure.input(z.string()).query(async ({ input }) => {})
+  saveActivity: publicProcedure.input(ActivitySchema).query(async ({ input }) => {
+    const { userId, type } = input;
+    return await stats.create({ data: { type, user: { connect: { id: userId } } } });
+  }),
+  getCurrentStats: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
+    return await stats.findMany({ where: { userId } });
+  })
 });
