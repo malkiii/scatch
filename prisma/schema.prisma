@@ -59,6 +59,7 @@ model User {
   sessions      Session[]
   activities    Activity[]
   images        Image[]
+  albums        Album[]
 
   @@map(name: "users")
 }
@@ -73,43 +74,45 @@ model VerificationToken {
 }
 
 model Image {
-  id         String  @unique @default(cuid())
+  id         Int     @unique
   userId     String  @map("user_id")
   src        String  @db.Text
-  alt        String? @db.Text
+  avgColor   String  @map("avg_color")
   width      Int
   height     Int
   isFavorite Boolean @default(false) @map("is_favorite")
   albumName  String
   user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  album      Album   @relation(fields: [albumName], references: [name], onDelete: Cascade)
+  album      Album   @relation(fields: [albumName, userId], references: [name, userId], onDelete: Cascade)
 
   @@unique([id, userId])
-  @@index([albumName])
+  @@index([albumName, userId])
   @@index([userId])
   @@map("images")
 }
 
 model Album {
-  name   String  @unique
+  name   String
   userId String  @map("user_id")
   images Image[]
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([name, userId])
+  @@index([userId])
   @@map("albums")
-}
-
-enum ActivityType {
-  SEARCH
-  DOWNLOAD
 }
 
 model Activity {
   userId String       @map("user_id")
-  date   DateTime
+  date   DateTime     @default(now())
   type   ActivityType
   user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, date])
   @@map("activities")
+}
+
+enum ActivityType {
+  SEARCH
+  DOWNLOAD
 }
