@@ -30,7 +30,6 @@ export const getServerSideProps: GetServerSideProps<DashboardPageProps> = async 
 
 type DashboardPageType = NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>>;
 const DashboardPage: DashboardPageType = props => {
-  const { user, initialPageRoute } = props;
   const router = useRouter();
   const componentProps = { ...props, router };
 
