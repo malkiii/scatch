@@ -1,33 +1,42 @@
 import '@/styles/globals.css';
+import App from 'next/app';
 import Head from 'next/head';
 import Layout from '@/components/layout';
-import { AppType } from 'next/app';
 import { trpc } from '@/utils/trpc';
 import { ThemeProvider } from 'next-themes';
-import { AppPropsWithLayout } from '@/types';
-import { SessionProvider } from 'next-auth/react';
+import { AppType, AppPropsWithLayout } from '@/types';
+import { SessionProvider, getSession } from 'next-auth/react';
 
-const MyApp: AppType = ({
-  router,
-  Component,
-  pageProps: { session, ...pageProps }
-}: AppPropsWithLayout) => {
+const MyApp = trpc.withTRPC((props: AppPropsWithLayout) => {
+  const {
+    router,
+    Component,
+    pageProps: { session, ...pageProps },
+    currentSession
+  } = props;
+
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout ?? (page => page);
-
-  const isAuthRoute = ['/login', '/register'].includes(router.pathname);
+  const getLayout = Component.getLayout ?? ((page: any) => page);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark">
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Scatch</title>
-      </Head>
-      <SessionProvider session={session}>
-        <Layout empty={isAuthRoute}>{getLayout(<Component {...pageProps} />)}</Layout>
-      </SessionProvider>
-    </ThemeProvider>
+    <SessionProvider session={session}>
+      <ThemeProvider attribute="class" defaultTheme="dark">
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Scatch</title>
+        </Head>
+        <Layout session={currentSession} router={router}>
+          {getLayout(<Component {...pageProps} />)}
+        </Layout>
+      </ThemeProvider>
+    </SessionProvider>
   );
+}) as AppType;
+
+MyApp.getInitialProps = async context => {
+  const appProps = await App.getInitialProps(context);
+  const currentSession = await getSession(context.ctx);
+  return { ...appProps, currentSession };
 };
 
-export default trpc.withTRPC(MyApp);
+export default MyApp;

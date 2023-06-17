@@ -1,16 +1,15 @@
-import { authOptions } from '@/utils/auth';
+import { useRouter } from 'next/router';
 import { NextPageWithLayout } from '@/types';
 import { createUsernameParam } from '@/utils';
-import { getServerSession } from 'next-auth';
+import { getCurrentSession } from '@/utils/session';
 import DashboardLayout from '@/components/Dashboard/layout';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useRouter } from 'next/router';
 import DashboardPages, { DashboardPageProps, DashboardPageRoute } from '@/components/Dashboard';
 
 const validRoutes: DashboardPageRoute[] = ['images', 'albums', 'favorite', 'stats'];
 
 export const getServerSideProps: GetServerSideProps<DashboardPageProps> = async context => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const session = await getCurrentSession(context);
   if (!session) {
     return {
       redirect: { destination: '/login', permanent: false }
