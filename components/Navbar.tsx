@@ -94,8 +94,9 @@ const FixedSearchInput: FC<{ searchQuery: string }> = ({ searchQuery }) => {
         <input
           type="search"
           ref={inputRef}
-          defaultValue={searchQuery}
           placeholder="Search.."
+          defaultValue={searchQuery}
+          data-test="navbar-search-input"
           className="h-full w-full bg-transparent p-2 outline-none"
           onInput={handleInput}
           onKeyDown={handleEnter}

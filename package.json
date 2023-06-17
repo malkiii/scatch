@@ -5,8 +5,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cypress": "cypress open --e2e",
-    "e2e": "cmd.exe /c bash __tests__/cypress/serve.sh",
+    "cy:open": "cypress open --project . --e2e --browser chrome",
+    "e2e": "bash __tests__/cypress/serve.sh",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma db push"
   },
