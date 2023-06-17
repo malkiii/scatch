@@ -2,5 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 if [ "$(head -n1 $1 | cut -c1)" != "-" ]; then
-  yarn commitlint --edit ${1}
+  pnpm commitlint --edit ${1}
 fi
