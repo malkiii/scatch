@@ -1,12 +1,15 @@
 import { z } from 'zod';
-import { NextPage } from 'next';
-import { AppProps } from 'next/app';
+import { NextPage, NextComponentType } from 'next';
 import { ReactElement, ReactNode, RefObject } from 'react';
+import { AppContext, AppInitialProps, AppProps } from 'next/app';
 import {
   ResponseImageSchema,
   ImageAPIRequestQuerySchema,
   ImagePageSchema
 } from '@/utils/validation';
+import { Session } from 'next-auth';
+
+export type AppType = NextComponentType<AppContext, AppInitialProps, AppProps>;
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -14,6 +17,7 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 
 export type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
+  currentSession: Session | null;
 };
 
 export type ResponseImage = z.infer<typeof ResponseImageSchema>;

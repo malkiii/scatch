@@ -13,6 +13,7 @@ import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 import { MdClear as ClearIcon } from 'react-icons/md';
 import { cn, getUserProfileRoutes } from '@/utils';
+import { AppPropsWithLayout } from '@/types';
 
 // animation variants
 const transition = {
@@ -121,9 +122,8 @@ const navVariants = {
   visible: { opacity: 1, transition: { duration: 0.7, ease: easeExpInOut } }
 };
 
-const Navbar: FC = () => {
+const Navbar: FC<{ session: AppPropsWithLayout['currentSession'] }> = ({ session }) => {
   const router = useRouter();
-  const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const { pathname } = router;

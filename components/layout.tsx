@@ -4,33 +4,36 @@ import Footer from './Footer';
 import { FC, ReactNode } from 'react';
 import { useTheme } from 'next-themes';
 import Progressbar from './Progressbar';
+import { AppPropsWithLayout } from '@/types';
+import { WithRouterProps } from 'next/dist/client/with-router';
 
-type withChildren = {
-  children: ReactNode;
-};
-const WithNavbarAndFooter: FC<withChildren> = ({ children }) => {
+const WithNavbarAndFooter: FC<layoutProps> = ({ session, children }) => {
   return (
     <>
-      <Navbar />
+      <Navbar session={session} />
       {children}
       <Footer />
     </>
   );
 };
 
-type layoutProps = withChildren & {
-  empty: boolean;
+type layoutProps = WithRouterProps & {
+  session: AppPropsWithLayout['currentSession'];
+  children: ReactNode;
 };
-const Layout: FC<layoutProps> = ({ empty, children }) => {
+const Layout: FC<layoutProps> = props => {
+  const { router, children } = props;
   const { systemTheme } = useTheme();
   const favionPath = `/favicon-${systemTheme || 'dark'}.ico`;
+  const isAuthRoute = ['/login', '/register'].includes(router.pathname);
+
   return (
     <>
       <Head>
         <link rel="icon" href={favionPath} />
       </Head>
       <Progressbar />
-      {empty ? <>{children}</> : <WithNavbarAndFooter>{children}</WithNavbarAndFooter>}
+      {isAuthRoute ? <>{children}</> : <WithNavbarAndFooter {...props} />}
     </>
   );
 };
