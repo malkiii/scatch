@@ -48,7 +48,9 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
             <ErrorMessage>Username is too short!</ErrorMessage>
           ) : /[^\w]/.test(name) ? (
             <ErrorMessage>No spaces and special characters!</ErrorMessage>
-          ) : null)}
+          ) : (
+            <ErrorMessage>First name must be defined!</ErrorMessage>
+          ))}
       </div>
       <div>
         <input
