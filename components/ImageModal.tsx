@@ -1,23 +1,25 @@
+import { cn } from '@/utils';
 import Image from 'next/image';
-import { CSSProperties, FC, ReactNode, useState } from 'react';
-import { ContainerRef, ModalActions, ModalImage } from '@/types';
+import { ModalActions, ModalImage } from '@/types';
+import { useBlurhashImage } from '@/hooks/useBlurhashImage';
+import { CSSProperties, FC, ReactNode, useRef, useState } from 'react';
 import {
   IoIosArrowDroprightCircle as RightArrow,
   IoIosArrowDropleftCircle as LeftArrow
 } from 'react-icons/io';
-import { cn } from '@/utils';
 
 type LoadedImageProps = {
   image: ModalImage;
   inZoomMod: boolean;
   toggleZoom: () => void;
-  imageContainerRef: ContainerRef;
 };
 
 const LoadedImage: FC<LoadedImageProps> = props => {
-  const { image, inZoomMod, imageContainerRef, toggleZoom } = props;
+  const { image, inZoomMod, toggleZoom } = props;
+  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const { src, width, height } = image;
+  useBlurhashImage(imageContainerRef, src);
 
   function getImageElement() {
     const container = imageContainerRef.current!;
@@ -49,13 +51,13 @@ const LoadedImage: FC<LoadedImageProps> = props => {
   }
 
   const isPortrait = height > width;
-  const style: CSSProperties | undefined = inZoomMod
+  const style: CSSProperties = inZoomMod
     ? {
         scale: isPortrait ? '1.1' : '1.65',
         transformOrigin: 'center',
         transition: 'all 100ms ease-out'
       }
-    : undefined;
+    : {};
 
   const imageProps = { width, height, src, style };
 
@@ -73,26 +75,17 @@ const LoadedImage: FC<LoadedImageProps> = props => {
 
 type ImageContainerProps = {
   image: ModalImage;
-  containerRef: ContainerRef;
   children?: ReactNode;
 };
 
 const ImageContainer: FC<ImageContainerProps> = props => {
-  const { image, containerRef, children } = props;
+  const { image, children } = props;
   const [inZoomMod, setInZoomMod] = useState<boolean>(false);
   function toggleZoom() {
     setInZoomMod(!inZoomMod);
   }
 
-  const { width, height } = image;
-  const aspectRatio = width + '/' + height;
-
-  const zoomImageProps = {
-    image,
-    inZoomMod,
-    toggleZoom,
-    imageContainerRef: containerRef
-  };
+  const zoomImageProps = { image, inZoomMod, toggleZoom };
 
   return (
     <div
@@ -100,7 +93,7 @@ const ImageContainer: FC<ImageContainerProps> = props => {
         'flex h-full w-full items-center justify-center overflow-hidden': inZoomMod,
         'max-h-[80vh]': !inZoomMod
       })}
-      style={{ aspectRatio }}
+      style={{ aspectRatio: image.width + '/' + image.height }}
     >
       {!inZoomMod && children}
       <LoadedImage {...zoomImageProps} />
@@ -131,12 +124,11 @@ const ModalButtons: FC<ModalButtonsProps> = ({ actions, children }) => {
 type ModalProps = {
   image: ModalImage;
   actions: ModalActions;
-  containerRef: ContainerRef;
   children?: ReactNode;
 };
 
 export const ImageModal: FC<ModalProps> = props => {
-  const { image, actions, containerRef, children } = props;
+  const { image, actions, children } = props;
   const { close } = actions;
 
   function handleClick(e: any) {
@@ -144,7 +136,7 @@ export const ImageModal: FC<ModalProps> = props => {
     if (clickOutside) close();
   }
 
-  const imageContainerProps = { image, containerRef };
+  const imageContainerProps = { image };
 
   return (
     <div

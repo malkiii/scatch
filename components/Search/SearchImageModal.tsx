@@ -1,8 +1,6 @@
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 import ImageModal from '../ImageModal';
-import { ModalActions } from '@/types';
-import { ResponseImage } from '@/types';
-import { useBlurhashImage } from '@/hooks/useBlurhashImage';
+import { ResponseImage, ModalActions } from '@/types';
 import { DownloadButton, PhotographerName, SaveButton } from './ImageLayer';
 
 type ImageNavProps = {
@@ -29,11 +27,8 @@ type ModalProps = {
 };
 
 const SearchImageModal: FC<ModalProps> = ({ index, image, modalActions }) => {
-  const imageContainerRef = useRef<HTMLDivElement>(null);
-  useBlurhashImage(imageContainerRef, image.src);
-
   return (
-    <ImageModal key={index} image={image} containerRef={imageContainerRef} actions={modalActions}>
+    <ImageModal key={index} image={image} actions={modalActions}>
       <ImageNavbar image={image} onClick={modalActions.close} />
     </ImageModal>
   );
