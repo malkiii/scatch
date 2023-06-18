@@ -81,9 +81,9 @@ const EditingSection: FC = () => {
         viewport={{ once: true, amount: 0.95 }}
         className="max-w-[550px] text-center lg:text-left"
       >
-        <h2>Upload and Edit the images.</h2>
+        <h2>Edit your the images.</h2>
         <p className="mb-6 text-xl">
-          Upload images to the albums you create, and edit them with many features and filters.
+          You can also edit your album images with Canva that has many features and filters.
         </p>
         <Link href="/search" className="theme-btn">
           Edit some picture
