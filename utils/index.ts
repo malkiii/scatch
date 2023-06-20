@@ -58,3 +58,7 @@ export function getUserProfileRoutes(username: string): ProfileRoutes {
     }
   };
 }
+
+export function getResizedImage(src: string, size: number) {
+  return `${src}?auto=compress&cs=tinysrgb&w=${size}`;
+}

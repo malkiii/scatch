@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import getBlurhash from '@/utils/blurhash';
 import { ContainerRef } from '@/types';
+import { getResizedImage } from '@/utils';
+import getBlurhash from '@/utils/blurhash';
 
 export const useBlurhashImage = (containerRef: ContainerRef, src: string) => {
-  const preloadImageURL = `${src}?auto=compress&cs=tinysrgb&w=4`;
-
   const preloadBlurhashImage = async () => {
-    const blurhash = await getBlurhash(preloadImageURL);
+    const blurhash = await getBlurhash(getResizedImage(src, 4));
     const container = containerRef.current;
     if (container) {
       const image = container.firstElementChild as HTMLImageElement;

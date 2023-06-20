@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
-import { ImageLayer } from './ImageLayer';
-import { default as Img } from 'next/image';
 import { ResponseImage } from '@/types';
+import { ImageLayer } from './ImageLayer';
+import { getResizedImage } from '@/utils';
+import { default as Img } from 'next/image';
 import SearchImageModal from './SearchImageModal';
 import { useModalRoute } from '@/hooks/useModalRoute';
 import { useGridColumnsNumber } from '@/hooks/useGridColumnsNumber';
@@ -35,7 +36,7 @@ type GridImageProps = {
 
 const GridImage: FC<GridImageProps> = props => {
   const { index, image, pathname, hasMobileSize } = props;
-  const imageURL = `${image.src}?auto=compress&cs=tinysrgb&w=940`;
+  const imageURL = getResizedImage(image.src, 940);
 
   const layerProps = {
     image,
