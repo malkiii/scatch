@@ -16,17 +16,20 @@ export const userAlbumRouter = router({
     return await albums.findUnique({ where: { name_userId }, include: { images: true } });
   }),
   getAllAlbums: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
-    return await albums.findMany({ where: { userId }, select: { images: { take: 1 } } });
+    return await albums.findMany({
+      where: { userId },
+      include: { images: { take: 1, select: { src: true } } }
+    });
   }),
-  addNewAlbum: publicProcedure.input(AlbumSchema).query(async ({ input }) => {
+  addNewAlbum: publicProcedure.input(AlbumSchema).mutation(async ({ input }) => {
     const { name, userId } = input;
     return await albums.create({ data: { name, user: { connect: { id: userId } } } });
   }),
-  renameAlbum: publicProcedure.input(AlbumRenameSchema).query(async ({ input }) => {
+  renameAlbum: publicProcedure.input(AlbumRenameSchema).mutation(async ({ input }) => {
     const { name, userId, newName } = input;
     return albums.update({ where: { name_userId: { name, userId } }, data: { name: newName } });
   }),
-  deleteAlbum: publicProcedure.input(AlbumSchema).query(async ({ input: name_userId }) => {
+  deleteAlbum: publicProcedure.input(AlbumSchema).mutation(async ({ input: name_userId }) => {
     return await albums.delete({ where: { name_userId } });
   })
 });

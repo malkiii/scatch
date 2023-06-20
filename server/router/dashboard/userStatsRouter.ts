@@ -11,7 +11,7 @@ const ActivitySchema = z.object({
 });
 
 export const userStatsRouter = router({
-  saveActivity: publicProcedure.input(ActivitySchema).query(async ({ input }) => {
+  saveActivity: publicProcedure.input(ActivitySchema).mutation(async ({ input }) => {
     const { userId, type } = input;
     return await stats.create({ data: { type, user: { connect: { id: userId } } } });
   }),

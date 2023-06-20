@@ -18,7 +18,7 @@ const IdUserIdSchema = z.object({
 });
 
 export const userImageRouter = router({
-  addNewImage: publicProcedure.input(ImageSchema).query(async ({ input }) => {
+  addNewImage: publicProcedure.input(ImageSchema).mutation(async ({ input }) => {
     const { userId, albumName, photographer, ...image } = input;
     return await images.create({
       data: {
@@ -29,13 +29,13 @@ export const userImageRouter = router({
       include: { album: true }
     });
   }),
-  deleteImage: publicProcedure.input(IdUserIdSchema).query(async ({ input: id_userId }) => {
+  deleteImage: publicProcedure.input(IdUserIdSchema).mutation(async ({ input: id_userId }) => {
     return await images.delete({ where: { id_userId } });
   }),
   getAllImages: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
     return await images.findMany({ where: { userId } });
   }),
-  setFavoriteImage: publicProcedure.input(IdUserIdSchema).query(async ({ input: id_userId }) => {
+  setFavoriteImage: publicProcedure.input(IdUserIdSchema).mutation(async ({ input: id_userId }) => {
     return await images.update({ where: { id_userId }, data: { isFavorite: true } });
   }),
   getAllFavoriteImages: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
