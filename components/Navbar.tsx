@@ -5,7 +5,6 @@ import NavbarMenu from './NavbarMenu';
 import AvatarMenu from './AvatarMenu';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
 import { easeExpInOut } from '@malkiii/d3-ease';
 import ColorSchemeButton from './ColorSchemeButton';
 import { useScrollingEvent } from '@/hooks/useScrollingEvent';
@@ -86,7 +85,7 @@ const FixedSearchInput: FC<{ searchQuery: string }> = ({ searchQuery }) => {
   }
 
   return (
-    <div className="ml-[6px] mr-2 flex max-w-2xl items-center gap-x-2">
+    <div className="ml-[6px] mr-2 flex max-w-xl items-center gap-x-2">
       <div className="flex h-full w-full items-center rounded-3xl border-2 border-neutral-500 bg-white/50 px-3 transition-colors focus-within:border-dark dark:bg-dark/50 dark:focus-within:border-white">
         <button onClick={() => triggerTheSearch()} className="transition-colors hover:text-theme">
           <SearchIcon size={22} />
