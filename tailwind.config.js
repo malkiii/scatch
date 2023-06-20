@@ -29,7 +29,8 @@ module.exports = {
         progressbar: '0 0 10px, 0 0 5px'
       },
       gridTemplateColumns: {
-        images: 'repeat(auto-fill, minmax(320px, 1fr))'
+        images: 'repeat(auto-fill, minmax(320px, 1fr))',
+        'album-modal': 'repeat(auto-fill, minmax(200px, 1fr))'
       }
     }
   },
