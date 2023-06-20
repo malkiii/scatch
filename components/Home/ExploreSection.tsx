@@ -2,6 +2,7 @@ import Head from 'next/head';
 import TypeIt from 'typeit-react';
 import { useState, FC } from 'react';
 import { motion } from 'framer-motion';
+import { getResizedImage } from '@/utils';
 import { easeExpOut } from '@malkiii/d3-ease';
 import { searchDemoImages } from '@/data/constants';
 
@@ -57,17 +58,14 @@ const imageVariants = {
   })
 };
 
-const imageURLParams = '?auto=compress&cs=tinysrgb&w=480';
-
 type SearchDemoImagesProps = {
   nameIndex: number;
 };
-
 const SearchDemoImageRender: FC<SearchDemoImagesProps> = ({ nameIndex }) => {
   function getImageUrl(index: number) {
     const imagesPerName = imagesURLs.length / searchNames.length;
     const imageIndex = index + nameIndex * imagesPerName;
-    return imagesURLs[imageIndex] + imageURLParams;
+    return getResizedImage(imagesURLs[imageIndex], 480);
   }
 
   return (
@@ -100,10 +98,9 @@ const SearchDemoImageRender: FC<SearchDemoImagesProps> = ({ nameIndex }) => {
 const ImagePreloader: FC = () => {
   return (
     <Head>
-      {imagesURLs.map((url, index) => {
-        const preloadURL = url + imageURLParams;
-        return <link key={index} rel="preload" as="image" href={preloadURL} />;
-      })}
+      {imagesURLs.map((url, index) => (
+        <link key={index} rel="preload" as="image" href={getResizedImage(url, 480)} />
+      ))}
     </Head>
   );
 };
