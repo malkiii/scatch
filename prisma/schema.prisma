@@ -74,14 +74,14 @@ model VerificationToken {
 }
 
 model Image {
-  id         Int     @unique
+  id         Int
   userId     String  @map("user_id")
   src        String  @db.Text
   avgColor   String  @map("avg_color")
   width      Int
   height     Int
   isFavorite Boolean @default(false) @map("is_favorite")
-  albumName  String
+  albumName  String  @map("album_name")
   user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   album      Album   @relation(fields: [albumName, userId], references: [name, userId], onDelete: Cascade)
 
