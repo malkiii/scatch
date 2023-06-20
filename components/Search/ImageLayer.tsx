@@ -1,9 +1,13 @@
 import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import { cn } from '@/utils';
+import { useRouter } from 'next/router';
 import { ResponseImage } from '@/types';
+import { useSession } from 'next-auth/react';
+import { FC, ReactNode, useState } from 'react';
+import { useAlbumModal } from '@/hooks/useAlbumModal';
+import AlbumModal from '@/components/Dashboard/AlbumModal';
 import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
 import { FaRegHeart as FavoriteOutlineIcon, FaHeart as FavoriteSolidIcon } from 'react-icons/fa';
-import { cn } from '@/utils';
 
 const logoSize = 25;
 function cancelEvents(e: any) {
@@ -12,6 +16,9 @@ function cancelEvents(e: any) {
 
 type WithImage = {
   image: ResponseImage;
+};
+type WithImageAndUserId = WithImage & {
+  userId?: string;
 };
 type WithChildren = {
   children: ReactNode;
@@ -31,27 +38,37 @@ export const PhotographerName: FC<PhotographerNameProps> = props => {
   return <strong className={cn('font-normal', styleClasses)}>By {name}</strong>;
 };
 
-type SaveButtonPros = WithClassName;
-export const SaveButton: FC<SaveButtonPros> = props => {
-  function handleClick(e: any) {
+type SaveButtonPros = {
+  toggleAlbumModal: Function;
+  userId: WithImageAndUserId['userId'];
+} & WithClassName;
+export const SaveButton: FC<SaveButtonPros> = ({ userId, toggleAlbumModal, className }) => {
+  const router = useRouter();
+  async function handleClick(e: any) {
     cancelEvents(e);
-    // add it to an album
+    e.preventDefault();
+    if (!userId) return router.push('/login');
+    toggleAlbumModal();
   }
   return (
-    <a href="" className={cn('image-layer-btn', props.className)} onClick={handleClick}>
+    <button
+      title="Save this image in your album"
+      className={cn('image-layer-btn', className)}
+      onClick={handleClick}
+    >
       <CgMathPlus size={logoSize} />
-    </a>
+    </button>
   );
 };
 
-type FavoriteButtonProps = WithClassName;
-export const FavoriteButton: FC<FavoriteButtonProps> = props => {
+type FavoriteButtonProps = WithImageAndUserId & WithClassName;
+export const FavoriteButton: FC<FavoriteButtonProps> = ({ image, userId, className }) => {
   function handleClick(e: any) {
     cancelEvents(e);
     // make it favorite
   }
   return (
-    <a href="" className={cn('image-layer-btn', props.className)} onClick={handleClick}>
+    <a href="" className={cn('image-layer-btn', className)} onClick={handleClick}>
       <FavoriteOutlineIcon size={logoSize} />
     </a>
   );
@@ -59,15 +76,20 @@ export const FavoriteButton: FC<FavoriteButtonProps> = props => {
 
 type DownloadButtonPops = {
   content: 'text' | 'icon';
-} & WithImage &
+} & WithImageAndUserId &
   WithClassName;
 
 export const DownloadButton: FC<DownloadButtonPops> = props => {
-  const { image, content, className } = props;
+  const { image, userId, content, className } = props;
   const downloadURL = `${image.src}?cs=srgb&dl=scatch-${image.id}.jpg&fm=jpg`;
 
   return (
-    <a href={downloadURL} className={cn('image-layer-btn', className)} onClick={cancelEvents}>
+    <a
+      href={downloadURL}
+      title="Download the image"
+      className={cn('image-layer-btn', className)}
+      onClick={cancelEvents}
+    >
       {content == 'icon' ? <CgSoftwareDownload size={logoSize} /> : 'Download'}
     </a>
   );
@@ -76,38 +98,56 @@ export const DownloadButton: FC<DownloadButtonPops> = props => {
 type LayerProps = {
   linkProps: any;
   hasMobileSize: boolean;
-} & WithImage &
+} & WithImageAndUserId &
   WithChildren;
 
-const InnerImageLayer: FC<LayerProps> = ({ image, linkProps, children }) => {
+const InnerImageLayer: FC<LayerProps> = ({ image, userId, linkProps, children }) => {
+  const { showAlbumModal, albumModalProps, toggleAlbumModal } = useAlbumModal(image, userId!);
   return (
-    <Link {...linkProps} data-test="modal-link" className="relative">
-      {children}
-      <div className="image-layout-cover">
-        <SaveButton className="cs-fixed absolute right-5 top-5" />
-        <div className="absolute bottom-0 flex w-full items-center justify-between p-5">
-          <PhotographerName name={image.photographer} className="text-white" />
-          <DownloadButton image={image} content="icon" className="cs-fixed" />
+    <AlbumModal show={showAlbumModal} toggle={toggleAlbumModal} {...albumModalProps}>
+      <Link {...linkProps} data-test="modal-link" className="relative">
+        {children}
+        <div className="image-layout-cover">
+          <SaveButton
+            {...albumModalProps}
+            toggleAlbumModal={toggleAlbumModal}
+            className="cs-fixed absolute right-5 top-5"
+          />
+          <div className="absolute bottom-0 flex w-full items-center justify-between p-5">
+            <PhotographerName name={image.photographer} className="text-white" />
+            <DownloadButton {...albumModalProps} content="icon" className="cs-fixed" />
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </AlbumModal>
   );
 };
 
-const OuterImageLayer: FC<LayerProps> = ({ image, children }) => {
+const OuterImageLayer: FC<LayerProps> = ({ image, userId, children }) => {
+  const { showAlbumModal, albumModalProps, toggleAlbumModal } = useAlbumModal(image, userId!);
   return (
-    <div key={image.id}>
-      <PhotographerName name={image.photographer} className="block py-3 pl-1 text-white" />
-      {children}
-      <div className="flex w-full items-center justify-between px-2 pt-3">
-        <SaveButton className="cs-change" />
-        <DownloadButton image={image} content="text" className="cs-change" />
+    <AlbumModal show={showAlbumModal} toggle={toggleAlbumModal} {...albumModalProps}>
+      <div key={image.id}>
+        <PhotographerName name={image.photographer} className="block py-3 pl-1 text-white" />
+        {children}
+        <div className="flex w-full items-center justify-between px-2 pt-3">
+          <SaveButton
+            {...albumModalProps}
+            toggleAlbumModal={toggleAlbumModal}
+            className="cs-change"
+          />
+          <DownloadButton {...albumModalProps} content="text" className="cs-change" />
+        </div>
       </div>
-    </div>
+    </AlbumModal>
   );
 };
 
 export const ImageLayer: FC<LayerProps> = props => {
-  if (props.hasMobileSize) return <OuterImageLayer {...props} />;
-  return <InnerImageLayer {...props} />;
+  const { data: session } = useSession();
+  return props.hasMobileSize ? (
+    <OuterImageLayer userId={session?.user.id} {...props} />
+  ) : (
+    <InnerImageLayer userId={session?.user.id} {...props} />
+  );
 };

@@ -9,6 +9,12 @@
   body {
     @apply overflow-x-hidden font-monsterrat text-dark transition-colors dark:bg-dark dark:text-white;
   }
+  :not(body)::-webkit-scrollbar {
+    @apply w-2 bg-transparent;
+  }
+  :not(body)::-webkit-scrollbar-thumb {
+    @apply rounded-3xl bg-dark hover:bg-dark/90 dark:bg-white dark:hover:bg-white/90;
+  }
   body::-webkit-scrollbar {
     @apply w-4 bg-neutral-100 dark:bg-neutral-900;
   }

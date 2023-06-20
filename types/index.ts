@@ -2,12 +2,13 @@ import { z } from 'zod';
 import { NextPage, NextComponentType } from 'next';
 import { ReactElement, ReactNode, RefObject } from 'react';
 import { AppContext, AppInitialProps, AppProps } from 'next/app';
+import { Session } from 'next-auth';
+import { Album } from '@prisma/client';
 import {
   ResponseImageSchema,
   ImageAPIRequestQuerySchema,
   ImagePageSchema
 } from '@/utils/validation';
-import { Session } from 'next-auth';
 
 export type AppType = NextComponentType<AppContext, AppInitialProps, AppProps>;
 
@@ -54,3 +55,9 @@ export type WithFormError = {
 
 export type ImageAPIRequestQuery = z.infer<typeof ImageAPIRequestQuerySchema>;
 export type ImagePage = z.infer<typeof ImagePageSchema>;
+
+export type UserAlbumThumbnail = Album & {
+  images: {
+    src: string;
+  }[];
+};
