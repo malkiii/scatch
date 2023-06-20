@@ -1,6 +1,20 @@
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
 import type { AppRouter } from '@/server/router';
+import type { QueryClientConfig } from '@tanstack/react-query';
+
+const queryClientConfig: QueryClientConfig = {
+  defaultOptions: {
+    mutations: {
+      retry: false
+    },
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: false
+    }
+  }
+};
 
 export const trpc = createTRPCNext<AppRouter>({
   config(opts) {
@@ -12,7 +26,8 @@ export const trpc = createTRPCNext<AppRouter>({
           httpBatchLink({
             url: '/api/trpc'
           })
-        ]
+        ],
+        queryClientConfig
       };
     }
 
@@ -35,7 +50,8 @@ export const trpc = createTRPCNext<AppRouter>({
             return headers;
           }
         })
-      ]
+      ],
+      queryClientConfig
     };
   },
   ssr: false
