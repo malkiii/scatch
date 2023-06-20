@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { db } from '@/server/db/client';
+import { TRPCError } from '@trpc/server';
 import { router, publicProcedure } from '@/server/trpc';
 
 const albums = db.album;
@@ -23,7 +24,11 @@ export const userAlbumRouter = router({
   }),
   addNewAlbum: publicProcedure.input(AlbumSchema).mutation(async ({ input }) => {
     const { name, userId } = input;
-    return await albums.create({ data: { name, user: { connect: { id: userId } } } });
+    try {
+      return await albums.create({ data: { name, user: { connect: { id: userId } } } });
+    } catch (error) {
+      throw new TRPCError({ code: 'UNPROCESSABLE_CONTENT', message: 'Already exists!' });
+    }
   }),
   renameAlbum: publicProcedure.input(AlbumRenameSchema).mutation(async ({ input }) => {
     const { name, userId, newName } = input;

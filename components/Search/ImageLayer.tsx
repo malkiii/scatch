@@ -95,59 +95,65 @@ export const DownloadButton: FC<DownloadButtonPops> = props => {
   );
 };
 
+type SubLayerProps = WithImageAndUserId &
+  WithChildren & {
+    linkProps?: LayerProps['linkProps'];
+    toggleAlbumModal: Function;
+  };
+const InnerImageLayer: FC<SubLayerProps> = props => {
+  const { image, userId, toggleAlbumModal, linkProps, children } = props;
+  const buttonProps = { userId, image, toggleAlbumModal };
+  return (
+    <Link {...linkProps} data-test="modal-link" className="relative">
+      {children}
+      <div className="image-layout-cover">
+        <SaveButton
+          {...buttonProps}
+          toggleAlbumModal={toggleAlbumModal}
+          className="cs-fixed absolute right-5 top-5"
+        />
+        <div className="absolute bottom-0 flex w-full items-center justify-between p-5">
+          <PhotographerName name={image.photographer} className="text-white" />
+          <DownloadButton {...buttonProps} content="icon" className="cs-fixed" />
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+const OuterImageLayer: FC<SubLayerProps> = ({ image, userId, toggleAlbumModal, children }) => {
+  const buttonProps = { userId, image, toggleAlbumModal };
+  return (
+    <div key={image.id}>
+      <PhotographerName name={image.photographer} className="block py-3 pl-1 text-white" />
+      {children}
+      <div className="flex w-full items-center justify-between px-2 pt-3">
+        <SaveButton {...buttonProps} className="cs-change" />
+        <DownloadButton {...buttonProps} content="text" className="cs-change" />
+      </div>
+    </div>
+  );
+};
+
 type LayerProps = {
   linkProps: any;
   hasMobileSize: boolean;
 } & WithImageAndUserId &
   WithChildren;
-
-const InnerImageLayer: FC<LayerProps> = ({ image, userId, linkProps, children }) => {
-  const { showAlbumModal, albumModalProps, toggleAlbumModal } = useAlbumModal(image, userId!);
-  return (
-    <AlbumModal show={showAlbumModal} toggle={toggleAlbumModal} {...albumModalProps}>
-      <Link {...linkProps} data-test="modal-link" className="relative">
-        {children}
-        <div className="image-layout-cover">
-          <SaveButton
-            {...albumModalProps}
-            toggleAlbumModal={toggleAlbumModal}
-            className="cs-fixed absolute right-5 top-5"
-          />
-          <div className="absolute bottom-0 flex w-full items-center justify-between p-5">
-            <PhotographerName name={image.photographer} className="text-white" />
-            <DownloadButton {...albumModalProps} content="icon" className="cs-fixed" />
-          </div>
-        </div>
-      </Link>
-    </AlbumModal>
-  );
-};
-
-const OuterImageLayer: FC<LayerProps> = ({ image, userId, children }) => {
-  const { showAlbumModal, albumModalProps, toggleAlbumModal } = useAlbumModal(image, userId!);
-  return (
-    <AlbumModal show={showAlbumModal} toggle={toggleAlbumModal} {...albumModalProps}>
-      <div key={image.id}>
-        <PhotographerName name={image.photographer} className="block py-3 pl-1 text-white" />
-        {children}
-        <div className="flex w-full items-center justify-between px-2 pt-3">
-          <SaveButton
-            {...albumModalProps}
-            toggleAlbumModal={toggleAlbumModal}
-            className="cs-change"
-          />
-          <DownloadButton {...albumModalProps} content="text" className="cs-change" />
-        </div>
-      </div>
-    </AlbumModal>
-  );
-};
-
 export const ImageLayer: FC<LayerProps> = props => {
   const { data: session } = useSession();
-  return props.hasMobileSize ? (
-    <OuterImageLayer userId={session?.user.id} {...props} />
-  ) : (
-    <InnerImageLayer userId={session?.user.id} {...props} />
+  const userId = session?.user.id;
+  const { image, linkProps, children } = props;
+  const { showAlbumModal, albumModalProps, toggleAlbumModal } = useAlbumModal(image, userId!);
+
+  const layerProps = { userId, image, linkProps, toggleAlbumModal, children };
+  return (
+    <AlbumModal show={showAlbumModal} toggle={toggleAlbumModal} {...albumModalProps}>
+      {props.hasMobileSize ? (
+        <OuterImageLayer {...layerProps} />
+      ) : (
+        <InnerImageLayer {...layerProps} />
+      )}
+    </AlbumModal>
   );
 };

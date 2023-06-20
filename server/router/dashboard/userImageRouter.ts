@@ -1,16 +1,16 @@
 import { z } from 'zod';
 import { db } from '@/server/db/client';
+import { TRPCError } from '@trpc/server';
 import { router, publicProcedure } from '@/server/trpc';
 import { ResponseImageSchema } from '@/utils/validation';
 
 const images = db.image;
 
-const ImageSchema = ResponseImageSchema.merge(
-  z.object({
-    userId: z.string(),
-    albumName: z.string()
-  })
-);
+const ImageSchema = z.object({
+  userId: z.string(),
+  albumName: z.string(),
+  image: ResponseImageSchema
+});
 
 const IdUserIdSchema = z.object({
   id: z.number(),
@@ -19,15 +19,20 @@ const IdUserIdSchema = z.object({
 
 export const userImageRouter = router({
   addNewImage: publicProcedure.input(ImageSchema).mutation(async ({ input }) => {
-    const { userId, albumName, photographer, ...image } = input;
-    return await images.create({
-      data: {
-        ...image,
-        user: { connect: { id: userId } },
-        album: { connect: { name_userId: { name: albumName, userId } } }
-      },
-      include: { album: true }
-    });
+    const { userId, albumName, image } = input;
+    const { photographer, ...userImage } = image;
+    try {
+      return await images.create({
+        data: {
+          ...userImage,
+          user: { connect: { id: userId } },
+          album: { connect: { name_userId: { name: albumName, userId } } }
+        },
+        include: { album: true }
+      });
+    } catch (error) {
+      return { error };
+    }
   }),
   deleteImage: publicProcedure.input(IdUserIdSchema).mutation(async ({ input: id_userId }) => {
     return await images.delete({ where: { id_userId } });
