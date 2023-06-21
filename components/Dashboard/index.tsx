@@ -1,43 +1,53 @@
 import { FC } from 'react';
+import Head from 'next/head';
 import { User } from 'next-auth';
+import UserStatsPage from './UserStatsPage';
 import UserImagesPage from './UserImagesPage';
 import UserAlbumsPage from './UserAlbumsPage';
 import UserFavoritePage from './UserFavoritePage';
-import UserStatsPage from './UserStatsPage';
 import { WithRouterProps } from 'next/dist/client/with-router';
-import Head from 'next/head';
 
 function getPageTitle(name: string) {
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
   return `${capitalizedName} | Scatch`;
 }
 
+export type UserPageProps = {
+  user: User;
+  pathname: string;
+};
+
 export type DashboardPageRoute = 'images' | 'albums' | 'favorite' | 'stats';
 export type DashboardPageProps = {
   user: User;
   initialPageRoute: DashboardPageRoute | null;
 };
-const DashboardPages: FC<DashboardPageProps & WithRouterProps> = props => {
-  const { user, initialPageRoute, router } = props;
-  const route: DashboardPageRoute = (router.query.route as any) || initialPageRoute || 'images';
+
+type DashboardPagesProps = DashboardPageProps &
+  WithRouterProps & {
+    currentPageRoute: DashboardPageProps['initialPageRoute'];
+  };
+const DashboardPages: FC<DashboardPagesProps> = props => {
+  const { user, initialPageRoute, currentPageRoute, router } = props;
+  const pageProps = { user, pathname: router.asPath };
 
   function getDashboardPage() {
-    switch (route) {
+    switch (currentPageRoute || initialPageRoute || 'images') {
       case 'images':
-        return <UserImagesPage user={user} />;
+        return <UserImagesPage {...pageProps} />;
       case 'albums':
-        return <UserAlbumsPage user={user} />;
+        return <UserAlbumsPage {...pageProps} />;
       case 'favorite':
-        return <UserFavoritePage user={user} />;
+        return <UserFavoritePage {...pageProps} />;
       case 'stats':
-        return <UserStatsPage user={user} />;
+        return <UserStatsPage {...pageProps} />;
     }
   }
 
   return (
     <>
       <Head>
-        <title>{getPageTitle(route || (user.name as string))}</title>
+        <title>{getPageTitle(currentPageRoute || (user.name as string))}</title>
       </Head>
       {getDashboardPage()}
     </>

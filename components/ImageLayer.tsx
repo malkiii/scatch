@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { FC, ReactNode, useState } from 'react';
 import { useAlbumModal } from '@/hooks/useAlbumModal';
 import AlbumModal from '@/components/Dashboard/AlbumModal';
+import { Image as UserImage } from '@prisma/client';
 import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
 import { FaRegHeart as FavoriteOutlineIcon, FaHeart as FavoriteSolidIcon } from 'react-icons/fa';
 
@@ -14,8 +15,12 @@ function cancelEvents(e: any) {
   e.stopPropagation();
 }
 
+function isUserImage(image: any): image is UserImage {
+  return 'albumName' in image;
+}
+
 type WithImage = {
-  image: ResponseImage;
+  image: ResponseImage | UserImage;
 };
 type WithImageAndUserId = WithImage & {
   userId?: string;
@@ -27,15 +32,12 @@ type WithClassName = {
   className?: string;
 };
 
-type PhotographerNameProps = {
-  name: string;
+type ImageTitleProps = {
+  title: string;
 } & WithClassName;
 
-export const PhotographerName: FC<PhotographerNameProps> = props => {
-  const { name, className } = props;
-  const styleClasses = className || '';
-
-  return <strong className={cn('font-normal', styleClasses)}>By {name}</strong>;
+export const ImageTitle: FC<ImageTitleProps> = ({ title, className }) => {
+  return <strong className={cn('font-normal', className)}>{title}</strong>;
 };
 
 type SaveButtonPros = {
@@ -98,22 +100,24 @@ export const DownloadButton: FC<DownloadButtonPops> = props => {
 type SubLayerProps = WithImageAndUserId &
   WithChildren & {
     linkProps?: LayerProps['linkProps'];
-    toggleAlbumModal: Function;
+    toggleAlbumModal?: Function;
   };
 const InnerImageLayer: FC<SubLayerProps> = props => {
   const { image, userId, toggleAlbumModal, linkProps, children } = props;
-  const buttonProps = { userId, image, toggleAlbumModal };
+  const buttonProps = { userId, image, toggleAlbumModal: toggleAlbumModal! };
+  const buttonClassName = 'cs-fixed absolute right-5 top-5';
+  const title = isUserImage(image) ? image.albumName : image.photographer;
   return (
     <Link {...linkProps} data-test="modal-link" className="relative">
       {children}
       <div className="image-layout-cover">
-        <SaveButton
-          {...buttonProps}
-          toggleAlbumModal={toggleAlbumModal}
-          className="cs-fixed absolute right-5 top-5"
-        />
+        {isUserImage(image) ? (
+          <FavoriteButton {...buttonProps} className={buttonClassName} />
+        ) : (
+          <SaveButton {...buttonProps} className={buttonClassName} />
+        )}
         <div className="absolute bottom-0 flex w-full items-center justify-between p-5">
-          <PhotographerName name={image.photographer} className="text-white" />
+          <ImageTitle title={title} className="text-white" />
           <DownloadButton {...buttonProps} content="icon" className="cs-fixed" />
         </div>
       </div>
@@ -122,13 +126,19 @@ const InnerImageLayer: FC<SubLayerProps> = props => {
 };
 
 const OuterImageLayer: FC<SubLayerProps> = ({ image, userId, toggleAlbumModal, children }) => {
-  const buttonProps = { userId, image, toggleAlbumModal };
+  const buttonProps = { userId, image, toggleAlbumModal: toggleAlbumModal! };
+  const title = isUserImage(image) ? image.albumName : image.photographer;
+  const buttonClassName = 'cs-change';
   return (
     <div key={image.id}>
-      <PhotographerName name={image.photographer} className="block py-3 pl-1 text-white" />
+      <ImageTitle title={title} className="block py-3 pl-1 text-white" />
       {children}
       <div className="flex w-full items-center justify-between px-2 pt-3">
-        <SaveButton {...buttonProps} className="cs-change" />
+        {isUserImage(image) ? (
+          <FavoriteButton {...buttonProps} className={buttonClassName} />
+        ) : (
+          <SaveButton {...buttonProps} className={buttonClassName} />
+        )}
         <DownloadButton {...buttonProps} content="text" className="cs-change" />
       </div>
     </div>
@@ -144,16 +154,18 @@ export const ImageLayer: FC<LayerProps> = props => {
   const { data: session } = useSession();
   const userId = session?.user.id;
   const { image, linkProps, children } = props;
+
+  const layerProps = { userId, image, linkProps, children };
+  const imageLayer = (layerProps: any) =>
+    props.hasMobileSize ? <OuterImageLayer {...layerProps} /> : <InnerImageLayer {...layerProps} />;
+
+  if ('albumName' in image) return imageLayer(layerProps);
+
   const { showAlbumModal, albumModalProps, toggleAlbumModal } = useAlbumModal(image, userId!);
 
-  const layerProps = { userId, image, linkProps, toggleAlbumModal, children };
   return (
     <AlbumModal show={showAlbumModal} toggle={toggleAlbumModal} {...albumModalProps}>
-      {props.hasMobileSize ? (
-        <OuterImageLayer {...layerProps} />
-      ) : (
-        <InnerImageLayer {...layerProps} />
-      )}
+      {imageLayer({ ...layerProps, toggleAlbumModal })}
     </AlbumModal>
   );
 };

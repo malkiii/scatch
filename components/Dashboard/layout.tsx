@@ -30,16 +30,14 @@ const EditProfileLink: FC = () => {
 
 type LayoutProps = DashboardPageProps &
   WithRouterProps & {
+    currentPageRoute: DashboardPageRoute;
+    userProfileRoute: string;
     children: ReactNode;
   };
-const DashboardLayout: FC<LayoutProps> = ({ user, initialPageRoute, router, children }) => {
+const DashboardLayout: FC<LayoutProps> = props => {
+  const { user, userProfileRoute, currentPageRoute, children } = props;
   const { name, email, image } = user;
 
-  // for /[username]/[route]
-  const { username, route } = router.query;
-
-  const userProfileRoute = '/' + username;
-  const currentPageRoute: DashboardPageRoute = (route as any) || initialPageRoute || 'images';
   return (
     <>
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-10 px-4 py-20 text-center md:flex-row">
