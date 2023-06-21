@@ -63,6 +63,8 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
   function moveTrailerBorder() {
     const navbar = navbarRef.current!;
     const routes = dashboardNavPages.map(({ name }) => name);
+    if (!routes.includes(currentPageRoute)) return;
+
     const firstLink: HTMLAnchorElement = navbar.querySelector(
       `a:nth-child(${routes.indexOf(firstRoute) + 1})`
     )!;
@@ -81,7 +83,7 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
   return (
     <div
       ref={navbarRef}
-      className="sticky top-[64px] border-b border-neutral-600 transition-colors"
+      className="sticky top-[64px] z-[900] border-b border-neutral-600 transition-colors"
     >
       <div className="relatvie mx-auto max-w-7xl" style={trailerBorderStyle as any}>
         <ul className="flex items-center gap-x-5 text-neutral-600 transition-all duration-200">

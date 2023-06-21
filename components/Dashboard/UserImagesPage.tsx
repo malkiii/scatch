@@ -1,7 +1,16 @@
-import { FC } from 'react';
-import { DashboardPageProps } from '.';
+import { FC, useState } from 'react';
+import { UserPageProps } from '.';
+import { trpc } from '@/utils/trpc';
+import ImageGridLayout from '../ImageGridLayout';
 
-const UserImagesPage: FC<{ user: DashboardPageProps['user'] }> = ({ user }) => {
-  return <div className="w-full p-4 text-4xl">Images</div>;
+const UserImagesPage: FC<UserPageProps> = ({ user, pathname }) => {
+  const [currentPathname] = useState<string>(pathname);
+  const { data } = trpc.getAllImages.useQuery(user.id);
+
+  return (
+    <div className="main-container my-5">
+      <ImageGridLayout images={data || []} pagePath={currentPathname} />
+    </div>
+  );
 };
 export default UserImagesPage;

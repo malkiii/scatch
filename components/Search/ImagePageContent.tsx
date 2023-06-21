@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useAlbumModal } from '@/hooks/useAlbumModal';
 import AlbumModal from '@/components/Dashboard/AlbumModal';
 import { useBlurhashImage } from '@/hooks/useBlurhashImage';
-import { SaveButton, DownloadButton, PhotographerName } from '@/components/Search/ImageLayer';
+import { SaveButton, DownloadButton, ImageTitle } from '@/components/ImageLayer';
 
 const ImageNavbar: FC<{ image: ResponseImage }> = ({ image }) => {
   const { data: session } = useSession();
@@ -15,8 +15,8 @@ const ImageNavbar: FC<{ image: ResponseImage }> = ({ image }) => {
   return (
     <AlbumModal show={showAlbumModal} toggle={toggleAlbumModal} {...albumModalProps}>
       <div className="flex items-center justify-between pb-5">
-        <PhotographerName
-          name={image.photographer}
+        <ImageTitle
+          title={image.photographer}
           className="text-2xl font-bold text-dark dark:text-white"
         />
         <div className="flex items-center gap-3">
