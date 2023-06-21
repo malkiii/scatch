@@ -5,6 +5,7 @@ import { getCurrentSession } from '@/utils/session';
 import DashboardLayout from '@/components/Dashboard/layout';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import DashboardPages, { DashboardPageProps, DashboardPageRoute } from '@/components/Dashboard';
+import { useEffect, useState } from 'react';
 
 const validRoutes: DashboardPageRoute[] = ['images', 'albums', 'favorite', 'stats'];
 
@@ -30,11 +31,23 @@ export const getServerSideProps: GetServerSideProps<DashboardPageProps> = async 
 type DashboardPageType = NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>>;
 const DashboardPage: DashboardPageType = props => {
   const router = useRouter();
+  const { username, route } = router.query;
+  const [currentRoute, setCurrentRoute] = useState(route as DashboardPageRoute | null);
   const componentProps = { ...props, router };
 
+  useEffect(() => {
+    const { route } = router.query;
+    if (!validRoutes.includes(route as any)) return;
+    setCurrentRoute(route as DashboardPageRoute);
+  }, [router]);
+
   return (
-    <DashboardLayout {...componentProps}>
-      <DashboardPages {...componentProps} />
+    <DashboardLayout
+      {...componentProps}
+      userProfileRoute={'/' + username}
+      currentPageRoute={currentRoute || 'images'}
+    >
+      <DashboardPages {...componentProps} currentPageRoute={currentRoute} />
     </DashboardLayout>
   );
 };
