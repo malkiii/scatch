@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import DashboardNav from './Navbar';
 import { FC, ReactNode } from 'react';
+import { WithRouterProps } from 'next/dist/client/with-router';
+import Link from 'next/link';
 import { MdEdit as EditIcon } from 'react-icons/md';
 import { DashboardPageProps, DashboardPageRoute } from '.';
-import { WithRouterProps } from 'next/dist/client/with-router';
+import DashboardNav from './Navbar';
 
 function resizeAvatar(avatarSrc?: string | null) {
   if (!avatarSrc) return null;

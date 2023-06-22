@@ -1,18 +1,18 @@
-import Link from 'next/link';
-import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
-import NavbarMenu from './NavbarMenu';
-import AvatarMenu from './AvatarMenu';
-import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { easeExpInOut } from '@malkiii/d3-ease';
-import ColorSchemeButton from './ColorSchemeButton';
-import { useScrollingEvent } from '@/hooks/useScrollingEvent';
+import { motion } from 'framer-motion';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
-import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 import { MdClear as ClearIcon } from 'react-icons/md';
-import { cn, getUserProfileRoutes } from '@/utils';
 import { AppPropsWithLayout } from '@/types';
+import { cn, getUserProfileRoutes } from '@/utils';
+import { useScrollingEvent } from '@/hooks/useScrollingEvent';
+import { useSearchTrigger } from '@/hooks/useSearchTrigger';
+import AvatarMenu from './AvatarMenu';
+import ColorSchemeButton from './ColorSchemeButton';
+import NavbarMenu from './NavbarMenu';
 
 // animation variants
 const transition = {

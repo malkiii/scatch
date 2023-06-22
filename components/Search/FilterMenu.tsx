@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import OptionMenu from '../OptionMenu';
 import { BsAspectRatio } from 'react-icons/bs';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { useToggleMenu } from '@/hooks/useToggleMenu';
 import { ImageAPIRequestQuery } from '@/types';
 import { cn } from '@/utils';
+import { useToggleMenu } from '@/hooks/useToggleMenu';
+import OptionMenu from '../OptionMenu';
 
 type FilterButtonProps = {
   isOpen: boolean;

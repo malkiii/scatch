@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { useRouter } from 'next/router';
-import { ResponseImage } from '@/types';
-import { ImageLayer } from './ImageLayer';
-import { getResizedImage } from '@/utils';
 import { default as Img } from 'next/image';
-import SearchImageModal from './Search/SearchImageModal';
+import { useRouter } from 'next/router';
+import { Image as UserImage } from '@prisma/client';
+import { ResponseImage } from '@/types';
+import { getResizedImage } from '@/utils';
+import { useGridColumnsNumber } from '@/hooks/useGridColumnsNumber';
 import { useModalRoute } from '@/hooks/useModalRoute';
 import DashboardImageModal from './Dashboard/DashboardImageModal';
-import { useGridColumnsNumber } from '@/hooks/useGridColumnsNumber';
-import { Image as UserImage } from '@prisma/client';
+import { ImageLayer } from './ImageLayer';
+import SearchImageModal from './Search/SearchImageModal';
 
 type GridImageProps = {
   index: number;

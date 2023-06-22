@@ -1,5 +1,5 @@
-import { ResponseImage } from '@/types';
 import { useState } from 'react';
+import { ResponseImage } from '@/types';
 
 function disableScrolling(ok: boolean) {
   const bodyClasses = document.body.classList;

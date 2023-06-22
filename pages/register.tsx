@@ -1,8 +1,8 @@
-import Head from 'next/head';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
-import SignUpForm from '@/components/Forms/SignUpForm';
 import { ScatchMark } from '@/components/Forms/FormItems';
+import SignUpForm from '@/components/Forms/SignUpForm';
 
 const RegisterPage: NextPage = () => {
   return (

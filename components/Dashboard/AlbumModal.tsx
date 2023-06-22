@@ -1,13 +1,13 @@
+import { FC, ReactNode, useRef, useState } from 'react';
 import Image from 'next/image';
-import { trpc } from '@/utils/trpc';
+import { AnimatePresence, motion } from 'framer-motion';
 import { createPortal } from 'react-dom';
-import { cn, getResizedImage } from '@/utils';
-import { ErrorMessage } from '../Forms/FormItems';
-import { FC, useRef, useState, ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ResponseImage, UserAlbumThumbnail } from '@/types';
-import { SpinnerAnimation, PulseAnimation } from '../Loading';
 import { AiFillPlusCircle as PlusIcon } from 'react-icons/ai';
+import { ResponseImage, UserAlbumThumbnail } from '@/types';
+import { cn, getResizedImage } from '@/utils';
+import { trpc } from '@/utils/trpc';
+import { ErrorMessage } from '../Forms/FormItems';
+import { PulseAnimation, SpinnerAnimation } from '../Loading';
 
 type AlbumThumbnailProps = {
   thumbnail: UserAlbumThumbnail;

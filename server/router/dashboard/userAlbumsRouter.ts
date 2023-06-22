@@ -1,7 +1,7 @@
-import { z } from 'zod';
 import { db } from '@/server/db/client';
+import { publicProcedure, router } from '@/server/trpc';
 import { TRPCError } from '@trpc/server';
-import { router, publicProcedure } from '@/server/trpc';
+import { z } from 'zod';
 
 const albums = db.album;
 

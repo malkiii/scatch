@@ -1,7 +1,7 @@
-import { z } from 'zod';
 import { db } from '@/server/db/client';
+import { publicProcedure, router } from '@/server/trpc';
 import { ActivityType } from '@prisma/client';
-import { router, publicProcedure } from '@/server/trpc';
+import { z } from 'zod';
 
 const stats = db.activity;
 

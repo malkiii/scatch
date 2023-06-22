@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 
 const progressVariants: Variants = {

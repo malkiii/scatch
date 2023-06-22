@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useForm } from '@/hooks/useForm';
 import { LoginFormData, WithFormError } from '@/types';
-import { AuthProviders, SubmitButton, VerticalLine, ErrorMessage } from './FormItems';
 import { cn } from '@/utils';
+import { useForm } from '@/hooks/useForm';
+import { AuthProviders, ErrorMessage, SubmitButton, VerticalLine } from './FormItems';
 
 type CredentialInputsProps = {
   data: LoginFormData & WithFormError;

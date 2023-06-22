@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { FC, ReactElement, ReactNode, Children } from 'react';
+import { Children, FC, ReactElement, ReactNode } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/utils';
 
 const transition = { type: 'tween', duration: 0.1 };

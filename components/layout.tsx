@@ -1,11 +1,11 @@
-import Head from 'next/head';
-import Navbar from './Navbar';
-import Footer from './Footer';
 import { FC, ReactNode } from 'react';
-import { useTheme } from 'next-themes';
-import Progressbar from './Progressbar';
-import { AppPropsWithLayout } from '@/types';
 import { WithRouterProps } from 'next/dist/client/with-router';
+import Head from 'next/head';
+import { useTheme } from 'next-themes';
+import { AppPropsWithLayout } from '@/types';
+import Footer from './Footer';
+import Navbar from './Navbar';
+import Progressbar from './Progressbar';
 
 const WithNavbarAndFooter: FC<layoutProps> = ({ session, children }) => {
   return (

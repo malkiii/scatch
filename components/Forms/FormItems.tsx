@@ -1,12 +1,12 @@
+import { FC, ReactNode, useState } from 'react';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
-import { SpinnerAnimation } from '../Loading';
 import { renderToString } from 'react-dom/server';
-import { FcGoogle as GoogleIcon } from 'react-icons/fc';
-import { FC, ReactNode, useState } from 'react';
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
+import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { IoIosWarning as WarningIcon } from 'react-icons/io';
 import { cn } from '@/utils';
+import { SpinnerAnimation } from '../Loading';
 
 type MarkProps = {
   className?: string;

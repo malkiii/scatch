@@ -1,11 +1,11 @@
 import { FC } from 'react';
+import { WithRouterProps } from 'next/dist/client/with-router';
 import Head from 'next/head';
 import { User } from 'next-auth';
-import UserStatsPage from './UserStatsPage';
-import UserImagesPage from './UserImagesPage';
 import UserAlbumsPage from './UserAlbumsPage';
 import UserFavoritePage from './UserFavoritePage';
-import { WithRouterProps } from 'next/dist/client/with-router';
+import UserImagesPage from './UserImagesPage';
+import UserStatsPage from './UserStatsPage';
 
 function getPageTitle(name: string) {
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);

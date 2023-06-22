@@ -1,7 +1,7 @@
-import { httpBatchLink } from '@trpc/client';
-import { createTRPCNext } from '@trpc/next';
 import type { AppRouter } from '@/server/router';
 import type { QueryClientConfig } from '@tanstack/react-query';
+import { httpBatchLink } from '@trpc/client';
+import { createTRPCNext } from '@trpc/next';
 
 const queryClientConfig: QueryClientConfig = {
   defaultOptions: {

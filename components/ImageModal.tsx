@@ -1,12 +1,12 @@
-import { cn } from '@/utils';
-import Image from 'next/image';
-import { ModalActions, ModalImage } from '@/types';
-import { useBlurhashImage } from '@/hooks/useBlurhashImage';
 import { CSSProperties, FC, ReactNode, useRef, useState } from 'react';
+import Image from 'next/image';
 import {
-  IoIosArrowDroprightCircle as RightArrow,
-  IoIosArrowDropleftCircle as LeftArrow
+  IoIosArrowDropleftCircle as LeftArrow,
+  IoIosArrowDroprightCircle as RightArrow
 } from 'react-icons/io';
+import { ModalActions, ModalImage } from '@/types';
+import { cn } from '@/utils';
+import { useBlurhashImage } from '@/hooks/useBlurhashImage';
 
 type LoadedImageProps = {
   image: ModalImage;

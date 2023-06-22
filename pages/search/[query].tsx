@@ -1,14 +1,15 @@
-import Head from 'next/head';
 import { FC, useState } from 'react';
-import { caller } from '@/server/router';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { WithRouterProps } from 'next/dist/client/with-router';
+import Head from 'next/head';
 import { withRouter } from 'next/router';
-import { PulseAnimation } from '@/components/Loading';
+import { caller } from '@/server/router';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';
+import ImageGridLayout from '@/components/ImageGridLayout';
+import { PulseAnimation } from '@/components/Loading';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { FilterMenu, ImageGridLayout, SearchInput } from '@/components/Search';
-import { WithRouterProps } from 'next/dist/client/with-router';
+import { FilterMenu, SearchInput } from '@/components/Search';
 
 type RouteQuery = {
   query: string;
@@ -83,7 +84,7 @@ export default withRouter(
           <title>{title}</title>
         </Head>
         <SearchInput value={searchKeyword} />
-        <div className="main-container bg-cs-change my-7 rounded-3xl py-4">
+        <div className="main-container">
           {hasResults ? (
             <>
               <div className="mb-5 flex w-full items-center justify-between px-2 md:px-4">

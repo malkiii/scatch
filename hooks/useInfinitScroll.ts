@@ -1,7 +1,7 @@
-import { trpc } from '@/utils/trpc';
-import { useScrollingEvent } from './useScrollingEvent';
 import { useEffect } from 'react';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
+import { trpc } from '@/utils/trpc';
+import { useScrollingEvent } from './useScrollingEvent';
 
 type FetchConfigs = {
   requestQuery: ImageAPIRequestQuery;

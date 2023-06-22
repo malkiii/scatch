@@ -1,11 +1,10 @@
-import { signUp } from '@/utils';
-import { FC, useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useForm } from '@/hooks/useForm';
+import { FC, useState } from 'react';
+import { BiHide as HideIcon, BiShow as ShowIcon } from 'react-icons/bi';
 import { SignUpFormData, WithFormError } from '@/types';
+import { cn, signUp } from '@/utils';
+import { useForm } from '@/hooks/useForm';
 import { AuthProviders, ErrorMessage, SubmitButton, VerticalLine } from './FormItems';
-import { BiShow as ShowIcon, BiHide as HideIcon } from 'react-icons/bi';
-import { cn } from '@/utils';
 
 type CredentialInputsProps = {
   data: SignUpFormData & WithFormError;

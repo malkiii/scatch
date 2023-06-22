@@ -1,10 +1,10 @@
+import { FC, useState } from 'react';
 import Head from 'next/head';
-import TypeIt from 'typeit-react';
-import { useState, FC } from 'react';
-import { motion } from 'framer-motion';
-import { getResizedImage } from '@/utils';
-import { easeExpOut } from '@malkiii/d3-ease';
 import { searchDemoImages } from '@/data/constants';
+import { easeExpOut } from '@malkiii/d3-ease';
+import { motion } from 'framer-motion';
+import TypeIt from 'typeit-react';
+import { getResizedImage } from '@/utils';
 
 const searchNames = Object.keys(searchDemoImages);
 const imagesURLs = new Array<string>().concat(...Object.values(searchDemoImages));

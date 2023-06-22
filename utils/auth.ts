@@ -1,10 +1,10 @@
-import { NextAuthOptions } from 'next-auth';
 import { db } from '@/server/db/client';
-import { compare } from 'bcryptjs';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import GoogleProvider from 'next-auth/providers/google';
-import FacebookProvider from 'next-auth/providers/facebook';
+import { compare } from 'bcryptjs';
+import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import FacebookProvider from 'next-auth/providers/facebook';
+import GoogleProvider from 'next-auth/providers/google';
 
 const env = process.env as Record<string, string>;
 export const authOptions: NextAuthOptions = {

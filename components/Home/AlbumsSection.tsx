@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { easeExpOut } from '@malkiii/d3-ease';
+import { motion } from 'framer-motion';
 
 const conntainerVariants = {
   hidden: { y: 100, opacity: 0 },

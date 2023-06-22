@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { UserPageProps } from '.';
 import { trpc } from '@/utils/trpc';
+import { UserPageProps } from '.';
 import ImageGridLayout from '../ImageGridLayout';
 
 const UserImagesPage: FC<UserPageProps> = ({ user, pathname }) => {
