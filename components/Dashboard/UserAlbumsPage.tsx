@@ -1,8 +1,25 @@
 import { FC } from 'react';
-import { DashboardPageProps } from '.';
+import Link from 'next/link';
+import { trpc } from '@/utils/trpc';
+import { UserPageProps } from '.';
 import { AlbumThumbnail, CreateNewAlbum } from './AlbumModal';
 
-const UserAlbumsPage: FC<{ user: DashboardPageProps['user'] }> = ({ user }) => {
-  return <div className="w-full p-4 text-4xl">Albums</div>;
+const UserAlbumsPage: FC<UserPageProps> = ({ user }) => {
+  const { id: userId } = user;
+  const { data: thumbnails, refetch, isLoading } = trpc.getAllAlbums.useQuery(userId);
+
+  return (
+    <div
+      style={{ '--col-min-width': '200px' } as any}
+      className="main-container grid w-full grid-cols-fill items-start gap-2"
+    >
+      {thumbnails?.map((thumbnail, index) => (
+        <Link key={index} href="/">
+          <AlbumThumbnail thumbnail={thumbnail} />
+        </Link>
+      ))}
+      <CreateNewAlbum userId={userId} refetch={refetch} className="w-full" />
+    </div>
+  );
 };
 export default UserAlbumsPage;
