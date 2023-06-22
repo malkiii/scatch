@@ -51,10 +51,10 @@ export const AlbumThumbnail: FC<AlbumThumbnailProps> = ({ thumbnail, className }
 
 type CreateNewAlbumProps = {
   userId: string;
-  refech: Function;
+  refetch: Function;
   className?: string;
 };
-export const CreateNewAlbum: FC<CreateNewAlbumProps> = ({ userId, refech, className }) => {
+export const CreateNewAlbum: FC<CreateNewAlbumProps> = ({ userId, refetch, className }) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const [showNameModal, setShowNameModal] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -75,7 +75,7 @@ export const CreateNewAlbum: FC<CreateNewAlbumProps> = ({ userId, refech, classN
       setErrorMessage(error.message);
       return;
     }
-    refech();
+    refetch();
     setShowNameModal(false);
   };
 
@@ -135,12 +135,12 @@ type WithImageAndUserId = {
 };
 
 type AlbumGridLayoutProps = WithImageAndUserId & {
-  refech: Function;
+  refetch: Function;
   toggle: Function;
   thumbnails?: UserAlbumThumbnail[];
 };
 const AlbumGridLayout: FC<AlbumGridLayoutProps> = props => {
-  const { userId, image, toggle, refech, thumbnails } = props;
+  const { userId, image, toggle, refetch, thumbnails } = props;
   const imageMutation = trpc.addNewImage.useMutation();
 
   const addNewImage = async (albumName: string) => {
@@ -149,19 +149,18 @@ const AlbumGridLayout: FC<AlbumGridLayoutProps> = props => {
   };
 
   return (
-    <div className="h-[550px] overflow-auto rounded-inherit bg-neutral-950 p-4 sm:h-[400px]">
-      <div
-        className={cn('grid w-full grid-cols-album-modal items-start gap-2', {
-          'pointer-events-none opacity-20': imageMutation.isLoading
-        })}
-      >
-        {thumbnails?.map((thumbnail, index) => (
-          <button key={index} onClick={async () => await addNewImage(thumbnail.name)}>
-            <AlbumThumbnail thumbnail={thumbnail} />
-          </button>
-        ))}
-        <CreateNewAlbum userId={userId} refech={refech} className="w-full" />
-      </div>
+    <div
+      style={{ '--col-min-width': '200px' } as any}
+      className={cn('grid w-full grid-cols-fill items-start gap-2', {
+        'pointer-events-none opacity-20': imageMutation.isLoading
+      })}
+    >
+      {thumbnails?.map((thumbnail, index) => (
+        <button key={index} onClick={async () => await addNewImage(thumbnail.name)}>
+          <AlbumThumbnail thumbnail={thumbnail} />
+        </button>
+      ))}
+      <CreateNewAlbum userId={userId} refetch={refetch} className="w-full" />
     </div>
   );
 };
@@ -194,7 +193,11 @@ const AlbumModal: FC<AlbumModalProps> = ({ userId, image, toggle, show, children
           <div className="bg-cs-change m-auto w-full max-w-3xl rounded-xl p-4 text-center shadow-2xl">
             <div className="mb-3 text-2xl font-semibold sm:text-4xl">Choose your album</div>
             {isLoading && <PulseAnimation />}
-            {!isLoading && <AlbumGridLayout {...layoutProps} refech={refetch} />}
+            {!isLoading && (
+              <div className="h-[550px] overflow-auto rounded-inherit bg-neutral-950 p-4 sm:h-[400px]">
+                <AlbumGridLayout {...layoutProps} refetch={refetch} />
+              </div>
+            )}
           </div>
         </div>,
         document.body

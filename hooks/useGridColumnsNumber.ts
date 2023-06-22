@@ -8,7 +8,8 @@ export const useGridColumnsNumber = () => {
     const container = containerRef.current;
     if (container) {
       const containerStyle = window.getComputedStyle(container);
-      setColumnsNumber(containerStyle.gridTemplateColumns.split(' ').length);
+      const gridLayoutColumns = containerStyle.gridTemplateColumns.split(' ').length;
+      setColumnsNumber(gridLayoutColumns > 3 ? 3 : gridLayoutColumns);
     }
   }
 

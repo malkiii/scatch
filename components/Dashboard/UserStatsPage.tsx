@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { DashboardPageProps } from '.';
+import { UserPageProps } from '.';
 
-const UserStatsPage: FC<{ user: DashboardPageProps['user'] }> = ({ user }) => {
+const UserStatsPage: FC<UserPageProps> = ({ user }) => {
   return <div className="w-full p-4 text-4xl">Stats</div>;
 };
 export default UserStatsPage;

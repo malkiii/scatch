@@ -80,7 +80,8 @@ const ImageGridLayout: FC<ImageLayoutProps> = ({ pagePath, images }) => {
       <div
         data-test="images-grid-layout"
         ref={containerRef}
-        className="grid w-full grid-cols-images items-start gap-4 md:px-4"
+        style={{ '--col-min-width': '320px' } as any}
+        className="grid w-full grid-cols-fill items-start gap-4 md:px-4"
       >
         {columnsNumber && images.length ? (
           new Array(columnsNumber).fill(null).map((_, col) => (
