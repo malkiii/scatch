@@ -1,5 +1,4 @@
-import { SignUpFormData } from '@/types';
-import { ImageAPIRequestQuery } from '@/types';
+import { ImageAPIRequestQuery, SignUpFormData } from '@/types';
 import { DashboardPageRoute } from '@/components/Dashboard';
 
 export { default as cn } from 'classnames';

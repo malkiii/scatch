@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import ColorSchemeButton from './ColorSchemeButton';
-import { motion, AnimatePresence } from 'framer-motion';
 import { easeExpInOut, easeExpOut } from '@malkiii/d3-ease';
+import { AnimatePresence, motion } from 'framer-motion';
 import { getUserProfileRoutes } from '@/utils';
+import ColorSchemeButton from './ColorSchemeButton';
 
 // animation variants
 const transition = {

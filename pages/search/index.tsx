@@ -1,11 +1,12 @@
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { caller } from '@/server/router';
-import { PulseAnimation } from '@/components/Loading';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';
+import ImageGridLayout from '@/components/ImageGridLayout';
+import { PulseAnimation } from '@/components/Loading';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
-import { NextPage, GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { SearchInput, SearchKeywords, ImageGridLayout } from '@/components/Search';
+import { SearchInput, SearchKeywords } from '@/components/Search';
 
 type PageProps = {
   requestQuery: ImageAPIRequestQuery;

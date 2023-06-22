@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import ImageModal from '../ImageModal';
 import { useSession } from 'next-auth/react';
-import { ResponseImage, ModalActions } from '@/types';
+import { ModalActions, ResponseImage } from '@/types';
 import { useAlbumModal } from '@/hooks/useAlbumModal';
 import AlbumModal from '@/components/Dashboard/AlbumModal';
 import { DownloadButton, ImageTitle, SaveButton } from '../ImageLayer';
+import ImageModal from '../ImageModal';
 
 type ImageNavProps = {
   image: ResponseImage;

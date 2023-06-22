@@ -1,14 +1,14 @@
+import { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { DashboardPageRoute } from '.';
-import { useScrollingEvent } from '@/hooks/useScrollingEvent';
-import { FC, useRef, useState, useEffect } from 'react';
-import { cn } from '@/utils';
 import {
-  BiImages as ImagesIcon,
   BiPhotoAlbum as AlbumsIcon,
   BiHeart as FavoriteIcon,
+  BiImages as ImagesIcon,
   BiLineChart as StatsIcon
 } from 'react-icons/bi';
+import { cn } from '@/utils';
+import { useScrollingEvent } from '@/hooks/useScrollingEvent';
+import { DashboardPageRoute } from '.';
 
 type DashboardNavPage = {
   name: DashboardPageRoute;

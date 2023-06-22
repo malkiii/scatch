@@ -1,6 +1,6 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import { db } from '@/server/db/client';
 import { hash } from 'bcryptjs';
-import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function signUpRequest(req: NextApiRequest, res: NextApiResponse) {
   const errorResposne = (type: 'Method' | 'Email' | 'Server', message: string, status: number) => {

@@ -1,11 +1,11 @@
+import { useEffect, useState } from 'react';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { NextPageWithLayout } from '@/types';
 import { createUsernameParam } from '@/utils';
 import { getCurrentSession } from '@/utils/session';
-import DashboardLayout from '@/components/Dashboard/layout';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import DashboardPages, { DashboardPageProps, DashboardPageRoute } from '@/components/Dashboard';
-import { useEffect, useState } from 'react';
+import DashboardLayout from '@/components/Dashboard/layout';
 
 const validRoutes: DashboardPageRoute[] = ['images', 'albums', 'favorite', 'stats'];
 

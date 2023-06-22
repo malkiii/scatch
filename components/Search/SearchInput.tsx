@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
+import { cn } from '@/utils';
 import { useSearchHistory } from '@/hooks/useSearchHistory';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
-import { cn } from '@/utils';
 
 function storeInHistory(searchValue?: string) {
   const searchHistory = localStorage.getItem('search_history') || '[]';

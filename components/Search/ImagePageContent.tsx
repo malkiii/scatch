@@ -1,12 +1,12 @@
-import { cn } from '@/utils';
-import Image from 'next/image';
 import { FC, useRef } from 'react';
-import { ResponseImage } from '@/types';
+import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import { ResponseImage } from '@/types';
+import { cn } from '@/utils';
 import { useAlbumModal } from '@/hooks/useAlbumModal';
-import AlbumModal from '@/components/Dashboard/AlbumModal';
 import { useBlurhashImage } from '@/hooks/useBlurhashImage';
-import { SaveButton, DownloadButton, ImageTitle } from '@/components/ImageLayer';
+import AlbumModal from '@/components/Dashboard/AlbumModal';
+import { DownloadButton, ImageTitle, SaveButton } from '@/components/ImageLayer';
 
 const ImageNavbar: FC<{ image: ResponseImage }> = ({ image }) => {
   const { data: session } = useSession();

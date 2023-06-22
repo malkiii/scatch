@@ -1,7 +1,7 @@
 import { mergeRouters } from '../trpc';
+import { userAlbumRouter, userImageRouter, userStatsRouter } from './dashboard';
 import { imageRouter } from './imageRouter';
 import { translateRouter } from './translateRouter';
-import { userImageRouter, userAlbumRouter, userStatsRouter } from './dashboard';
 
 export const appRouter = mergeRouters(
   imageRouter,

@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import ImageModal from '../ImageModal';
-import { ModalActions } from '@/types';
-import { useSession } from 'next-auth/react';
 import { Image as UserImage } from '@prisma/client';
-import { DownloadButton, ImageTitle, FavoriteButton } from '../ImageLayer';
+import { useSession } from 'next-auth/react';
+import { ModalActions } from '@/types';
+import { DownloadButton, FavoriteButton, ImageTitle } from '../ImageLayer';
+import ImageModal from '../ImageModal';
 
 type ImageNavProps = {
   image: UserImage;

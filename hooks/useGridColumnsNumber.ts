@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const useGridColumnsNumber = () => {
   const containerRef = useRef<HTMLDivElement>(null);

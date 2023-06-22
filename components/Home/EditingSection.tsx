@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { easeExpOut } from '@malkiii/d3-ease';
-import { useInterval } from '@/hooks/useInterval';
+import { motion } from 'framer-motion';
 import { cn } from '@/utils';
+import { useInterval } from '@/hooks/useInterval';
 
 const filters = [
   'after:opacity-0 after:mix-blend-difference',

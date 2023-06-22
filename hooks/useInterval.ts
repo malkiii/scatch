@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 type IndexState = [number, Dispatch<SetStateAction<number>>, number];
 type IntervalHook = (itemsNumber: number, delay: number) => IndexState;

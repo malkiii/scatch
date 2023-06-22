@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { AiOutlineArrowUp } from 'react-icons/ai';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollingEvent } from '@/hooks/useScrollingEvent';
 
 const buttonTransition = {

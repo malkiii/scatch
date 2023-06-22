@@ -1,5 +1,5 @@
-import router from 'next/router';
 import { useRef } from 'react';
+import router from 'next/router';
 
 export const useSearchTrigger = (callback?: (value?: string) => void) => {
   const inputRef = useRef<HTMLInputElement>(null);

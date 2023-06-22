@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { siteInfos, socials } from '@/data/constants';
-import { FaFacebook, FaTwitter, FaInstagram, FaGithub } from 'react-icons/fa';
+import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const socialIcons = {
   Facebook: <FaFacebook />,

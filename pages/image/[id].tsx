@@ -1,8 +1,8 @@
-import Head from 'next/head';
-import { ResponseImage } from '@/types';
-import { caller } from '@/server/router';
-import ImagePageContent from '@/components/Search/ImagePageContent';
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
+import Head from 'next/head';
+import { caller } from '@/server/router';
+import { ResponseImage } from '@/types';
+import ImagePageContent from '@/components/Search/ImagePageContent';
 
 type PageProps = {
   image: ResponseImage;

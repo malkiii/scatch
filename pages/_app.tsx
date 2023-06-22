@@ -1,11 +1,11 @@
 import '@/styles/globals.css';
 import App from 'next/app';
 import Head from 'next/head';
-import Layout from '@/components/layout';
-import { trpc } from '@/utils/trpc';
+import { getSession, SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'next-themes';
-import { AppType, AppPropsWithLayout } from '@/types';
-import { SessionProvider, getSession } from 'next-auth/react';
+import { AppPropsWithLayout, AppType } from '@/types';
+import { trpc } from '@/utils/trpc';
+import Layout from '@/components/layout';
 
 const MyApp = trpc.withTRPC((props: AppPropsWithLayout) => {
   const {

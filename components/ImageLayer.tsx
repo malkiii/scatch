@@ -1,14 +1,14 @@
-import Link from 'next/link';
-import { cn } from '@/utils';
-import { useRouter } from 'next/router';
-import { ResponseImage } from '@/types';
-import { useSession } from 'next-auth/react';
 import { FC, ReactNode, useState } from 'react';
-import { useAlbumModal } from '@/hooks/useAlbumModal';
-import AlbumModal from '@/components/Dashboard/AlbumModal';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Image as UserImage } from '@prisma/client';
+import { useSession } from 'next-auth/react';
 import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
 import { FaRegHeart as FavoriteOutlineIcon, FaHeart as FavoriteSolidIcon } from 'react-icons/fa';
+import { ResponseImage } from '@/types';
+import { cn } from '@/utils';
+import { useAlbumModal } from '@/hooks/useAlbumModal';
+import AlbumModal from '@/components/Dashboard/AlbumModal';
 
 const logoSize = 25;
 function cancelEvents(e: any) {

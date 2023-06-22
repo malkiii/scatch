@@ -1,5 +1,5 @@
-import { WithFormError } from '@/types';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { WithFormError } from '@/types';
 
 type Data<T> = {
   data: T;

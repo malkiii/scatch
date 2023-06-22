@@ -1,19 +1,19 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { User } from 'next-auth';
-import OptionMenu from './OptionMenu';
 import { signOut } from 'next-auth/react';
-import ColorSchemeButton from './ColorSchemeButton';
-import { useToggleMenu } from '@/hooks/useToggleMenu';
-import { getUserProfileRoutes } from '@/utils';
 import {
-  BiMoon as MoonIcon,
-  BiCog as SettingsIcon,
-  BiLineChart as StatesIcon,
   BiPhotoAlbum as AlbumIcon,
+  BiLogOutCircle as LogOutIcon,
+  BiMoon as MoonIcon,
   BiUserCircle as ProfileIcon,
-  BiLogOutCircle as LogOutIcon
+  BiCog as SettingsIcon,
+  BiLineChart as StatesIcon
 } from 'react-icons/bi';
+import { getUserProfileRoutes } from '@/utils';
+import { useToggleMenu } from '@/hooks/useToggleMenu';
+import ColorSchemeButton from './ColorSchemeButton';
+import OptionMenu from './OptionMenu';
 
 type AvatarIconProps = AvatarMenuProps & {
   className?: string;

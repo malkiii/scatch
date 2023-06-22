@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { motion } from 'framer-motion';
 import { siteInfos } from '@/data/constants';
 import { easeExpInOut } from '@malkiii/d3-ease';
+import { motion } from 'framer-motion';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 
