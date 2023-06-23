@@ -7,6 +7,7 @@ import { CgMathPlus, CgSoftwareDownload } from 'react-icons/cg';
 import { FaRegHeart as FavoriteOutlineIcon, FaHeart as FavoriteSolidIcon } from 'react-icons/fa';
 import { ResponseImage } from '@/types';
 import { cn } from '@/utils';
+import { trpc } from '@/utils/trpc';
 import { useAlbumModal } from '@/hooks/useAlbumModal';
 import AlbumModal from '@/components/Dashboard/AlbumModal';
 
@@ -50,6 +51,7 @@ export const SaveButton: FC<SaveButtonPros> = ({ userId, toggleAlbumModal, class
     cancelEvents(e);
     e.preventDefault();
     if (!userId) return router.push('/login');
+
     toggleAlbumModal();
   }
   return (
@@ -65,14 +67,28 @@ export const SaveButton: FC<SaveButtonPros> = ({ userId, toggleAlbumModal, class
 
 type FavoriteButtonProps = WithImageAndUserId & WithClassName;
 export const FavoriteButton: FC<FavoriteButtonProps> = ({ image, userId, className }) => {
-  function handleClick(e: any) {
+  const { id, isFavorite } = image as UserImage;
+  const [favorite, setFavorite] = useState<boolean>(isFavorite);
+
+  const { mutateAsync, isLoading } = trpc.setFavoriteImage.useMutation();
+  const setAsFavoriteImage = async (e: any) => {
     cancelEvents(e);
-    // make it favorite
-  }
+    e.preventDefault();
+    if (isLoading) return;
+
+    const { isFavorite } = await mutateAsync({ id, userId: userId!, isFavorite: !favorite });
+    setFavorite(isFavorite);
+  };
+
   return (
-    <a href="" className={cn('image-layer-btn', className)} onClick={handleClick}>
-      <FavoriteOutlineIcon size={logoSize} />
-    </a>
+    <button
+      title={favorite ? 'Remove from my favorite images' : 'Add to my favorite images'}
+      className={cn('image-layer-btn', className)}
+      onClick={setAsFavoriteImage}
+    >
+      {favorite && <FavoriteSolidIcon size={logoSize} />}
+      {!favorite && <FavoriteOutlineIcon size={logoSize} />}
+    </button>
   );
 };
 

@@ -28,7 +28,7 @@ export const AlbumThumbnail: FC<AlbumThumbnailProps> = ({ thumbnail, className }
       >
         {thumbnailImage ? (
           <Image
-            src={getResizedImage(thumbnailImage, 360)}
+            src={getResizedImage(thumbnailImage, 520)}
             className="w-2/5 brightness-50 transition-all duration-300 group-hover:scale-125 dark:brightness-50"
             alt={`scatch ${thumbnail.name} album`}
             style={{ objectFit: 'cover' }}
