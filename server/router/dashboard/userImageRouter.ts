@@ -17,6 +17,12 @@ const IdUserIdSchema = z.object({
   userId: z.string()
 });
 
+const FavoriteImageSchema = IdUserIdSchema.merge(
+  z.object({
+    isFavorite: z.boolean()
+  })
+);
+
 export const userImageRouter = router({
   addNewImage: publicProcedure.input(ImageSchema).mutation(async ({ input }) => {
     const { userId, albumName, image } = input;
@@ -40,8 +46,9 @@ export const userImageRouter = router({
   getAllImages: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
     return await images.findMany({ where: { userId } });
   }),
-  setFavoriteImage: publicProcedure.input(IdUserIdSchema).mutation(async ({ input: id_userId }) => {
-    return await images.update({ where: { id_userId }, data: { isFavorite: true } });
+  setFavoriteImage: publicProcedure.input(FavoriteImageSchema).mutation(async ({ input }) => {
+    const { isFavorite, ...id_userId } = input;
+    return await images.update({ where: { id_userId }, data: { isFavorite } });
   }),
   getAllFavoriteImages: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
     return await images.findMany({ where: { userId, isFavorite: true } });
