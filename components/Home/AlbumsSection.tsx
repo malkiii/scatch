@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { easeExpOut } from '@malkiii/d3-ease';
 import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { getUserProfileRoutes } from '@/utils';
 
 const conntainerVariants = {
   hidden: { y: 100, opacity: 0 },
@@ -32,7 +34,7 @@ const AlbumImage: FC<{ number: number }> = ({ number }) => {
       <Image
         priority
         src={`/assets/Home/albums-section/image-${number}.jpeg`}
-        className="w-full rounded-inherit"
+        className="w-full rounded-inherit transition-all duration-200 group-hover:scale-125"
         alt="album"
         fill
       />
@@ -57,7 +59,12 @@ const AlbunmsContainer: FC = () => {
     >
       {new Array(albumsNumber).fill(null).map((_, index) => {
         return (
-          <motion.div key={index} custom={index} variants={albumVariants} className="album-image">
+          <motion.div
+            key={index}
+            custom={index}
+            variants={albumVariants}
+            className="album-image group overflow-hidden"
+          >
             <AlbumImage number={index + 1} />
           </motion.div>
         );
@@ -67,6 +74,7 @@ const AlbunmsContainer: FC = () => {
 };
 
 const AlbumsSection: FC = () => {
+  const { data: session } = useSession();
   return (
     <motion.div className="flex flex-col-reverse items-center justify-center gap-x-10 py-10 lg:flex-row">
       <AlbunmsContainer />
@@ -79,7 +87,10 @@ const AlbumsSection: FC = () => {
         <p className="mb-6 text-xl">
           After creating your account, you can save images in albums which you can check later.
         </p>
-        <Link href="/" className="theme-btn">
+        <Link
+          href={session ? getUserProfileRoutes(session.user.name!).profileSubRoutes.albums : '/'}
+          className="theme-btn"
+        >
           See your albums
         </Link>
       </motion.div>

@@ -51,7 +51,7 @@ const SearchInput: FC = () => {
       </div>
       <button
         className="theme-btn flex w-[90px] items-center rounded-inherit py-2"
-        onClick={() => triggerTheSearch()}
+        onClick={async () => await triggerTheSearch()}
       >
         <SearchIcon size={30} className="mx-auto block" />
       </button>

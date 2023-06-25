@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { withRouter } from 'next/router';
 import { caller } from '@/server/router';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
+import { getCurrentSession } from '@/utils/session';
 import { useInfinitScroll } from '@/hooks/useInfinitScroll';
 import ImageGridLayout from '@/components/ImageGridLayout';
 import { PulseAnimation } from '@/components/Loading';
@@ -22,7 +23,8 @@ type PageProps = {
 };
 
 export const getServerSideProps: GetServerSideProps<PageProps> = async context => {
-  const { query: searchKeyword, o: orientation } = context.query as RouteQuery;
+  const { req, res, query } = context;
+  const { query: searchKeyword, o: orientation } = query as RouteQuery;
 
   let fetchQuery: string;
   try {
@@ -39,10 +41,14 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async context =
 
   const key = `${searchKeyword}-${orientation || 'all'}`;
   const returnProps = { searchKeyword, requestQuery, key };
-  context.res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
+  res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
 
   try {
     const initialData = await caller.fetchImages({ params: requestQuery });
+
+    const session = await getCurrentSession({ req, res });
+    if (session) await caller.saveActivity({ userId: session.user.id, type: 'SEARCH' });
+
     return {
       props: { initialData, ...returnProps }
     };
