@@ -87,7 +87,10 @@ const FixedSearchInput: FC<{ searchQuery: string }> = ({ searchQuery }) => {
   return (
     <div className="ml-[6px] mr-2 flex max-w-xl items-center gap-x-2">
       <div className="flex h-full w-full items-center rounded-3xl border-2 border-neutral-500 bg-white/50 px-3 transition-colors focus-within:border-dark dark:bg-dark/50 dark:focus-within:border-white">
-        <button onClick={() => triggerTheSearch()} className="transition-colors hover:text-theme">
+        <button
+          onClick={async () => await triggerTheSearch()}
+          className="transition-colors hover:text-theme"
+        >
           <SearchIcon size={22} />
         </button>
         <input

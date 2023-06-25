@@ -101,12 +101,19 @@ export const DownloadButton: FC<DownloadButtonPops> = props => {
   const { image, userId, content, className } = props;
   const downloadURL = `${image.src}?cs=srgb&dl=scatch-${image.id}.jpg&fm=jpg`;
 
+  const { mutate, isLoading } = trpc.saveActivity.useMutation();
+  const handleClick = async (e: any) => {
+    cancelEvents(e);
+    if (!userId || isLoading) return;
+    mutate({ userId, type: 'DOWNLOAD' });
+  };
+
   return (
     <a
       href={downloadURL}
       title="Download the image"
       className={cn('image-layer-btn', className)}
-      onClick={cancelEvents}
+      onClick={handleClick}
     >
       {content == 'icon' ? <CgSoftwareDownload size={logoSize} /> : 'Download'}
     </a>

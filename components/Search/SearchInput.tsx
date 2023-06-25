@@ -4,19 +4,6 @@ import { cn } from '@/utils';
 import { useSearchHistory } from '@/hooks/useSearchHistory';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 
-function storeInHistory(searchValue?: string) {
-  const searchHistory = localStorage.getItem('search_history') || '[]';
-  const historyValues = JSON.parse(searchHistory) as string[];
-  const historyLimit = 5;
-
-  const index = historyValues.indexOf(searchValue as string);
-  if (index > -1) historyValues.splice(index, 1);
-  else if (historyValues.length == historyLimit) historyValues.pop();
-
-  const newHistory = JSON.stringify([searchValue, ...historyValues]);
-  localStorage.setItem('search_history', newHistory);
-}
-
 type SuggestionsMenuProps = {
   value: string;
   onClick: (searchText: string) => void;
@@ -78,11 +65,11 @@ type InputProps = {
 };
 const SearchInput: FC<InputProps> = ({ value }) => {
   const [inputValue, setInputValue] = useState<string>(value || '');
-  const { inputRef, triggerTheSearch, handleEnter } = useSearchTrigger(storeInHistory);
+  const { inputRef, triggerTheSearch, handleEnter } = useSearchTrigger();
 
-  function handleMouseClick(searchText: string) {
+  async function handleMouseClick(searchText: string) {
     setInputValue(searchText);
-    triggerTheSearch(searchText);
+    await triggerTheSearch(searchText);
   }
 
   return (
@@ -104,7 +91,7 @@ const SearchInput: FC<InputProps> = ({ value }) => {
         />
         <button
           className="theme-btn rounded-inherit px-5 py-2 sm:px-7"
-          onClick={() => triggerTheSearch()}
+          onClick={async () => await triggerTheSearch()}
         >
           <SearchIcon size={30} className="inline text-center" />
         </button>
