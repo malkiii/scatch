@@ -44,7 +44,7 @@ const DashboardLayout: FC<LayoutProps> = props => {
         <div className="h-full w-full md:w-[37%]">
           <img
             src={resizeAvatar(image) || '/assets/avatar-placeholder.png'}
-            className="ml-auto mr-auto aspect-square h-[150px] rounded-circle md:mr-0 md:h-[210px]"
+            className="ml-auto mr-auto aspect-square h-[150px] rounded-circle md:mr-0 md:h-[175px]"
             referrerPolicy="no-referrer"
             alt="avatar"
           />
