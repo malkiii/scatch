@@ -78,15 +78,17 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
     });
   }
 
-  useEffect(() => moveTrailerBorder(), [currentPageRoute]);
+  useEffect(() => {
+    moveTrailerBorder();
+  }, [currentPageRoute]);
 
   return (
     <div
       ref={navbarRef}
-      className="sticky top-[64px] z-[900] border-b border-neutral-600 transition-colors"
+      className="sticky top-[64px] z-[900] border-b border-neutral-600 transition-colors pl-1"
     >
       <div className="relatvie mx-auto max-w-7xl" style={trailerBorderStyle as any}>
-        <ul className="flex items-center gap-x-5 text-neutral-600 transition-all duration-200">
+        <ul className="flex items-center gap-x-0 sm:gap-x-5 text-neutral-600 transition-all duration-200">
           {dashboardNavPages.map(({ name: page, icon }, id) => (
             <Link
               key={id}
