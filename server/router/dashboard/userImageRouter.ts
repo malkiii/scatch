@@ -2,9 +2,10 @@ import { db } from '@/server/db/client';
 import { publicProcedure, router } from '@/server/trpc';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-import { ResponseImageSchema } from '@/utils/validation';
+import { ResponseImageSchema, UserInfinitQuerySchema } from '@/utils/validation';
 
 const images = db.image;
+const perPage = 24;
 
 const ImageSchema = z.object({
   userId: z.string(),
@@ -43,14 +44,34 @@ export const userImageRouter = router({
   deleteImage: publicProcedure.input(IdUserIdSchema).mutation(async ({ input: id_userId }) => {
     return await images.delete({ where: { id_userId } });
   }),
-  getAllImages: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
-    return await images.findMany({ where: { userId } });
+  getAllImages: publicProcedure.input(UserInfinitQuerySchema).query(async ({ input }) => {
+    const { userId, cursor: page } = input;
+
+    const data = await images.findMany({
+      skip: (page! - 1) * perPage,
+      take: perPage + 1,
+      where: { userId }
+    });
+
+    const hasMore = data.length > perPage;
+    if (hasMore) data.pop();
+    return { data, hasMore };
   }),
   setFavoriteImage: publicProcedure.input(FavoriteImageSchema).mutation(async ({ input }) => {
     const { isFavorite, ...id_userId } = input;
     return await images.update({ where: { id_userId }, data: { isFavorite } });
   }),
-  getAllFavoriteImages: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
-    return await images.findMany({ where: { userId, isFavorite: true } });
+  getAllFavoriteImages: publicProcedure.input(UserInfinitQuerySchema).query(async ({ input }) => {
+    const { userId, cursor: page } = input;
+
+    const data = await images.findMany({
+      skip: (page! - 1) * perPage,
+      take: perPage + 1,
+      where: { userId, isFavorite: true }
+    });
+
+    const hasMore = data.length > perPage;
+    if (hasMore) data.pop();
+    return { data, hasMore };
   })
 });

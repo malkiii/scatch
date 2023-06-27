@@ -1,10 +1,27 @@
-import { signIn } from 'next-auth/react';
 import { FC, useState } from 'react';
+import { signIn } from 'next-auth/react';
 import { BiHide as HideIcon, BiShow as ShowIcon } from 'react-icons/bi';
 import { SignUpFormData, WithFormError } from '@/types';
-import { cn, signUp } from '@/utils';
+import { cn } from '@/utils';
 import { useForm } from '@/hooks/useForm';
 import { AuthProviders, ErrorMessage, SubmitButton, VerticalLine } from './FormItems';
+
+type CachedData = { user?: any; message: string; error?: string };
+export async function signUp(data: SignUpFormData): Promise<CachedData> {
+  const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL as string;
+  const endpointURL = new URL('/api/auth/signup', NEXT_PUBLIC_APP_URL);
+
+  const { firstName, lastName, email, password } = data;
+  const name = (firstName.trim() + ' ' + lastName.trim()).trim();
+
+  const response = await fetch(endpointURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, password })
+  });
+
+  return await response.json();
+}
 
 type CredentialInputsProps = {
   data: SignUpFormData & WithFormError;

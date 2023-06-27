@@ -23,3 +23,8 @@ export const ImagePageSchema = z.object({
   images: z.array(ResponseImageSchema),
   hasMore: z.boolean().optional()
 });
+
+export const UserInfinitQuerySchema = z.object({
+  userId: z.string(),
+  cursor: z.number().nullish().optional()
+});

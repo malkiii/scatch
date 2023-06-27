@@ -6,7 +6,7 @@ import { withRouter } from 'next/router';
 import { caller } from '@/server/router';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
 import { getCurrentSession } from '@/utils/session';
-import { useInfinitScroll } from '@/hooks/useInfinitScroll';
+import { useSearchInfinitScroll } from '@/hooks/useSearchInfinitScroll';
 import ImageGridLayout from '@/components/ImageGridLayout';
 import { PulseAnimation } from '@/components/Loading';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async context =
   try {
     const initialData = await caller.fetchImages({ params: requestQuery });
 
-    const session = await getCurrentSession({ req, res });
+    const session = await getCurrentSession(context);
     if (session) await caller.saveActivity({ userId: session.user.id, type: 'SEARCH' });
 
     return {
@@ -79,7 +79,7 @@ export default withRouter(
       initialData
     };
 
-    const { images, hasMore } = useInfinitScroll(params);
+    const { images, hasMore } = useSearchInfinitScroll(params);
     const [currentPathname] = useState<string>(router.asPath);
 
     const title = `${searchKeyword} images | Search and save in your albums`;

@@ -35,7 +35,14 @@ export const useModalRoute = (array: ModalImage[], pagePath: string) => {
   function showImageModal(imageIndex: number) {
     const id = array[imageIndex].id;
     const as = `/image/${id}`;
-    const query = { [pathname.startsWith('/search') ? 'query' : 'username']: id, i: imageIndex };
+    const query = {
+      [pathname.startsWith('/search')
+        ? 'query'
+        : pathname.startsWith('/albums')
+        ? 'name'
+        : 'username']: id,
+      i: imageIndex
+    };
     const href = { pathname, query };
 
     router.push(href, as, { shallow: true });

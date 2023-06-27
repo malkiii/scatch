@@ -4,17 +4,34 @@ import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
 const albums = db.album;
+const perPage = 24;
 
 const AlbumSchema = z.object({
   name: z.string(),
   userId: z.string()
 });
 
+const UserAlbumSchema = AlbumSchema.merge(
+  z.object({
+    cursor: z.number().nullish().optional()
+  })
+);
+
 const AlbumRenameSchema = AlbumSchema.merge(z.object({ newName: z.string() }));
 
 export const userAlbumRouter = router({
-  getAlbum: publicProcedure.input(AlbumSchema).query(async ({ input: name_userId }) => {
-    return await albums.findUnique({ where: { name_userId }, include: { images: true } });
+  getAlbumImages: publicProcedure.input(UserAlbumSchema).query(async ({ input }) => {
+    const { cursor: page, ...name_userId } = input;
+
+    const data = await albums.findUnique({
+      where: { name_userId },
+      include: { images: { skip: (page! - 1) * perPage, take: perPage + 1 } }
+    });
+
+    const images = data?.images || [];
+    const hasMore = images.length > perPage;
+    if (hasMore) images.pop();
+    return { data: images, hasMore };
   }),
   getAllAlbums: publicProcedure.input(z.string()).query(async ({ input: userId }) => {
     return await albums.findMany({

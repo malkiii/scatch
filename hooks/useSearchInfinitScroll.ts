@@ -3,25 +3,21 @@ import { ImageAPIRequestQuery, ImagePage } from '@/types';
 import { trpc } from '@/utils/trpc';
 import { useScrollingEvent } from './useScrollingEvent';
 
-type FetchConfigs = {
+type InfinitScrollHook = (params: {
   requestQuery: ImageAPIRequestQuery;
   initialData: ImagePage;
-};
-
-type InfinitScrollHook = (configs: FetchConfigs) => ImagePage;
+}) => ImagePage;
 
 /* eslint-disable react-hooks/exhaustive-deps */
-export const useInfinitScroll: InfinitScrollHook = configs => {
-  const initialData = {
-    pageParams: [undefined],
-    pages: [configs.initialData]
-  };
-
+export const useSearchInfinitScroll: InfinitScrollHook = ({ initialData, requestQuery }) => {
   const { data, hasNextPage, fetchNextPage } = trpc.fetchImages.useInfiniteQuery(
-    { params: configs.requestQuery },
+    { params: requestQuery },
     {
       initialCursor: 1,
-      initialData: initialData,
+      initialData: {
+        pageParams: [undefined],
+        pages: [initialData]
+      },
       getNextPageParam: ({ hasMore }, lastPage) => {
         if (!hasMore) return undefined;
         return lastPage.length + 1;

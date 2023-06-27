@@ -20,23 +20,6 @@ export function getImageFetchURL(requestQuery: ImageAPIRequestQuery): URL {
   return endpointURL;
 }
 
-type CachedData = { user?: any; message: string; error?: string };
-export async function signUp(data: SignUpFormData): Promise<CachedData> {
-  const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL as string;
-  const endpointURL = new URL('/api/auth/signup', NEXT_PUBLIC_APP_URL);
-
-  const { firstName, lastName, email, password } = data;
-  const name = (firstName.trim() + ' ' + lastName.trim()).trim();
-
-  const response = await fetch(endpointURL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, password })
-  });
-
-  return await response.json();
-}
-
 export function createUsernameParam(username: string): string {
   return '@' + username.trim().replace(/\W+/g, '-');
 }
