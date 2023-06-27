@@ -2,7 +2,7 @@ import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import Head from 'next/head';
 import { caller } from '@/server/router';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
-import { useInfinitScroll } from '@/hooks/useInfinitScroll';
+import { useSearchInfinitScroll } from '@/hooks/useSearchInfinitScroll';
 import ImageGridLayout from '@/components/ImageGridLayout';
 import { PulseAnimation } from '@/components/Loading';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({ res })
 };
 
 const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = props => {
-  const { images, hasMore } = useInfinitScroll(props);
+  const { images, hasMore } = useSearchInfinitScroll(props);
   return (
     <div>
       <Head>

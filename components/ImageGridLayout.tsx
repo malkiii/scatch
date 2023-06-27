@@ -19,7 +19,14 @@ type GridImageProps = {
 const GridImage: FC<GridImageProps> = props => {
   const { index, image, pathname, hasMobileSize } = props;
 
-  const query = { [pathname.startsWith('/search') ? 'query' : 'username']: image.id, i: index };
+  const query = {
+    [pathname.startsWith('/search')
+      ? 'query'
+      : pathname.startsWith('/albums')
+      ? 'name'
+      : 'username']: image.id,
+    i: index
+  };
   const layerProps = {
     image,
     hasMobileSize,

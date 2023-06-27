@@ -26,7 +26,11 @@ const UserAlbumsPage: FC<UserPageProps> = ({ user }) => {
       {!isLoading && (
         <>
           {thumbnails?.map((thumbnail, index) => (
-            <Link key={index} className="text-center" href="/">
+            <Link
+              key={index}
+              className="text-center"
+              href={`/albums/${thumbnail.name.replace(' ', '-')}`}
+            >
               <AlbumThumbnail thumbnail={thumbnail} />
             </Link>
           ))}

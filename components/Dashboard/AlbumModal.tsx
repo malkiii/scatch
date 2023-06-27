@@ -67,8 +67,12 @@ export const CreateNewAlbum: FC<CreateNewAlbumProps> = ({ userId, refetch, class
   const albumMutation = trpc.addNewAlbum.useMutation();
 
   const addNewAlbum = async () => {
-    const name = nameInputRef.current!.value.trim();
+    const name = nameInputRef.current!.value.trim().replace(/\s+/g, ' ');
     if (!name) return;
+    if (/[^\w\s]/.test(name)) {
+      setErrorMessage('No special characters!');
+      return;
+    }
     try {
       await albumMutation.mutateAsync({ name, userId });
     } catch (error: any) {
