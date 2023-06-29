@@ -2,16 +2,9 @@ import { FC, ReactNode } from 'react';
 import { WithRouterProps } from 'next/dist/client/with-router';
 import Link from 'next/link';
 import { MdEdit as EditIcon } from 'react-icons/md';
+import { resizeAvatar } from '@/utils';
 import { DashboardPageProps, DashboardPageRoute } from '.';
 import DashboardNav from './Navbar';
-
-function resizeAvatar(avatarSrc?: string | null) {
-  if (!avatarSrc) return null;
-  if (avatarSrc.includes('lh3.googleusercontent.com')) {
-    return avatarSrc.replace(/=s\d+(-c)?/g, '=s360');
-  }
-  return avatarSrc;
-}
 
 const EditProfileLink: FC = () => {
   return (
