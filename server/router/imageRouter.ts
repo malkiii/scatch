@@ -1,12 +1,29 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-import { getImageFetchURL } from '@/utils';
+import { ImageAPIRequestQuery, SignUpFormData } from '@/types';
 import {
   ImageAPIRequestQuerySchema,
   ImagePageSchema,
   ResponseImageSchema
 } from '@/utils/validation';
 import { publicProcedure, router } from '../trpc';
+
+export function getImageFetchURL(requestQuery: ImageAPIRequestQuery): URL {
+  const { API_ENDPOINT } = process.env;
+  const { endpoint, query, orientation, page, per_page } = requestQuery;
+
+  const endpointName = '/v1' + endpoint;
+  const endpointURL = new URL(endpointName, API_ENDPOINT);
+  if (endpointName.includes('/photos')) return endpointURL;
+
+  endpointURL.searchParams.set('page', (page || 1).toString());
+  endpointURL.searchParams.set('per_page', (per_page || 24).toString());
+
+  if (query && endpointName.includes('/search')) endpointURL.searchParams.set('query', query);
+  if (orientation && orientation != 'all') endpointURL.searchParams.set('orientation', orientation);
+
+  return endpointURL;
+}
 
 type ImagePage = z.infer<typeof ImagePageSchema>;
 type ResponseImage = z.infer<typeof ResponseImageSchema>;
