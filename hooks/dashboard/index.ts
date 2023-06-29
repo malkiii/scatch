@@ -33,8 +33,9 @@ export const useUserImages = (userId: string, albumName?: string, isFavorite?: b
   });
 
   const images = data?.pages.flatMap(({ data }) => data) || [];
+  const hasMoreImages = !!hasNextPage;
 
-  useInfinitScroll(!!hasNextPage, fetchNextPage);
+  useInfinitScroll(hasMoreImages, fetchNextPage);
 
-  return { images, hasImages: isLoading || images.length };
+  return { images, hasMoreImages, hasImages: isLoading || images.length };
 };

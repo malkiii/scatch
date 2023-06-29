@@ -3,6 +3,7 @@ import TypeIt from 'typeit-react';
 import { useUserImages } from '@/hooks/dashboard';
 import { UserPageProps } from '.';
 import ImageGridLayout from '../ImageGridLayout';
+import { PulseAnimation } from '../Loading';
 
 export const NoImages: FC = () => {
   return (
@@ -29,13 +30,14 @@ export const NoImages: FC = () => {
 
 const UserImagesPage: FC<UserPageProps> = ({ user, pathname }) => {
   const [currentPathname] = useState<string>(pathname);
-  const { images, hasImages } = useUserImages(user.id);
+  const { images, hasImages, hasMoreImages } = useUserImages(user.id);
 
   if (!hasImages) return <NoImages />;
 
   return (
     <div className="main-container my-5">
       <ImageGridLayout images={images} pagePath={currentPathname} />
+      {hasMoreImages && <PulseAnimation />}
     </div>
   );
 };
