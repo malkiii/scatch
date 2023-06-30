@@ -1,9 +1,14 @@
+import { hash } from 'bcryptjs';
 import { DashboardPageRoute } from '@/components/Dashboard';
 
 export { default as cn } from 'classnames';
 
 export function createUsernameParam(username: string): string {
   return '@' + username.trim().replace(/\W+/g, '-');
+}
+
+export async function getHashedPassword(password: string) {
+  return await hash(password, 12);
 }
 
 type ProfileRoutes = {
