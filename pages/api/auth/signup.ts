@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { db } from '@/server/db/client';
-import { hash } from 'bcryptjs';
+import { getHashedPassword } from '@/utils';
 
 export default async function signUpRequest(req: NextApiRequest, res: NextApiResponse) {
   const errorResposne = (type: 'Method' | 'Email' | 'Server', message: string, status: number) => {
@@ -20,7 +20,7 @@ export default async function signUpRequest(req: NextApiRequest, res: NextApiRes
     if (existingUser) return errorResposne('Email', 'User already exists', 409);
 
     // Hash the password
-    const hashedPassword = await hash(password, 12);
+    const hashedPassword = await getHashedPassword(password);
 
     // Create the new user
     const newUser = await db.user.create({
