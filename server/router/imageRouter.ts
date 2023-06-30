@@ -1,6 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-import { ImageAPIRequestQuery, SignUpFormData } from '@/types';
+import { ImageAPIRequestQuery } from '@/types';
 import {
   ImageAPIRequestQuerySchema,
   ImagePageSchema,
