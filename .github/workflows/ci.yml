@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set vercel bot identity
+        run: |
+          git config user.name 'vercel[bot]'
+          git config user.email 'vercel[bot]@users.noreply.github.com'
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
