@@ -16,13 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.2
+
       - name: Set vercel bot identity
         run: |
           git config user.name 'vercel[bot]'
           git config user.email 'vercel[bot]@users.noreply.github.com'
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: pnpm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
