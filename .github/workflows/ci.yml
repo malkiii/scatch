@@ -9,6 +9,10 @@ on:
 jobs:
   Deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: https://malki-scatch.vercel.app
+
     steps:
       - uses: actions/checkout@v3
 
