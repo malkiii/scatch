@@ -8,7 +8,8 @@
     "cy:open": "cypress open --project . --e2e --browser chrome",
     "e2e": "bash __tests__/cypress/serve.sh",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma db push"
+    "prisma:migrate": "prisma db push",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@malkiii/d3-ease": "^3.0.1",
