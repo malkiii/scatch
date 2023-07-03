@@ -22,8 +22,8 @@ jobs:
 
       - name: Set vercel bot identity
         run: |
-          git config user.name 'vercel[bot]'
-          git config user.email 'vercel[bot]@users.noreply.github.com'
+          git config --global user.name 'vercel[bot]'
+          git config --global user.email 'vercel[bot]@users.noreply.github.com'
 
       - name: Install Vercel CLI
         run: pnpm install --global vercel@latest
