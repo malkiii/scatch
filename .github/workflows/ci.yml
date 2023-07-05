@@ -1,24 +1,20 @@
 name: Merge PR from development branch
+
 on:
   pull_request:
     types:
       - opened
-    branches:
-      - development
 
 jobs:
   Merge-PR:
+    if: ${{ github.head_ref == 'development' }}
     runs-on: ubuntu-latest
     permissions: write-all
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # - name: Create PR from [development] branch
-      #   run: gh pr create --title "${{ github.event.head_commit.message }}" --body ""
+      - uses: actions/checkout@v3
 
       - name: Merge PR
         run: gh pr merge --merge

@@ -39,3 +39,14 @@ export function resizeAvatar(avatarSrc?: string | null) {
   }
   return avatarSrc;
 }
+
+export function getImageModalRouteQuery(pathname: string, id: number, index: number) {
+  return {
+    [pathname.startsWith('/search')
+      ? 'query'
+      : pathname.startsWith('/albums')
+      ? 'name'
+      : 'username']: id,
+    i: index
+  };
+}
