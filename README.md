@@ -1,3 +1,3 @@
 # Scatch
 
-> an online image gallery where you can find your favored images and edit, save, or download them.
+> an online image website where you can search for your favorite images and edit, save, or download them.
