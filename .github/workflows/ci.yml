@@ -18,10 +18,5 @@ jobs:
       - name: Create PR from [development] branch
         run: gh pr create --title "${{ github.event.head_commit.message }}" --body ""
 
-      - name: Set GIT identity
-        run: |
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "malki.abdurrahmane@gmail.com"
-
       - name: Merge PR
-        run: gh pr merge --merge
+        run: gh pr merge --merge --author-email "malki.abdurrahmane@gmail.com"
