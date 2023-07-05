@@ -1,7 +1,6 @@
 name: Merge PR from development branch
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - development
