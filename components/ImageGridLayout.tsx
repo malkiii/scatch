@@ -3,7 +3,7 @@ import { default as Img } from 'next/image';
 import { useRouter } from 'next/router';
 import { Image as UserImage } from '@prisma/client';
 import { ResponseImage } from '@/types';
-import { getResizedImage } from '@/utils';
+import { getImageModalRouteQuery, getResizedImage } from '@/utils';
 import { useGridColumnsNumber } from '@/hooks/useGridColumnsNumber';
 import { useModalRoute } from '@/hooks/useModalRoute';
 import DashboardImageModal from './Dashboard/DashboardImageModal';
@@ -19,14 +19,7 @@ type GridImageProps = {
 const GridImage: FC<GridImageProps> = props => {
   const { index, image, pathname, hasMobileSize } = props;
 
-  const query = {
-    [pathname.startsWith('/search')
-      ? 'query'
-      : pathname.startsWith('/albums')
-      ? 'name'
-      : 'username']: image.id,
-    i: index
-  };
+  const query = getImageModalRouteQuery(pathname, image.id, index);
   const layerProps = {
     image,
     hasMobileSize,

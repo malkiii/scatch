@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ModalActions } from '@/types';
+import { getImageModalRouteQuery } from '@/utils';
 
 type ModalImage = {
   id: number;
@@ -35,14 +36,7 @@ export const useModalRoute = (array: ModalImage[], pagePath: string) => {
   function showImageModal(imageIndex: number) {
     const id = array[imageIndex].id;
     const as = `/image/${id}`;
-    const query = {
-      [pathname.startsWith('/search')
-        ? 'query'
-        : pathname.startsWith('/albums')
-        ? 'name'
-        : 'username']: id,
-      i: imageIndex
-    };
+    const query = getImageModalRouteQuery(pathname, id, imageIndex);
     const href = { pathname, query };
 
     router.push(href, as, { shallow: true });
