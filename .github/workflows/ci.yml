@@ -1,38 +1,22 @@
-name: Vercel Production Deployment 🚀
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
+name: Merge PR from development branch
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - development
 
 jobs:
-  Deploy:
+  development-PR:
     runs-on: ubuntu-latest
-    environment:
-      name: Production
-      url: https://malki-scatch.vercel.app
+    permissions: write-all
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.6.2
+      - name: Create PR from [development] branch
+        run: gh pr create --title "${{ github.event.head_commit.message }}" --body ""
 
-      - name: Set vercel bot identity
-        run: |
-          git config --global user.name 'vercel[bot]'
-          git config --global user.email 'vercel[bot]@users.noreply.github.com'
-
-      - name: Install Vercel CLI
-        run: pnpm install --global vercel@latest
-
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Merge PR
+        run: gh pr merge --merge
