@@ -1,4 +1,5 @@
-name: Merge PR from development branch
+name: Create PR from [development] branch
+
 on:
   push:
     branches:
@@ -15,13 +16,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Create PR from [development] branch
+      - name: Create PR
         run: gh pr create --title "${{ github.event.head_commit.message }}" --body ""
-
-      - name: Set GIT identity
-        run: |
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "malki.abdurrahmane@gmail.com"
-
-      - name: Merge PR
-        run: gh pr merge --merge
