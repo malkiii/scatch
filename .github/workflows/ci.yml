@@ -9,7 +9,8 @@ on:
 jobs:
   development-PR:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      pull-requests: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
