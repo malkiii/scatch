@@ -1,5 +1,4 @@
 name: Merge PR from development branch
-
 on:
   push:
     branches:
