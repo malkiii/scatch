@@ -17,15 +17,16 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async context =
   if (!session) return { redirect: { destination: '/login', permanent: false } };
 
   const userId = session.user.id;
-  const name = (context.query.name as string).replace('-', ' ');
+  const name = context.query.name as string;
+  const albumName = name.replace('-', ' ');
 
   const album = await db.album.findUnique({
     select: { name: true },
-    where: { name_userId: { userId, name } }
+    where: { name_userId: { userId, name: albumName } }
   });
 
   if (!album) return { notFound: true };
-  return { props: { userId, albumName: name, url: context.req.url! } };
+  return { props: { userId, albumName, url: `/albums/${name}` } };
 };
 
 const albumPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = props => {
