@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
-export const useScrollingEvent = (shouldScroll: () => boolean) => {
-  const [isScrolling, setIsScrolling] = useState<boolean>(false);
+export const useScrollEvent = <T extends (...args: any[]) => any>(callback: T): ReturnType<T> => {
+  const [callbackResult, setCallbackResult] = useState<ReturnType<T>>();
 
   function handleScrolling() {
-    setIsScrolling(shouldScroll());
+    setCallbackResult(callback());
   }
 
   useEffect(() => {
@@ -15,5 +15,5 @@ export const useScrollingEvent = (shouldScroll: () => boolean) => {
     };
   });
 
-  return isScrolling;
+  return callbackResult!;
 };

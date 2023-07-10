@@ -7,7 +7,7 @@ import {
   BiLineChart as StatsIcon
 } from 'react-icons/bi';
 import { cn } from '@/utils';
-import { useScrollingEvent } from '@/hooks/useScrollingEvent';
+import { useScrollEvent } from '@/hooks/useScrollEvent';
 import { DashboardPageRoute } from '.';
 
 type DashboardNavPage = {
@@ -46,7 +46,7 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
   });
 
   const navbarRef = useRef<HTMLDivElement>(null);
-  useScrollingEvent(() => {
+  useScrollEvent(() => {
     const isOnTop = navbarRef.current!.offsetTop - window.scrollY < 65;
     if (isOnTop) {
       document.querySelector('header')!.style.boxShadow = 'none';
@@ -57,7 +57,6 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
       navbarRef.current!.classList.remove('bg-cs-change');
       navbarRef.current!.classList.remove('shadow-xl');
     }
-    return isOnTop;
   });
 
   function moveTrailerBorder() {
