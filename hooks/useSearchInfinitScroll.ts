@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
 import { trpc } from '@/utils/trpc';
-import { useScrollingEvent } from './useScrollingEvent';
+import { useScrollEvent } from './useScrollEvent';
 
 type InfinitScrollHook = (params: {
   requestQuery: ImageAPIRequestQuery;
@@ -27,7 +27,7 @@ export const useSearchInfinitScroll: InfinitScrollHook = ({ initialData, request
 
   const images = data?.pages.flatMap(data => data.images) || [];
 
-  const isCloseToEnd = useScrollingEvent(() => {
+  const isCloseToEnd = useScrollEvent(() => {
     const windowHeight = window.innerHeight;
     const fullHeight = document.body.scrollHeight;
     const scrollPosition = window.scrollY;

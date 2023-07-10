@@ -8,7 +8,7 @@ import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { MdClear as ClearIcon } from 'react-icons/md';
 import { AppPropsWithLayout } from '@/types';
 import { cn, getUserProfileRoutes } from '@/utils';
-import { useScrollingEvent } from '@/hooks/useScrollingEvent';
+import { useScrollEvent } from '@/hooks/useScrollEvent';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 import AvatarMenu from './AvatarMenu';
 import ColorSchemeButton from './ColorSchemeButton';
@@ -132,8 +132,8 @@ const Navbar: FC<{ session: AppPropsWithLayout['currentSession'] }> = ({ session
   const { pathname } = router;
   const isExcludedPage = ['/', '/about', '/blog'].includes(pathname);
 
-  const isScrolling = useScrollingEvent(() => !isExcludedPage && window.scrollY > 10);
-  const shouldShowSearchInput = useScrollingEvent(() => !isExcludedPage && window.scrollY > 150);
+  const isScrolling = useScrollEvent(() => !isExcludedPage && window.scrollY > 10);
+  const shouldShowSearchInput = useScrollEvent(() => !isExcludedPage && window.scrollY > 150);
 
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen);

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { trpc } from '@/utils/trpc';
-import { useScrollingEvent } from '../useScrollingEvent';
+import { useScrollEvent } from '../useScrollEvent';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 const useInfinitScroll = (hasNextPage: boolean, fetchNextPage: Function) => {
-  const isCloseToEnd = useScrollingEvent(() => {
+  const isCloseToEnd = useScrollEvent(() => {
     const windowHeight = window.innerHeight;
     const fullHeight = document.body.scrollHeight;
     const scrollPosition = window.scrollY;

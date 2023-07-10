@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AiOutlineArrowUp } from 'react-icons/ai';
-import { useScrollingEvent } from '@/hooks/useScrollingEvent';
+import { useScrollEvent } from '@/hooks/useScrollEvent';
 
 const buttonTransition = {
   duration: 0.7,
@@ -20,9 +20,7 @@ const buttonVariants = {
 };
 
 const ScrollToTopButton: FC = () => {
-  const isScrolling = useScrollingEvent(() => {
-    return window.scrollY > 150;
-  });
+  const isScrolling = useScrollEvent(() => window.scrollY > 150);
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
