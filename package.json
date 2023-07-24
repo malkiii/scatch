@@ -5,7 +5,6 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write .",
     "cy:open": "bash __tests__/cypress/serve.sh",
     "prisma": "prisma generate",
     "prisma:migrate": "prisma db push"
