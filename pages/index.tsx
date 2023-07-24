@@ -1,30 +1,20 @@
 import type { NextPage } from 'next';
-import { motion } from 'framer-motion';
-import { AlbumsSection, EditingSection, ExploreSection, HeroSection } from '@/components/Home';
+import { AlbumsSection, ExploreSection, HeroSection } from '@/components/Home';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
-
-const MeshGradientBackground = () => {
-  return (
-    <motion.div
-      style={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.8, type: 'tween' } }}
-      className="opacity-1 bg-mesh-grandient bg-white dark:bg-dark"
-    ></motion.div>
-  );
-};
 
 const HomePage: NextPage = () => {
   return (
-    <div className="overflow-x-hidden">
-      <MeshGradientBackground />
-      <div className="px-8">
-        <HeroSection />
+    <div className="relative h-[2400px] bg-base-100">
+      <HeroSection />
+      <div className="absolute bottom-0 h-2/3 w-full bg-base-content shadow-[0_-10px_70px_-40px_black]">
         <ExploreSection />
-        <AlbumsSection />
-        <EditingSection />
-        <ScrollToTopButton />
+        <div className="absolute bottom-0 h-1/2 w-full bg-base-100 shadow-[0_-10px_70px_-30px_black]">
+          <AlbumsSection />
+        </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };
+
 export default HomePage;

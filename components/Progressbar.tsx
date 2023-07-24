@@ -59,13 +59,14 @@ const Progressbar: FC = () => {
             initial="initial"
             animate="visible"
             exit="hidden"
-            className="theme-gradient relative h-full"
+            className="relative h-full bg-primary"
           >
-            <div className="absolute right-0 h-full w-28 -translate-y-1 rotate-3 shadow-progressbar shadow-theme"></div>
+            <div className="absolute right-0 h-full w-28 -translate-y-1 rotate-3 shadow-[0_0_10px,0_0_5px] shadow-primary"></div>
           </motion.div>
         </div>
       )}
     </AnimatePresence>
   );
 };
+
 export default Progressbar;

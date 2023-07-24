@@ -35,8 +35,8 @@ const albumPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>
 
   return (
     <div className="main-container mb-7 pt-28">
-      <div className="mb-6 capitalize px-4">
-        <h2 className="py-4 border-b">{albumName} collection.</h2>
+      <div className="mb-6 px-4 capitalize">
+        <h2 className="border-b py-4">{albumName} collection.</h2>
       </div>
       {hasImages && <ImageGridLayout images={images} pagePath={url} />}
       {!hasImages && <NoImages />}

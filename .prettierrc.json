@@ -1,4 +1,5 @@
 {
+  "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
   "tabWidth": 2,
   "printWidth": 100,
   "singleQuote": true,
@@ -25,6 +26,5 @@
   "importOrderSeparation": false,
   "importOrderSortSpecifiers": true,
   "importOrderBuiltinModulesToTop": true,
-  "importOrderMergeDuplicateImports": true,
-  "plugins": ["@ianvs/prettier-plugin-sort-imports"]
+  "importOrderMergeDuplicateImports": true
 }

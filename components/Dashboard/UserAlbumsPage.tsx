@@ -8,7 +8,7 @@ const Placeholder: FC = () => {
   return (
     <>
       {new Array(12).fill(null).map((_, index) => (
-        <div key={index} className="aspect-[3/2] rounded-xl bg-cs-change animate-pulse"></div>
+        <div key={index} className="bg-cs-change aspect-[3/2] animate-pulse rounded-xl"></div>
       ))}
     </>
   );
@@ -21,7 +21,7 @@ const UserAlbumsPage: FC<UserPageProps> = ({ user }) => {
   return (
     <div
       style={{ '--col-min-width': '280px' } as any}
-      className="main-container grid w-full my-5 px-5 grid-cols-fill items-start gap-5"
+      className="main-container my-5 grid w-full grid-cols-fill items-start gap-5 px-5"
     >
       {!isLoading && (
         <>

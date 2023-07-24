@@ -1,38 +1,29 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { useTheme } from 'next-themes';
 import { cn } from '@/utils';
 
-type ButtonProps = {
-  containerClassName: string;
-  buttonClassName: string;
-  children?: ReactNode;
-};
-
-const ColorSchemeButton: FC<ButtonProps> = props => {
+const ColorSchemeButton: FC<{ className?: string }> = ({ className }) => {
   const { setTheme } = useTheme();
-  const { containerClassName, buttonClassName } = props;
 
   function toggleTheme() {
-    const HtmlClasses = document.documentElement.classList;
-    HtmlClasses.add('transition-off');
+    const htmlElement = document.documentElement;
+    htmlElement.classList.add('transition-off');
 
-    const prefersDarkTheme = HtmlClasses.contains('dark');
+    const prefersDarkTheme = htmlElement.getAttribute('data-theme') == 'dark';
     setTheme(prefersDarkTheme ? 'light' : 'dark');
 
-    // wait a few ms for transition-off to be applyed and then remove it
-    setTimeout(() => HtmlClasses.remove('transition-off'), 99);
+    // wait a few ms for transition-off to be applyed
+    setTimeout(() => htmlElement.classList.remove('transition-off'), 99);
   }
 
   return (
     <button
       data-test="cs-button"
-      className={cn('group relative', containerClassName)}
+      className={cn('transition-inherit dark:toggle-on toggle toggle-sm w-10 border-2', className)}
+      style={{ '--handleoffset': '1.25rem' } as any}
       onClick={toggleTheme}
-    >
-      {props.children}
-
-      <div className={cn('cs-button', buttonClassName)}></div>
-    </button>
+    ></button>
   );
 };
+
 export default ColorSchemeButton;

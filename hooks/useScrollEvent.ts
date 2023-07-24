@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-export const useScrollEvent = <T extends (...args: any[]) => any>(callback: T): ReturnType<T> => {
-  const [callbackResult, setCallbackResult] = useState<ReturnType<T>>();
+export const useScrollEvent = <T extends any>(callback: () => T): T => {
+  const [callbackResult, setCallbackResult] = useState<T>();
 
   function handleScrolling() {
     setCallbackResult(callback());

@@ -198,7 +198,7 @@ const AlbumModal: FC<AlbumModalProps> = ({ userId, image, toggle, show, children
             <div className="mb-3 text-2xl font-semibold sm:text-4xl">Choose your album</div>
             {isLoading && <PulseAnimation />}
             {!isLoading && (
-              <div className="h-[550px] overflow-auto rounded-inherit bg-neutral-950 p-4 sm:h-[400px]">
+              <div className="bg-neutral-950 h-[550px] overflow-auto rounded-inherit p-4 sm:h-[400px]">
                 <AlbumGridLayout {...layoutProps} refetch={refetch} />
               </div>
             )}

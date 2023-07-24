@@ -7,7 +7,7 @@ export default function Document() {
         <link rel="preload" as="image" href="/logotype.svg" />
         <link rel="preload" as="image" href="/mark.svg" />
       </Head>
-      <body>
+      <body className="overflow-x-hidden bg-base-200">
         <Main />
         <NextScript />
       </body>

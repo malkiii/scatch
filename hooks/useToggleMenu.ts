@@ -8,7 +8,9 @@ export const useToggleMenu = () => {
   }
 
   const handleClickOutside = (event: MouseEvent) => {
-    const menuContainer = menuRef.current!;
+    const menuContainer = menuRef.current;
+    if (!menuContainer) return;
+
     const clickOnTheMenu = menuContainer.contains(event.target as Node);
     if (!clickOnTheMenu) setIsOpen(false);
   };

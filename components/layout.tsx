@@ -51,7 +51,7 @@ const Layout: FC<layoutProps> = props => {
       </Head>
       <div
         className={cn(
-          'text-text bg-background overflow-x-hidden font-sans antialiased',
+          'relative mb-[460px] font-sans antialiased md:mb-80',
           fontHeading.variable,
           fontSans.variable
         )}
@@ -62,4 +62,5 @@ const Layout: FC<layoutProps> = props => {
     </>
   );
 };
+
 export default Layout;

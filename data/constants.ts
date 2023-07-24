@@ -2,7 +2,7 @@ export const siteInfos = {
   name: 'Scatch',
   author: 'Malki Abdurrahman',
   description:
-    'Scatch is an online image gallery where you can find your favored images and edit, save, or download them for free with high resolution.',
+    'Scatch, an image website where you can search for your favored images and download or save them in your albums for free with high resolution.',
   url: 'https://malki-scatch.vercel.app',
   ogImage: ''
 };
@@ -17,8 +17,8 @@ export const searchDemoImages = {
     'https://images.pexels.com/photos/12255770/pexels-photo-12255770.jpeg'
   ],
   wallpapers: [
-    'https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg',
     'https://images.pexels.com/photos/5117558/pexels-photo-5117558.jpeg',
+    'https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg',
     'https://images.pexels.com/photos/6012907/pexels-photo-6012907.jpeg',
     'https://images.pexels.com/photos/983200/pexels-photo-983200.jpeg',
     'https://images.pexels.com/photos/130621/pexels-photo-130621.jpeg',
@@ -34,21 +34,16 @@ export const searchDemoImages = {
   ]
 };
 
-export const socials = [
-  {
-    name: 'Facebook',
-    url: 'https://web.facebook.com/malkiabduu'
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/MalkiAbduu'
-  },
-  {
-    name: 'Instagram',
-    url: 'https://www.instagram.com/malkiabduu'
-  },
-  {
-    name: 'Github',
-    url: 'https://github.com/malkiii'
-  }
+export const albumDemoThumbnails = [
+  'https://images.pexels.com/photos/101472/pexels-photo-101472.jpeg',
+  'https://images.pexels.com/photos/2147834/pexels-photo-2147834.jpeg',
+  'https://images.pexels.com/photos/2249063/pexels-photo-2249063.jpeg',
+  'https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg'
 ];
+
+export const socials = {
+  Facebook: 'https://web.facebook.com/malkiabduu',
+  Twitter: 'https://twitter.com/MalkiAbduu',
+  Instagram: 'https://www.instagram.com/malkiabduu',
+  Github: 'https://github.com/malkiii'
+};

@@ -1,37 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply overflow-x-hidden font-monsterrat text-dark transition-colors dark:bg-dark dark:text-white;
+    &::-webkit-scrollbar {
+      @apply w-4;
+    }
+    &::-webkit-scrollbar-thumb {
+      @apply rounded-3xl border-4 border-solid border-transparent bg-dark bg-clip-content hover:bg-dark/90 dark:bg-white dark:hover:bg-white/90;
+    }
   }
-  :not(body)::-webkit-scrollbar {
-    @apply w-2 bg-transparent;
+  :not(body) {
+    &::-webkit-scrollbar {
+      @apply w-2 bg-transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      @apply rounded-3xl bg-dark hover:bg-dark/90 dark:bg-white dark:hover:bg-white/90;
+    }
   }
-  :not(body)::-webkit-scrollbar-thumb {
-    @apply rounded-3xl bg-dark hover:bg-dark/90 dark:bg-white dark:hover:bg-white/90;
-  }
-  body::-webkit-scrollbar {
-    @apply w-4 bg-neutral-100 dark:bg-neutral-900;
-  }
-  body::-webkit-scrollbar-thumb {
-    @apply rounded-3xl border-4 border-solid border-transparent bg-dark bg-clip-content hover:bg-dark/90 dark:bg-white dark:hover:bg-white/90;
-  }
-  h1 {
-    @apply text-5xl font-extrabold sm:text-6xl;
-  }
-  h2 {
-    @apply mb-4 text-3xl font-extrabold sm:text-4xl;
-  }
-  h4 {
-    @apply my-4 font-rubik text-lg font-bold;
+  :is(h1, h2, h3) {
+    @apply text-balance font-heading font-extrabold tracking-tighter;
   }
   p {
-    @apply font-rubik leading-relaxed;
+    @apply font-medium leading-relaxed tracking-normal;
   }
   a,
   button {
@@ -41,40 +33,22 @@
     @apply appearance-none;
   }
   ::selection {
-    @apply bg-cyan-500 text-white;
+    @apply bg-primary text-white;
   }
 }
 
 @layer components {
   .logo {
-    @apply select-none brightness-0 transition-all dark:brightness-100 [&.force-white]:brightness-100;
+    @apply select-none brightness-0 transition-all dark:brightness-100;
   }
-  .bg-mesh-grandient {
-    @apply mesh-grandient fixed left-0 top-0 -z-10 min-h-screen w-full;
+  .theme-link {
+    @apply transition-colors hover:text-theme;
+  }
+  .theme-btn {
+    @apply btn-primary btn h-fit min-h-0 px-6 py-3 font-sans text-base normal-case tracking-wide text-white;
   }
   .main-container {
     @apply mx-auto max-w-screen-xl;
-  }
-  .theme-gradient {
-    @apply bg-gradient-to-br from-theme to-cyan-500;
-  }
-  .theme-link {
-    @apply mr-10 transition-colors hover:text-theme;
-  }
-  .theme-btn {
-    @apply inline-flex rounded-3xl bg-dark px-6 py-3 font-bold text-white transition-colors duration-200 hover:bg-cyan-500 hover:text-white dark:bg-white dark:text-dark dark:hover:bg-cyan-500 dark:hover:text-white;
-  }
-  .nav-menu-link {
-    @apply block border-b-2 border-white p-5 capitalize transition-all hover:border-b-theme dark:hover:text-theme;
-  }
-  .album-image {
-    @apply relative aspect-[1149/761] rounded-lg border-2 border-white text-white shadow-3xl transition-colors hover:border-theme hover:text-theme;
-  }
-  .hero-section-image {
-    @apply absolute aspect-[1920/1080] w-1/2 select-none after:absolute after:inset-0 after:top-0 after:z-10 after:w-0 after:bg-theme;
-  }
-  .footer-link {
-    @apply my-2 flex items-center gap-3 text-dark/70 transition-colors hover:text-dark dark:text-white/90 dark:hover:text-theme;
   }
   .image-layer-btn {
     @apply inline-block rounded-md p-2 font-semibold transition-colors;
@@ -97,12 +71,6 @@
   .avatar-menu-option {
     @apply flex items-center gap-x-4 p-3 normal-case;
   }
-  .avatar-menu {
-    @apply right-0 top-full w-56 translate-x-2;
-  }
-  .menu-separator {
-    @apply border-b-2 border-dotted border-neutral-600;
-  }
   .modal-arrow {
     @apply text-7xl text-white transition-colors hover:text-theme disabled:opacity-30 hover:disabled:text-current;
   }
@@ -124,21 +92,14 @@
   .credential-input.error {
     @apply border-error outline-none;
   }
-  .auth-title {
-    @apply text-4xl capitalize lg:text-5xl;
-  }
-  .cs-button {
-    @apply after:transition-inherit relative aspect-[57/28] rounded-2xl border-2 border-dark transition-colors after:absolute after:left-px after:top-1/2 after:aspect-square after:h-[90%] after:translate-y-[-48%] after:rounded-circle after:bg-dark dark:border-white dark:after:left-[57%] dark:after:bg-white;
-  }
   .profile-page-link {
-    @apply relative flex items-center gap-x-2 p-2 sm:p-3 text-xs sm:text-base font-semibold capitalize transition-colors after:absolute after:bottom-0 after:translate-y-1/2 after:bg-dark after:transition-all after:duration-300 after:dark:bg-white hover:[&:not(.text-dark,.dark\:text-white)]:text-theme;
+    @apply relative flex items-center gap-x-2 p-2 text-xs font-semibold capitalize transition-colors after:absolute after:bottom-0 after:translate-y-1/2 after:bg-dark after:transition-all after:duration-300 after:dark:bg-white sm:p-3 sm:text-base hover:[&:not(.text-dark,.dark\:text-white)]:text-theme;
   }
   .profile-page-link.focus {
     @apply after:left-[var(--trailer-border-position)] after:h-[2px] after:w-[var(--trailer-border-width)];
   }
 }
 
-/* prettier-ignore */
 @layer utilities {
   .h-inherit {
     height: inherit;
@@ -152,27 +113,28 @@
   .focus-gradient-lg {
     background: radial-gradient(#0000, #000000bf);
   }
-  .vertical-line-gradient {
-    background:
-      linear-gradient(90deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
+  .text-balance {
+    text-wrap: balance;
   }
-  .mesh-grandient {
-    background-image:
-      radial-gradient(at 18% 120%, hsla(191, 85%, 53%, 0.4) 0px, transparent 50%),
-      radial-gradient(at 100% 130%, hsla(191, 85%, 53%, 0.6) 0px, transparent 50%),
-      radial-gradient(at 150% 33%, hsla(191, 85%, 53%, 1) 0px, transparent 50%),
-      radial-gradient(at 35% -60%, hsla(191, 85%, 53%, 1) 0px, transparent 50%);
+  /* this is for .toggle component */
+  .toggle-on {
+    --handleoffsetcalculator: var(--handleoffset);
+    --tw-border-opacity: 1;
+    --tw-bg-opacity: 1;
   }
 }
 
-.transition-off *,
-.transition-off *::before,
-.transition-off *::after {
+.transition-off * {
   transition: none !important;
+  &::before,
+  &::after {
+    transition: none !important;
+  }
 }
+
 body.scrolling-disabled {
   @apply overflow-y-hidden pr-4;
-}
-body.scrolling-disabled header > div {
-  @apply pr-4;
+  & header > div {
+    @apply pr-4;
+  }
 }
