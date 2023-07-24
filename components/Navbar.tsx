@@ -127,7 +127,7 @@ const NavbarMenu: FC<NavbarMenuProps> = ({ user }) => {
   function disableScrolling() {
     const bodyClasses = document.body.classList;
     const isOnMobile = navigator.userAgent.includes('Mobile');
-    if (isOnMobile && !isOpen) bodyClasses.add('overflow-y-hidden');
+    if (!isOpen) bodyClasses.add('overflow-y-hidden');
     else bodyClasses.remove('overflow-y-hidden');
   }
 
@@ -190,7 +190,7 @@ const NavbarMenu: FC<NavbarMenuProps> = ({ user }) => {
 const Logotype: FC = () => {
   return (
     <div className="relative overflow-hidden py-1">
-      <Link href="/" className="-ml-11 block h-[40px] w-[144px] pl-[6px]" tabIndex={-1}>
+      <Link href="/" className="-ml-11 block h-[40px] w-[150px] pl-[6px]" tabIndex={-1}>
         <img
           src="/logotype.svg"
           alt="scatch logo"

@@ -6,7 +6,7 @@ import { AiFillPlusCircle as PlusIcon } from 'react-icons/ai';
 import { ResponseImage, UserAlbumThumbnail } from '@/types';
 import { cn, getResizedImage } from '@/utils';
 import { trpc } from '@/utils/trpc';
-import { ErrorMessage } from '../Forms/FormItems';
+import { ErrorMessage } from '../Forms/FormComponents';
 import { PulseAnimation, SpinnerAnimation } from '../Loading';
 
 type AlbumThumbnailProps = {

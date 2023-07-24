@@ -25,10 +25,9 @@ const useFavicon = (): string => {
   return `/favicon-${systemTheme || 'dark'}.ico`;
 };
 
-const WithNavbarAndFooter: FC<layoutProps> = ({ session, router, children }) => {
-  const isAuthRoute = ['/login', '/register'].includes(router.pathname);
-
-  if (isAuthRoute) return <>{children}</>;
+type NestedLayoutProps = layoutProps & { navbar: boolean };
+const WithNavbarAndFooter: FC<NestedLayoutProps> = ({ session, children, navbar }) => {
+  if (!navbar) return <>{children}</>;
   return (
     <>
       <Navbar session={session} />
@@ -44,6 +43,8 @@ type layoutProps = WithRouterProps & {
 };
 const Layout: FC<layoutProps> = props => {
   const favionPath = useFavicon();
+  const isAuthRoute = ['/login', '/register'].includes(props.router.pathname);
+
   return (
     <>
       <Head>
@@ -51,13 +52,14 @@ const Layout: FC<layoutProps> = props => {
       </Head>
       <div
         className={cn(
-          'relative mb-[460px] font-sans antialiased md:mb-80',
+          'relative font-sans antialiased',
+          { 'mb-[460px] md:mb-80': !isAuthRoute },
           fontHeading.variable,
           fontSans.variable
         )}
       >
         <Progressbar />
-        <WithNavbarAndFooter {...props} />
+        <WithNavbarAndFooter {...props} navbar={!isAuthRoute} />
       </div>
     </>
   );
