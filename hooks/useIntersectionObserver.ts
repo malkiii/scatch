@@ -18,9 +18,7 @@ export const useIntersectionObserver = <T extends HTMLElement = HTMLDivElement>(
         if (!entry.isIntersecting) return setIsInView(false);
 
         setIsInView(true);
-        if (options?.once === undefined || options.once) {
-          observerRef.current!.unobserve(entry.target);
-        }
+        if (options?.once) observerRef.current!.unobserve(entry.target);
       });
     }, options);
 
@@ -29,7 +27,7 @@ export const useIntersectionObserver = <T extends HTMLElement = HTMLDivElement>(
     return () => {
       if (observerRef.current) observerRef.current.disconnect();
     };
-  }, [options]);
+  }, []);
 
   return { targetRef, isInView };
 };
