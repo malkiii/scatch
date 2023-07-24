@@ -30,7 +30,7 @@ const SearchInput: FC = () => {
 };
 
 const HeroSection: FC = () => {
-  const { targetRef, isInView } = useIntersectionObserver();
+  const { targetRef, isInView } = useIntersectionObserver({ once: true });
   const animationClassNames = 'animate-in fade-in slide-in-from-bottom-7 duration-200';
   const showElement = (e: any) => removeClassNames(e.currentTarget, 'opacity-0');
 

@@ -38,7 +38,7 @@ const showElement = (e: any) => removeClassNames(e.currentTarget, 'opacity-0');
 
 const AlbumsSection: FC = () => {
   const { data: session } = useSession();
-  const { targetRef, isInView } = useIntersectionObserver({ threshold: 3 / 4 });
+  const { targetRef, isInView } = useIntersectionObserver({ threshold: 3 / 4, once: true });
   const animationClassNames = 'animate-in fade-in slide-in-from-bottom-10 duration-200';
 
   const albumsPageLink = session
