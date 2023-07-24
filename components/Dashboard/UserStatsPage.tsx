@@ -43,11 +43,11 @@ function groupDates(dates: string[], groupBy: 'days' | 'months') {
 
 const Placeholder: FC = () => {
   return (
-    <div className="max-w-[1400px] m-auto flex flex-col lg:flex-row items-center my-5 px-5 gap-5">
+    <div className="m-auto my-5 flex max-w-[1400px] flex-col items-center gap-5 px-5 lg:flex-row">
       {new Array(2).fill(null).map((_, index) => (
         <div
           key={index}
-          className="h-[300px] w-full lg:w-1/2 rounded-xl bg-cs-change animate-pulse"
+          className="bg-cs-change h-[300px] w-full animate-pulse rounded-xl lg:w-1/2"
         ></div>
       ))}
     </div>
@@ -77,8 +77,8 @@ const UserStatsPage: FC<UserPageProps> = ({ user }) => {
   type Label = keyof typeof stats;
 
   return (
-    <div className="max-w-[1400px] m-auto flex flex-col lg:flex-row items-center my-5 px-5 gap-5">
-      <div className="relative max-h-[400px] w-full lg:w-1/2 border-2 rounded-xl p-4 border-dark/40 hover:border-dark dark:border-white/40 dark:hover:border-white transition-colors">
+    <div className="m-auto my-5 flex max-w-[1400px] flex-col items-center gap-5 px-5 lg:flex-row">
+      <div className="relative max-h-[400px] w-full rounded-xl border-2 border-dark/40 p-4 transition-colors hover:border-dark dark:border-white/40 dark:hover:border-white lg:w-1/2">
         <h3 className="text-2xl font-semibold capitalize">weekly activities</h3>
         <ActivityChart
           type="line"
@@ -94,7 +94,7 @@ const UserStatsPage: FC<UserPageProps> = ({ user }) => {
           }}
         />
       </div>
-      <div className="relative max-h-[400px] w-full lg:w-1/2 border-2 rounded-xl p-4 border-dark/40 hover:border-dark dark:border-white/40 dark:hover:border-white transition-colors">
+      <div className="relative max-h-[400px] w-full rounded-xl border-2 border-dark/40 p-4 transition-colors hover:border-dark dark:border-white/40 dark:hover:border-white lg:w-1/2">
         <h3 className="text-2xl font-semibold capitalize">monthly activities</h3>
         <ActivityChart
           type="bar"

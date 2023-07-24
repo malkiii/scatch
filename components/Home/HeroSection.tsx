@@ -1,92 +1,77 @@
 import { FC } from 'react';
 import { siteInfos } from '@/data/constants';
-import { easeExpInOut } from '@malkiii/d3-ease';
-import { motion } from 'framer-motion';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
+import { cn, removeClassNames } from '@/utils';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
-
-const textVariants = {
-  hidden: { y: 130, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      when: 'beforeChildren',
-      duration: 0.7,
-      ease: easeExpInOut
-    }
-  }
-};
-
-const inputVariants = {
-  hidden: { width: '80px' },
-  visible: {
-    width: '100%',
-    transition: {
-      duration: 0.55,
-      ease: easeExpInOut
-    }
-  }
-};
 
 const SearchInput: FC = () => {
   const { inputRef, triggerTheSearch, handleEnter } = useSearchTrigger();
-
   return (
-    <motion.div
-      variants={inputVariants}
-      className="relative mx-auto flex items-center rounded-3xl bg-white/80 text-lg shadow-xl transition-colors dark:bg-neutral-900/60"
-    >
-      <div className="w-full overflow-hidden">
-        <input
-          type="search"
-          ref={inputRef}
-          placeholder="Search.."
-          className="block h-full w-full bg-transparent px-4 py-2 outline-none"
-          onKeyDown={handleEnter}
-          autoComplete="off"
-          autoFocus
-          required
-        />
-      </div>
+    <div className="relative mx-auto flex items-center gap-x-2 text-lg">
+      <input
+        type="search"
+        ref={inputRef}
+        placeholder="Search.."
+        className="input-bordered input-primary input block h-full w-full bg-transparent px-4 py-2 shadow-xl"
+        onKeyDown={handleEnter}
+        autoComplete="off"
+        autoFocus
+        required
+      />
       <button
-        className="theme-btn flex w-[90px] items-center rounded-inherit py-2"
+        className="theme-btn animate-none px-4 py-2 shadow-xl"
         onClick={async () => await triggerTheSearch()}
       >
-        <SearchIcon size={30} className="mx-auto block" />
+        <SearchIcon size={30} />
       </button>
-    </motion.div>
+    </div>
   );
 };
 
 const HeroSection: FC = () => {
+  const { targetRef, isInView } = useIntersectionObserver();
+  const animationClassNames = 'animate-in fade-in slide-in-from-bottom-7 duration-200';
+  const showElement = (e: any) => removeClassNames(e.currentTarget, 'opacity-0');
+
   return (
-    <div className="relative mt-20 py-20 md:py-44">
+    <div
+      ref={targetRef}
+      className="sticky top-0 mb-4 overflow-hidden from-base-300 to-transparent px-8 pt-36 dark:bg-gradient-to-b md:pt-64"
+    >
       <div className="mx-auto max-w-7xl">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          transition={{ staggerChildren: 0.1 }}
-          className="mx-auto flex max-w-5xl flex-col gap-y-6 text-center"
-        >
-          <motion.h1 variants={textVariants}>
-            welcome to{' '}
-            <span className="theme-gradient after:theme-gradient relative bg-clip-text text-transparent after:absolute after:left-0 after:top-full after:h-1 after:w-full">
-              {siteInfos.name}
+        <div className="mx-auto mb-10 flex max-w-6xl flex-col gap-y-6 text-center">
+          <h1
+            onAnimationStartCapture={showElement}
+            className={cn('text-5xl opacity-0 sm:text-6xl', {
+              [animationClassNames]: isInView
+            })}
+          >
+            Search and Save images in your{' '}
+            <span className="bg-gradient-to-br from-primary to-primary-focus bg-clip-text pr-1 text-transparent">
+              albums
             </span>
-          </motion.h1>
-          <motion.p
-            variants={textVariants}
-            className="text-xl leading-[1.7] opacity-75 sm:text-2xl sm:leading-[1.7]"
+          </h1>
+          <p
+            onAnimationStartCapture={showElement}
+            className={cn('text-lg leading-[1.7] opacity-0 sm:text-2xl sm:leading-[1.7]', {
+              [cn(animationClassNames, 'delay-150')]: isInView
+            })}
           >
             {siteInfos.description}
-          </motion.p>
-          <motion.div variants={textVariants} className="mx-auto w-full md:w-3/5">
+          </p>
+          <div
+            onAnimationStartCapture={showElement}
+            className={cn('mx-auto w-full opacity-0 md:w-3/5', {
+              [cn(animationClassNames, 'delay-300')]: isInView
+            })}
+          >
             <SearchInput />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
 export default HeroSection;

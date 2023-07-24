@@ -84,10 +84,10 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
   return (
     <div
       ref={navbarRef}
-      className="sticky top-[64px] z-[900] border-b border-neutral-600 transition-colors pl-1"
+      className="sticky top-[64px] z-[900] border-b border-neutral-600 pl-1 transition-colors"
     >
       <div className="relatvie mx-auto max-w-7xl" style={trailerBorderStyle as any}>
-        <ul className="flex items-center gap-x-0 sm:gap-x-5 text-neutral-600 transition-all duration-200">
+        <ul className="flex items-center gap-x-0 text-neutral-600 transition-all duration-200 sm:gap-x-5">
           {dashboardNavPages.map(({ name: page, icon }, id) => (
             <Link
               key={id}

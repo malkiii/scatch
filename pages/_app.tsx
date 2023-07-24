@@ -7,7 +7,7 @@ import { AppPropsWithLayout, AppType } from '@/types';
 import { trpc } from '@/utils/trpc';
 import Layout from '@/components/layout';
 
-const MyApp = trpc.withTRPC((props: AppPropsWithLayout) => {
+const ScatchApp = trpc.withTRPC((props: AppPropsWithLayout) => {
   const {
     router,
     Component,
@@ -20,7 +20,7 @@ const MyApp = trpc.withTRPC((props: AppPropsWithLayout) => {
 
   return (
     <SessionProvider session={session}>
-      <ThemeProvider attribute="class" defaultTheme="dark">
+      <ThemeProvider attribute="data-theme" defaultTheme="dark">
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>Scatch</title>
@@ -33,10 +33,11 @@ const MyApp = trpc.withTRPC((props: AppPropsWithLayout) => {
   );
 }) as AppType;
 
-MyApp.getInitialProps = async context => {
+// get the user session in the server side
+ScatchApp.getInitialProps = async context => {
   const appProps = await App.getInitialProps(context);
   const currentSession = await getSession(context.ctx);
   return { ...appProps, currentSession };
 };
 
-export default MyApp;
+export default ScatchApp;

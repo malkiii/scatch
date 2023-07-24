@@ -1,10 +1,9 @@
 import { FC, useState } from 'react';
 import Head from 'next/head';
 import { searchDemoImages } from '@/data/constants';
-import { easeExpOut } from '@malkiii/d3-ease';
-import { motion } from 'framer-motion';
 import TypeIt from 'typeit-react';
-import { getResizedImage } from '@/utils';
+import { cn, getResizedImage, removeClassNames } from '@/utils';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const searchNames = Object.keys(searchDemoImages);
 const imagesURLs = new Array<string>().concat(...Object.values(searchDemoImages));
@@ -15,7 +14,7 @@ type DemoInputProps = {
 
 const SearchDemoInput: FC<DemoInputProps> = ({ afterString }) => {
   return (
-    <div className="mx-auto mb-4 h-11 w-2/3 rounded-3xl border-2 border-theme bg-neutral-50/50 px-3 py-2 dark:bg-neutral-800/40 sm:w-80">
+    <div className="mx-auto mb-4 h-11 w-2/3 rounded-xl border-2 border-primary px-3 py-2 shadow-xl sm:w-80">
       <TypeIt
         options={{
           loop: true,
@@ -32,30 +31,6 @@ const SearchDemoInput: FC<DemoInputProps> = ({ afterString }) => {
       />
     </div>
   );
-};
-
-const conntainerVariants = {
-  hidden: { y: 100, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: easeExpOut
-    }
-  }
-};
-
-const imageVariants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: 'tween',
-      delay: i / 50
-    }
-  })
 };
 
 type SearchDemoImagesProps = {
@@ -77,15 +52,15 @@ const SearchDemoImageRender: FC<SearchDemoImagesProps> = ({ nameIndex }) => {
               const index = col * 2 + row;
               const id = searchNames[nameIndex] + '-' + index;
               return (
-                <motion.img
+                <img
                   key={id}
-                  custom={index}
-                  variants={imageVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="w-full shadow-3xl"
+                  className="w-full shadow-2xl animate-in fade-in slide-in-from-top-2 ease-linear paused"
                   src={getImageUrl(index)}
                   alt="scatch image"
+                  onAnimationStartCapture={e => {
+                    const image = e.currentTarget;
+                    setTimeout(() => image.classList.remove('paused'), index * 15);
+                  }}
                 />
               );
             })}
@@ -107,37 +82,38 @@ const ImagePreloader: FC = () => {
 
 const ExploreSection: FC = () => {
   const [currentNameIndex, setCurrentNameIndex] = useState<number>(-1);
+  const { targetRef, isInView } = useIntersectionObserver({ threshold: 3 / 5 });
+  const animationClassNames = 'animate-in fade-in slide-in-from-bottom-10 duration-200';
+  const showElement = (e: any) => removeClassNames(e.currentTarget, 'opacity-0');
 
   function setNextNameIndex() {
     setCurrentNameIndex(currentNameIndex == searchNames.length - 1 ? 0 : currentNameIndex + 1);
   }
 
   return (
-    <>
+    <div ref={targetRef} className="sticky top-0 h-[760px] px-8 py-20 text-base-100">
       <ImagePreloader />
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ staggerChildren: 0.1 }}
-        className="py-24"
+      <div
+        onAnimationStartCapture={showElement}
+        className={cn('text-center opacity-0', { [animationClassNames]: isInView })}
       >
-        <motion.div variants={conntainerVariants} className="text-center">
-          <h2>Search for images in any language.</h2>
-          <p className="mb-8 text-xl">
-            On the explore page, you can search and save your favored images or download them with{' '}
-            <span className="text-theme">10,000+</span> pictures.
-          </p>
-        </motion.div>
-        <motion.div
-          variants={conntainerVariants}
-          className="mx-auto aspect-[600/510] max-w-[600px]"
-        >
-          <SearchDemoInput afterString={setNextNameIndex} />
-          <SearchDemoImageRender nameIndex={currentNameIndex} />
-        </motion.div>
-      </motion.div>
-    </>
+        <h2 className="mb-4 text-3xl sm:text-4xl">Search for images in any language.</h2>
+        <p className="mb-8 text-xl">
+          On the explore page, you can search and save your favored images or download them with{' '}
+          <span className="text-primary">100,000+</span> pictures.
+        </p>
+      </div>
+      <div
+        onAnimationStartCapture={showElement}
+        className={cn('mx-auto aspect-[600/480] max-w-[600px] opacity-0', {
+          [cn(animationClassNames, 'delay-200')]: isInView
+        })}
+      >
+        <SearchDemoInput afterString={setNextNameIndex} />
+        <SearchDemoImageRender nameIndex={currentNameIndex} />
+      </div>
+    </div>
   );
 };
+
 export default ExploreSection;

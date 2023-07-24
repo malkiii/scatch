@@ -21,10 +21,7 @@ describe.only('Test the modal action', () => {
     cy.get('[data-test="modal-link"]:first').click();
     cy.wait(1000);
     cy.get('.modal-arrow:first').as('prevButton').should('be.disabled');
-    cy.get('.modal-arrow:last')
-      .as('nextButton')
-      .should('not.be.disabled')
-      .click();
+    cy.get('.modal-arrow:last').as('nextButton').should('not.be.disabled').click();
     cy.wait(1000);
     cy.get('@nextButton').should('be.disabled');
     cy.get('@prevButton').should('not.be.disabled');
