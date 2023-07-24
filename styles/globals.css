@@ -47,6 +47,12 @@
   .theme-btn {
     @apply btn-primary btn h-fit min-h-0 px-6 py-3 font-sans text-base normal-case tracking-wide text-white;
   }
+  .theme-input {
+    @apply input-bordered input-primary input w-full;
+  }
+  .theme-input.error {
+    @apply input-error;
+  }
   .main-container {
     @apply mx-auto max-w-screen-xl;
   }
