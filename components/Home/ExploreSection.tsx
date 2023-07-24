@@ -90,8 +90,6 @@ const ExploreSection: FC = () => {
     setCurrentNameIndex(currentNameIndex == searchNames.length - 1 ? 0 : currentNameIndex + 1);
   }
 
-  console.log(isInView);
-
   return (
     <div ref={targetRef} className="sticky top-0 h-[760px] px-8 py-20 text-base-100">
       <ImagePreloader />
