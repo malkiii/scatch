@@ -65,7 +65,7 @@ const AlbumsSection: FC = () => {
           href={albumsPageLink}
           onAnimationStart={showElement}
           className={cn('theme-btn animate-none opacity-0 shadow-xl', {
-            [cn(animationClassNames, 'delay-150')]: isInView
+            'animate-in fade-in slide-in-from-right-10 delay-150': isInView
           })}
         >
           See your albums
