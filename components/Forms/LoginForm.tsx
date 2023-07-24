@@ -3,7 +3,7 @@ import { signIn } from 'next-auth/react';
 import { LoginFormData, WithFormError } from '@/types';
 import { cn } from '@/utils';
 import { useForm } from '@/hooks/useForm';
-import { AuthProviders, ErrorMessage, SubmitButton, VerticalLine } from './FormItems';
+import { AuthProviders, ErrorMessage, SubmitButton } from './FormComponents';
 
 type CredentialInputsProps = {
   data: LoginFormData & WithFormError;
@@ -19,7 +19,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
           type="email"
           name="user[email]"
           placeholder="Email"
-          className={cn('credential-input', { 'error': error == 'Email' })}
+          className={cn('theme-input', { 'error': error == 'Email' })}
           value={email}
           onInput={handleInput}
           required
@@ -32,7 +32,7 @@ const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
           type="password"
           name="user[password]"
           placeholder="Password"
-          className={cn('credential-input', { 'error': error == 'Password' })}
+          className={cn('theme-input', { 'error': error == 'Password' })}
           pattern=".{6,}"
           title="Password must be at least 6 characters"
           value={password}
@@ -69,7 +69,7 @@ const LoginForm: FC = () => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <AuthProviders text="Continue with" />
-      <VerticalLine text="OR" />
+      <div className="divider my-2">OR</div>
       <CredentialInputs {...form} />
       <SubmitButton {...{ text: 'Login', isSubmitting }} />
     </form>

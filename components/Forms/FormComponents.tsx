@@ -1,12 +1,10 @@
 import { FC, ReactNode, useState } from 'react';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
-import { renderToString } from 'react-dom/server';
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { IoIosWarning as WarningIcon } from 'react-icons/io';
 import { cn } from '@/utils';
-import { SpinnerAnimation } from '../Loading';
 
 type MarkProps = {
   className?: string;
@@ -47,7 +45,7 @@ export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
   function handleClick(target: HTMLButtonElement, handler: Function) {
     if (isLoading) return;
     setIsLoading(true);
-    target.innerHTML = renderToString(<SpinnerAnimation size={iconSize} />);
+    target.innerHTML = '<div class="loading loading-spinner w-[25px]"></div>';
     handler();
   }
 
@@ -59,7 +57,7 @@ export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
           type="button"
           onClick={e => handleClick(e.currentTarget, handleSignIn)}
           className={cn(
-            'flex w-full items-center justify-center gap-3 rounded-3xl p-3 text-center font-semibold transition-colors',
+            'flex w-full items-center justify-center gap-3 rounded-lg p-3 text-center font-semibold transition-colors',
             className
           )}
         >
@@ -73,7 +71,7 @@ export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
 type SubmitButtonProps = {
   text: string;
   isSubmitting: boolean;
-  onClick?: (e?: any) => void;
+  onClick?: (e?: MouseEvent) => void;
 };
 export const SubmitButton: FC<SubmitButtonProps> = ({ text, isSubmitting, onClick }) => {
   function handleClick(e: any) {
@@ -81,31 +79,15 @@ export const SubmitButton: FC<SubmitButtonProps> = ({ text, isSubmitting, onClic
     else onClick ? onClick(e) : null;
   }
   return (
-    <button
-      type="submit"
-      onClick={handleClick}
-      className="theme-btn flex items-center justify-center text-center"
-    >
-      {isSubmitting ? <SpinnerAnimation size={24} /> : text}
+    <button type="submit" onClick={handleClick} className="theme-btn animate-none">
+      {isSubmitting ? <div className="loading loading-spinner w-[25px]"></div> : text}
     </button>
-  );
-};
-
-type VerticalLineProps = {
-  text?: string;
-};
-export const VerticalLine: FC<VerticalLineProps> = ({ text }) => {
-  return (
-    <div className="relative z-10">
-      <span className="vertical-line-gradient absolute inset-0 z-0 m-auto h-px dark:invert"></span>
-      <span className="relative bg-white px-3 dark:bg-dark">{text}</span>
-    </div>
   );
 };
 
 export const ErrorMessage: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="mt-1 flex w-full items-center justify-center gap-x-2 text-sm font-semibold text-error md:text-base">
+    <div className="mt-2 flex w-full items-center justify-center gap-x-2 text-sm text-error md:text-base">
       <WarningIcon /> {children}
     </div>
   );
