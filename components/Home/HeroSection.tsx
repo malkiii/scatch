@@ -8,19 +8,19 @@ import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 const SearchInput: FC = () => {
   const { inputRef, triggerTheSearch, handleEnter } = useSearchTrigger();
   return (
-    <div className="relative mx-auto flex items-center gap-x-2 text-lg">
+    <div className="relative mx-auto flex items-center gap-x-2">
       <input
         type="search"
         ref={inputRef}
         placeholder="Search.."
-        className="input-bordered input-primary input block h-full w-full bg-transparent px-4 py-2 shadow-xl"
+        className="theme-input h-full px-4 py-2 shadow-xl"
         onKeyDown={handleEnter}
         autoComplete="off"
         autoFocus
         required
       />
       <button
-        className="theme-btn animate-none px-4 py-2 shadow-xl"
+        className="theme-btn px-4 py-2 shadow-xl"
         onClick={async () => await triggerTheSearch()}
       >
         <SearchIcon size={30} />
