@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ModalActions } from '@/types';
-import { getImageModalRouteQuery } from '@/utils';
-
-type ModalImage = {
-  id: number;
-};
+import { disableScrolling, getImageModalRouteQuery } from '@/utils';
 
 enum SwitchDirection {
   next = 1,
@@ -13,12 +9,7 @@ enum SwitchDirection {
 }
 type SwitchOption = keyof typeof SwitchDirection;
 
-function disableScrolling(ok: boolean) {
-  const bodyClasses = document.body.classList;
-  if (ok) bodyClasses.add('scrolling-disabled');
-  else bodyClasses.remove('scrolling-disabled');
-}
-
+type ModalImage = { id: number };
 export const useModalRoute = (array: ModalImage[], pagePath: string) => {
   const router = useRouter();
   const { pathname } = router;

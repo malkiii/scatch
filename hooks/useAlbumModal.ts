@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { ResponseImage } from '@/types';
-
-function disableScrolling(ok: boolean) {
-  const bodyClasses = document.body.classList;
-  if (ok) bodyClasses.add('scrolling-disabled');
-  else bodyClasses.remove('scrolling-disabled');
-}
+import { disableScrolling } from '@/utils';
 
 export const useAlbumModal = (image: ResponseImage, userId: string) => {
   const [showAlbumModal, setShowAlbumModal] = useState<boolean>(false);
