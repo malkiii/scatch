@@ -9,7 +9,6 @@ import { getCurrentSession } from '@/utils/session';
 import { useSearchInfinitScroll } from '@/hooks/useSearchInfinitScroll';
 import ImageGridLayout from '@/components/ImageGridLayout';
 import { PulseAnimation } from '@/components/Loading';
-import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { FilterMenu, SearchInput } from '@/components/Search';
 
 type RouteQuery = {
@@ -23,7 +22,7 @@ type PageProps = {
 };
 
 export const getServerSideProps: GetServerSideProps<PageProps> = async context => {
-  const { req, res, query } = context;
+  const { res, query } = context;
   const { query: searchKeyword, o: orientation } = query as RouteQuery;
 
   let fetchQuery: string;
@@ -85,7 +84,7 @@ export default withRouter(
     const title = `${searchKeyword} images | Search and save in your albums`;
 
     return (
-      <div>
+      <>
         <Head>
           <title>{title}</title>
         </Head>
@@ -97,7 +96,7 @@ export default withRouter(
                 <h3 className="text-2xl font-bold first-letter:capitalize lg:text-4xl">
                   {searchKeyword} images.
                 </h3>
-                <FilterMenu query={searchKeyword} focusOn={orientation} />
+                <FilterMenu url={new URL(router.asPath, process.env.NEXT_PUBLIC_APP_URL)} />
               </div>
               <ImageGridLayout pagePath={currentPathname} images={images} />
               {hasMore && <PulseAnimation />}
@@ -106,8 +105,7 @@ export default withRouter(
             <NoResults query={searchKeyword} />
           )}
         </div>
-        <ScrollToTopButton />
-      </div>
+      </>
     );
   }
 );

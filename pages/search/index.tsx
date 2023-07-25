@@ -5,7 +5,6 @@ import { ImageAPIRequestQuery, ImagePage } from '@/types';
 import { useSearchInfinitScroll } from '@/hooks/useSearchInfinitScroll';
 import ImageGridLayout from '@/components/ImageGridLayout';
 import { PulseAnimation } from '@/components/Loading';
-import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { SearchInput, SearchKeywords } from '@/components/Search';
 
 type PageProps = {
@@ -23,7 +22,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({ res })
 const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = props => {
   const { images, hasMore } = useSearchInfinitScroll(props);
   return (
-    <div>
+    <>
       <Head>
         <title>Search for images</title>
       </Head>
@@ -33,8 +32,8 @@ const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps
         <ImageGridLayout pagePath="/search" images={images} />
         {hasMore && <PulseAnimation />}
       </div>
-      <ScrollToTopButton />
-    </div>
+    </>
   );
 };
+
 export default SearchPage;
