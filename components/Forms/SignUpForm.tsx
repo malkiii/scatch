@@ -184,4 +184,5 @@ const SignUpForm: FC = () => {
     </form>
   );
 };
+
 export default SignUpForm;
