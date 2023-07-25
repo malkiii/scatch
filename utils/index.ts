@@ -50,11 +50,14 @@ export function getImageModalRouteQuery(pathname: string, id: number, index: num
     i: index
   };
 }
-
 export function removeClassNames(element: HTMLElement, classNames?: string) {
   if (!classNames) return (element.className = '');
   classNames
     .trim()
     .split(' ')
     .forEach(className => element.classList.remove(className));
+}
+
+export function disableScrolling(force: boolean = true) {
+  document.documentElement.classList.toggle('no-scroll', force);
 }
