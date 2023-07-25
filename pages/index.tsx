@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import { AlbumsSection, ExploreSection, HeroSection } from '@/components/Home';
-import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 const HomePage: NextPage = () => {
   return (
@@ -12,7 +11,6 @@ const HomePage: NextPage = () => {
           <AlbumsSection />
         </div>
       </div>
-      <ScrollToTopButton />
     </div>
   );
 };
