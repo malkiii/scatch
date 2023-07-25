@@ -1,9 +1,14 @@
-import { CSSProperties, FC, ReactNode, useRef, useState } from 'react';
-import Image from 'next/image';
 import {
-  IoIosArrowDropleftCircle as LeftArrow,
-  IoIosArrowDroprightCircle as RightArrow
-} from 'react-icons/io';
+  CSSProperties,
+  FC,
+  MouseEventHandler,
+  ReactNode,
+  useCallback,
+  useRef,
+  useState
+} from 'react';
+import Image from 'next/image';
+import { IoIosArrowBack as LeftArrow, IoIosArrowForward as RightArrow } from 'react-icons/io';
 import { ModalActions, ModalImage } from '@/types';
 import { cn } from '@/utils';
 import { useBlurhashImage } from '@/hooks/useBlurhashImage';
@@ -13,7 +18,6 @@ type LoadedImageProps = {
   inZoomMod: boolean;
   toggleZoom: () => void;
 };
-
 const LoadedImage: FC<LoadedImageProps> = props => {
   const { image, inZoomMod, toggleZoom } = props;
   const imageContainerRef = useRef<HTMLDivElement>(null);
@@ -27,23 +31,26 @@ const LoadedImage: FC<LoadedImageProps> = props => {
     return image;
   }
 
-  function handleMouseMove(event: any) {
-    if (!inZoomMod) return;
-    const container = imageContainerRef.current;
-    if (!container) return;
+  const handleMouseMove = useCallback<MouseEventHandler<HTMLDivElement>>(
+    event => {
+      if (!inZoomMod) return;
+      const container = imageContainerRef.current;
+      if (!container) return;
 
-    const { pageX, pageY } = event;
-    const viewRect = container.parentElement! as HTMLDivElement;
-    const { offsetHeight: height, offsetWidth: width } = viewRect;
-    const offsetX = viewRect.offsetLeft + window.scrollX;
-    const offsetY = viewRect.offsetHeight + window.scrollY;
-    const posX = pageX - offsetX - width / 2;
-    const posY = pageY - offsetY;
-    const x = (posX / width) * 100;
-    const y = (posY / height) * 100 + 45;
+      const { pageX, pageY } = event;
+      const viewRect = container.parentElement! as HTMLDivElement;
+      const { offsetHeight: height, offsetWidth: width } = viewRect;
+      const offsetX = viewRect.offsetLeft + window.scrollX;
+      const offsetY = viewRect.offsetHeight + window.scrollY;
+      const posX = pageX - offsetX - width / 2;
+      const posY = pageY - offsetY;
+      const x = (posX / width) * 100;
+      const y = (posY / height) * 100 + 45;
 
-    getImageElement().style.transform = `translate(${-x}%, ${-y}%)`;
-  }
+      getImageElement().style.transform = `translate(${-x}%, ${-y}%)`;
+    },
+    [imageContainerRef, inZoomMod]
+  );
 
   function handleMouseClick() {
     if (inZoomMod) getImageElement().style.transform = 'none';
@@ -68,7 +75,7 @@ const LoadedImage: FC<LoadedImageProps> = props => {
       onMouseMove={handleMouseMove}
       onClick={handleMouseClick}
     >
-      <Image {...imageProps} className="bg-image" alt="scatch image" />
+      <Image {...imageProps} className="bg-cover bg-no-repeat" alt="scatch image" />
     </div>
   );
 };
@@ -77,23 +84,19 @@ type ImageContainerProps = {
   image: ModalImage;
   children?: ReactNode;
 };
-
 const ImageContainer: FC<ImageContainerProps> = props => {
   const { image, children } = props;
   const [inZoomMod, setInZoomMod] = useState<boolean>(false);
-  function toggleZoom() {
-    setInZoomMod(!inZoomMod);
-  }
 
-  const zoomImageProps = { image, inZoomMod, toggleZoom };
+  const zoomImageProps = { image, inZoomMod, toggleZoom: () => setInZoomMod(!inZoomMod) };
 
   return (
     <div
+      style={{ aspectRatio: image.width + '/' + image.height }}
       className={cn({
         'flex h-full w-full items-center justify-center overflow-hidden': inZoomMod,
         'max-h-[80vh]': !inZoomMod
       })}
-      style={{ aspectRatio: image.width + '/' + image.height }}
     >
       {!inZoomMod && children}
       <LoadedImage {...zoomImageProps} />
@@ -105,17 +108,16 @@ type ModalButtonsProps = {
   actions: ModalActions;
   children: ReactNode;
 };
-
 const ModalButtons: FC<ModalButtonsProps> = ({ actions, children }) => {
   const { prev, next } = actions;
   return (
     <>
-      <button onClick={prev} className="modal-arrow" disabled={!prev}>
-        <LeftArrow />
+      <button onClick={prev} className="theme-btn rounded-circle p-4" disabled={!prev}>
+        <LeftArrow size={30} />
       </button>
       {children}
-      <button onClick={next} className="modal-arrow" disabled={!next}>
-        <RightArrow />
+      <button onClick={next} className="theme-btn rounded-circle p-4" disabled={!next}>
+        <RightArrow size={30} />
       </button>
     </>
   );
@@ -127,32 +129,25 @@ type ModalProps = {
   children?: ReactNode;
 };
 
-export const ImageModal: FC<ModalProps> = props => {
-  const { image, actions, children } = props;
-  const { close } = actions;
-
-  function handleClick(e: any) {
-    const clickOutside = e.target === e.currentTarget;
-    if (clickOutside) close();
-  }
-
-  const imageContainerProps = { image };
+export const ImageModal: FC<ModalProps> = ({ image, actions, children }) => {
+  const handleClickOutside = (e: any) => e.target === e.currentTarget && actions.close();
 
   return (
     <div
       data-test="image-modal"
       className="fixed left-0 top-0 z-[2000] h-screen w-screen bg-dark/60 px-40 dark:bg-dark/80"
-      onClick={handleClick}
+      onClick={handleClickOutside}
     >
       <div
         className="absolute inset-0 m-auto flex max-w-6xl items-center justify-between px-3 py-10"
-        onClick={handleClick}
+        onClick={handleClickOutside}
       >
         <ModalButtons actions={actions}>
-          <ImageContainer {...imageContainerProps}>{children}</ImageContainer>
+          <ImageContainer image={image}>{children}</ImageContainer>
         </ModalButtons>
       </div>
     </div>
   );
 };
+
 export default ImageModal;
