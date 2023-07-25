@@ -17,7 +17,7 @@ import {
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { MdClear as ClearIcon } from 'react-icons/md';
 import { AppPropsWithLayout } from '@/types';
-import { cn, getUserProfileRoutes } from '@/utils';
+import { cn, disableScrolling, getUserProfileRoutes } from '@/utils';
 import { useScrollEvent } from '@/hooks/useScrollEvent';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 import { useToggleMenu } from '@/hooks/useToggleMenu';
@@ -121,14 +121,7 @@ const NavbarMenu: FC<NavbarMenuProps> = ({ user }) => {
 
   function toggleMenu() {
     toggle();
-    disableScrolling();
-  }
-
-  function disableScrolling() {
-    const bodyClasses = document.body.classList;
-    const isOnMobile = navigator.userAgent.includes('Mobile');
-    if (!isOpen) bodyClasses.add('overflow-y-hidden');
-    else bodyClasses.remove('overflow-y-hidden');
+    disableScrolling(!isOpen);
   }
 
   return (
@@ -287,8 +280,8 @@ const Navbar: FC<{ session: AppPropsWithLayout['currentSession'] }> = ({ session
   return (
     <header
       className={cn(
-        'z-[1001] h-[65px] w-full px-5 transition-[box-shadow_color] duration-200',
-        { 'bg-neutral shadow-xl': isScrolling },
+        'z-[1001] mr-4 h-[65px] w-[calc(100vw-1rem)] transition-[box-shadow_color] duration-200',
+        { 'bg-base-300 shadow-xl dark:bg-neutral': isScrolling },
         isExcludedPage ? 'absolute' : 'fixed'
       )}
     >
