@@ -26,4 +26,5 @@ const RegisterPage: NextPage = () => {
     </div>
   );
 };
+
 export default RegisterPage;

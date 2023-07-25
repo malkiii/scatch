@@ -32,4 +32,5 @@ const LoginPage: NextPage = () => {
     </div>
   );
 };
+
 export default LoginPage;
