@@ -280,7 +280,7 @@ const Navbar: FC<{ session: AppPropsWithLayout['currentSession'] }> = ({ session
   return (
     <header
       className={cn(
-        'z-[1001] mr-4 h-[65px] w-[calc(100vw-1rem)] transition-[box-shadow_color] duration-200',
+        'z-[1001] h-[65px] w-full px-5 transition-[box-shadow_color] duration-200 md:w-[calc(100vw-1rem)]',
         { 'bg-base-300 shadow-xl dark:bg-neutral': isScrolling },
         isExcludedPage ? 'absolute' : 'fixed'
       )}
