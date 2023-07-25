@@ -8,6 +8,7 @@ import { cn } from '@/utils';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import Progressbar from './Progressbar';
+import ScrollToTopButton from './ScrollToTopButton';
 
 const fontHeading = FontHeading({
   subsets: ['latin'],
@@ -52,7 +53,7 @@ const Layout: FC<layoutProps> = props => {
       </Head>
       <div
         className={cn(
-          'relative font-sans antialiased',
+          'relative font-sans antialiased bg-base-100',
           { 'mb-[460px] md:mb-80': !isAuthRoute },
           fontHeading.variable,
           fontSans.variable
@@ -60,6 +61,7 @@ const Layout: FC<layoutProps> = props => {
       >
         <Progressbar />
         <WithNavbarAndFooter {...props} navbar={!isAuthRoute} />
+        <ScrollToTopButton />
       </div>
     </>
   );
