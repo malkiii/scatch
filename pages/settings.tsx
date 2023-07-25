@@ -20,4 +20,5 @@ const settingsPage: NextPage<InferGetServerSidePropsType<typeof getServerSidePro
     </div>
   );
 };
+
 export default settingsPage;
