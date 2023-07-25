@@ -4,6 +4,7 @@
 
 @layer base {
   body {
+    @apply overflow-x-hidden bg-base-200;
     &::-webkit-scrollbar {
       @apply w-4;
     }
@@ -42,10 +43,10 @@
     @apply select-none brightness-0 transition-all dark:brightness-100;
   }
   .theme-link {
-    @apply transition-colors hover:text-theme;
+    @apply brightness-125 transition-colors hover:text-primary;
   }
   .theme-btn {
-    @apply btn-primary btn h-fit min-h-0 px-6 py-3 font-sans text-base normal-case tracking-wide text-white;
+    @apply btn-primary btn h-fit min-h-0 animate-none px-6 py-3 font-sans text-base normal-case tracking-wide text-white;
   }
   .theme-input {
     @apply input-bordered input-primary input w-full;
@@ -55,48 +56,6 @@
   }
   .main-container {
     @apply mx-auto max-w-screen-xl;
-  }
-  .image-layer-btn {
-    @apply inline-block rounded-md p-2 font-semibold transition-colors;
-  }
-  .image-layer-btn.cs-fixed {
-    @apply bg-white text-dark hover:bg-theme hover:text-white;
-  }
-  .image-layer-btn.cs-change {
-    @apply bg-dark text-white hover:bg-theme hover:text-white dark:bg-white dark:text-dark dark:hover:bg-theme dark:hover:text-white;
-  }
-  .image-layout-cover {
-    @apply before:focus-gradient absolute inset-0 opacity-0 transition-opacity before:pointer-events-none before:absolute before:inset-0 hover:opacity-100;
-  }
-  .loading-circle {
-    @apply block aspect-square w-5 rounded-circle bg-neutral-700;
-  }
-  .menu-option {
-    @apply capitalize transition-colors first:rounded-t-md last:rounded-b-md;
-  }
-  .avatar-menu-option {
-    @apply flex items-center gap-x-4 p-3 normal-case;
-  }
-  .modal-arrow {
-    @apply text-7xl text-white transition-colors hover:text-theme disabled:opacity-30 hover:disabled:text-current;
-  }
-  .bg-cs-change {
-    @apply bg-neutral-100 dark:bg-neutral-900;
-  }
-  .bg-image {
-    @apply bg-cover bg-no-repeat;
-  }
-  .menu-suggestion {
-    @apply bg-cs-change flex cursor-pointer items-center gap-4 py-2 pl-4 first:rounded-t-xl last:rounded-b-xl hover:bg-neutral-200 dark:hover:bg-neutral-800;
-  }
-  .menu-suggestion.focus {
-    @apply bg-neutral-200 dark:bg-neutral-800;
-  }
-  .credential-input {
-    @apply h-full w-full rounded-3xl border border-neutral-500 bg-transparent px-4 py-3;
-  }
-  .credential-input.error {
-    @apply border-error outline-none;
   }
   .profile-page-link {
     @apply relative flex items-center gap-x-2 p-2 text-xs font-semibold capitalize transition-colors after:absolute after:bottom-0 after:translate-y-1/2 after:bg-dark after:transition-all after:duration-300 after:dark:bg-white sm:p-3 sm:text-base hover:[&:not(.text-dark,.dark\:text-white)]:text-theme;
@@ -131,16 +90,14 @@
 }
 
 .transition-off * {
-  transition: none !important;
+  &,
   &::before,
   &::after {
     transition: none !important;
   }
 }
 
-body.scrolling-disabled {
-  @apply overflow-y-hidden pr-4;
-  & header > div {
-    @apply pr-4;
-  }
+html.no-scroll {
+  @apply overflow-y-hidden;
+  scrollbar-gutter: stable;
 }
