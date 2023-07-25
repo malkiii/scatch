@@ -7,8 +7,22 @@ import { getImageModalRouteQuery, getResizedImage } from '@/utils';
 import { useGridColumnsNumber } from '@/hooks/useGridColumnsNumber';
 import { useModalRoute } from '@/hooks/useModalRoute';
 import DashboardImageModal from './Dashboard/DashboardImageModal';
-import { ImageLayer } from './ImageLayer';
+import { ImageLayer } from './ImageLayers';
 import SearchImageModal from './Search/SearchImageModal';
+
+const PlaceholderLayout: FC = () => {
+  return (
+    <>
+      {new Array(3).fill(null).map((_, col) => (
+        <div key={col} className="grid grid-cols-1 gap-y-4">
+          {new Array(3).fill(null).map((_, row) => (
+            <div key={col + row * 3} className="h-96 animate-pulse bg-neutral"></div>
+          ))}
+        </div>
+      ))}
+    </>
+  );
+};
 
 type GridImageProps = {
   index: number;
@@ -41,20 +55,6 @@ const GridImage: FC<GridImageProps> = props => {
         alt="scatch image"
       />
     </ImageLayer>
-  );
-};
-
-const PlaceholderLayout: FC = () => {
-  return (
-    <>
-      {new Array(3).fill(null).map((_, col) => (
-        <div key={col} className="grid grid-cols-1 gap-y-4">
-          {new Array(3).fill(null).map((_, row) => (
-            <div key={col + row * 3} className="h-96 bg-neutral-500/5"></div>
-          ))}
-        </div>
-      ))}
-    </>
   );
 };
 
@@ -108,21 +108,22 @@ const ImageGridLayout: FC<ImageLayoutProps> = ({ pagePath, images }) => {
           <PlaceholderLayout />
         )}
       </div>
-      {shouldShowModal && isSearchRoute && (
-        <SearchImageModal
-          index={modalIndex}
-          image={images[modalIndex] as ResponseImage}
-          modalActions={modalActions}
-        />
-      )}
-      {shouldShowModal && !isSearchRoute && (
-        <DashboardImageModal
-          index={modalIndex}
-          image={images[modalIndex] as UserImage}
-          modalActions={modalActions}
-        />
-      )}
+      {shouldShowModal &&
+        (isSearchRoute ? (
+          <SearchImageModal
+            index={modalIndex}
+            image={images[modalIndex] as ResponseImage}
+            modalActions={modalActions}
+          />
+        ) : (
+          <DashboardImageModal
+            index={modalIndex}
+            image={images[modalIndex] as UserImage}
+            modalActions={modalActions}
+          />
+        ))}
     </>
   );
 };
+
 export default ImageGridLayout;
