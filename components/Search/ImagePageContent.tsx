@@ -6,7 +6,7 @@ import { cn } from '@/utils';
 import { useAlbumModal } from '@/hooks/useAlbumModal';
 import { useBlurhashImage } from '@/hooks/useBlurhashImage';
 import AlbumModal from '@/components/Dashboard/AlbumModal';
-import { DownloadButton, ImageTitle, SaveButton } from '@/components/ImageLayer';
+import { DownloadButton, ImageTitle, SaveButton } from '@/components/ImageLayers';
 
 const ImageNavbar: FC<{ image: ResponseImage }> = ({ image }) => {
   const { data: session } = useSession();
@@ -45,7 +45,13 @@ const RenderedImage: FC<PageContentProps> = ({ image, alt }) => {
 
   return (
     <div ref={imageContainerRef} className={cn('mx-auto w-full', { 'md:w-1/2': height > width })}>
-      <Image src={src} width={width} height={height} className="bg-image" alt={'scatch ' + alt} />
+      <Image
+        src={src}
+        width={width}
+        height={height}
+        className="bg-cover bg-no-repeat"
+        alt={'scatch ' + alt}
+      />
     </div>
   );
 };

@@ -21,4 +21,5 @@ const SearchKeywords: FC = () => {
     </div>
   );
 };
+
 export default SearchKeywords;
