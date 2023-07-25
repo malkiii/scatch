@@ -15,9 +15,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async context =
 
   try {
     const { image, alt } = await caller.fetchPhoto(Number.parseInt(id));
-    return {
-      props: { image, alt, key: id }
-    };
+    return { props: { image, alt, key: id } };
   } catch (error) {
     return { notFound: true };
   }
@@ -27,7 +25,7 @@ const imagePage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>
   const title = `Scatch | ${props.alt || props.image.photographer}`;
   return (
     <div className="pt-24">
-      <div className="main-container bg-cs-change mb-6 rounded-xl p-5 shadow-2xl">
+      <div className="main-container mb-6 rounded-xl bg-neutral p-5 shadow-2xl">
         <Head>
           <title>{title}</title>
         </Head>
@@ -36,4 +34,5 @@ const imagePage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>
     </div>
   );
 };
+
 export default imagePage;
