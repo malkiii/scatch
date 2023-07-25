@@ -64,7 +64,7 @@ const AlbumsSection: FC = () => {
         <Link
           href={albumsPageLink}
           onAnimationStart={showElement}
-          className={cn('theme-btn animate-none opacity-0 shadow-xl', {
+          className={cn('theme-btn opacity-0 shadow-xl', {
             'animate-in fade-in slide-in-from-right-10 delay-150': isInView
           })}
         >
