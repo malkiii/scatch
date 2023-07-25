@@ -79,7 +79,7 @@ export const SubmitButton: FC<SubmitButtonProps> = ({ text, isSubmitting, onClic
     else onClick ? onClick(e) : null;
   }
   return (
-    <button type="submit" onClick={handleClick} className="theme-btn animate-none">
+    <button type="submit" onClick={handleClick} className="theme-btn">
       {isSubmitting ? <div className="loading loading-spinner w-[25px]"></div> : text}
     </button>
   );
