@@ -40,7 +40,8 @@ const GridImage: FC<GridImageProps> = props => {
     linkProps: {
       href: { pathname, query },
       as: `/image/${image.id}`,
-      shallow: true
+      shallow: true,
+      scroll: false
     }
   };
 
