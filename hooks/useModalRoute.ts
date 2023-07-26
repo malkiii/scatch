@@ -30,11 +30,11 @@ export const useModalRoute = (array: ModalImage[], pagePath: string) => {
     const query = getImageModalRouteQuery(pathname, id, imageIndex);
     const href = { pathname, query };
 
-    router.push(href, as, { shallow: true });
+    router.push(href, as, { shallow: true, scroll: false });
   }
 
   function closeModal() {
-    router.push(pagePath, undefined, { shallow: true });
+    router.push(pagePath, undefined, { shallow: true, scroll: false });
   }
 
   const onFirstImage = !modalIndex;
