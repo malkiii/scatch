@@ -52,8 +52,9 @@ const Layout: FC<layoutProps> = props => {
         <link rel="icon" href={favionPath} />
       </Head>
       <div
+        id="layout"
         className={cn(
-          'relative font-sans antialiased bg-base-100',
+          'relative bg-base-100 font-sans antialiased',
           { 'mb-[460px] md:mb-80': !isAuthRoute },
           fontHeading.variable,
           fontSans.variable
