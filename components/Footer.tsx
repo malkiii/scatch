@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { siteInfos, socials } from '@/data/constants';
 import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { siteInfos, socials } from '@/data/constants';
 
 const usefulLinks = ['login', 'about', 'blog'];
 
@@ -53,7 +53,7 @@ const SocialLinks: FC = () => {
 const Footer: FC = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="fixed bottom-0 z-[-1] w-full px-8 py-4">
+    <footer className="fixed bottom-0 z-[-1] -ml-0 w-screen px-8 py-4 md:-ml-4">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between gap-8 py-4 md:flex-row">
           <div className="max-w-sm">
