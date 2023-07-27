@@ -39,24 +39,12 @@ type DashboardNavProps = {
   currentPageRoute: DashboardPageRoute;
 };
 const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRoute }) => {
+  const navbarRef = useRef<HTMLDivElement>(null);
+
   const [firstRoute] = useState<DashboardPageRoute>(currentPageRoute);
   const [trailerBorderStyle, setTrailerBorderStyle] = useState({
     '--trailer-border-width': '100%',
     '--trailer-border-position': '0'
-  });
-
-  const navbarRef = useRef<HTMLDivElement>(null);
-  useScrollEvent(() => {
-    const isOnTop = navbarRef.current!.offsetTop - window.scrollY < 65;
-    if (isOnTop) {
-      document.querySelector('header')!.style.boxShadow = 'none';
-      navbarRef.current!.classList.add('bg-cs-change');
-      navbarRef.current!.classList.add('shadow-xl');
-    } else {
-      document.querySelector('header')!.style.boxShadow = '';
-      navbarRef.current!.classList.remove('bg-cs-change');
-      navbarRef.current!.classList.remove('shadow-xl');
-    }
   });
 
   function moveTrailerBorder() {
@@ -82,19 +70,16 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
   }, [currentPageRoute]);
 
   return (
-    <div
-      ref={navbarRef}
-      className="sticky top-[64px] z-[900] border-b border-neutral-600 pl-1 transition-colors"
-    >
+    <nav ref={navbarRef} className="border-b border-neutral-600 pl-1 transition-colors">
       <div className="relatvie mx-auto max-w-7xl" style={trailerBorderStyle as any}>
-        <ul className="flex items-center gap-x-0 text-neutral-600 transition-all duration-200 sm:gap-x-5">
+        <ul className="mx-auto flex w-fit items-center gap-x-5 text-neutral-600 transition-all duration-200">
           {dashboardNavPages.map(({ name: page, icon }, id) => (
             <Link
               key={id}
               href={userProfileRoute + '/' + page}
               className={cn('profile-page-link', {
                 'focus': page == firstRoute,
-                'text-dark dark:text-white': page == currentPageRoute
+                'text-base-content': page == currentPageRoute
               })}
               shallow
             >
@@ -103,7 +88,8 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
           ))}
         </ul>
       </div>
-    </div>
+    </nav>
   );
 };
+
 export default DashboardNav;
