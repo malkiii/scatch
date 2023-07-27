@@ -1,5 +1,5 @@
 import { FC, ReactNode, useState } from 'react';
-import Link from 'next/link';
+import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
 import { Image as UserImage } from '@prisma/client';
 import { useSession } from 'next-auth/react';
@@ -119,7 +119,7 @@ export const DownloadButton: FC<DownloadButtonPops> = props => {
 };
 
 type NestedLayerProps = {
-  linkProps?: LayerProps['linkProps'];
+  linkProps: LayerProps['linkProps'];
   toggleAlbumModal?: Function;
 } & WithImageAndUserId &
   WithChildren;
@@ -129,7 +129,7 @@ const InnerImageLayer: FC<NestedLayerProps> = props => {
 
   const btnProps = { userId, image, toggleAlbumModal: toggleAlbumModal! };
   const btnClassName =
-    'btn btn-outline text-white border-white hover:border-white hover:text-black hover:bg-white h-fit min-h-0 border-2';
+    'btn btn-outline text-white border-white hover:border-white hover:text-black hover:bg-white border-2';
   const title = isUserImage(image) ? image.albumName : image.photographer;
 
   return (
@@ -167,7 +167,7 @@ const OuterImageLayer: FC<NestedLayerProps> = ({ image, userId, toggleAlbumModal
 };
 
 type LayerProps = {
-  linkProps: any;
+  linkProps: LinkProps;
   hasMobileSize: boolean;
 } & WithImageAndUserId &
   WithChildren;
