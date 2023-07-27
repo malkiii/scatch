@@ -8,14 +8,8 @@ import DashboardNav from './Navbar';
 
 const EditProfileLink: FC = () => {
   return (
-    <Link
-      href="/settings"
-      className="text-md group flex w-fit items-center gap-x-2 rounded-md border-2 border-dark/40 px-2 py-1 transition-colors hover:border-dark dark:border-white/40 dark:hover:border-white"
-    >
-      <EditIcon
-        size={22}
-        className="text-dark/40 transition-all group-hover:text-dark dark:text-white/40 dark:group-hover:text-white"
-      />
+    <Link href="/settings" className="btn-primary btn-outline btn p-2 brightness-125">
+      <EditIcon size={22} />
       Edit profile
     </Link>
   );
@@ -47,7 +41,7 @@ const DashboardLayout: FC<LayoutProps> = props => {
             <strong className="block text-4xl">{name}</strong>
             <EditProfileLink />
           </div>
-          <span className="mt-2 block text-lg text-neutral-700">{email}</span>
+          <span className="mt-2 block text-lg text-base-content/60">{email}</span>
           <p className="mt-4 text-lg">Find your favorite images, edit or download them for free.</p>
         </div>
       </div>
