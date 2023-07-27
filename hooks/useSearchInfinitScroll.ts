@@ -10,7 +10,7 @@ type InfinitScrollHook = (params: {
 
 /* eslint-disable react-hooks/exhaustive-deps */
 export const useSearchInfinitScroll: InfinitScrollHook = ({ initialData, requestQuery }) => {
-  const { data, hasNextPage, fetchNextPage } = trpc.fetchImages.useInfiniteQuery(
+  const { data, isFetching, hasNextPage, fetchNextPage } = trpc.fetchImages.useInfiniteQuery(
     { params: requestQuery },
     {
       initialCursor: 1,
@@ -31,11 +31,11 @@ export const useSearchInfinitScroll: InfinitScrollHook = ({ initialData, request
     const windowHeight = window.innerHeight;
     const fullHeight = document.body.scrollHeight;
     const scrollPosition = window.scrollY;
-    return scrollPosition >= fullHeight - windowHeight - 1000;
+    return scrollPosition >= fullHeight - windowHeight - 900;
   });
 
   useEffect(() => {
-    if (isCloseToEnd && hasNextPage) fetchNextPage();
+    if (!isFetching && isCloseToEnd && hasNextPage) fetchNextPage();
   }, [isCloseToEnd]);
 
   return { images, hasMore: !!hasNextPage };
