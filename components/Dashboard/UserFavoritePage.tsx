@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import { useUserImages } from '@/hooks/dashboard';
 import { UserPageProps } from '.';
 import ImageGridLayout from '../ImageGridLayout';
-import { PulseAnimation } from '../Loading';
 import { NoImages } from './UserImagesPage';
 
 const UserFavoritePage: FC<UserPageProps> = ({ user, pathname }) => {
@@ -14,8 +13,9 @@ const UserFavoritePage: FC<UserPageProps> = ({ user, pathname }) => {
   return (
     <div className="main-container my-5">
       <ImageGridLayout images={images} pagePath={currentPathname} />
-      {hasMoreImages && <PulseAnimation />}
+      {hasMoreImages && <div className="loading loading-dots mx-auto block w-20 opacity-50"></div>}
     </div>
   );
 };
+
 export default UserFavoritePage;
