@@ -1,15 +1,6 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
 const themes = require('daisyui/src/theming/themes');
-
-const themeColors = {
-  primary: '#1ca8ac',
-  secondary: { light: '#d3e4f8', dark: '#092039' },
-  accent: '#13429c',
-  neutral: { light: '#ddd', dark: '#1f1f1f' },
-  text: { light: '#121212', dark: '#fff' },
-  background: { light: '#fff', dark: '#121212' },
-  error: '#ff1a1a'
-};
+const { themeColors } = require('./data/constants');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
