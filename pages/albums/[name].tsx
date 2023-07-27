@@ -5,7 +5,6 @@ import { getCurrentSession } from '@/utils/session';
 import { useUserImages } from '@/hooks/dashboard';
 import { NoImages } from '@/components/Dashboard/UserImagesPage';
 import ImageGridLayout from '@/components/ImageGridLayout';
-import { PulseAnimation } from '@/components/Loading';
 
 type PageProps = {
   url: string;
@@ -36,11 +35,13 @@ const albumPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>
   return (
     <div className="main-container mb-7 pt-28">
       <div className="mb-6 px-4 capitalize">
-        <h2 className="border-b py-4">{albumName} collection.</h2>
+        <h2 className="border-b border-neutral-600 py-4 text-4xl md:text-5xl">
+          {albumName} collection.
+        </h2>
       </div>
       {hasImages && <ImageGridLayout images={images} pagePath={url} />}
       {!hasImages && <NoImages />}
-      {hasMoreImages && <PulseAnimation />}
+      {hasMoreImages && <div className="loading loading-dots mx-auto block w-20 opacity-50"></div>}
     </div>
   );
 };
