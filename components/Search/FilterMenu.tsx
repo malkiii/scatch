@@ -14,13 +14,11 @@ const filterIcons: { [k in FilterOption]: JSX.Element | null } = {
 
 type FilterMenuProps = { url: URL };
 const FilterMenu: FC<FilterMenuProps> = ({ url }) => {
-  const currentOption = url.searchParams.get('o');
+  const currentOption = url.searchParams.get('o') || 'all';
+
   return (
     <div className="dropdown-bottom dropdown-end dropdown">
-      <label
-        tabIndex={0}
-        className="group btn-outline btn animate-none text-lg font-normal normal-case"
-      >
+      <label tabIndex={0} className="group btn-outline btn py-2 text-lg">
         Filter{' '}
         <DownArrowIcon
           size={23}
