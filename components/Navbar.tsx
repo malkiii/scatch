@@ -34,7 +34,7 @@ const AvatarIcon: FC<{ user: User }> = ({ user }) => {
   );
 };
 
-function getNavbarMenuItems(user?: User) {
+function getNavbarMenuItems(user?: User, onClickFunction?: () => void) {
   const menuIconSize = 22;
   const csButton = (
     <label className="flex items-center justify-between">
@@ -100,7 +100,7 @@ function getNavbarMenuItems(user?: User) {
     typeof item === 'string' ? (
       <div key={i} className="divider my-2"></div>
     ) : (
-      <li key={i}>
+      <li key={i} onClick={onClickFunction}>
         {'type' in item ? (
           item
         ) : (
@@ -143,14 +143,14 @@ const NavbarMenu: FC<NavbarMenuProps> = ({ user }) => {
       )}
       <div
         onClick={e => e.target == e.currentTarget && toggleMenu()}
-        className={cn('fixed inset-0 overflow-hidden duration-300 ease-out-expo', {
+        className={cn('fixed inset-0 z-[1500] overflow-hidden duration-300 ease-out-expo', {
           'pointer-events-none bg-black/0': !isOpen,
           'bg-black/50': isOpen
         })}
       >
         <div
           className={cn(
-            'fixed right-0 top-0 flex h-screen w-[380px] flex-col gap-y-4 bg-base-100 px-2 py-7 shadow-2xl duration-500 ease-out-expo dark:bg-neutral',
+            'fixed right-0 top-0 z-[1500] flex h-screen w-[380px] flex-col gap-y-4 bg-base-100 py-7 pl-2 pr-6 shadow-2xl duration-500 ease-out-expo dark:bg-neutral',
             { 'translate-x-full': !isOpen, 'translate-x-0': isOpen }
           )}
         >
@@ -160,10 +160,7 @@ const NavbarMenu: FC<NavbarMenuProps> = ({ user }) => {
                 <AvatarIcon user={user} />
               </div>
             )}
-            <button
-              onClick={toggleMenu}
-              className="btn-primary btn-outline btn ml-auto h-fit min-h-0 px-2 py-2"
-            >
+            <button onClick={toggleMenu} className="btn-primary btn-outline btn ml-auto px-2 py-2">
               <ClearIcon size={23} />
             </button>
           </div>
@@ -173,7 +170,7 @@ const NavbarMenu: FC<NavbarMenuProps> = ({ user }) => {
               <span className="block text-base-content/60">{user.email}</span>
             </div>
           )}
-          <ul className="menu gap-y-2 text-lg">{getNavbarMenuItems(user)}</ul>
+          <ul className="menu gap-y-2 text-lg">{getNavbarMenuItems(user, toggleMenu)}</ul>
         </div>
       </div>
     </>
@@ -204,6 +201,13 @@ const FixedSearchInput: FC<{ searchQuery: string }> = ({ searchQuery }) => {
     if (input) setShowClearButton(input.value.length > 0);
   }
 
+  function clearInput() {
+    const input = inputRef.current!;
+    input.value = '';
+    input.focus();
+    setShowClearButton(false);
+  }
+
   return (
     <div className="ml-[6px] mr-2 flex max-w-xl items-center gap-x-2">
       <div className="input-primary input flex h-full w-full items-center border-2 px-2 py-0">
@@ -225,13 +229,7 @@ const FixedSearchInput: FC<{ searchQuery: string }> = ({ searchQuery }) => {
           autoComplete="off"
         />
         {showClearButton && (
-          <button
-            className="transition-colors hover:text-primary"
-            onClick={() => {
-              inputRef.current!.value = '';
-              setShowClearButton(false);
-            }}
-          >
+          <button className="transition-colors hover:text-primary" onClick={clearInput}>
             <ClearIcon size={22} />
           </button>
         )}
@@ -281,7 +279,7 @@ const Navbar: FC<{ session: AppPropsWithLayout['currentSession'] }> = ({ session
     <header
       className={cn(
         'z-[1001] h-[65px] w-full px-5 transition-[box-shadow_color] duration-200 md:w-[calc(100vw-1rem)]',
-        { 'bg-base-300 shadow-xl dark:bg-neutral': isScrolling },
+        { 'scrolling': isScrolling },
         isExcludedPage ? 'absolute' : 'fixed'
       )}
     >
