@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
 import Head from 'next/head';
-import { searchDemoImages } from '@/data/constants';
 import TypeIt from 'typeit-react';
 import { cn, getResizedImage, removeClassNames } from '@/utils';
+import { searchDemoImages } from '@/data/constants';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const searchNames = Object.keys(searchDemoImages);
@@ -91,7 +91,7 @@ const ExploreSection: FC = () => {
   }
 
   return (
-    <div ref={targetRef} className="sticky top-0 h-[760px] px-8 py-20 text-base-100">
+    <div ref={targetRef} className="h-[800px] px-8 py-20 text-base-100">
       <ImagePreloader />
       <div
         onAnimationStartCapture={showElement}
