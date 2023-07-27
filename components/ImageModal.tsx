@@ -1,12 +1,4 @@
-import {
-  CSSProperties,
-  FC,
-  MouseEventHandler,
-  ReactNode,
-  useCallback,
-  useRef,
-  useState
-} from 'react';
+import { CSSProperties, FC, MouseEventHandler, ReactNode, useRef, useState } from 'react';
 import Image from 'next/image';
 import { IoIosArrowBack as LeftArrow, IoIosArrowForward as RightArrow } from 'react-icons/io';
 import { ModalActions, ModalImage } from '@/types';
@@ -31,26 +23,23 @@ const LoadedImage: FC<LoadedImageProps> = props => {
     return image;
   }
 
-  const handleMouseMove = useCallback<MouseEventHandler<HTMLDivElement>>(
-    event => {
-      if (!inZoomMod) return;
-      const container = imageContainerRef.current;
-      if (!container) return;
+  const handleMouseMove: MouseEventHandler<HTMLDivElement> = event => {
+    if (!inZoomMod) return;
+    const container = imageContainerRef.current;
+    if (!container) return;
 
-      const { pageX, pageY } = event;
-      const viewRect = container.parentElement! as HTMLDivElement;
-      const { offsetHeight: height, offsetWidth: width } = viewRect;
-      const offsetX = viewRect.offsetLeft + window.scrollX;
-      const offsetY = viewRect.offsetHeight + window.scrollY;
-      const posX = pageX - offsetX - width / 2;
-      const posY = pageY - offsetY;
-      const x = (posX / width) * 100;
-      const y = (posY / height) * 100 + 45;
+    const { pageX, pageY } = event;
+    const viewRect = container.parentElement! as HTMLDivElement;
+    const { offsetHeight: height, offsetWidth: width } = viewRect;
+    const offsetX = viewRect.offsetLeft + window.scrollX;
+    const offsetY = viewRect.offsetHeight + window.scrollY;
+    const posX = pageX - offsetX - width / 2;
+    const posY = pageY - offsetY;
+    const x = (posX / width) * 100;
+    const y = (posY / height) * 100 + 45;
 
-      getImageElement().style.transform = `translate(${-x}%, ${-y}%)`;
-    },
-    [imageContainerRef, inZoomMod]
-  );
+    getImageElement().style.transform = `translate(${-x}%, ${-y}%)`;
+  };
 
   function handleMouseClick() {
     if (inZoomMod) getImageElement().style.transform = 'none';
@@ -110,14 +99,15 @@ type ModalButtonsProps = {
 };
 const ModalButtons: FC<ModalButtonsProps> = ({ actions, children }) => {
   const { prev, next } = actions;
+  const arrowSize = 30;
   return (
     <>
       <button onClick={prev} className="theme-btn rounded-circle p-4" disabled={!prev}>
-        <LeftArrow size={30} />
+        <LeftArrow size={arrowSize} />
       </button>
       {children}
       <button onClick={next} className="theme-btn rounded-circle p-4" disabled={!next}>
-        <RightArrow size={30} />
+        <RightArrow size={arrowSize} />
       </button>
     </>
   );
