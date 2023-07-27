@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
   body {
     @apply overflow-x-hidden bg-base-200;
     &::-webkit-scrollbar {
@@ -42,11 +45,14 @@
   .logo {
     @apply select-none brightness-0 transition-all dark:brightness-100;
   }
+  .btn {
+    @apply h-fit min-h-0 animate-none font-sans text-base font-normal normal-case tracking-wide;
+  }
   .theme-link {
     @apply brightness-125 transition-colors hover:text-primary;
   }
   .theme-btn {
-    @apply btn-primary btn h-fit min-h-0 animate-none px-6 py-3 font-sans text-base normal-case tracking-wide text-white;
+    @apply btn-primary btn px-6 py-3 text-white;
   }
   .theme-input {
     @apply input-bordered input-primary input w-full;
@@ -55,10 +61,13 @@
     @apply input-error;
   }
   .main-container {
-    @apply mx-auto max-w-screen-xl;
+    @apply mx-auto max-w-screen-xl pb-7;
+  }
+  .scrolling:is(header, nav) {
+    @apply bg-base-300 shadow-xl dark:bg-neutral;
   }
   .profile-page-link {
-    @apply relative flex items-center gap-x-2 p-2 text-xs font-semibold capitalize transition-colors after:absolute after:bottom-0 after:translate-y-1/2 after:bg-dark after:transition-all after:duration-300 after:dark:bg-white sm:p-3 sm:text-base hover:[&:not(.text-dark,.dark\:text-white)]:text-theme;
+    @apply relative flex items-center gap-x-2 p-3 capitalize transition-colors after:absolute after:bottom-0 after:translate-y-1/2 after:bg-base-content after:transition-all after:duration-300 [&:not(.text-base-content)]:brightness-125 [&:not(.text-base-content)]:hover:text-primary;
   }
   .profile-page-link.focus {
     @apply after:left-[var(--trailer-border-position)] after:h-[2px] after:w-[var(--trailer-border-width)];
@@ -82,7 +91,7 @@
     text-wrap: balance;
   }
   /* this is for .toggle component */
-  .toggle-on {
+  .toggle.toggle-on {
     --handleoffsetcalculator: var(--handleoffset);
     --tw-border-opacity: 1;
     --tw-bg-opacity: 1;
@@ -99,5 +108,4 @@
 
 html.no-scroll {
   @apply overflow-y-hidden;
-  scrollbar-gutter: stable;
 }
