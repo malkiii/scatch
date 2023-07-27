@@ -7,6 +7,16 @@ export const siteInfos = {
   ogImage: ''
 };
 
+export const themeColors = {
+  primary: '#1ca8ac',
+  secondary: { light: '#d3e4f8', dark: '#092039' },
+  accent: '#13429c',
+  neutral: { light: '#ddd', dark: '#1f1f1f' },
+  text: { light: '#121212', dark: '#fff' },
+  background: { light: '#fff', dark: '#121212' },
+  error: '#ff1a1a'
+};
+
 export const searchDemoImages = {
   nature: [
     'https://images.pexels.com/photos/1671325/pexels-photo-1671325.jpeg',
