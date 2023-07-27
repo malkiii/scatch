@@ -4,7 +4,6 @@ import { caller } from '@/server/router';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
 import { useSearchInfinitScroll } from '@/hooks/useSearchInfinitScroll';
 import ImageGridLayout from '@/components/ImageGridLayout';
-import { PulseAnimation } from '@/components/Loading';
 import { SearchInput, SearchKeywords } from '@/components/Search';
 
 type PageProps = {
@@ -27,10 +26,10 @@ const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps
         <title>Search for images</title>
       </Head>
       <SearchInput />
-      <div className="main-container mb-7">
+      <div className="main-container">
         <SearchKeywords />
         <ImageGridLayout pagePath="/search" images={images} />
-        {hasMore && <PulseAnimation />}
+        {hasMore && <div className="loading loading-dots mx-auto block w-20 opacity-50"></div>}
       </div>
     </>
   );
