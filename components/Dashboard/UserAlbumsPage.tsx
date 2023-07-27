@@ -2,17 +2,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import { trpc } from '@/utils/trpc';
 import { UserPageProps } from '.';
-import { AlbumThumbnail, CreateNewAlbum } from './AlbumModal';
-
-const Placeholder: FC = () => {
-  return (
-    <>
-      {new Array(12).fill(null).map((_, index) => (
-        <div key={index} className="bg-cs-change aspect-[3/2] animate-pulse rounded-xl"></div>
-      ))}
-    </>
-  );
-};
+import { AlbumThumbnail, CreateNewAlbum, Placeholder } from './AlbumModal';
 
 const UserAlbumsPage: FC<UserPageProps> = ({ user }) => {
   const { id: userId } = user;
