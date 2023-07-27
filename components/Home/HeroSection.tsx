@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { siteInfos } from '@/data/constants';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { cn, removeClassNames } from '@/utils';
+import { siteInfos } from '@/data/constants';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 
 const SearchInput: FC = () => {
   const { inputRef, triggerTheSearch, handleEnter } = useSearchTrigger();
   return (
-    <div className="relative mx-auto flex items-center gap-x-2">
+    <div className="relative mx-auto flex items-center gap-x-3">
       <input
         type="search"
         ref={inputRef}
@@ -37,7 +37,7 @@ const HeroSection: FC = () => {
   return (
     <div
       ref={targetRef}
-      className="sticky top-0 mb-4 overflow-hidden from-base-300 to-transparent px-8 pt-36 dark:bg-gradient-to-b md:pt-64"
+      className="mb-4 h-[760px] overflow-hidden from-base-300 to-transparent px-8 pt-36 dark:bg-gradient-to-b md:pt-64"
     >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-10 flex max-w-6xl flex-col gap-y-6 text-center">

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { albumDemoThumbnails } from '@/data/constants';
 import { useSession } from 'next-auth/react';
 import { cn, getResizedImage, getUserProfileRoutes, removeClassNames } from '@/utils';
+import { albumDemoThumbnails } from '@/data/constants';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const AlbunmsContainer: FC<{ animate: boolean }> = ({ animate }) => {
@@ -38,7 +38,7 @@ const showElement = (e: any) => removeClassNames(e.currentTarget, 'opacity-0');
 
 const AlbumsSection: FC = () => {
   const { data: session } = useSession();
-  const { targetRef, isInView } = useIntersectionObserver({ threshold: 3 / 4, once: true });
+  const { targetRef, isInView } = useIntersectionObserver({ threshold: 3 / 5, once: true });
   const animationClassNames = 'animate-in fade-in slide-in-from-bottom-10 duration-200';
 
   const albumsPageLink = session
@@ -48,7 +48,7 @@ const AlbumsSection: FC = () => {
   return (
     <div
       ref={targetRef}
-      className="sticky top-0 flex h-[760px] flex-col-reverse items-center justify-center gap-10 px-8 lg:flex-row"
+      className="flex h-[760px] flex-col-reverse items-center justify-end gap-10 px-8 py-20 lg:flex-row lg:justify-center lg:py-0"
     >
       <AlbunmsContainer animate={isInView} />
       <div
