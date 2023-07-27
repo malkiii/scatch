@@ -85,7 +85,7 @@ const SearchInputSection: FC<InputProps> = ({ value }) => {
           images
         </span>
       </h2>
-      <div className="group relative mx-auto my-7 flex max-w-[730px] items-center gap-x-2">
+      <div className="group relative mx-auto my-7 flex max-w-[730px] items-center gap-x-3">
         <input
           type="search"
           ref={inputRef}
