@@ -3,11 +3,10 @@ import TypeIt from 'typeit-react';
 import { useUserImages } from '@/hooks/dashboard';
 import { UserPageProps } from '.';
 import ImageGridLayout from '../ImageGridLayout';
-import { PulseAnimation } from '../Loading';
 
 export const NoImages: FC = () => {
   return (
-    <div className="mt-20 px-4 text-center text-4xl font-semibold sm:mt-32">
+    <div className="mt-20 px-4 text-center text-4xl sm:mt-32">
       <TypeIt
         options={{ waitUntilVisible: true }}
         getBeforeInit={instance => {
@@ -37,8 +36,9 @@ const UserImagesPage: FC<UserPageProps> = ({ user, pathname }) => {
   return (
     <div className="main-container my-5">
       <ImageGridLayout images={images} pagePath={currentPathname} />
-      {hasMoreImages && <PulseAnimation />}
+      {hasMoreImages && <div className="loading loading-dots mx-auto block w-20 opacity-50"></div>}
     </div>
   );
 };
+
 export default UserImagesPage;
