@@ -69,14 +69,17 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({ image, userId, classNa
   const { id, isFavorite } = image as UserImage;
   const [favorite, setFavorite] = useState<boolean>(isFavorite);
 
-  const { mutateAsync, isLoading } = trpc.setFavoriteImage.useMutation();
+  const { mutate } = trpc.setFavoriteImage.useMutation();
   const setAsFavoriteImage = async (e: any) => {
     cancelEvents(e);
     e.preventDefault();
-    if (isLoading) return;
 
-    const { isFavorite } = await mutateAsync({ id, userId: userId!, isFavorite: !favorite });
-    setFavorite(isFavorite);
+    console.log('CHANGE');
+
+    setFavorite(currentState => {
+      mutate({ id, userId: userId!, isFavorite: !currentState });
+      return !currentState;
+    });
   };
 
   return (

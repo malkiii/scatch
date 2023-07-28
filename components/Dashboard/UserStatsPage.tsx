@@ -80,8 +80,8 @@ const UserStatsPage: FC<UserPageProps> = ({ user }) => {
   const labels = Object.keys(stats) as (keyof typeof stats)[];
 
   return (
-    <div className="m-auto my-5 flex max-w-[1400px] flex-col items-center gap-5 px-5 lg:flex-row">
-      <div className="relative max-h-[400px] w-full rounded-xl border-2 border-base-content p-4 transition-colors hover:border-primary lg:w-1/2">
+    <div className="m-auto my-5 flex max-w-[1400px] flex-col items-center gap-5 px-5 pb-7 lg:flex-row">
+      <div className="relative max-h-[600px] w-full rounded-xl border-2 border-base-content p-4 transition-colors hover:border-primary lg:max-h-[440px] lg:w-1/2">
         <h3 className="text-2xl font-semibold capitalize">weekly activities</h3>
         <ActivityChart
           type="line"
@@ -98,7 +98,7 @@ const UserStatsPage: FC<UserPageProps> = ({ user }) => {
           }}
         />
       </div>
-      <div className="relative max-h-[400px] w-full rounded-xl border-2 border-base-content p-4 transition-colors hover:border-primary lg:w-1/2">
+      <div className="relative max-h-[600px] w-full rounded-xl border-2 border-base-content p-4 transition-colors hover:border-primary lg:max-h-[440px] lg:w-1/2">
         <h3 className="text-2xl font-semibold capitalize">monthly activities</h3>
         <ActivityChart
           type="bar"
