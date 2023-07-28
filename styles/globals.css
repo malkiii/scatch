@@ -46,7 +46,7 @@
     @apply select-none brightness-0 transition-all dark:brightness-100;
   }
   .btn {
-    @apply h-fit min-h-0 animate-none font-sans text-base font-normal normal-case tracking-wide;
+    @apply h-fit min-h-0 animate-none font-sans text-base font-semibold normal-case tracking-wide;
   }
   .theme-link {
     @apply brightness-125 transition-colors hover:text-primary;
