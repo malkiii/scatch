@@ -53,4 +53,5 @@ const DashboardPages: FC<DashboardPagesProps> = props => {
     </>
   );
 };
+
 export default DashboardPages;

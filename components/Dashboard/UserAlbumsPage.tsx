@@ -31,4 +31,5 @@ const UserAlbumsPage: FC<UserPageProps> = ({ user }) => {
     </div>
   );
 };
+
 export default UserAlbumsPage;
