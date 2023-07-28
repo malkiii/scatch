@@ -1,10 +1,38 @@
+import { FC } from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import { caller } from '@/server/router';
 import { ImageAPIRequestQuery, ImagePage } from '@/types';
 import { useSearchInfinitScroll } from '@/hooks/useSearchInfinitScroll';
+import ButtonsSlider from '@/components/ButtonsSlider';
 import ImageGridLayout from '@/components/ImageGridLayout';
-import { SearchInput, SearchKeywords } from '@/components/Search';
+import { SearchInput } from '@/components/Search';
+
+const keywords = ['Popular', 'Wallpapers 4k', 'Food', 'Cars', 'Animals'];
+
+const SearchKeywords: FC = () => {
+  return (
+    <div className="relative mb-7">
+      <ButtonsSlider scrollBy={350} className="from-base-100 min-[650px]:hidden">
+        <div className="mx-auto flex w-[650px] items-center justify-between px-1">
+          {keywords.map((keyword, index) => (
+            <Link
+              key={index}
+              className="theme-btn text-sm sm:text-base"
+              href={{
+                pathname: '/search/[query]',
+                query: { query: keyword.toLowerCase() }
+              }}
+            >
+              {keyword}
+            </Link>
+          ))}
+        </div>
+      </ButtonsSlider>
+    </div>
+  );
+};
 
 type PageProps = {
   requestQuery: ImageAPIRequestQuery;
