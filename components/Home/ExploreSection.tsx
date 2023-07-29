@@ -110,7 +110,7 @@ const ExploreSection: FC = () => {
         })}
       >
         <SearchDemoInput afterString={setNextNameIndex} />
-        <SearchDemoImageRender nameIndex={currentNameIndex} />
+        {isInView && <SearchDemoImageRender nameIndex={currentNameIndex} />}
       </div>
     </div>
   );

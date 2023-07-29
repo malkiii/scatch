@@ -76,7 +76,7 @@ const Footer: FC = () => {
             <SocialLinks />
           </div>
         </div>
-        <div className="border-t border-t-base-content/50 py-6 text-center max-sm:text-sm">
+        <div className="text-balance border-t border-t-base-content/50 pb-3 pt-6 text-center">
           <p>
             Copyright &copy; 2022-{currentYear} {siteInfos.author}.
           </p>
