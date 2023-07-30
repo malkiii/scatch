@@ -41,7 +41,9 @@ function getNavbarMenuItems(user?: User, onClickFunction?: () => void) {
       <div className="flex items-center gap-x-3">
         <MoonIcon size={menuIconSize} /> Dark
       </div>
-      <ColorSchemeButton />
+      <div className="pointer-events-none inline-flex">
+        <ColorSchemeButton />
+      </div>
     </label>
   );
   const logoutButton = (
