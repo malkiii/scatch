@@ -1,20 +1,13 @@
-import { FC } from 'react';
-import { User } from '@prisma/client';
+import { FC, useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useForm } from 'react-hook-form';
-import { RegisteredInputs } from '@/types';
-import { authValidationPatterns } from '@/data/constants';
-import { AuthProviders, Input, PasswordInput, SubmitButton } from './FormComponents';
+import { BiHide as HideIcon, BiShow as ShowIcon } from 'react-icons/bi';
+import { SignUpFormData, WithFormError } from '@/types';
+import { cn } from '@/utils';
+import { useForm } from '@/hooks/useForm';
+import { AuthProviders, ErrorMessage, SubmitButton } from './FormComponents';
 
-type SignUpFormData = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-};
-
-type SignUpResponse = { user?: User; error?: string };
-export async function signUp(data: SignUpFormData): Promise<SignUpResponse> {
+type CachedData = { user?: any; message: string; error?: string };
+export async function signUp(data: SignUpFormData): Promise<CachedData> {
   const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL as string;
   const endpointURL = new URL('/api/auth/signup', NEXT_PUBLIC_APP_URL);
 
@@ -30,96 +23,164 @@ export async function signUp(data: SignUpFormData): Promise<SignUpResponse> {
   return await response.json();
 }
 
-const SignUpForm: FC = () => {
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    setError,
-    formState: { errors, isSubmitting }
-  } = useForm<SignUpFormData>();
+type CredentialInputsProps = {
+  data: SignUpFormData & WithFormError;
+  handleInput: (e: any) => void;
+};
+const CredentialInputs: FC<CredentialInputsProps> = ({ data, handleInput }) => {
+  const { firstName, lastName, email, password, error } = data;
+  const name = firstName.trim() + lastName.trim();
 
-  const submitHandler = handleSubmit(async data => {
-    // trying to sign up
-    const { user, error: errorMessage } = await signUp(data);
-    if (!user) return setError('email', { message: errorMessage });
-
-    // Login with the new account
-    const { email, password } = data;
-    signIn('credentials', { email, password, callbackUrl: '/' });
-  });
-
-  const inputs: RegisteredInputs<SignUpFormData> = {
-    firstName: {
-      register: () =>
-        register('firstName', {
-          required: 'Specify the first name',
-          pattern: {
-            value: authValidationPatterns.name,
-            message: 'No spaces or special characters!'
-          },
-          minLength: {
-            value: 3,
-            message: 'First name is too short!'
-          },
-          maxLength: {
-            value: 15,
-            message: 'First name is too long!'
-          }
-        }),
-      error: errors.firstName?.message
-    },
-    lastName: {
-      register: () =>
-        register('lastName', {
-          pattern: {
-            value: authValidationPatterns.name,
-            message: 'No spaces and special characters!'
-          },
-          maxLength: {
-            value: 15,
-            message: 'Last name is too long!'
-          }
-        }),
-      error: errors.lastName?.message
-    },
-    email: {
-      register: () =>
-        register('email', {
-          required: 'Specify your email address',
-          pattern: {
-            value: authValidationPatterns.email,
-            message: 'Invalid Email!'
-          }
-        }),
-      error: errors.email?.message
-    },
-    password: {
-      register: () =>
-        register('password', {
-          required: 'Add a password',
-          pattern: {
-            value: authValidationPatterns.password,
-            message: 'Password must be at least 6 characters'
-          }
-        }),
-      error: errors.password?.message
-    }
-  };
-
-  console.log({ data: getValues() });
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
-    <form onSubmit={submitHandler} className="flex flex-col gap-y-4" autoComplete="on">
+    <>
+      <div>
+        <div className="align-center flex gap-x-4">
+          <input
+            id="firstName"
+            type="text"
+            name="user[first_name]"
+            placeholder="First name"
+            className={cn('theme-input', { 'error': error == 'Name' })}
+            value={firstName}
+            onInput={handleInput}
+            required
+          />
+          <input
+            id="lastName"
+            type="text"
+            name="user[last_name]"
+            placeholder="Last name"
+            className={cn('theme-input', { 'error': error == 'Name' })}
+            value={lastName}
+            onInput={handleInput}
+          />
+        </div>
+        {error == 'Name' &&
+          (name.length > 30 ? (
+            <ErrorMessage>Username is too long!</ErrorMessage>
+          ) : name.length < 3 ? (
+            <ErrorMessage>Username is too short!</ErrorMessage>
+          ) : /[^\w]/.test(name) ? (
+            <ErrorMessage>No spaces and special characters!</ErrorMessage>
+          ) : (
+            <ErrorMessage>First name must be defined!</ErrorMessage>
+          ))}
+      </div>
+      <div>
+        <input
+          id="email"
+          type="email"
+          name="user[email]"
+          placeholder="Email"
+          className={cn('theme-input', { 'error': error == 'Email' })}
+          value={email}
+          onInput={handleInput}
+          required
+        />
+        {error == 'Email' && <ErrorMessage>This email is already exists!</ErrorMessage>}
+      </div>
+      <div>
+        <div className="relative">
+          <input
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            name="user[password]"
+            placeholder="Password (min. 6 characters)"
+            className={cn('theme-input pr-12', { 'error': error == 'Password' })}
+            title="Password must be at least 6 characters"
+            value={password}
+            onInput={handleInput}
+            required
+          />
+          <button
+            type="button"
+            className="absolute right-4 top-0 h-full"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword && <ShowIcon size={22} />}
+            {!showPassword && <HideIcon size={22} />}
+          </button>
+        </div>
+        {error == 'Password' && <ErrorMessage>Password minimum 6 characters!</ErrorMessage>}
+      </div>
+    </>
+  );
+};
+
+const SignUpForm: FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const form = useForm<SignUpFormData>({
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: ''
+  });
+
+  function validate(input: WithFormError['error'], text: string) {
+    if (!input) return;
+    const patterns = {
+      Name: /^[a-z_A-Z]{3,15} [a-z_A-Z]{0,15}$/m,
+      Email: /^[\w-\.]+@([\w-]+\.)+\w{2,7}$/,
+      Password: /.{6,}/
+    };
+    const isValid = patterns[input].test(text);
+    if (!isValid) form.setError(input);
+    return isValid;
+  }
+
+  function inputHandler(e: any) {
+    const { id, value } = e.target as Record<string, string>;
+    form.handleInput(e);
+    form.setError(undefined);
+
+    const { firstName, lastName, email, password } = form.data;
+    switch (id) {
+      case 'email':
+        if (validate('Name', firstName.trim() + ' ' + lastName.trim())) {
+          validate('Email', value);
+        }
+        break;
+      case 'password':
+        if (
+          validate('Name', firstName.trim() + ' ' + lastName.trim()) &&
+          validate('Email', email)
+        ) {
+          validate('Password', value);
+        }
+        break;
+      default:
+        if (id == 'firstName') validate('Name', value.trim() + ' ' + lastName.trim());
+        else validate('Name', firstName.trim() + ' ' + value.trim());
+        break;
+    }
+  }
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setIsSubmitting(!form.data.error);
+    if (form.data.error) return;
+
+    // trying to sign up
+    const { user, error } = await signUp(form.data);
+    if (!user) {
+      if (error == 'Email') form.setError('Email');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Login with the new account
+    const { email, password } = form.data;
+    signIn('credentials', { email, password, callbackUrl: '/' });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-y-4" autoComplete="on">
       <AuthProviders text="Join using" />
       <div className="divider my-2">OR</div>
-      <div className="flex flex-col gap-4 sm:flex-row">
-        <Input {...inputs.firstName} placeholder="First name" />
-        <Input {...inputs.lastName} placeholder="Last name" />
-      </div>
-      <Input type="email" {...inputs.email} placeholder="Email" />
-      <PasswordInput {...inputs.password} placeholder="Password (min. 6 characters)" />
-      <SubmitButton loading={isSubmitting}>Sign Up</SubmitButton>
+      <CredentialInputs data={form.data} handleInput={inputHandler} />
+      <SubmitButton {...{ text: 'Sign Up', isSubmitting }} />
     </form>
   );
 };
