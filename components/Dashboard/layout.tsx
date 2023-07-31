@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 import { WithRouterProps } from 'next/dist/client/with-router';
 import Link from 'next/link';
 import { MdEdit as EditIcon } from 'react-icons/md';
-import { resizeAvatar } from '@/utils';
+import { getUserAvatar } from '@/utils';
 import { DashboardPageProps, DashboardPageRoute } from '.';
 import DashboardNav from './Navbar';
 
@@ -30,7 +30,7 @@ const DashboardLayout: FC<LayoutProps> = props => {
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-10 px-4 pb-10 pt-20 text-center md:flex-row md:pb-20">
         <div className="h-full w-full md:w-[37%]">
           <img
-            src={resizeAvatar(image) || '/assets/avatar-placeholder.png'}
+            src={getUserAvatar(image)}
             className="ml-auto mr-auto aspect-square h-[130px] rounded-circle md:mr-0 md:h-[175px]"
             referrerPolicy="no-referrer"
             alt="avatar"
