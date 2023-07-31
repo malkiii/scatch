@@ -66,29 +66,21 @@ const Illustrations: FC = () => {
   ];
 
   return (
-    <div className="relative mx-auto h-[590px] w-[1200px] animate-in fade-in duration-500">
-      {objects.map(({ name, props: { className, width, height, priority } }, index) => (
-        <div
-          key={index}
-          style={{ aspectRatio: width + '/' + height }}
-          className={cn('flip-effect dark:back absolute', className)}
-        >
-          <div className="layer">
-            <Image
-              alt={name}
-              className="front"
-              src={getIllustrationPath(`${name}-light`)}
-              priority={priority}
-              fill
-            />
-            <Image
-              alt={name}
-              className="back"
-              src={getIllustrationPath(`${name}-dark`)}
-              priority={priority}
-              fill
-            />
-          </div>
+    <div className="relative mx-auto h-[590px] w-[1200px]">
+      {objects.map(({ name, props: { className, ...props } }, index) => (
+        <div key={index}>
+          <Image
+            alt={name}
+            className={cn('absolute dark:hidden', className)}
+            src={getIllustrationPath(`${name}-light`)}
+            {...props}
+          />
+          <Image
+            alt={name}
+            className={cn('absolute hidden dark:block', className)}
+            src={getIllustrationPath(`${name}-dark`)}
+            {...props}
+          />
         </div>
       ))}
     </div>
@@ -103,9 +95,13 @@ const HeroSection: FC = () => {
   return (
     <div
       ref={targetRef}
-      className="relative flex h-[760px] items-center overflow-hidden from-base-300 to-transparent dark:bg-gradient-to-b"
+      onAnimationStartCapture={showElement}
+      className={cn(
+        'relative flex h-[760px] items-center overflow-hidden from-base-300 to-transparent opacity-0 dark:bg-gradient-to-b',
+        { 'animate-in fade-in duration-500': isInView }
+      )}
     >
-      {isInView && <Illustrations />}
+      <Illustrations />
       <div className="absolute top-1/2 z-10 w-full -translate-y-1/2 px-8">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto flex max-w-6xl flex-col gap-y-6 text-center">

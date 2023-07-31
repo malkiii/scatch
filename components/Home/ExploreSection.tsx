@@ -82,7 +82,7 @@ const ImagePreloader: FC = () => {
 
 const ExploreSection: FC = () => {
   const [currentNameIndex, setCurrentNameIndex] = useState<number>(-1);
-  const { targetRef, isInView } = useIntersectionObserver({ threshold: 3 / 5, once: true });
+  const { targetRef, isInView } = useIntersectionObserver({ threshold: 4 / 5, once: true });
   const animationClassNames = 'animate-in fade-in slide-in-from-bottom-10 duration-200';
   const showElement = (e: any) => removeClassNames(e.currentTarget, 'opacity-0');
 
