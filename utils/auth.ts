@@ -33,11 +33,11 @@ export const authOptions: NextAuthOptions = {
 
         // Check if it's an existing user
         const user = await db.user.findUnique({ where: { email } });
-        if (!user) throw new Error('Email');
+        if (!user) throw new Error('This user does not exists!');
 
         // Validate the password
         const isPasswordValid = await compare(password, user.password!);
-        if (!isPasswordValid) throw new Error('Password');
+        if (!isPasswordValid) throw new Error('Invalid password!');
 
         return {
           id: user.id,
