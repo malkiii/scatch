@@ -11,21 +11,17 @@ const validRoutes: DashboardPageRoute[] = ['images', 'albums', 'favorite', 'stat
 
 export const getServerSideProps: GetServerSideProps<DashboardPageProps> = async context => {
   const session = await getCurrentSession(context);
-  if (!session) {
-    return {
-      redirect: { destination: '/login', permanent: false }
-    };
-  }
 
+  const user = session!.user;
   const username = context.query.username as string;
   const initialPageRoute = (context.query.route as any) || null;
-  const isValidUsername = createUsernameParam(session.user.name!) === username;
+  const isValidUsername = createUsernameParam(user.name!) === username;
   const isValidRoute = initialPageRoute == null || validRoutes.includes(initialPageRoute);
   if (!isValidUsername || !isValidRoute) return { notFound: true };
 
   context.res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
 
-  return { props: { user: session.user, initialPageRoute } };
+  return { props: { user, initialPageRoute } };
 };
 
 type DashboardPageType = NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>>;
