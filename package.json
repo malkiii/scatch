@@ -31,6 +31,7 @@
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.2",
     "react-icons": "^4.7.1",
     "tailwindcss-animate": "^1.0.6",
     "typeit-react": "^2.6.4",
