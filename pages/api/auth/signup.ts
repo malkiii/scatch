@@ -3,11 +3,7 @@ import { db } from '@/server/db/client';
 import { getHashedPassword } from '@/utils';
 
 export default async function signUpRequest(req: NextApiRequest, res: NextApiResponse) {
-  const errorResposne = (type: 'Method' | 'Email' | 'Server', message: string, status: number) => {
-    res.status(status).json({ error: type, message });
-  };
-
-  if (req.method !== 'POST') return errorResposne('Method', 'Method Not Allowed', 405);
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed!' });
 
   const { name, email, password } = req.body;
 
@@ -17,7 +13,7 @@ export default async function signUpRequest(req: NextApiRequest, res: NextApiRes
       where: { email }
     });
 
-    if (existingUser) return errorResposne('Email', 'User already exists', 409);
+    if (existingUser) return res.status(409).json({ error: 'This email is already exists!' });
 
     // Hash the password
     const hashedPassword = await getHashedPassword(password);
@@ -27,8 +23,8 @@ export default async function signUpRequest(req: NextApiRequest, res: NextApiRes
       data: { name, email, password: hashedPassword }
     });
 
-    res.status(201).json({ message: 'User created successfully', user: newUser });
+    res.status(201).json({ user: newUser });
   } catch (error) {
-    return errorResposne('Server', 'Internal Server Error', 500);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 }

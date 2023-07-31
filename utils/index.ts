@@ -11,20 +11,15 @@ export async function getHashedPassword(password: string) {
   return await hash(password, 12);
 }
 
-type ProfileRoutes = {
-  profileRoute: string;
-  profileSubRoutes: Record<DashboardPageRoute, string>;
-};
+type ProfileRoutes = Record<DashboardPageRoute | 'base', string>;
 export function getUserProfileRoutes(username: string): ProfileRoutes {
   const userRoute = '/' + createUsernameParam(username);
   return {
-    profileRoute: userRoute,
-    profileSubRoutes: {
-      images: userRoute + '/images',
-      albums: userRoute + '/albums',
-      favorite: userRoute + '/favorite',
-      stats: userRoute + '/stats'
-    }
+    base: userRoute,
+    images: userRoute + '/images',
+    albums: userRoute + '/albums',
+    favorite: userRoute + '/favorite',
+    stats: userRoute + '/stats'
   };
 }
 
@@ -32,12 +27,13 @@ export function getResizedImage(src: string, size: number) {
   return `${src}?auto=compress&cs=tinysrgb&w=${size}`;
 }
 
-export function resizeAvatar(avatarSrc?: string | null) {
-  if (!avatarSrc) return '';
-  if (avatarSrc.includes('lh3.googleusercontent.com')) {
-    return avatarSrc.replace(/=s\d+(-c)?/g, '=s360');
+export function getUserAvatar(imageSrc?: string | null) {
+  if (!imageSrc) return '/assets/avatar-placeholder.png';
+
+  if (imageSrc.includes('lh3.googleusercontent.com')) {
+    return imageSrc.replace(/=s\d+(-c)?/g, '=s360');
   }
-  return avatarSrc;
+  return imageSrc;
 }
 
 export function getImageModalRouteQuery(pathname: string, id: number, index: number) {

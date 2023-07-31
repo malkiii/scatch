@@ -17,7 +17,7 @@ import {
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { MdClear as ClearIcon } from 'react-icons/md';
 import { AppPropsWithLayout } from '@/types';
-import { cn, disableScrolling, getUserProfileRoutes } from '@/utils';
+import { cn, disableScrolling, getUserAvatar, getUserProfileRoutes } from '@/utils';
 import { useScrollEvent } from '@/hooks/useScrollEvent';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 import { useToggleMenu } from '@/hooks/useToggleMenu';
@@ -26,7 +26,7 @@ import ColorSchemeButton from './ColorSchemeButton';
 const AvatarIcon: FC<{ user: User }> = ({ user }) => {
   return (
     <img
-      src={user.image || '/assets/avatar-placeholder.png'}
+      src={getUserAvatar(user.image)}
       alt={user.name || 'scatch avatar'}
       className="w-10"
       referrerPolicy="no-referrer"
@@ -59,22 +59,24 @@ function getNavbarMenuItems(user?: User, onClickFunction?: () => void) {
     icon: <ImageSearchIcon size={menuIconSize} />
   };
 
+  const profileRoutes = user && getUserProfileRoutes(user.name!);
+
   return (
     user
       ? [
           {
             name: 'View profile',
-            url: '/login',
+            url: profileRoutes!.base,
             icon: <ProfileIcon size={menuIconSize} />
           },
           {
             name: 'Your albums',
-            url: '/login',
+            url: profileRoutes!.albums,
             icon: <AlbumIcon size={menuIconSize} />
           },
           {
             name: 'Your stats',
-            url: '/login',
+            url: profileRoutes!.stats,
             icon: <StatsIcon size={menuIconSize} />
           },
           imageSearchItem,
@@ -253,7 +255,7 @@ const Navbar: FC<{ session: AppPropsWithLayout['currentSession'] }> = ({ session
     },
     {
       name: 'My albums',
-      url: session ? getUserProfileRoutes(session.user.name!).profileSubRoutes.albums : '/login'
+      url: session ? getUserProfileRoutes(session.user.name!).albums : '/login'
     },
     {
       name: 'About',

@@ -13,9 +13,8 @@ type PageProps = {
 };
 export const getServerSideProps: GetServerSideProps<PageProps> = async context => {
   const session = await getCurrentSession(context);
-  if (!session) return { redirect: { destination: '/login', permanent: false } };
 
-  const userId = session.user.id;
+  const userId = session!.user.id;
   const name = context.query.name as string;
   const albumName = name.replace('-', ' ');
 
