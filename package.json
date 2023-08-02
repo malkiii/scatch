@@ -21,8 +21,8 @@
     "@trpc/server": "^10.28.0",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.3.0",
-    "classnames": "^2.3.2",
     "cloudinary": "^1.37.3",
+    "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "framer-motion": "^9.0.4",
     "next": "latest",
@@ -32,6 +32,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
+    "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.6",
     "typeit-react": "^2.6.4",
     "zod": "^3.21.4"
