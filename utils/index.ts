@@ -1,7 +1,11 @@
 import { hash } from 'bcryptjs';
+import { ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { DashboardPageRoute } from '@/components/Dashboard';
 
-export { default as cn } from 'classnames';
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export function createUsernameParam(username: string): string {
   return '@' + username.trim().replace(/\W+/g, '-');
