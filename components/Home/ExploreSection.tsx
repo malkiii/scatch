@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import Head from 'next/head';
 import TypeIt from 'typeit-react';
-import { cn, getResizedImage, removeClassNames } from '@/utils';
+import { cn, getResizedImage } from '@/utils';
 import { searchDemoImages } from '@/data/constants';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
@@ -54,13 +54,11 @@ const SearchDemoImageRender: FC<SearchDemoImagesProps> = ({ nameIndex }) => {
               return (
                 <img
                   key={id}
-                  className="w-full shadow-2xl animate-in fade-in slide-in-from-top-2 ease-linear paused"
                   src={getImageUrl(index)}
+                  style={{ animationDelay: index * 15 + 'ms' }}
+                  onAnimationStartCapture={e => e.currentTarget.classList.remove('opacity-0')}
+                  className="w-full opacity-0 shadow-2xl animate-in fade-in slide-in-from-top-2 ease-linear"
                   alt="scatch image"
-                  onAnimationStartCapture={e => {
-                    const image = e.currentTarget;
-                    setTimeout(() => image.classList.remove('paused'), index * 15);
-                  }}
                 />
               );
             })}
@@ -82,9 +80,11 @@ const ImagePreloader: FC = () => {
 
 const ExploreSection: FC = () => {
   const [currentNameIndex, setCurrentNameIndex] = useState<number>(-1);
-  const { targetRef, isInView } = useIntersectionObserver({ threshold: 4 / 5, once: true });
-  const animationClassNames = 'animate-in fade-in slide-in-from-bottom-10 duration-200';
-  const showElement = (e: any) => removeClassNames(e.currentTarget, 'opacity-0');
+
+  const { targetRef, isInView } = useIntersectionObserver({ threshold: 2 / 3, once: true });
+  const animate = isInView
+    ? 'animate-in fade-in slide-in-from-bottom-10 duration-200'
+    : 'opacity-0';
 
   function setNextNameIndex() {
     setCurrentNameIndex(currentNameIndex == searchNames.length - 1 ? 0 : currentNameIndex + 1);
@@ -93,22 +93,14 @@ const ExploreSection: FC = () => {
   return (
     <div ref={targetRef} className="h-[800px] px-8 py-20 text-base-100">
       <ImagePreloader />
-      <div
-        onAnimationStartCapture={showElement}
-        className={cn('text-center opacity-0', { [animationClassNames]: isInView })}
-      >
+      <div className={cn('text-center', animate)}>
         <h2 className="mb-4 text-3xl sm:text-4xl">Search for images in any language.</h2>
         <p className="mb-8 text-xl">
           On the explore page, you can search and save your favored images or download them with{' '}
           <span className="text-primary">100,000+</span> pictures.
         </p>
       </div>
-      <div
-        onAnimationStartCapture={showElement}
-        className={cn('mx-auto aspect-[600/480] max-w-[600px] opacity-0', {
-          [cn(animationClassNames, 'delay-200')]: isInView
-        })}
-      >
+      <div className={cn('mx-auto aspect-[600/480] max-w-[600px] delay-200', animate)}>
         <SearchDemoInput afterString={setNextNameIndex} />
         {isInView && <SearchDemoImageRender nameIndex={currentNameIndex} />}
       </div>
