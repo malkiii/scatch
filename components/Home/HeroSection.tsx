@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
-import { cn, removeClassNames } from '@/utils';
+import { cn } from '@/utils';
 import { siteInfos } from '@/data/constants';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
@@ -89,47 +89,28 @@ const Illustrations: FC = () => {
 
 const HeroSection: FC = () => {
   const { targetRef, isInView } = useIntersectionObserver({ once: true });
-  const animationClassNames = 'animate-in fade-in slide-in-from-bottom-7 duration-200';
-  const showElement = (e: any) => removeClassNames(e.currentTarget, 'opacity-0');
+  const animate = isInView ? 'animate-in fade-in slide-in-from-bottom-7 duration-200' : 'opacity-0';
 
   return (
     <div
       ref={targetRef}
-      onAnimationStartCapture={showElement}
       className={cn(
-        'relative flex h-[760px] items-center overflow-hidden from-base-300 to-transparent opacity-0 dark:bg-gradient-to-b',
-        { 'animate-in fade-in duration-500': isInView }
+        'relative flex h-[760px] items-center overflow-hidden from-base-300 to-transparent dark:bg-gradient-to-b',
+        isInView ? 'animate-in fade-in duration-500' : 'opacity-0'
       )}
     >
       <Illustrations />
       <div className="absolute top-1/2 z-10 w-full -translate-y-1/2 px-8">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto flex max-w-6xl flex-col gap-y-6 text-center">
-            <h1
-              onAnimationStartCapture={showElement}
-              className={cn('text-5xl opacity-0 sm:text-6xl', {
-                [cn(animationClassNames, 'delay-150')]: isInView
-              })}
-            >
+            <h1 className={cn('text-5xl delay-150 sm:text-6xl', animate)}>
               Search and Save images in your{' '}
               <span className="bg-gradient-to-br from-primary to-primary-focus bg-clip-text pr-1 text-transparent">
                 albums
               </span>
             </h1>
-            <p
-              onAnimationStartCapture={showElement}
-              className={cn('text-lg leading-[1.7] opacity-0 sm:text-2xl sm:leading-[1.7]', {
-                [cn(animationClassNames, 'delay-300')]: isInView
-              })}
-            >
-              {siteInfos.description}
-            </p>
-            <div
-              onAnimationStartCapture={showElement}
-              className={cn('mx-auto w-full opacity-0 md:w-3/5', {
-                [cn(animationClassNames, 'delay-500')]: isInView
-              })}
-            >
+            <p className={cn('text-lg delay-300 sm:text-2xl', animate)}>{siteInfos.description}</p>
+            <div className={cn('mx-auto w-full delay-500 md:w-3/5', animate)}>
               <SearchInput />
             </div>
           </div>
