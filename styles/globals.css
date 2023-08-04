@@ -27,7 +27,7 @@
     @apply text-balance font-heading font-extrabold tracking-tighter;
   }
   p {
-    @apply font-medium leading-relaxed tracking-normal;
+    @apply font-medium leading-[1.7] leading-relaxed tracking-normal sm:leading-[1.7];
   }
   a,
   button {
@@ -95,24 +95,6 @@
     --handleoffsetcalculator: var(--handleoffset);
     --tw-border-opacity: 1;
     --tw-bg-opacity: 1;
-  }
-  /* card flip effect */
-  .flip-effect {
-    & > .layer {
-      @apply relative left-0 top-0 h-full w-full;
-      transform-style: preserve-3d;
-
-      & > *:is(.front, .back) {
-        @apply absolute inset-0;
-        backface-visibility: hidden;
-      }
-      & > .back {
-        rotate: y 0.5turn;
-      }
-    }
-  }
-  .flip-effect.back > .layer {
-    rotate: y 0.5turn;
   }
 }
 
