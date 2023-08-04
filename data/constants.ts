@@ -3,7 +3,6 @@ export const siteInfos = {
   author: 'Malki Abdurrahman',
   description:
     'Scatch, an image website where you can search for your favored images and download or save them in your albums for free with high resolution.',
-  url: 'https://malki-scatch.vercel.app',
   ogImage: ''
 };
 
@@ -51,7 +50,7 @@ export const albumDemoThumbnails = [
   'https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg'
 ];
 
-export const socials = {
+export const socialLinks = {
   Facebook: 'https://web.facebook.com/malkiabduu',
   Twitter: 'https://twitter.com/MalkiAbduu',
   Instagram: 'https://www.instagram.com/malkiabduu',

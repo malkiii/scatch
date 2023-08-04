@@ -2,11 +2,10 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
-import { siteInfos, socials } from '@/data/constants';
+import { siteInfos, socialLinks } from '@/data/constants';
 
-const usefulLinks = ['login', 'about', 'blog'];
-
-const socialIcons: Record<keyof typeof socials, JSX.Element> = {
+type SocialName = keyof typeof socialLinks;
+const socialIcons: Record<SocialName, JSX.Element> = {
   Facebook: <FaFacebook />,
   Instagram: <FaInstagram />,
   Twitter: <FaTwitter />,
@@ -14,6 +13,7 @@ const socialIcons: Record<keyof typeof socials, JSX.Element> = {
 };
 
 const UsefulLinks: FC = () => {
+  const usefulLinks = ['login', 'about', 'blog'];
   return (
     <div className="mr-10 flex flex-col gap-y-2">
       <h4 className="font-semibold">Useful links</h4>
@@ -31,14 +31,13 @@ const UsefulLinks: FC = () => {
 };
 
 const SocialLinks: FC = () => {
-  type SocialName = keyof typeof socials;
   return (
     <div className="flex flex-col gap-y-2">
       <h4 className="font-semibold">Social</h4>
-      {Object.keys(socials).map((name, i) => (
+      {Object.entries(socialLinks).map(([name, link], i) => (
         <a
           key={i}
-          href={socials[name as SocialName]}
+          href={link}
           className="flex items-center gap-x-3 capitalize transition-colors hover:text-primary"
           target="_blank"
           rel="noreferrer"
