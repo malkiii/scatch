@@ -5,8 +5,8 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "cy:open": "bash __tests__/cypress/serve.sh",
-    "prisma": "prisma generate",
+    "cy:start": "bash __tests__/cypress/serve.sh",
+    "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma db push"
   },
   "dependencies": {
