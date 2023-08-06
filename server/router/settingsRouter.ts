@@ -12,8 +12,7 @@ const UserIdSchema = z.object({
 });
 const UserNameSchema = UserIdSchema.merge(
   z.object({
-    firstName: z.string(),
-    lastName: z.string()
+    name: z.string()
   })
 );
 const UserEmailSchema = UserIdSchema.merge(
@@ -47,9 +46,7 @@ async function uploadNewAvatar(path: string, id: string) {
 
 export const settingsRouter = router({
   changeUserName: publicProcedure.input(UserNameSchema).mutation(async ({ input }) => {
-    const { userId, firstName, lastName } = input;
-    const name = firstName + ' ' + lastName;
-
+    const { userId, name } = input;
     return await users.update({ where: { id: userId }, data: { name } });
   }),
   changeUserEmail: publicProcedure.input(UserEmailSchema).mutation(async ({ input }) => {
