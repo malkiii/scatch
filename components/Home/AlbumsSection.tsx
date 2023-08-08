@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { cn, getResizedImage, getUserProfileRoutes } from '@/utils';
+import { cn, getResizedImage } from '@/utils';
 import { albumDemoThumbnails } from '@/data/constants';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
@@ -44,8 +44,6 @@ const AlbumsSection: FC = () => {
     ? 'animate-in fade-in slide-in-from-bottom-10 duration-200'
     : 'opacity-0';
 
-  const albumsPageLink = session ? getUserProfileRoutes(session.user.name!).albums : '/login';
-
   return (
     <div
       ref={targetRef}
@@ -57,13 +55,7 @@ const AlbumsSection: FC = () => {
         <p className="mb-6 text-xl">
           After creating your account, you can save images in albums which you can check later.
         </p>
-        <Link
-          href={albumsPageLink}
-          className={cn(
-            'theme-btn shadow-xl',
-            isInView ? 'animate-in fade-in slide-in-from-right-10 delay-150' : 'opacity-0'
-          )}
-        >
+        <Link href={session ? '/dashboard/albums' : '/login'} className="theme-btn shadow-xl">
           See your albums
         </Link>
       </div>

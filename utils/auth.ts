@@ -1,7 +1,7 @@
 import { db } from '@/server/db/client';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { compare } from 'bcryptjs';
-import { NextAuthOptions } from 'next-auth';
+import type { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import FacebookProvider from 'next-auth/providers/facebook';
 import GoogleProvider from 'next-auth/providers/google';
@@ -57,8 +57,14 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user }) {
-      return token;
+    async jwt({ token, trigger, session }) {
+      switch (trigger) {
+        case 'update':
+          const { id: sub, name, email, image: picture } = session.user as User;
+          return { sub, name, email, picture };
+        default:
+          return token;
+      }
     }
   }
 };

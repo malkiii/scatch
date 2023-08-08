@@ -1,3 +1,5 @@
+@import './cropper.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,7 +29,7 @@
     @apply text-balance font-heading font-extrabold tracking-tighter;
   }
   p {
-    @apply font-medium leading-[1.7] leading-relaxed tracking-normal sm:leading-[1.7];
+    @apply font-medium leading-[1.7] tracking-normal sm:leading-[1.7];
   }
   a,
   button {

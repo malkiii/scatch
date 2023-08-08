@@ -21,7 +21,7 @@ const ButtonsSlider: FC<ButtonSliderProps> = ({ scrollBy, className, children })
     const wrapper = sliderRef.current!;
     const scrollX = wrapper.scrollLeft;
     const isOnWrapperStart = scrollX == 0;
-    const isOnWrapperEnd = scrollX >= wrapper.scrollWidth - wrapper.offsetWidth;
+    const isOnWrapperEnd = scrollX >= wrapper.scrollWidth - wrapper.offsetWidth - 5;
 
     const leftButton = wrapper.querySelector('[data-slider="left"]') as HTMLButtonElement;
     const rightButton = wrapper.querySelector('[data-slider="right"]') as HTMLButtonElement;

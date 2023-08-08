@@ -1,0 +1,110 @@
+/* react-cropper class */
+.cropper {
+  &-container {
+    @apply relative select-none text-[0] leading-[0];
+    direction: ltr;
+    touch-action: none;
+    -ms-touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    & img {
+      @apply block h-full w-full;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      image-orientation: 0deg;
+      max-height: none !important;
+      max-width: none !important;
+      min-height: 0 !important;
+      min-width: 0 !important;
+    }
+  }
+  :is(&-canvas, &-crop-box, &-drag-box, &-wrap-box) {
+    @apply absolute inset-0;
+  }
+  :is(&-canvas, &-wrap-box) {
+    @apply overflow-hidden;
+  }
+  &-drag-box {
+    @apply bg-white opacity-0;
+  }
+  &-view-box {
+    @apply block h-full w-full overflow-hidden outline outline-1 outline-primary;
+  }
+  :is(&-face, &-line, &-point) {
+    @apply absolute block h-full w-full opacity-10;
+  }
+  &-face {
+    @apply left-0 top-0 bg-white opacity-5;
+  }
+  &-line {
+    &.line {
+      &-e {
+        @apply -right-[3px] top-0 w-[5px] cursor-ew-resize;
+      }
+      &-n {
+        @apply -top-[3px] left-0 h-[5px] cursor-ns-resize;
+      }
+      &-w {
+        @apply -left-[3px] top-0 w-[5px] cursor-ew-resize;
+      }
+      &-s {
+        @apply -bottom-[3px] left-0 h-[5px] cursor-ns-resize;
+      }
+    }
+  }
+  &-point {
+    @apply h-[5px] w-[5px] bg-primary opacity-75;
+    &.point {
+      &-e {
+        @apply -right-[3px] top-1/2 -mt-[3px] cursor-ew-resize;
+      }
+      &-n {
+        @apply -top-[3px] left-1/2 -ml-[3px] cursor-ns-resize;
+      }
+      &-w {
+        @apply -left-[3px] top-1/2 -mt-[3px] cursor-ew-resize;
+      }
+      &-s {
+        @apply -bottom-[3px] left-1/2 -ml-[3px] cursor-s-resize;
+      }
+      &-ne {
+        @apply -right-[3px] -top-[3px] cursor-nesw-resize;
+      }
+      &-nw {
+        @apply -left-[3px] -top-[3px] cursor-nwse-resize;
+      }
+      &-sw {
+        @apply -bottom-[3px] -left-[3px] cursor-nesw-resize;
+      }
+      &-se {
+        @apply -bottom-[3px] -right-[3px] cursor-nwse-resize opacity-100;
+        &::before {
+          @apply absolute -bottom-1/2 -right-1/2 block h-[200%] w-[200px] bg-primary opacity-0 content-['_'];
+        }
+      }
+    }
+  }
+  &-invisible {
+    @apply opacity-0;
+  }
+  &-hide {
+    @apply absolute block h-0 w-0;
+  }
+  &-hidden {
+    display: none !important;
+  }
+  &-move {
+    @apply cursor-move;
+  }
+  &-crop {
+    @apply cursor-crosshair;
+  }
+  &-disabled {
+    & .cropper {
+      :is(&-face, &-drag-box, &-line, &-point) {
+        @apply cursor-not-allowed;
+      }
+    }
+  }
+}

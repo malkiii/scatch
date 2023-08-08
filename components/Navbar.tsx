@@ -2,8 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { User } from 'next-auth';
-import { signOut } from 'next-auth/react';
+import type { User } from 'next-auth';
+import { signOut, useSession } from 'next-auth/react';
 import {
   BiPhotoAlbum as AlbumIcon,
   BiSearchAlt as ImageSearchIcon,
@@ -11,13 +11,12 @@ import {
   BiLogOutCircle as LogOutIcon,
   BiMoon as MoonIcon,
   BiUserCircle as ProfileIcon,
-  BiCog as SettingsIcon,
   BiLineChart as StatsIcon
 } from 'react-icons/bi';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { MdClear as ClearIcon } from 'react-icons/md';
 import { AppPropsWithLayout } from '@/types';
-import { cn, disableScrolling, getUserAvatar, getUserProfileRoutes } from '@/utils';
+import { cn, disableScrolling, getUserAvatar } from '@/utils';
 import { useScrollEvent } from '@/hooks/useScrollEvent';
 import { useSearchTrigger } from '@/hooks/useSearchTrigger';
 import { useToggleMenu } from '@/hooks/useToggleMenu';
@@ -59,35 +58,28 @@ function getNavbarMenuItems(user?: User, onClickFunction?: () => void) {
     icon: <ImageSearchIcon size={menuIconSize} />
   };
 
-  const profileRoutes = user && getUserProfileRoutes(user.name!);
-
   return (
     user
       ? [
+          '',
           {
             name: 'View profile',
-            url: profileRoutes!.base,
+            url: '/dashboard',
             icon: <ProfileIcon size={menuIconSize} />
           },
           {
             name: 'Your albums',
-            url: profileRoutes!.albums,
+            url: '/dashboard/albums',
             icon: <AlbumIcon size={menuIconSize} />
           },
           {
             name: 'Your stats',
-            url: profileRoutes!.stats,
+            url: '/dashboard/stats',
             icon: <StatsIcon size={menuIconSize} />
           },
           imageSearchItem,
           '',
-          {
-            name: 'Settings',
-            url: '/settings',
-            icon: <SettingsIcon size={menuIconSize} />
-          },
           csButton,
-          '',
           logoutButton
         ]
       : [
@@ -120,9 +112,11 @@ function getNavbarMenuItems(user?: User, onClickFunction?: () => void) {
 type NavbarMenuProps = {
   user?: User;
 };
-const NavbarMenu: FC<NavbarMenuProps> = ({ user }) => {
-  const { isOpen, toggle } = useToggleMenu();
+const NavbarMenu: FC<NavbarMenuProps> = props => {
+  const { data: session } = useSession();
+  const user = session?.user || props.user;
 
+  const { isOpen, toggle } = useToggleMenu();
   function toggleMenu() {
     toggle();
     disableScrolling(!isOpen);
@@ -255,7 +249,7 @@ const Navbar: FC<{ session: AppPropsWithLayout['currentSession'] }> = ({ session
     },
     {
       name: 'My albums',
-      url: session ? getUserProfileRoutes(session.user.name!).albums : '/login'
+      url: session ? '/dashboard/albums' : '/login'
     },
     {
       name: 'About',
