@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
-import { getUserProfileRoutes } from '@/utils';
 
 export const config = {
-  matcher: ['/login', '/register', '/albums/:path*', '/(@.*)/:path*', '/settings']
+  matcher: ['/login', '/register', '/albums/:path*', '/dashboard/:path*', '/settings']
 };
 
 const authRoutes = config.matcher.slice(0, 2);
@@ -17,12 +16,11 @@ export default withAuth(
     const isAuthRoute = authRoutes.includes(url.pathname);
 
     if (isAuthRoute && isAuthenticated) {
-      const { base: profileRoute } = getUserProfileRoutes(token.name!);
-      return NextResponse.redirect(profileRoute);
+      return NextResponse.redirect(new URL('/dashboard', url.origin));
     }
 
     if (!isAuthRoute && !isAuthenticated) {
-      return NextResponse.redirect('/login');
+      return NextResponse.redirect(new URL('/login', url.origin));
     }
 
     return null;
