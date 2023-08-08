@@ -9,17 +9,16 @@ import ButtonsSlider from '@/components/ButtonsSlider';
 import ImageGridLayout from '@/components/ImageGridLayout';
 import { SearchInput } from '@/components/Search';
 
-const keywords = ['Popular', 'Wallpapers 4k', 'Food', 'Cars', 'Animals'];
-
 const SearchKeywords: FC = () => {
+  const keywords = ['Popular', 'Wallpapers 4k', 'Food', 'Cars', 'Animals'];
   return (
     <div className="relative mb-7">
-      <ButtonsSlider scrollBy={350} className="from-base-100 min-[650px]:hidden">
-        <div className="mx-auto flex w-[650px] items-center justify-between px-1">
+      <ButtonsSlider scrollBy={350} className="from-base-100 min-[700px]:hidden">
+        <div className="mx-auto flex w-[700px] items-center justify-between px-4">
           {keywords.map((keyword, index) => (
             <Link
               key={index}
-              className="theme-btn text-sm sm:text-base"
+              className="theme-btn px-6 py-3 text-sm sm:text-base"
               href={{
                 pathname: '/search/[query]',
                 query: { query: keyword.toLowerCase() }
