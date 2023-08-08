@@ -33,26 +33,28 @@ const UserPasswordSchema = UserIdSchema.merge(
 
 async function uploadNewAvatar(path: string, id: string) {
   try {
-    await cloud.uploader.upload(path, {
+    const { public_id, version } = await cloud.uploader.upload(path, {
       public_id: id,
       folder: 'scatch-avatars',
       filename_override: `avatar-${id}`
     });
-    return cloud.url(id, { width: 360 });
+    return cloud.url(public_id, { width: 50, version });
   } catch (error) {
     return null;
   }
 }
 
+const select = { id: true, name: true, email: true, image: true };
+
 export const settingsRouter = router({
   changeUserName: publicProcedure.input(UserNameSchema).mutation(async ({ input }) => {
     const { userId, name } = input;
-    return await users.update({ where: { id: userId }, data: { name } });
+    return await users.update({ where: { id: userId }, data: { name }, select });
   }),
   changeUserEmail: publicProcedure.input(UserEmailSchema).mutation(async ({ input }) => {
     const { userId, email } = input;
     try {
-      return await users.update({ where: { id: userId }, data: { email } });
+      return await users.update({ where: { id: userId }, data: { email }, select });
     } catch (error) {
       throw new TRPCError({ code: 'UNPROCESSABLE_CONTENT', cause: error });
     }
@@ -62,12 +64,12 @@ export const settingsRouter = router({
     const newImage = await uploadNewAvatar(image, userId);
     if (!newImage) throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR' });
 
-    return await users.update({ where: { id: userId }, data: { image: newImage } });
+    return await users.update({ where: { id: userId }, data: { image: newImage }, select });
   }),
   changeUserPassword: publicProcedure.input(UserPasswordSchema).mutation(async ({ input }) => {
     const { userId, password } = input;
-    const hashedPassword = await getHashedPassword(password);
+    const newPassword = await getHashedPassword(password);
 
-    return await users.update({ where: { id: userId }, data: { password: hashedPassword } });
+    return await users.update({ where: { id: userId }, data: { password: newPassword }, select });
   })
 });
