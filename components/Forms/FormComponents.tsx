@@ -1,11 +1,23 @@
-import { FC, InputHTMLAttributes, PropsWithChildren, useState } from 'react';
+import {
+  ButtonHTMLAttributes,
+  ChangeEvent,
+  FC,
+  InputHTMLAttributes,
+  PropsWithChildren,
+  useRef,
+  useState
+} from 'react';
+import type { User } from 'next-auth';
 import { signIn } from 'next-auth/react';
+import Cropper, { ReactCropperElement } from 'react-cropper';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { BiHide as HideIcon, BiShow as ShowIcon } from 'react-icons/bi';
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
-import { IoIosWarning as WarningIcon } from 'react-icons/io';
-import { cn } from '@/utils';
+import { IoMdCamera as CameraIcon, IoIosWarning as WarningIcon } from 'react-icons/io';
+import { cn, getUserAvatar, resizeAndCropImage } from '@/utils';
+import { trpc } from '@/utils/trpc';
+import { Modal } from '../Modal';
 
 const providerIconSize = 25;
 const providers = [
@@ -54,12 +66,18 @@ export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
   );
 };
 
-type SubmitButtonProps = PropsWithChildren<{
+interface SubmitButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading: boolean;
-}>;
-export const SubmitButton: FC<SubmitButtonProps> = ({ loading, children }) => {
+}
+export const SubmitButton: FC<SubmitButtonProps> = props => {
+  const { loading, className, onClick, children, ...buttonProps } = props;
   return (
-    <button type="submit" onClick={e => loading && e.preventDefault()} className="theme-btn">
+    <button
+      type="submit"
+      onClick={e => (loading ? e.preventDefault() : onClick && onClick(e))}
+      className={cn('theme-btn', className)}
+      {...buttonProps}
+    >
       {loading ? <div className="loading loading-spinner w-[24px]"></div> : children}
     </button>
   );
@@ -88,19 +106,87 @@ export const Input: FC<InputProps> = ({ children, className, register, error, ..
 };
 
 type PasswordInputProps = Omit<InputProps, 'type' | 'name'>;
-export const PasswordInput: FC<PasswordInputProps> = ({ className, ...props }) => {
+export const PasswordInput: FC<PasswordInputProps> = ({ children, className, ...props }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const iconSize = 22;
 
   return (
     <Input {...props} type={showPassword ? 'text' : 'password'} className={cn('pr-12', className)}>
+      {children}
       <button
         type="button"
-        className="absolute right-4 top-3 flex items-center"
+        className="absolute bottom-3 right-4 flex items-center"
         onClick={() => setShowPassword(!showPassword)}
       >
         {showPassword ? <ShowIcon size={iconSize} /> : <HideIcon size={iconSize} />}
       </button>
     </Input>
+  );
+};
+
+type AvatarPickerProps = {
+  user: User;
+  className?: string;
+};
+export const AvatarPicker: FC<AvatarPickerProps> = ({ user, className }) => {
+  const [image, setImage] = useState<string | null>(null);
+  const [savedImage, setSavedImage] = useState<typeof image>(null);
+  const cropperRef = useRef<ReactCropperElement>(null);
+
+  const { mutateAsync: changeUserImage, isLoading } = trpc.changeUserImage.useMutation();
+
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    files && files.length && setImage(await resizeAndCropImage(files[0], 420, 420));
+  };
+
+  const saveImage = async () => {
+    const cropper = cropperRef.current?.cropper;
+    if (!cropper) return;
+
+    const imageURL = cropper.getCroppedCanvas().toDataURL();
+    await changeUserImage({ userId: user.id, image: imageURL });
+
+    setSavedImage(imageURL);
+    setImage(null);
+  };
+
+  return (
+    <div className={className}>
+      <div className="group relative overflow-hidden rounded-circle">
+        <img
+          src={savedImage || getUserAvatar(user.image, true)}
+          width={300}
+          height={300}
+          className="select-none"
+          alt={`${user.name} avatar`}
+          referrerPolicy="no-referrer"
+        />
+        <label className="absolute inset-0 flex cursor-pointer items-center justify-center bg-primary/40 text-white opacity-0 transition-opacity group-hover:opacity-100">
+          <CameraIcon size={40} />
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={handleFileChange}
+            className="hidden"
+            // you have to add the value property to use the file input multiple times
+            value=""
+          />
+        </label>
+      </div>
+      {image && (
+        <Modal className="relative p-7" close={() => setImage(null)}>
+          <Cropper ref={cropperRef} src={image} aspectRatio={1} className="mx-auto max-w-[420px]" />
+          <SubmitButton
+            type="button"
+            loading={isLoading}
+            onClick={saveImage}
+            className="mt-4 w-full"
+          >
+            Save
+          </SubmitButton>
+        </Modal>
+      )}
+    </div>
   );
 };

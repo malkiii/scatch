@@ -6,6 +6,7 @@ import { ResponseImage, UserAlbumThumbnail } from '@/types';
 import { cn, getResizedImage } from '@/utils';
 import { trpc } from '@/utils/trpc';
 import { ErrorMessage } from '../Forms/FormComponents';
+import { Modal } from '../Modal';
 
 export const Placeholder: FC<{ itemsNumber?: number }> = ({ itemsNumber = 12 }) => {
   return (
@@ -67,11 +68,6 @@ export const CreateNewAlbum: FC<CreateNewAlbumProps> = ({ userId, refetch, class
   const [showNameModal, setShowNameModal] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  function closeModal(e: any) {
-    const clickOutside = e.target === e.currentTarget;
-    if (clickOutside) setShowNameModal(false);
-  }
-
   const albumMutation = trpc.addNewAlbum.useMutation();
 
   const addNewAlbum = async () => {
@@ -107,34 +103,29 @@ export const CreateNewAlbum: FC<CreateNewAlbumProps> = ({ userId, refetch, class
         <PlusIcon size={65} />
       </button>
       {(showNameModal || albumMutation.isLoading) && (
-        <div
-          onClick={closeModal}
-          className="fixed left-0 top-0 z-[2020] flex h-screen w-screen items-center bg-black/50 px-3 animate-in fade-in dark:bg-black/70"
-        >
-          <div className="m-auto w-[400px] rounded-xl bg-white p-5 shadow-xl dark:bg-neutral">
-            <div className="mb-3 text-lg font-semibold">Create new album</div>
-            <input
-              type="text"
-              ref={nameInputRef}
-              onFocus={() => setErrorMessage('')}
-              placeholder="Name.."
-              className={cn('theme-input', { 'error': errorMessage })}
-              autoComplete="off"
-              required
-            />
-            {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-            <button
-              className="theme-btn mt-3 flex w-full items-center justify-center px-4 py-2 text-center"
-              onClick={addNewAlbum}
-            >
-              {albumMutation.isLoading ? (
-                <div className="loading loading-spinner w-6"></div>
-              ) : (
-                'Create'
-              )}
-            </button>
-          </div>
-        </div>
+        <Modal close={() => setShowNameModal(false)} className="w-[400px] p-5">
+          <div className="mb-3 text-lg font-semibold">Create new album</div>
+          <input
+            type="text"
+            ref={nameInputRef}
+            onFocus={() => setErrorMessage('')}
+            placeholder="Name.."
+            className={cn('theme-input', { 'error': errorMessage })}
+            autoComplete="off"
+            required
+          />
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          <button
+            className="theme-btn mt-3 flex w-full items-center justify-center px-4 py-2 text-center"
+            onClick={addNewAlbum}
+          >
+            {albumMutation.isLoading ? (
+              <div className="loading loading-spinner w-6"></div>
+            ) : (
+              'Create'
+            )}
+          </button>
+        </Modal>
       )}
     </>
   );
@@ -194,11 +185,6 @@ type AlbumModalProps = WithImageAndUserId & {
 const AlbumModal: FC<AlbumModalProps> = ({ userId, image, toggle, show, children }) => {
   if (!show) return <>{children}</>;
 
-  function handleClick(e: any) {
-    const clickOutside = e.target === e.currentTarget;
-    if (clickOutside) toggle();
-  }
-
   const { data, refetch } = trpc.getAllAlbums.useQuery(userId);
   const layoutProps = { userId, image, toggle, thumbnails: data };
 
@@ -206,18 +192,12 @@ const AlbumModal: FC<AlbumModalProps> = ({ userId, image, toggle, show, children
     <>
       {children}
       {createPortal(
-        <div
-          data-test="album-modal"
-          className="fixed left-0 top-0 z-[2000] flex h-screen w-screen items-center bg-black/50 px-3 animate-in fade-in"
-          onClick={handleClick}
-        >
-          <div className="m-auto w-full max-w-3xl rounded-xl bg-white p-4 text-center shadow-2xl dark:bg-neutral">
-            <div className="mb-4 text-2xl font-semibold sm:text-4xl">Choose your album</div>
-            <div className="h-[550px] overflow-auto rounded-inherit bg-neutral p-4 dark:bg-base-100 sm:h-[400px]">
-              <AlbumGridLayout {...layoutProps} refetch={refetch} />
-            </div>
+        <Modal close={toggle} className="w-full max-w-3xl p-4 text-center">
+          <div className="mb-4 text-2xl font-semibold sm:text-4xl">Choose your album</div>
+          <div className="h-[550px] overflow-auto rounded-inherit bg-neutral p-4 dark:bg-base-100 sm:h-[400px]">
+            <AlbumGridLayout {...layoutProps} refetch={refetch} />
           </div>
-        </div>,
+        </Modal>,
         document.getElementById('layout')!
       )}
     </>

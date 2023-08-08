@@ -7,10 +7,10 @@ import { authValidationPatterns } from '@/data/constants';
 import { AuthProviders, Input, PasswordInput, SubmitButton } from './FormComponents';
 
 type SignUpFormData = {
-  email: string;
-  password: string;
   firstName: string;
   lastName: string;
+  email: string;
+  password: string;
 };
 
 type SignUpResponse = { user?: User; error?: string };
@@ -34,7 +34,6 @@ const SignUpForm: FC = () => {
   const {
     register,
     handleSubmit,
-    getValues,
     setError,
     formState: { errors, isSubmitting }
   } = useForm<SignUpFormData>();
@@ -106,8 +105,6 @@ const SignUpForm: FC = () => {
       error: errors.password?.message
     }
   };
-
-  console.log({ data: getValues() });
 
   return (
     <form onSubmit={submitHandler} className="flex flex-col gap-y-4" autoComplete="on">

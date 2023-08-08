@@ -68,7 +68,7 @@ const Illustrations: FC = () => {
   return (
     <div className="relative mx-auto h-[590px] w-[1200px]">
       {objects.map(({ name, props: { className, ...props } }, index) => (
-        <div key={index}>
+        <div key={index} className="pointer-events-none select-none">
           <Image
             alt={name}
             className={cn('absolute dark:hidden', className)}

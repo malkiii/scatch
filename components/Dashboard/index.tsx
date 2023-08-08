@@ -1,23 +1,20 @@
 import { FC } from 'react';
 import { WithRouterProps } from 'next/dist/client/with-router';
 import Head from 'next/head';
-import { User } from 'next-auth';
+import type { User } from 'next-auth';
 import UserAlbumsPage from './UserAlbumsPage';
 import UserFavoritePage from './UserFavoritePage';
 import UserImagesPage from './UserImagesPage';
 import UserStatsPage from './UserStatsPage';
 
-function getPageTitle(name: string) {
-  const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
-  return `${capitalizedName} | Scatch`;
-}
+export const dashboardPageRoutes = ['images', 'albums', 'favorite', 'stats'] as const;
+export type DashboardPageRoute = (typeof dashboardPageRoutes)[number];
 
 export type UserPageProps = {
   user: User;
   pathname: string;
 };
 
-export type DashboardPageRoute = 'images' | 'albums' | 'favorite' | 'stats';
 export type DashboardPageProps = {
   user: User;
   initialPageRoute: DashboardPageRoute | null;
@@ -30,6 +27,11 @@ type DashboardPagesProps = DashboardPageProps &
 const DashboardPages: FC<DashboardPagesProps> = props => {
   const { user, initialPageRoute, currentPageRoute, router } = props;
   const pageProps = { user, pathname: router.asPath };
+
+  function getPageTitle(name: string) {
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+    return `${capitalizedName} | Scatch`;
+  }
 
   function getDashboardPage() {
     switch (currentPageRoute || initialPageRoute || 'images') {
@@ -47,7 +49,7 @@ const DashboardPages: FC<DashboardPagesProps> = props => {
   return (
     <>
       <Head>
-        <title>{getPageTitle(currentPageRoute || (user.name as string))}</title>
+        <title>{getPageTitle(currentPageRoute || user.name)}</title>
       </Head>
       {getDashboardPage()}
     </>
