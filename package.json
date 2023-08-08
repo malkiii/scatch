@@ -31,7 +31,6 @@
     "react-chartjs-2": "^5.2.0",
     "react-cropper": "^2.3.3",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.45.2",
     "react-icons": "^4.7.1",
     "react-image-file-resizer": "^0.4.8",
     "tailwind-merge": "^1.14.0",

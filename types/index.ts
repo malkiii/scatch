@@ -3,7 +3,6 @@ import type { NextComponentType, NextPage } from 'next';
 import type { AppContext, AppInitialProps, AppProps } from 'next/app';
 import type { Album as UserAlbum } from '@prisma/client';
 import type { Session } from 'next-auth';
-import type { UseFormRegisterReturn } from 'react-hook-form';
 // zod schemas
 import { z } from 'zod';
 import {
@@ -39,13 +38,16 @@ export type ModalImage = {
   src: string;
 };
 
-export type RegisteredInputs<T> = {
-  [K in keyof T]: K extends string
-    ? {
-        register: () => UseFormRegisterReturn<K>;
-        error?: string;
-      }
-    : never;
+export type SignUpFormData = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
+
+export type LoginFormData = {
+  email: string;
+  password: string;
 };
 
 export type WithFormError = {

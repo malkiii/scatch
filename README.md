@@ -5,6 +5,6 @@
 ## Todo list
 
 - [ ] complete all the pages
-- [ ] using `react-hook-form`
+- [x] using `react-hook-form`
 - [ ] rewrite the types (with interfaces)
 - [ ] replace the custom hooks with `realtime-hooks`

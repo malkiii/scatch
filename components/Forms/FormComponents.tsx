@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   ButtonHTMLAttributes,
   ChangeEvent,
@@ -12,6 +13,11 @@ import { signIn } from 'next-auth/react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { BiHide as HideIcon, BiShow as ShowIcon } from 'react-icons/bi';
+=======
+import { FC, ReactNode, useState } from 'react';
+import Image from 'next/image';
+import { signIn } from 'next-auth/react';
+>>>>>>> 77d38cf91e189519a04e52d121e8d2145f751324
 import { BsFacebook as FacebookIcon } from 'react-icons/bs';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { IoMdCamera as CameraIcon, IoIosWarning as WarningIcon } from 'react-icons/io';
@@ -19,17 +25,32 @@ import { cn, getUserAvatar, resizeAndCropImage } from '@/utils';
 import { trpc } from '@/utils/trpc';
 import { Modal } from '../Modal';
 
-const providerIconSize = 25;
+type MarkProps = {
+  className?: string;
+};
+export const ScatchMark: FC<MarkProps> = ({ className }) => {
+  return (
+    <Image
+      src="/mark.svg"
+      alt="scatch mark"
+      width={65}
+      height={65}
+      className={cn('logo', className)}
+    />
+  );
+};
+
+const iconSize = 25;
 const providers = [
   {
     name: 'Google',
-    icon: <GoogleIcon size={providerIconSize} />,
+    icon: <GoogleIcon size={iconSize} />,
     className: 'text-dark bg-white border border-neutral-400 dark:border-none hover:bg-neutral-50',
     handleSignIn: () => signIn('google', { callbackUrl: '/' })
   },
   {
     name: 'Facebook',
-    icon: <FacebookIcon size={providerIconSize} />,
+    icon: <FacebookIcon size={iconSize} />,
     className: 'text-white bg-[#1877F2] hover:bg-[#166ee1]',
     handleSignIn: () => signIn('facebook', { callbackUrl: '/' })
   }
@@ -66,6 +87,7 @@ export const AuthProviders: FC<AuthProvidersProps> = ({ text }) => {
   );
 };
 
+<<<<<<< HEAD
 interface SubmitButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading: boolean;
 }
@@ -81,29 +103,33 @@ export const SubmitButton: FC<SubmitButtonProps> = props => {
       {loading ? <div className="loading loading-spinner w-[24px]"></div> : children}
     </button>
   );
+=======
+type SubmitButtonProps = {
+  text: string;
+  isSubmitting: boolean;
+  onClick?: (e?: MouseEvent) => void;
+>>>>>>> 77d38cf91e189519a04e52d121e8d2145f751324
 };
-
-export const ErrorMessage: FC<PropsWithChildren> = ({ children }) => {
+export const SubmitButton: FC<SubmitButtonProps> = ({ text, isSubmitting, onClick }) => {
+  function handleClick(e: any) {
+    if (isSubmitting) e.preventDefault();
+    else onClick ? onClick(e) : null;
+  }
   return (
-    <p role="alert" className="mt-2 w-full text-center text-sm text-error md:text-base">
-      <WarningIcon className="mb-[3px] mr-1 inline-flex" /> {children}
-    </p>
+    <button type="submit" onClick={handleClick} className="theme-btn">
+      {isSubmitting ? <div className="loading loading-spinner w-[25px]"></div> : text}
+    </button>
   );
 };
 
-interface InputProps extends PropsWithChildren<InputHTMLAttributes<HTMLInputElement>> {
-  register: () => UseFormRegisterReturn<string>;
-  error?: string;
-}
-export const Input: FC<InputProps> = ({ children, className, register, error, ...props }) => {
+export const ErrorMessage: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="relative w-full">
-      {children}
-      <input {...register()} {...props} className={cn('theme-input', className, { error })} />
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+    <div className="mt-2 flex w-full items-center justify-center gap-x-2 text-sm text-error md:text-base">
+      <WarningIcon /> {children}
     </div>
   );
 };
+<<<<<<< HEAD
 
 type PasswordInputProps = Omit<InputProps, 'type' | 'name'>;
 export const PasswordInput: FC<PasswordInputProps> = ({ children, className, ...props }) => {
@@ -190,3 +216,5 @@ export const AvatarPicker: FC<AvatarPickerProps> = ({ user, className }) => {
     </div>
   );
 };
+=======
+>>>>>>> 77d38cf91e189519a04e52d121e8d2145f751324

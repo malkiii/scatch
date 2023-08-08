@@ -56,9 +56,3 @@ export const socialLinks = {
   Instagram: 'https://www.instagram.com/malkiabduu',
   Github: 'https://github.com/malkiii'
 };
-
-export const authValidationPatterns = {
-  name: /^[[A-z_]*$/,
-  email: /^[\w-\.]+@([\w-]+\.)+\w{2,7}$/,
-  password: /.{6,}/
-};
