@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { trpc } from '@/utils/trpc';
 import { useScrollEvent } from '../useScrollEvent';
 
@@ -17,23 +18,31 @@ const useInfinitScroll = (hasNextPage: boolean, fetchNextPage: Function) => {
 };
 
 export const useUserImages = (userId: string, albumName?: string, isFavorite?: boolean) => {
-  const trpcRoute = albumName
+  const router = useRouter();
+  const imageRoute = albumName
     ? trpc.getAlbumImages
     : isFavorite
     ? trpc.getAllFavoriteImages
     : trpc.getAllImages;
 
   const input = { userId, name: albumName! };
-  const { data, isLoading, hasNextPage, fetchNextPage } = trpcRoute.useInfiniteQuery(input, {
-    initialCursor: 1,
-    getNextPageParam: ({ hasMore }, lastPage) => {
-      if (!hasMore) return undefined;
-      return lastPage.length + 1;
+  const { data, isLoading, hasNextPage, refetch, fetchNextPage } = imageRoute.useInfiniteQuery(
+    input,
+    {
+      initialCursor: 1,
+      getNextPageParam: ({ hasMore }, lastPage) => {
+        if (!hasMore) return undefined;
+        return lastPage.length + 1;
+      }
     }
-  });
+  );
 
   const images = data?.pages.flatMap(({ data }) => data) || [];
   const hasMoreImages = !!hasNextPage;
+
+  useEffect(() => {
+    if (router.asPath.startsWith('/dashboard') && !isLoading) refetch();
+  }, [router]);
 
   useInfinitScroll(hasMoreImages, fetchNextPage);
 

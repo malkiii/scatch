@@ -9,9 +9,9 @@ const queryClientConfig: QueryClientConfig = {
       retry: false
     },
     queries: {
-      refetchOnWindowFocus: false,
+      retry: false,
       refetchOnReconnect: false,
-      retry: false
+      refetchOnWindowFocus: false
     }
   }
 };
@@ -22,11 +22,7 @@ export const trpc = createTRPCNext<AppRouter>({
     if (typeof window !== 'undefined') {
       // during client requests
       return {
-        links: [
-          httpBatchLink({
-            url: '/api/trpc'
-          })
-        ],
+        links: [httpBatchLink({ url: '/api/trpc' })],
         queryClientConfig
       };
     }
@@ -34,11 +30,9 @@ export const trpc = createTRPCNext<AppRouter>({
     return {
       links: [
         httpBatchLink({
-          url: process.env.NEXT_PUBLIC_APP_URL + '/api/trpc',
+          url: new URL('/api/trpc', process.env.NEXT_PUBLIC_APP_URL).href,
           headers() {
-            if (!ctx?.req?.headers) {
-              return {};
-            }
+            if (!ctx?.req?.headers) return {};
             // To use SSR properly, you need to forward the client's headers to the server
             // This is so you can pass through things like cookies when we're server-side rendering
 
