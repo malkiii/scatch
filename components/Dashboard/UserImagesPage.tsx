@@ -9,8 +9,8 @@ export const NoImages: FC = () => {
     <div className="mt-20 px-4 text-center text-4xl sm:mt-32">
       <TypeIt
         options={{ waitUntilVisible: true }}
-        getBeforeInit={instance => {
-          // text -> There is no images.
+        getBeforeInit={instance =>
+          // text -> there is no images.
           instance
             .type('Thre is ')
             .move(-6)
@@ -19,9 +19,8 @@ export const NoImages: FC = () => {
             .type('no imega')
             .pause(200)
             .delete(3)
-            .type('ages.');
-          return instance;
-        }}
+            .type('ages.')
+        }
       />
     </div>
   );

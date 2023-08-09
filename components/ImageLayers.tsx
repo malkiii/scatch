@@ -3,6 +3,7 @@ import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
 import { Image as UserImage } from '@prisma/client';
 import { useSession } from 'next-auth/react';
+import { BiTrashAlt as DeleteIcon } from 'react-icons/bi';
 import { CgSoftwareDownload as DownloadIcon, CgMathPlus as PlusIcon } from 'react-icons/cg';
 import { FaRegHeart as FavoriteOutlineIcon, FaHeart as FavoriteSolidIcon } from 'react-icons/fa';
 import { ResponseImage } from '@/types';
@@ -37,14 +38,48 @@ type ImageTitleProps = {
   title: string;
 } & WithClassName;
 export const ImageTitle: FC<ImageTitleProps> = ({ title, className }) => {
-  return <strong className={cn('font-normal', className)}>{title}</strong>;
+  return (
+    <strong
+      className={cn(
+        'flex-1 overflow-hidden text-ellipsis whitespace-nowrap font-normal',
+        className
+      )}
+    >
+      {title}
+    </strong>
+  );
 };
 
-type SaveButtonPros = {
+type DeleteButtonProps = WithImageAndUserId &
+  WithClassName & {
+    closeModal: () => void;
+  };
+export const DeleteButton: FC<DeleteButtonProps> = ({ userId, image, className, closeModal }) => {
+  const { mutateAsync: deleteImage, isLoading } = trpc.deleteImage.useMutation();
+
+  async function handleClick(e: any) {
+    cancelEvents(e);
+    e.preventDefault();
+
+    await deleteImage({ userId: userId!, id: image.id });
+    closeModal();
+  }
+  return (
+    <button
+      title="Save this image in your album"
+      className={cn('p-2', className || 'theme-btn')}
+      onClick={handleClick}
+    >
+      <DeleteIcon size={logoSize} />
+    </button>
+  );
+};
+
+type SaveButtonProps = {
   toggleAlbumModal: Function;
   userId: WithImageAndUserId['userId'];
 } & WithClassName;
-export const SaveButton: FC<SaveButtonPros> = ({ userId, toggleAlbumModal, className }) => {
+export const SaveButton: FC<SaveButtonProps> = ({ userId, toggleAlbumModal, className }) => {
   const router = useRouter();
   async function handleClick(e: any) {
     cancelEvents(e);
@@ -102,11 +137,11 @@ export const DownloadButton: FC<DownloadButtonPops> = props => {
   const { image, userId, content, className } = props;
   const downloadURL = `${image.src}?cs=srgb&dl=scatch-${image.id}.jpg&fm=jpg`;
 
-  const { mutate, isLoading } = trpc.saveActivity.useMutation();
+  const { mutate: saveActivity, isLoading } = trpc.saveActivity.useMutation();
   const handleClick = async (e: any) => {
     cancelEvents(e);
     if (!userId || isLoading) return;
-    mutate({ userId, type: 'DOWNLOAD' });
+    saveActivity({ userId, type: 'DOWNLOAD' });
   };
 
   return (

@@ -13,7 +13,7 @@ const socialIcons: Record<SocialName, JSX.Element> = {
 };
 
 const UsefulLinks: FC = () => {
-  const usefulLinks = ['login', 'about', 'blog'];
+  const usefulLinks = ['login', 'about'];
   return (
     <div className="mr-10 flex flex-col gap-y-2">
       <h4 className="font-semibold">Useful links</h4>
@@ -56,7 +56,7 @@ const Footer: FC = () => {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between gap-8 py-4 md:flex-row">
           <div className="max-w-sm">
-            <Link href="/" className="my-4 inline-block">
+            <Link href="/" className="mb-4 inline-block">
               <Image
                 src="/logotype.svg"
                 alt="scatch logotype"

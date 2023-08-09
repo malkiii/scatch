@@ -33,11 +33,10 @@ const EditProfileButton: FC<EditProfileButtonProps> = ({ user }) => {
 type LayoutProps = DashboardPageProps &
   WithRouterProps & {
     currentPageRoute: DashboardPageRoute;
-    userProfileRoute: string;
     children: ReactNode;
   };
 const DashboardLayout: FC<LayoutProps> = props => {
-  const { user, userProfileRoute, currentPageRoute, children } = props;
+  const { user, currentPageRoute, children } = props;
 
   const { data: session } = useSession();
   const { name, email, image } = session?.user || user;
@@ -65,7 +64,7 @@ const DashboardLayout: FC<LayoutProps> = props => {
         </div>
       </div>
       <div className="min-h-[600px] w-full">
-        <DashboardNav {...{ userProfileRoute, currentPageRoute }} />
+        <DashboardNav {...{ currentPageRoute }} />
         {children}
       </div>
     </>

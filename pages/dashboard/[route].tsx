@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps<DashboardPageProps> = async 
 type DashboardPageType = NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>>;
 const DashboardPage: DashboardPageType = props => {
   const router = useRouter();
-  const { username, route } = router.query;
+  const { route } = router.query;
   const [currentRoute, setCurrentRoute] = useState(route as DashboardPageProps['initialPageRoute']);
   const componentProps = { ...props, router };
 
@@ -31,11 +31,7 @@ const DashboardPage: DashboardPageType = props => {
   }, [router]);
 
   return (
-    <DashboardLayout
-      {...componentProps}
-      userProfileRoute={'/' + username}
-      currentPageRoute={currentRoute || 'images'}
-    >
+    <DashboardLayout {...componentProps} currentPageRoute={currentRoute || 'images'}>
       <DashboardPages {...componentProps} currentPageRoute={currentRoute} />
     </DashboardLayout>
   );
