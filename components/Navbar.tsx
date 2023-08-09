@@ -61,7 +61,7 @@ function getNavbarMenuItems(user?: User, onClickFunction?: () => void) {
   return (
     user
       ? [
-          '',
+          'divider',
           {
             name: 'View profile',
             url: '/dashboard',
@@ -78,7 +78,7 @@ function getNavbarMenuItems(user?: User, onClickFunction?: () => void) {
             icon: <StatsIcon size={menuIconSize} />
           },
           imageSearchItem,
-          '',
+          'divider',
           csButton,
           logoutButton
         ]
@@ -89,7 +89,7 @@ function getNavbarMenuItems(user?: User, onClickFunction?: () => void) {
             icon: <LogInIcon size={menuIconSize} />
           },
           imageSearchItem,
-          '',
+          'divider',
           csButton
         ]
   ).map((item, i) =>
@@ -163,9 +163,9 @@ const NavbarMenu: FC<NavbarMenuProps> = props => {
             </button>
           </div>
           {user && (
-            <div className="px-6">
-              <span className="block font-semibold">{user.name}</span>
-              <span className="block text-base-content/60">{user.email}</span>
+            <div className="px-6 [&_span]:block [&_span]:overflow-hidden [&_span]:text-ellipsis [&_span]:whitespace-nowrap">
+              <span className="font-semibold">{user.name}</span>
+              <span className="text-base-content/60">{user.email}</span>
             </div>
           )}
           <ul className="menu gap-y-2 text-lg">{getNavbarMenuItems(user, toggleMenu)}</ul>
@@ -276,9 +276,9 @@ const Navbar: FC<{ session: AppPropsWithLayout['currentSession'] }> = ({ session
   return (
     <header
       className={cn(
-        'z-[1001] h-[65px] w-full px-5 transition-[box-shadow_color] duration-200 md:w-[calc(100vw-1rem)]',
-        { 'scrolling': isScrolling },
-        isExcludedPage ? 'absolute' : 'fixed'
+        'z-[1001] h-[65px] w-full px-5 transition-[background-color,box-shadow] duration-200 md:w-[calc(100vw-1rem)]',
+        isExcludedPage ? 'absolute' : 'fixed',
+        { 'scrolling': isScrolling }
       )}
     >
       <nav className="mx-auto flex h-full max-w-7xl items-center justify-between">

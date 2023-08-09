@@ -17,9 +17,9 @@ type ChanagePasswordFormData = {
 
 type PasswordModalProps = {
   userId: string;
-  toggleMdal: () => void;
+  toggleModal: () => void;
 };
-const PasswordModal: FC<PasswordModalProps> = ({ userId, toggleMdal }) => {
+const PasswordModal: FC<PasswordModalProps> = ({ userId, toggleModal }) => {
   const { data: user, isLoading } = trpc.getUser.useQuery(userId);
   const { mutateAsync: changePassword } = trpc.changeUserPassword.useMutation();
   const {
@@ -46,7 +46,7 @@ const PasswordModal: FC<PasswordModalProps> = ({ userId, toggleMdal }) => {
 
     await changePassword({ userId, password: data.newPassword });
 
-    toggleMdal();
+    toggleModal();
   });
 
   const inputs: RegisteredInputs<ChanagePasswordFormData> = {
@@ -72,7 +72,7 @@ const PasswordModal: FC<PasswordModalProps> = ({ userId, toggleMdal }) => {
   };
 
   return (
-    <Modal close={toggleMdal} className="bg-transparent p-7 shadow-none">
+    <Modal close={toggleModal} className="bg-transparent p-7 shadow-none">
       {isLoading ? (
         <div className="loading loading-dots mx-auto block w-16"></div>
       ) : (
@@ -234,7 +234,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({ user, toggleModal }) => {
         </div>
       </form>
       {showPasswordModal && (
-        <PasswordModal userId={user.id} toggleMdal={() => setShowPasswordModal(false)} />
+        <PasswordModal userId={user.id} toggleModal={() => setShowPasswordModal(false)} />
       )}
     </>
   );

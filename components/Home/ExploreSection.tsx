@@ -24,10 +24,7 @@ const SearchDemoInput: FC<DemoInputProps> = ({ afterString }) => {
           waitUntilVisible: true,
           afterString
         }}
-        getBeforeInit={instance => {
-          instance.pause(1500);
-          return instance;
-        }}
+        getBeforeInit={instance => instance.pause(1500)}
       />
     </div>
   );

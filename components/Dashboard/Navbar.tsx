@@ -69,10 +69,9 @@ const dashboardNavPages: DashboardNavPage[] = [
 ];
 
 type DashboardNavProps = {
-  userProfileRoute: string;
   currentPageRoute: DashboardPageRoute;
 };
-const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRoute }) => {
+const DashboardNav: FC<DashboardNavProps> = ({ currentPageRoute }) => {
   const { navbarRef, firstRoute, trailerBorderStyle } = useTrailerBorder(currentPageRoute);
   return (
     <nav ref={navbarRef} className="border-b border-neutral-600 pl-1 transition-colors">
@@ -81,7 +80,7 @@ const DashboardNav: FC<DashboardNavProps> = ({ userProfileRoute, currentPageRout
           {dashboardNavPages.map(({ name, icon }, id) => (
             <Link
               key={id}
-              href={userProfileRoute + '/' + name}
+              href={`/dashboard/${name}`}
               className={cn('profile-page-link', {
                 'focus': name == firstRoute,
                 'text-base-content': name == currentPageRoute
