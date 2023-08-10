@@ -39,7 +39,7 @@ const AboutPage: NextPage = () => {
         <div className="max-w-5xl">
           <h2 className="mb-5 text-4xl sm:text-5xl">About Us</h2>
           <p className="mb-7 text-xl">
-            We're thrilled to introduce you to a platform that transcends language barriers and
+            We are thrilled to introduce you to a platform that transcends language barriers and
             brings the world of captivating images to your fingertips. Our mission is to provide an
             intuitive and immersive experience, allowing you to effortlessly explore, collect, and
             download high-quality images that resonate with your interests.
@@ -51,12 +51,15 @@ const AboutPage: NextPage = () => {
           <h3 className="text-3xl">What Sets Us Apart</h3>
           <p className="mb-7 text-xl">
             In a rapidly evolving digital landscape, we stand out as a unique hub for image
-            enthusiasts, offering a plethora of features that cater to your creative needs. Here's
+            enthusiasts, offering a plethora of features that cater to your creative needs. Here is
             what makes us special:
           </p>
           <div className="grid grid-cols-fill gap-7 [--col-min-width:320px] md:max-w-3xl">
             {whatSetsUsApartSectionCards.map(({ icon, title, text }) => (
-              <div className="flex max-w-sm flex-col gap-3 rounded-xl bg-base-100 p-7 text-base-content shadow-2xl">
+              <div
+                key={title}
+                className="flex max-w-sm flex-col gap-3 rounded-xl bg-base-100 p-7 text-base-content shadow-2xl"
+              >
                 {icon}
                 <h4>{title}</h4>
                 <p>{text}</p>
