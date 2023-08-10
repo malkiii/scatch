@@ -65,10 +65,7 @@ const Footer: FC = () => {
                 className="logo"
               />
             </Link>
-            <p className="text-md">
-              Scatch is an image website where you can search, download or save images in your
-              albums
-            </p>
+            <p className="text-md">{siteInfos.smallDescription}</p>
           </div>
           <div className="mx-auto flex flex-wrap items-baseline gap-x-8 gap-y-4 lg:mx-0">
             <UsefulLinks />

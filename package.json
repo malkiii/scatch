@@ -18,6 +18,8 @@
     "@trpc/react": "^9.27.4",
     "@trpc/react-query": "^10.28.1",
     "@trpc/server": "^10.28.0",
+    "@vercel/analytics": "^1.0.2",
+    "@vercel/og": "^0.5.10",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.3.0",
     "cloudinary": "^1.37.3",
