@@ -4,6 +4,7 @@ import TypeIt from 'typeit-react';
 import { cn, getResizedImage } from '@/utils';
 import { searchDemoImages } from '@/data/constants';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import AssetsPreloader from '../AssetsPreloader';
 
 const searchNames = Object.keys(searchDemoImages);
 const imagesURLs = new Array<string>().concat(...Object.values(searchDemoImages));
@@ -65,16 +66,6 @@ const SearchDemoImageRender: FC<SearchDemoImagesProps> = ({ nameIndex }) => {
   );
 };
 
-const ImagePreloader: FC = () => {
-  return (
-    <Head>
-      {imagesURLs.map((url, index) => (
-        <link key={index} rel="preload" as="image" href={getResizedImage(url, 480)} />
-      ))}
-    </Head>
-  );
-};
-
 const ExploreSection: FC = () => {
   const [currentNameIndex, setCurrentNameIndex] = useState<number>(-1);
 
@@ -89,7 +80,9 @@ const ExploreSection: FC = () => {
 
   return (
     <div ref={targetRef} className="h-[800px] px-8 py-20 text-base-100">
-      <ImagePreloader />
+      <Head>
+        <AssetsPreloader as="image" assets={imagesURLs.map(url => getResizedImage(url, 480))} />
+      </Head>
       <div className={cn('text-center', animate)}>
         <h2 className="mb-4 text-3xl sm:text-4xl">Search for images in any language.</h2>
         <p className="mb-8 text-xl">

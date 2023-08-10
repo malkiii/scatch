@@ -3,7 +3,8 @@ export const siteInfos = {
   author: 'Malki Abdurrahman',
   description:
     'Scatch, an image website where you can search for your favored images and download or save them in your albums for free with high resolution.',
-  ogImage: ''
+  smallDescription:
+    'Scatch is an image website where you can search, download or save images in your albums.'
 };
 
 export const themeColors = {
@@ -14,7 +15,7 @@ export const themeColors = {
   text: { light: '#121212', dark: '#fff' },
   background: { light: '#fff', dark: '#121212' },
   error: '#ff1a1a'
-};
+} as const;
 
 export const searchDemoImages = {
   nature: [

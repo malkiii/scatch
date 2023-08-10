@@ -11,11 +11,13 @@ import Progressbar from './Progressbar';
 import ScrollToTopButton from './ScrollToTopButton';
 
 const fontHeading = FontHeading({
+  preload: true,
   subsets: ['latin'],
   variable: '--font-heading'
 });
 
 const fontSans = FontSans({
+  preload: true,
   subsets: ['latin'],
   weight: ['400', '500', '700'],
   variable: '--font-sans'
