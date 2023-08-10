@@ -1,10 +1,10 @@
 # Scatch
 
-> an image website built with Nextjs where you can search for images and download , edit, or save them in your albums.
+> an image website where you can search for images and download or save them in your albums.
 
 ## About this project
 
-This project is build with [Nextjs](https://nextjs.org/) (using `/pages` folder) with the modern web-dev technologies like tailwindcss, tRPC and features like authentication, data fetching, image manipulation...
+This project is built with [Nextjs](https://nextjs.org/) (using `/pages` folder) with modern web-dev technologies like tailwindcss, tRPC, and features like authentication, data fetching, image manipulation...
 
 ## Features and Technologies
 
@@ -12,7 +12,7 @@ This project is build with [Nextjs](https://nextjs.org/) (using `/pages` folder)
 - [x] Using **React 18** and **Next js**.
 - [x] Styling with **tailwindcss**.
 - [x] Authentication with **next-auth**.
-- [x] Creating a typesafe API routes using **tRPC**.
+- [x] Creating typesafe API routes using **tRPC**.
 - [x] Integrated database ORM using **Prisma**.
 - [x] Tailwindcss components and Themes with **daisyUI**.
 - [x] Image hosting with **Cloudinary**.
