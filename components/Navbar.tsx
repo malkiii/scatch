@@ -207,7 +207,7 @@ const FixedSearchInput: FC<{ searchQuery: string }> = ({ searchQuery }) => {
   }
 
   return (
-    <div className="ml-[6px] mr-2 flex max-w-xl items-center gap-x-2">
+    <div className="ml-[6px] flex max-w-xl items-center gap-x-2">
       <div className="input-primary input flex h-full w-full items-center border-2 px-2 py-0">
         <button
           onClick={async () => await triggerTheSearch()}
@@ -296,7 +296,7 @@ const Navbar: FC<{ session: AppPropsWithLayout['currentSession'] }> = ({ session
           </div>
         </div>
         <div className="flex items-center">
-          <div className="hidden items-center gap-x-10 md:flex">
+          <div className="ml-8 hidden items-center gap-x-10 md:flex">
             {navLinks.map(({ name, url }) => (
               <Link key={name} href={url} className="theme-link">
                 {name}
