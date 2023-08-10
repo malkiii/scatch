@@ -25,7 +25,7 @@ export default async function (request: NextRequest) {
             alignItems: 'center',
             justifyContent: 'center',
             color: themeColors.text.dark,
-            backgroundColor: themeColors.background.dark,
+            backgroundColor: '#171717',
             backgroundImage: 'linear-gradient(180deg, #000, transparent)',
             gap: '2rem'
           }}
@@ -35,7 +35,7 @@ export default async function (request: NextRequest) {
             style={{
               display: 'flex',
               fontFamily: 'Inter',
-              fontSize: '2.24rem',
+              fontSize: '2.44rem',
               letterSpacing: '-0.05em',
               fontWeight: '800',
               gap: '0.17em'

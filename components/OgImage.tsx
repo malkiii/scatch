@@ -24,6 +24,8 @@ const OgImage: FC<Partial<OgImageProps>> = ({ title, description, route = '' }) 
       <meta property="og:image:width" content={ogImage.width} />
       <meta property="og:image:height" content={ogImage.height} />
       {/* Twitter */}
+      <meta property="twitter:title" content={ogImage.title} />
+      <meta property="twitter:description" content={ogImage.description} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={ogImage.url} />
       <meta name="twitter:image:width" content={ogImage.width} />
