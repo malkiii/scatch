@@ -42,7 +42,7 @@ export const useUserImages = (userId: string, albumName?: string, isFavorite?: b
 
   useEffect(() => {
     if (router.asPath.startsWith('/dashboard') && !isLoading) refetch();
-  }, [router]);
+  }, [router.asPath]);
 
   useInfinitScroll(hasMoreImages, fetchNextPage);
 
