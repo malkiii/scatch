@@ -8,7 +8,7 @@ import {
   useState
 } from 'react';
 import type { User } from 'next-auth';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { BiHide as HideIcon, BiShow as ShowIcon } from 'react-icons/bi';
@@ -133,6 +133,7 @@ export const AvatarPicker: FC<AvatarPickerProps> = ({ user, className }) => {
   const [savedImage, setSavedImage] = useState<typeof image>(null);
   const cropperRef = useRef<ReactCropperElement>(null);
 
+  const updateSession = useSession().update;
   const { mutateAsync: changeUserImage, isLoading } = trpc.changeUserImage.useMutation();
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -145,7 +146,8 @@ export const AvatarPicker: FC<AvatarPickerProps> = ({ user, className }) => {
     if (!cropper) return;
 
     const imageURL = cropper.getCroppedCanvas().toDataURL();
-    await changeUserImage({ userId: user.id, image: imageURL });
+    const newUserData = await changeUserImage({ userId: user.id, image: imageURL });
+    await updateSession({ user: newUserData });
 
     setSavedImage(imageURL);
     setImage(null);
