@@ -127,14 +127,14 @@ const NavbarMenu: FC<NavbarMenuProps> = props => {
       {user ? (
         <button
           onClick={toggleMenu}
-          className="ml-3 overflow-hidden rounded-circle outline outline-0 outline-black/10 transition-all hover:outline-[5px] dark:outline-white/10 md:ml-10"
+          className="ml-2 overflow-hidden rounded-circle outline outline-0 outline-black/10 transition-all hover:outline-[5px] dark:outline-white/10 md:ml-10"
         >
           <AvatarIcon user={user} />
         </button>
       ) : (
         <button
           onClick={toggleMenu}
-          className="group flex aspect-square w-8 items-center md:hidden"
+          className="group ml-2 flex aspect-square w-8 items-center md:hidden"
         >
           <div className="before:h-inherit after:h-inherit relative h-[2px] w-full rounded-full bg-base-content transition-colors before:absolute before:-top-2 before:right-0 before:inline-block before:w-4/5 before:rounded-full before:bg-inherit after:absolute after:-bottom-2 after:right-0 after:inline-block after:w-3/5 after:rounded-full after:bg-inherit group-hover:bg-primary"></div>
         </button>
@@ -207,7 +207,7 @@ const FixedSearchInput: FC<{ searchQuery: string }> = ({ searchQuery }) => {
   }
 
   return (
-    <div className="ml-[6px] flex max-w-xl items-center gap-x-2">
+    <div className="ml-2 flex max-w-xl items-center gap-x-2">
       <div className="input-primary input flex h-full w-full items-center border-2 px-2 py-0">
         <button
           onClick={async () => await triggerTheSearch()}
