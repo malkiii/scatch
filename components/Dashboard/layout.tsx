@@ -36,10 +36,11 @@ type LayoutProps = DashboardPageProps &
     children: ReactNode;
   };
 const DashboardLayout: FC<LayoutProps> = props => {
-  const { user, currentPageRoute, children } = props;
+  const { currentPageRoute, children } = props;
 
   const { data: session } = useSession();
-  const { name, email, image } = session?.user || user;
+  const user = session?.user ?? props.user;
+  const { name, email, image } = user;
 
   return (
     <>
