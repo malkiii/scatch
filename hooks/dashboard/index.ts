@@ -46,5 +46,5 @@ export const useUserImages = (userId: string, albumName?: string, isFavorite?: b
 
   useInfinitScroll(hasMoreImages, fetchNextPage);
 
-  return { images, hasMoreImages, hasImages: isLoading || images.length };
+  return { images, hasMoreImages, hasImages: isLoading || !!images.length };
 };
