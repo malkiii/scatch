@@ -57,7 +57,7 @@ const Layout: FC<layoutProps> = props => {
         id="layout"
         className={cn(
           'relative bg-base-100 font-sans antialiased',
-          { 'mb-[500px] md:mb-80': !isAuthRoute },
+          { 'mb-[500px] shadow-2xl md:mb-80': !isAuthRoute },
           fontHeading.variable,
           fontSans.variable
         )}
