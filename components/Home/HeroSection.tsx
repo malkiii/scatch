@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { CgSearch as SearchIcon } from 'react-icons/cg';
 import { cn } from '@/utils';
@@ -31,53 +31,98 @@ const SearchInput: FC = () => {
 };
 
 const Illustrations: FC = () => {
-  const illustrations = {
-    cube: { width: 410, height: 406 },
-    pill: { width: 286, height: 445 }
-  };
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const hasMouseEvent = window.matchMedia('(hover: hover)').matches;
+    const parentContainer = containerRef.current?.parentElement;
+
+    if (!hasMouseEvent || !parentContainer) return;
+
+    const handleMouseLeave = () => setMousePosition({ x: 0, y: 0 });
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({ x: event.pageX, y: event.pageY });
+    };
+
+    parentContainer.addEventListener('mousemove', handleMouseMove);
+    parentContainer.addEventListener('mouseleave', handleMouseLeave);
+    return () => {
+      parentContainer.removeEventListener('mousemove', handleMouseMove);
+      parentContainer.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   const getIllustrationPath = (name: string) => `/assets/3d/${name}.svg`;
 
-  const objects = [
-    {
-      name: 'cube',
-      props: {
-        className: 'left-20 top-0 w-[360px]',
-        priority: true,
-        ...illustrations['cube']
+  const objects = useMemo(() => {
+    const illustrations = {
+      cube: { width: 410, height: 406 },
+      pill: { width: 286, height: 445 }
+    };
+
+    const x = mousePosition.x / 10;
+    const y = mousePosition.y / 10;
+
+    return [
+      {
+        name: 'cube',
+        props: {
+          style: { translate: `${x * 1}px ${y * 2}px` },
+          className: 'left-20 top-0 w-[360px]',
+          priority: true,
+          ...illustrations['cube']
+        }
+      },
+      {
+        name: 'pill',
+        props: {
+          style: { translate: `${x * -2}px ${y * -2}px` },
+          className: 'left-[45rem] top-20 w-[210px]',
+          priority: true,
+          ...illustrations['pill']
+        }
+      },
+      {
+        name: 'pill',
+        props: {
+          style: { translate: `${x * -2}px ${y * 1}px` },
+          className: 'bottom-0 left-[25rem] w-[140px] -scale-x-100 rotate-180',
+          priority: false,
+          ...illustrations['pill']
+        }
+      },
+      {
+        name: 'cube',
+        props: {
+          style: { translate: `${x * -1}px ${y * -2}px` },
+          className: 'right-20 -bottom-10 w-[280px] -scale-x-100 rotate-[190deg]',
+          priority: true,
+          ...illustrations['cube']
+        }
       }
-    },
-    {
-      name: 'pill',
-      props: {
-        className: 'right-60 top-20 w-[210px]',
-        priority: true,
-        ...illustrations['pill']
-      }
-    },
-    {
-      name: 'pill',
-      props: {
-        className: 'bottom-10 left-[33rem] w-[140px] -scale-x-100 rotate-180',
-        priority: false,
-        ...illustrations['pill']
-      }
-    }
-  ];
+    ];
+  }, [mousePosition]);
 
   return (
-    <div className="relative mx-auto h-[590px] w-[1200px]">
+    <div ref={containerRef} className="relative mx-auto h-[590px] w-[1200px]">
       {objects.map(({ name, props: { className, ...props } }, index) => (
         <div key={index} className="pointer-events-none select-none">
           <Image
             alt={name}
-            className={cn('absolute dark:hidden', className)}
+            className={cn(
+              'absolute transition-[translate] duration-500 ease-out dark:hidden',
+              className
+            )}
             src={getIllustrationPath(`${name}-light`)}
             {...props}
           />
           <Image
             alt={name}
-            className={cn('absolute hidden dark:block', className)}
+            className={cn(
+              'absolute hidden transition-[translate] duration-500 ease-out dark:block',
+              className
+            )}
             src={getIllustrationPath(`${name}-dark`)}
             {...props}
           />
