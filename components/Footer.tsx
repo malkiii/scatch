@@ -1,12 +1,11 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { siteInfos, socialLinks } from '@/data/constants';
 
 type SocialName = keyof typeof socialLinks;
 const socialIcons: Record<SocialName, JSX.Element> = {
-  Facebook: <FaFacebook />,
   Instagram: <FaInstagram />,
   Twitter: <FaTwitter />,
   Github: <FaGithub />
