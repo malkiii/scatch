@@ -52,7 +52,6 @@ export const albumDemoThumbnails = [
 ];
 
 export const socialLinks = {
-  Facebook: 'https://web.facebook.com/malkiabduu',
   Twitter: 'https://twitter.com/MalkiAbduu',
   Instagram: 'https://www.instagram.com/malkiabduu',
   Github: 'https://github.com/malkiii'

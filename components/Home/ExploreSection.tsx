@@ -53,7 +53,7 @@ const SearchDemoImageRender: FC<SearchDemoImagesProps> = ({ nameIndex }) => {
                 <img
                   key={id}
                   src={getImageUrl(index)}
-                  style={{ animationDelay: index * 15 + 'ms' }}
+                  style={{ animationDelay: index * 50 + 'ms' }}
                   onAnimationStartCapture={e => e.currentTarget.classList.remove('opacity-0')}
                   className="w-full opacity-0 shadow-2xl animate-in fade-in slide-in-from-top-2 ease-linear"
                   alt="scatch image"
