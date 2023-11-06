@@ -40,17 +40,12 @@ const Illustrations: FC = () => {
 
     if (!hasMouseEvent || !parentContainer) return;
 
-    const handleMouseLeave = () => setMousePosition({ x: 0, y: 0 });
     const handleMouseMove = (event: MouseEvent) => {
       setMousePosition({ x: event.pageX, y: event.pageY });
     };
 
     parentContainer.addEventListener('mousemove', handleMouseMove);
-    parentContainer.addEventListener('mouseleave', handleMouseLeave);
-    return () => {
-      parentContainer.removeEventListener('mousemove', handleMouseMove);
-      parentContainer.removeEventListener('mouseleave', handleMouseLeave);
-    };
+    return () => parentContainer.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const getIllustrationPath = (name: string) => `/assets/3d/${name}.svg`;
@@ -111,7 +106,7 @@ const Illustrations: FC = () => {
           <Image
             alt={name}
             className={cn(
-              'absolute transition-[translate] duration-500 ease-out dark:hidden',
+              'absolute transition-[translate] duration-700 ease-out dark:hidden',
               className
             )}
             src={getIllustrationPath(`${name}-light`)}
@@ -120,7 +115,7 @@ const Illustrations: FC = () => {
           <Image
             alt={name}
             className={cn(
-              'absolute hidden transition-[translate] duration-500 ease-out dark:block',
+              'absolute hidden transition-[translate] duration-700 ease-out dark:block',
               className
             )}
             src={getIllustrationPath(`${name}-dark`)}
