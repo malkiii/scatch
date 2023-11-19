@@ -92,7 +92,7 @@ const Illustrations: FC = () => {
         props: {
           style: { translate: `${x * -1}px ${y * -2}px` },
           className: 'right-20 -bottom-10 w-[280px] -scale-x-100 rotate-[190deg]',
-          priority: true,
+          priority: false,
           ...illustrations['cube']
         }
       }
@@ -135,7 +135,7 @@ const HeroSection: FC = () => {
     <div
       ref={targetRef}
       className={cn(
-        'relative flex h-[760px] items-center overflow-hidden from-base-300 to-transparent dark:bg-gradient-to-b',
+        'relative flex h-screen items-center overflow-hidden from-base-300 to-transparent dark:bg-gradient-to-b',
         isInView ? 'animate-in fade-in duration-500' : 'opacity-0'
       )}
     >
